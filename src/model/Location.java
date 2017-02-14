@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Location 
 {
 	private int x;
@@ -11,6 +13,14 @@ public class Location
 		this.y = y;
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	public Location getAdjacent(MapDirection md)
 	{
 		int newX = x + md.getDx();
@@ -19,14 +29,24 @@ public class Location
 		return new Location(newX, newY);
 	}
 
-	public boolean equals(Location target)
+	public boolean isValid(int width, int height)
 	{
+		return (x >= 0) && (x < width) 
+				&& (y >= 0) && (y < height);
+	}
+	
+	public boolean equals(Object o)
+	{
+		if(!(o instanceof Location))
+		{
+			return false;
+		}
+		
+		Location target = (Location)o;
 		return x == target.x && y == target.y;
 	}
-
-	public boolean isValid(int maxX, int maxY)
-	{
-		return (x >= 0) && (x < maxX) 
-				&& (y >= 0) && (y < maxY);
+	
+	public int hashCode(){
+		return Objects.hash(x, y);
 	}
 }
