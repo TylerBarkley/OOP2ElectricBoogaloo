@@ -112,4 +112,46 @@ public class MapDirectionTest {
 		
 		assertTrue(md.equals(md2));
 	}
+	
+	@Test
+	public void getTheta_north_0()
+	{
+		MapDirection md=MapDirection.getNorth();
+		assertEquals(0*Math.PI/3, md.getTheta(), 0.0001);
+	}
+	
+	@Test
+	public void getTheta_northwest_60()
+	{
+		MapDirection md=MapDirection.getNorthWest();
+		assertEquals(1*Math.PI/3, md.getTheta(), 0.0001);
+	}
+	
+	@Test
+	public void getTheta_southwest_120()
+	{
+		MapDirection md=MapDirection.getSouthWest();
+		assertEquals(2*Math.PI/3, md.getTheta(), 0.0001);
+	}
+	
+	@Test
+	public void getTheta_south_180()
+	{
+		MapDirection md=MapDirection.getSouth();
+		assertEquals(3*Math.PI/3, md.getTheta(), 0.0001);
+	}
+	
+	@Test
+	public void getTheta_southeast_240()
+	{
+		MapDirection md=MapDirection.getSouthEast();
+		assertEquals(4*Math.PI/3, md.getTheta(), 0.0001);
+	}
+	
+	@Test
+	public void getTheta_northeast_300()
+	{
+		MapDirection md=MapDirection.getNorthEast();
+		assertEquals(5*Math.PI/3, md.getTheta(), 0.0001);
+	}
 }

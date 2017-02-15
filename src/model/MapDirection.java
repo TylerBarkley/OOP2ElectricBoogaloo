@@ -28,6 +28,47 @@ public class MapDirection
 		return dy;
 	}
 
+	public double getTheta()
+	{
+		double theta=Math.PI/3;
+		
+		switch(getDx()){
+		case -1:
+			switch(getDy()){
+			case 0:
+				theta*=1;
+				break;
+			case 1:
+				theta*=2;
+				break;
+			}
+			break;
+		case 0:
+			switch(getDy()){
+			case -1:
+				theta*=0;
+				break;
+			case 1:
+				theta*=3;
+				break;
+			}
+			break;
+		case 1:
+			switch(getDy()){
+			case -1:
+				theta*=5;
+				break;
+			case 0:
+				theta*=4;
+				break;
+			}
+			break;
+		}
+
+		
+		return theta;
+	}
+
 	public static MapDirection getNorth()
 	{
 		if(N==null)
