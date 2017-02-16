@@ -129,7 +129,7 @@ public class AreaViewport extends JPanel
 		while(topOfDiagonal.getX() + TILE_SIZE < getWidth())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
-			pixelX+= TILE_SIZE;
+			pixelX+= TILE_SIZE*4/5;
 			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se, mapWidth, mapHeight);
 		}
 
@@ -154,7 +154,8 @@ public class AreaViewport extends JPanel
 		while(loc.getX() + TILE_SIZE < getWidth() && loc.getX() + TILE_SIZE < getWidth())
 		{
 			drawViewAt(loc, pixelX, pixelY);
-			pixelY+= TILE_SIZE;
+			pixelX+= TILE_SIZE*4/5;
+			pixelY+= TILE_SIZE/2;
 			loc=topOfDiagonal.getAdjacent(se, mapWidth, mapHeight);
 		}
 	}
