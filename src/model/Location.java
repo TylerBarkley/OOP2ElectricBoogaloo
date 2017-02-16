@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Location 
@@ -32,6 +33,82 @@ public class Location
 	public Location getAdjacent(MapDirection md, int width, int height)
 	{
 		return getAdjacent(md).wrapAround(width, height);
+	}
+	
+	public ArrayList<Location> getLocationsAtRadius(int radius)
+	{
+		ArrayList<Location> locs=new ArrayList<Location>();
+		MapDirection[] mds = {MapDirection.getSouthEast(), MapDirection.getSouth(), 
+				MapDirection.getSouthWest(), MapDirection.getNorthWest(), 
+				MapDirection.getNorth(), MapDirection.getNorthEast()};
+		
+		Location loc=this;
+		
+		for(int i=0; i<radius; i++)
+		{
+			loc = loc.getAdjacent(MapDirection.getNorth());
+		}
+		
+		for(int i=0; i<mds.length; i++)
+		{
+			for(int j=0; j<radius; j++)
+			{
+				locs.add(loc);
+				loc = loc.getAdjacent(mds[i]);
+			}
+		}
+		
+		return locs;
+	}
+	
+	public ArrayList<Location> getLocationsAtRadius(int radius, int width, int height)
+	{
+		ArrayList<Location> locs=new ArrayList<Location>();
+		MapDirection[] mds = {MapDirection.getSouthEast(), MapDirection.getSouth(), 
+				MapDirection.getSouthWest(), MapDirection.getNorthWest(), 
+				MapDirection.getNorth(), MapDirection.getNorthEast()};
+		
+		Location loc=this;
+		
+		for(int i=0; i<radius; i++)
+		{
+			loc = loc.getAdjacent(MapDirection.getNorth(), width, height);
+		}
+		
+		for(int i=0; i<mds.length; i++)
+		{
+			for(int j=0; j<radius; j++)
+			{
+				locs.add(loc);
+				loc = loc.getAdjacent(mds[i], width, height);
+			}
+		}
+		
+		return locs;
+	}
+	
+	public ArrayList<Location> getAllLocationsWithinRadius(int radius)
+	{
+		ArrayList<Location> locs=new ArrayList<Location>();
+		
+		for(int i=0; i<radius; i++)
+		{
+			locs.addAll(getLocationsAtRadius(radius));
+		}
+		
+		return locs;
+	}
+	
+	public ArrayList<Location> getAllLocationsWithinRadius(int radius, int width, int height)
+	{
+		ArrayList<Location> locs=new ArrayList<Location>();
+		
+		for(int i=0; i<radius; i++)
+		{
+			locs.addAll(getLocationsAtRadius(radius, width, height));
+		}
+		
+		return locs;
 	}
 	
 	public Location wrapAround(int width, int height)
