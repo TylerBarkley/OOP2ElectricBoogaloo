@@ -28,9 +28,9 @@ public class MapDirection
 		return dy;
 	}
 
-	public double getTheta()
+	public int getAngle()
 	{
-		double theta=Math.PI/3;
+		int theta=60;
 		
 		switch(getDx()){
 		case -1:

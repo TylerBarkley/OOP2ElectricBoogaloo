@@ -149,4 +149,34 @@ public class LocationTest
 		Location loc=new Location(9, 9);
 		assertTrue(loc.isValid(10, 10));
 	}
+	
+	@Test
+	public void wrapAround_HighX_Xreduced() 
+	{
+		loc = loc.wrapAround(3, 6);
+		assertEquals(new Location(2, 5), loc);
+	}
+	
+	@Test
+	public void wrapAround_HighY_Yreduced() 
+	{
+		loc = loc.wrapAround(6, 2);
+		assertEquals(new Location(5, 1), loc);
+	}
+	
+	@Test
+	public void wrapAround_LowX_Xincreased() 
+	{
+		loc=new Location(-4,5);
+		loc = loc.wrapAround(6, 6);
+		assertEquals(new Location(2, 5), loc);
+	}
+	
+	@Test
+	public void wrapAround_LowY_Yincreased() 
+	{
+		loc=new Location(5,-3);
+		loc = loc.wrapAround(6, 6);
+		assertEquals(new Location(5, 3), loc);
+	}
 }

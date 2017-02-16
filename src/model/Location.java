@@ -29,6 +29,22 @@ public class Location
 		return new Location(newX, newY);
 	}
 
+	public Location getAdjacent(MapDirection md, int width, int height)
+	{
+		return getAdjacent(md).wrapAround(width, height);
+	}
+	
+	public Location wrapAround(int width, int height)
+	{
+		Location loc=new Location(x,y);
+		while(!loc.isValid(width, height)){
+			loc.x = (loc.x + width) % width;
+			loc.y = (loc.y + height) % height;
+		}
+		
+		return loc;
+	}
+	
 	public boolean isValid(int width, int height)
 	{
 		return (x >= 0) && (x < width) 

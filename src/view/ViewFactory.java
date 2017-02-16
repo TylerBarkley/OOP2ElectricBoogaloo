@@ -1,9 +1,18 @@
 package view;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import model.Colonist;
+import model.Explorer;
+import model.Ground;
+import model.Location;
+import model.Melee;
+import model.Mountain;
+import model.Ranged;
+import model.Water;
+import model.Worker;
 
 public class ViewFactory {
 	private static ViewFactory factory;
@@ -21,6 +30,8 @@ public class ViewFactory {
 	private BufferedImage water;
 	private BufferedImage ground;
 	private BufferedImage mountain;
+
+	private BufferedImage unknown;
 	
 	private ViewFactory(){
 		try {
@@ -37,79 +48,143 @@ public class ViewFactory {
 			water=ImageIO.read(getClass().getResource("/Water.png"));
 			ground=ImageIO.read(getClass().getResource("/Ground.png"));
 			mountain=ImageIO.read(getClass().getResource("/Mountain.png"));
+			unknown=ImageIO.read(getClass().getResource("/Mountain.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public View getView(Explorer unit, Location loc, boolean isOpponent)
+	{
+		BufferedImage image=isOpponent ? enemyExplorer : explorer;
+		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
+	}
 	
-	public View getView(Viewable viewable, boolean opponent){
-		if(opponent){
-			if(viewable.getTypeID().equals("Colonist")){
-				return new View(enemyColonist);
-			}
-			if(viewable.getTypeID().equals("Melee")){
-				return new View(enemyMelee);
-			}
-			if(viewable.getTypeID().equals("Ranged")){
-				return new View(enemyRanged);
-			}
-			if(viewable.getTypeID().equals("Explorer")){
-				return new View(enemyExplorer);
-			}
-			if(viewable.getTypeID().equals("Worker")){
-				return new View(enemyWorker);
-			}
+	public View getView(Colonist unit, Location loc, boolean isOpponent)
+	{
+		BufferedImage image=isOpponent ? enemyColonist : colonist;
+		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
+	}
+
+	public View getView(Melee unit, Location loc, boolean isOpponent)
+	{
+		BufferedImage image=isOpponent ? enemyMelee : melee;
+		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
+	}
+	
+	public View getView(Ranged unit, Location loc, boolean isOpponent)
+	{
+		BufferedImage image=isOpponent ? enemyRanged : ranged;
+		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
+	}
+
+	public View getView(Worker unit, Location loc, boolean isOpponent)
+	{
+		BufferedImage image=isOpponent ? enemyWorker : worker;
+		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
+	}
+	
+	public View getView(Water terrain, Location loc, boolean isOpponent)
+	{
+		return new TileView(water, loc);
+	}
+	
+	public View getView(Ground terrain, Location loc, boolean isOpponent)
+	{
+		return new TileView(ground, loc);
+	}
+	
+	public View getView(Mountain terrain, Location loc, boolean isOpponent)
+	{
+		return new TileView(mountain, loc);
+	}
+	
+	public View getView(View view, Location loc, boolean isOpponent)
+	{
+		return new TileView(view.getImage(), loc, view.getRotation());
+	}
+	
+	public View getView(Object obj, Location loc, boolean isOpponent)
+	{
+		return new View(unknown, loc);
+	}
+	
+	public View[] getView(Object[] objArr, Location loc, boolean isOpponent)
+	{
+		int len=objArr.length;		
+		View[] views=new View[len];
+		
+		for(int i=0; i<len; i++)
+		{
+			views[i]=getView(objArr[i], loc, isOpponent);
 		}
 		
-		return getView(viewable);
+		return views;
+	}
+	
+	public View getView(Explorer unit, Location loc)
+	{
+		return new View(explorer, loc);
+	}
+	
+	public View getView(Colonist unit, Location loc)
+	{
+		return new View(colonist, loc);
 	}
 
-
-	public View getView(Viewable viewable) {
-		if(viewable.getTypeID().equals("Water")){
-			return new View(water);
-		}
-		if(viewable.getTypeID().equals("Ground")){
-			return new View(ground);
-		}
-		if(viewable.getTypeID().equals("Mountain")){
-			return new View(mountain);
-		}
-		if(viewable.getTypeID().equals("Colonist")){
-			return new View(colonist);
-		}
-		if(viewable.getTypeID().equals("Melee")){
-			return new View(melee);
-		}
-		if(viewable.getTypeID().equals("Ranged")){
-			return new View(ranged);
-		}
-		if(viewable.getTypeID().equals("Explorer")){
-			return new View(explorer);
-		}
-		if(viewable.getTypeID().equals("Worker")){
-			return new View(worker);
-		}
-		if(viewable.getTypeID().equals("EnemyColonist")){
-			return new View(enemyColonist);
-		}
-		if(viewable.getTypeID().equals("EnemyMelee")){
-			return new View(enemyMelee);
-		}
-		if(viewable.getTypeID().equals("EnemyRanged")){
-			return new View(enemyRanged);
-		}
-		if(viewable.getTypeID().equals("EnemyExplorer")){
-			return new View(enemyExplorer);
-		}
-		if(viewable.getTypeID().equals("EnemyWorker")){
-			return new View(enemyWorker);
-		}
-		return null;
+	public View getView(Melee unit, Location loc)
+	{
+		return new View(melee, loc);
+	}
+	
+	public View getView(Ranged unit, Location loc)
+	{
+		return new View(ranged, loc);
 	}
 
-
+	public View getView(Worker unit, Location loc)
+	{
+		return new View(worker, loc);
+	}
+	
+	public View getView(Water terrain, Location loc)
+	{
+		return new View(water, loc);
+	}
+	
+	public View getView(Ground terrain, Location loc)
+	{
+		return new View(ground, loc);
+	}
+	
+	public View getView(Mountain terrain, Location loc)
+	{
+		return new View(mountain, loc);
+	}
+	
+	public View getView(View view, Location loc)
+	{
+		return new View(view.getImage(), loc, view.getRotation());
+	}
+	
+	public View getView(Object obj, Location loc)
+	{
+		return new View(unknown, loc);
+	}
+	
+	public View[] getView(Object[] objArr, Location loc)
+	{
+		int len=objArr.length;		
+		View[] views=new View[len];
+		
+		for(int i=0; i<len; i++)
+		{
+			views[i]=getView(objArr[i], loc);
+		}
+		
+		return views;
+	}
+	
 	public static ViewFactory getFactory() {
 		if(factory ==null){
 			factory=new ViewFactory();
