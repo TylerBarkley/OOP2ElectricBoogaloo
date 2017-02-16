@@ -4,7 +4,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import model.Location;
-import model.MapDirection;
 
 public class View 
 {
@@ -40,7 +39,7 @@ public class View
 
 		tx.translate(image.getHeight() / 2,image.getWidth() / 2);
 
-		double theta= rotation * Math.PI / 180;
+		double theta= Math.toRadians(rotation);
 
 		tx.rotate(theta);
 

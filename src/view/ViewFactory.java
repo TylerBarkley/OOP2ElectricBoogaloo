@@ -122,67 +122,14 @@ public class ViewFactory {
 		return views;
 	}
 	
-	public View getView(Explorer unit, Location loc)
-	{
-		return new View(explorer, loc);
-	}
-	
-	public View getView(Colonist unit, Location loc)
-	{
-		return new View(colonist, loc);
-	}
-
-	public View getView(Melee unit, Location loc)
-	{
-		return new View(melee, loc);
-	}
-	
-	public View getView(Ranged unit, Location loc)
-	{
-		return new View(ranged, loc);
-	}
-
-	public View getView(Worker unit, Location loc)
-	{
-		return new View(worker, loc);
-	}
-	
-	public View getView(Water terrain, Location loc)
-	{
-		return new View(water, loc);
-	}
-	
-	public View getView(Ground terrain, Location loc)
-	{
-		return new View(ground, loc);
-	}
-	
-	public View getView(Mountain terrain, Location loc)
-	{
-		return new View(mountain, loc);
-	}
-	
-	public View getView(View view, Location loc)
-	{
-		return new View(view.getImage(), loc, view.getRotation());
-	}
-	
 	public View getView(Object obj, Location loc)
 	{
-		return new View(unknown, loc);
+		return getView(obj, loc, false);
 	}
 	
 	public View[] getView(Object[] objArr, Location loc)
 	{
-		int len=objArr.length;		
-		View[] views=new View[len];
-		
-		for(int i=0; i<len; i++)
-		{
-			views[i]=getView(objArr[i], loc);
-		}
-		
-		return views;
+		return getView(objArr, loc, false);
 	}
 	
 	public static ViewFactory getFactory() {

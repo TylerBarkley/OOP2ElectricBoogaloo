@@ -1,14 +1,9 @@
 package view;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
@@ -19,9 +14,6 @@ public class AreaViewport extends JPanel
 {
 	private static final int TILE_SIZE=150;
 	
-	private ViewFactory viewFactory;
-	
-	private int minX, minY;
 	private ArrayList<View> views;
 	
 	private TileView[][] blankMapView;
@@ -37,8 +29,6 @@ public class AreaViewport extends JPanel
 	public AreaViewport(int width, int height)
 	{
 		setSize(width, height);
-		
-		viewFactory=ViewFactory.getFactory();
 		
 		views=new ArrayList<View>();
 		
@@ -179,14 +169,25 @@ public class AreaViewport extends JPanel
 		}
 	}	
 	
+	@SuppressWarnings("unused")
 	private void drawViewAt(ResourceView view, Location loc, int pixelX, int pixelY)
 	{
 		g2d.drawImage(view.getImage(), pixelX, pixelY, null);
 	}
 	
+	@SuppressWarnings("unused")
 	private void drawViewAt(UnitView view, Location loc, int pixelX, int pixelY)
 	{
-		g2d.drawImage(view.getImage(), pixelX, pixelY, null);
+		BufferedImage image = view.getImage();
+		int width=image.getWidth();
+		int height=image.getHeight();
+		
+		double theta = Math.toRadians(view.getRotation() + 90);
+		
+		pixelX=pixelX+(TILE_SIZE-width)/2 + (int)(Math.cos(theta)*height*1.5);
+		pixelY=pixelY+(TILE_SIZE-height)/2 + (int)(Math.sin(theta)*height*1.5);
+		
+		g2d.drawImage(image, pixelX, pixelY, null);
 	}
 	
 	private void drawViewAt(View view, Location loc, int pixelX, int pixelY)
@@ -198,7 +199,7 @@ public class AreaViewport extends JPanel
 		pixelX=pixelX+(TILE_SIZE-width)/2;
 		pixelY=pixelY+(TILE_SIZE-height)/2;
 		
-		g2d.drawImage(view.getImage(), pixelX, pixelY, null);
+		g2d.drawImage(image, pixelX, pixelY, null);
 	}
 
 	private TileView getTileViewAt(Location loc)
