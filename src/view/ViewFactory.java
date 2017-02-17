@@ -54,54 +54,54 @@ public class ViewFactory {
 		}
 	}
 	
-	public View getView(Explorer unit, Location loc, boolean isOpponent)
+	public UnitView getView(Explorer unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyExplorer : explorer;
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 	
-	public View getView(Colonist unit, Location loc, boolean isOpponent)
+	public UnitView getView(Colonist unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyColonist : colonist;
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 
-	public View getView(Melee unit, Location loc, boolean isOpponent)
+	public UnitView getView(Melee unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyMelee : melee;
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 	
-	public View getView(Ranged unit, Location loc, boolean isOpponent)
+	public UnitView getView(Ranged unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyRanged : ranged;
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 
-	public View getView(Worker unit, Location loc, boolean isOpponent)
+	public UnitView getView(Worker unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyWorker : worker;
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 	
-	public View getView(Water terrain, Location loc, boolean isOpponent)
+	public TileView getView(Water terrain, Location loc, boolean isOpponent)
 	{
 		return new TileView(water, loc);
 	}
 	
-	public View getView(Ground terrain, Location loc, boolean isOpponent)
+	public TileView getView(Ground terrain, Location loc, boolean isOpponent)
 	{
 		return new TileView(ground, loc);
 	}
 	
-	public View getView(Mountain terrain, Location loc, boolean isOpponent)
+	public TileView getView(Mountain terrain, Location loc, boolean isOpponent)
 	{
 		return new TileView(mountain, loc);
 	}
 	
 	public View getView(View view, Location loc, boolean isOpponent)
 	{
-		return new TileView(view.getImage(), loc, view.getRotation());
+		return new View(view.getImage(), loc, view.getRotation());
 	}
 	
 	public View getView(Object obj, Location loc, boolean isOpponent)

@@ -50,6 +50,19 @@ public class AreaViewport extends JPanel
 		updateView();
 	}
 	
+	public void setViews(ArrayList<View> views)
+	{
+		this.views=views;
+		this.views.add(focusView);
+		updateView();
+	}
+	
+	public void addView(View view)
+	{
+		views.add(view);
+		updateView();
+	}
+	
 	public void displayView()
 	{
 		setBackground(Color.BLACK);
@@ -105,12 +118,12 @@ public class AreaViewport extends JPanel
 
 	private int getMapDisplayWidth()
 	{
-		return getWidth()*5/TILE_SIZE/4;
+		return (getWidth()-40)/(TILE_SIZE-40);
 	}
 	
 	private int getMapDisplayHeight()
 	{
-		return getHeight()*5/TILE_SIZE/4;
+		return (getHeight()-40)/(TILE_SIZE-40);
 	}
 	
 	private void displayMap()
@@ -126,23 +139,24 @@ public class AreaViewport extends JPanel
 		int pixelX=0;
 		int pixelY=0;
 		
-		while(topOfDiagonal.getX() + TILE_SIZE < getWidth())
+		while(pixelX + TILE_SIZE < getWidth())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
-			pixelX+= TILE_SIZE*4/5;
+			pixelX+= TILE_SIZE*22/15;
 			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se, mapWidth, mapHeight);
 		}
 
 		topOfDiagonal=topLeftCorner.getAdjacent(s, mapWidth, mapHeight);
 		pixelX=0;
-		pixelY=0;
+		pixelY=TILE_SIZE;
 		
-		while(topOfDiagonal.getY() + TILE_SIZE < getHeight())
+		while(pixelY + TILE_SIZE < getHeight())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
 			pixelY+= TILE_SIZE;
 			topOfDiagonal=topOfDiagonal.getAdjacent(s, mapWidth, mapHeight);
 		}
+		
 	}
 
 	private void drawDiagonal(Location topOfDiagonal, int pixelX, int pixelY) 
@@ -151,12 +165,12 @@ public class AreaViewport extends JPanel
 		
 		Location loc=topOfDiagonal;
 		
-		while(loc.getX() + TILE_SIZE < getWidth() && loc.getX() + TILE_SIZE < getWidth())
+		while(pixelX + TILE_SIZE < getWidth() && pixelY + TILE_SIZE < getHeight())
 		{
 			drawViewAt(loc, pixelX, pixelY);
-			pixelX+= TILE_SIZE*4/5;
+			pixelX+= TILE_SIZE*11/15;
 			pixelY+= TILE_SIZE/2;
-			loc=topOfDiagonal.getAdjacent(se, mapWidth, mapHeight);
+			loc=loc.getAdjacent(se, mapWidth, mapHeight);
 		}
 	}
 
@@ -166,17 +180,15 @@ public class AreaViewport extends JPanel
 		
 		for(View view: getViewsAt(loc))
 		{
-			drawViewAt(view, loc, pixelX, pixelY);
+			drawViewAt((view.getClass()).cast(view), loc, pixelX, pixelY);
 		}
 	}	
 	
-	@SuppressWarnings("unused")
 	private void drawViewAt(ResourceView view, Location loc, int pixelX, int pixelY)
 	{
 		g2d.drawImage(view.getImage(), pixelX, pixelY, null);
 	}
 	
-	@SuppressWarnings("unused")
 	private void drawViewAt(UnitView view, Location loc, int pixelX, int pixelY)
 	{
 		BufferedImage image = view.getImage();
