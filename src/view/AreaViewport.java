@@ -13,6 +13,7 @@ import model.MapDirection;
 public class AreaViewport extends JPanel
 {
 	private static final int TILE_SIZE=150;
+	private static final int HEX_OFFSET=38;
 	
 	private ArrayList<View> views;
 	
@@ -36,7 +37,7 @@ public class AreaViewport extends JPanel
 		focusView=new FocusView(focus);
 		views.add(focusView);
 		
-		image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		image=new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		g2d=image.createGraphics();
 		
 		displayView();
@@ -118,12 +119,12 @@ public class AreaViewport extends JPanel
 
 	private int getMapDisplayWidth()
 	{
-		return (getWidth()-40)/(TILE_SIZE-40);
+		return (getWidth()-HEX_OFFSET)/(TILE_SIZE-HEX_OFFSET);
 	}
 	
 	private int getMapDisplayHeight()
 	{
-		return (getHeight()-40)/(TILE_SIZE-40);
+		return (getHeight()-HEX_OFFSET)/(TILE_SIZE-HEX_OFFSET);
 	}
 	
 	private void displayMap()
@@ -142,7 +143,7 @@ public class AreaViewport extends JPanel
 		while(pixelX + TILE_SIZE < getWidth())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
-			pixelX+= TILE_SIZE*22/15;
+			pixelX+= TILE_SIZE*2*(TILE_SIZE-HEX_OFFSET)/TILE_SIZE;
 			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se, mapWidth, mapHeight);
 		}
 
@@ -168,7 +169,7 @@ public class AreaViewport extends JPanel
 		while(pixelX + TILE_SIZE < getWidth() && pixelY + TILE_SIZE < getHeight())
 		{
 			drawViewAt(loc, pixelX, pixelY);
-			pixelX+= TILE_SIZE*11/15;
+			pixelX+= TILE_SIZE*(TILE_SIZE-HEX_OFFSET)/TILE_SIZE;
 			pixelY+= TILE_SIZE/2;
 			loc=loc.getAdjacent(se, mapWidth, mapHeight);
 		}

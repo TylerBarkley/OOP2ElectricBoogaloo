@@ -78,6 +78,12 @@ public class ViewFactory {
 		return new UnitView(image, loc, unit.getFacingDirection().getAngle());
 	}
 
+	public UnitView getView(Ranged unit, Location loc, boolean isOpponent, int angle)
+	{
+		BufferedImage image=isOpponent ? enemyRanged : ranged;
+		return new UnitView(image, loc, angle);
+	}
+	
 	public UnitView getView(Worker unit, Location loc, boolean isOpponent)
 	{
 		BufferedImage image=isOpponent ? enemyWorker : worker;

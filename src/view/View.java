@@ -50,7 +50,7 @@ public class View
 		BufferedImage newImage =new BufferedImage(image.getHeight(), image.getWidth(), image.getType());
 		op.filter(image, newImage);
 
-		return image;
+		return newImage;
 	}
 
 	public int getRotation() 
