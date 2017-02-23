@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -12,12 +14,13 @@ import model.MapDirection;
 
 public class AreaViewport extends JPanel
 {
-	private static final int TILE_SIZE=150;
-	private static final int HEX_OFFSET=38;
+	private static final int xOffset=(int)(TileView.TILE_SIZE*Math.cos(Math.PI/3));
+	private static final int yOffset=(int)(TileView.TILE_SIZE*Math.sin(Math.PI/3));
 	
 	private ArrayList<View> views;
 	
-	private TileView[][] blankMapView;
+	private HashMap<Location, TileView> mapView;
+	private HashMap<Location, ResourceView> resources;
 	private int mapWidth;
 	private int mapHeight;
 	
@@ -43,12 +46,42 @@ public class AreaViewport extends JPanel
 		displayView();
 	}
 
-	public void setMap(TileView[][] mapView)
+	public void setBlankMap(Set<Location> mapLocations, int width, int height)
 	{
-		blankMapView=mapView;
-		mapWidth=mapView[0].length;
-		mapHeight=mapView.length;
+		mapView = new HashMap<Location, TileView>();
+		
+		ViewFactory factory=ViewFactory.getFactory();
+		for(Location loc: mapLocations)
+		{
+			if(mapView.get(loc)==null)
+			{
+				mapView.put(loc, (TileView)factory.getView("UnknownTerrain", loc, 0));
+			}
+		}
+
+		mapWidth=width;
+		mapHeight=height;
 		updateView();
+	}
+	
+	public void updateMapView(Location loc, TileView view)
+	{
+		mapView.replace(loc, view);
+	}
+	
+	public void updateMapView(HashMap<Location, TileView> views)
+	{
+		mapView.putAll(views);
+	}
+	
+	public void updateResourceView(Location loc, ResourceView view)
+	{
+		resources.replace(loc, view);
+	}
+	
+	public void updateResourceView(HashMap<Location, ResourceView> views)
+	{
+		resources.putAll(views);
 	}
 	
 	public void setViews(ArrayList<View> views)
@@ -79,7 +112,7 @@ public class AreaViewport extends JPanel
 		g2d=image.createGraphics();
 		g2d.clearRect(0, 0, width, height);
 		
-		if(blankMapView !=null)
+		if(mapView !=null)
 		{
 			displayMap();
 		}
@@ -92,7 +125,7 @@ public class AreaViewport extends JPanel
 		int mapDisplayWidth=getMapDisplayWidth();
 		int mapDisplayHeight=getMapDisplayHeight();
 
-		int i=mapDisplayWidth/2;
+		int i=(mapDisplayWidth-1)/2;
 		int j=mapDisplayHeight/2;
 		
 		Location loc=focus;
@@ -105,13 +138,13 @@ public class AreaViewport extends JPanel
 		
 		while(j>0){
 			loc = loc.getAdjacent(MapDirection.getNorth(), mapWidth, mapHeight);
-			j--;
+			j-=2;
 		}
 		
 		
 		while(j<0){
 			loc = loc.getAdjacent(MapDirection.getSouth(), mapWidth, mapHeight);
-			j++;
+			j+=2;
 		}
 		
 		return loc;
@@ -119,12 +152,14 @@ public class AreaViewport extends JPanel
 
 	private int getMapDisplayWidth()
 	{
-		return (getWidth()-HEX_OFFSET)/(TILE_SIZE-HEX_OFFSET);
+		double offset=TileView.TILE_SIZE*Math.cos(Math.PI/3)/2;
+		return (int)((getWidth()-offset)/(TileView.TILE_SIZE-offset));
 	}
 	
 	private int getMapDisplayHeight()
 	{
-		return (getHeight()-HEX_OFFSET)/(TILE_SIZE-HEX_OFFSET);
+		double offset=TileView.TILE_SIZE*Math.sin(Math.PI/3)/2;
+		return (int)((getHeight()-offset)/offset);
 	}
 	
 	private void displayMap()
@@ -137,24 +172,27 @@ public class AreaViewport extends JPanel
 		
 		Location topOfDiagonal=topLeftCorner;
 		
+		int xOffset=(int)(TileView.TILE_SIZE*Math.cos(Math.PI/3));
+		int yOffset=(int)(TileView.TILE_SIZE*Math.sin(Math.PI/3));
+		
 		int pixelX=0;
 		int pixelY=0;
 		
-		while(pixelX + TILE_SIZE < getWidth())
+		while(pixelX + TileView.TILE_SIZE < getWidth())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
-			pixelX+= TILE_SIZE*2*(TILE_SIZE-HEX_OFFSET)/TILE_SIZE;
+			pixelX+= 2*(TileView.TILE_SIZE)-xOffset;
 			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se, mapWidth, mapHeight);
 		}
 
 		topOfDiagonal=topLeftCorner.getAdjacent(s, mapWidth, mapHeight);
 		pixelX=0;
-		pixelY=TILE_SIZE;
+		pixelY=yOffset;
 		
-		while(pixelY + TILE_SIZE < getHeight())
+		while(pixelY + TileView.TILE_SIZE < getHeight())
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
-			pixelY+= TILE_SIZE;
+			pixelY+= yOffset;
 			topOfDiagonal=topOfDiagonal.getAdjacent(s, mapWidth, mapHeight);
 		}
 		
@@ -166,61 +204,25 @@ public class AreaViewport extends JPanel
 		
 		Location loc=topOfDiagonal;
 		
-		while(pixelX + TILE_SIZE < getWidth() && pixelY + TILE_SIZE < getHeight())
+		while(pixelX + TileView.TILE_SIZE < getWidth() && pixelY + TileView.TILE_SIZE < getHeight())
 		{
 			drawViewAt(loc, pixelX, pixelY);
-			pixelX+= TILE_SIZE*(TILE_SIZE-HEX_OFFSET)/TILE_SIZE;
-			pixelY+= TILE_SIZE/2;
+			pixelX+= TileView.TILE_SIZE-xOffset/2;
+			pixelY+= yOffset/2;
 			loc=loc.getAdjacent(se, mapWidth, mapHeight);
 		}
 	}
 
 	private void drawViewAt(Location loc, int pixelX, int pixelY)
 	{
-		drawViewAt(getTileViewAt(loc), loc, pixelX, pixelY);
+		mapView.get(loc).draw(g2d, pixelX, pixelY);
+		resources.get(loc).draw(g2d, pixelX, pixelY);
 		
 		for(View view: getViewsAt(loc))
 		{
-			drawViewAt((view.getClass()).cast(view), loc, pixelX, pixelY);
+			view.draw(g2d, pixelX, pixelY);
 		}
 	}	
-	
-	private void drawViewAt(ResourceView view, Location loc, int pixelX, int pixelY)
-	{
-		g2d.drawImage(view.getImage(), pixelX, pixelY, null);
-	}
-	
-	private void drawViewAt(UnitView view, Location loc, int pixelX, int pixelY)
-	{
-		BufferedImage image = view.getImage();
-		int width=image.getWidth();
-		int height=image.getHeight();
-		
-		double theta = Math.toRadians(view.getRotation() + 90);
-		
-		pixelX=pixelX+(TILE_SIZE-width)/2 + (int)(Math.cos(theta)*height*1.5);
-		pixelY=pixelY+(TILE_SIZE-height)/2 + (int)(Math.sin(theta)*height*1.5);
-		
-		g2d.drawImage(image, pixelX, pixelY, null);
-	}
-	
-	private void drawViewAt(View view, Location loc, int pixelX, int pixelY)
-	{
-		BufferedImage image = view.getImage();
-		int width=image.getWidth();
-		int height=image.getHeight();
-		
-		pixelX=pixelX+(TILE_SIZE-width)/2;
-		pixelY=pixelY+(TILE_SIZE-height)/2;
-		
-		g2d.drawImage(image, pixelX, pixelY, null);
-	}
-
-	private TileView getTileViewAt(Location loc)
-	{
-		loc = loc.wrapAround(mapWidth, mapHeight);
-		return blankMapView[loc.getY()][loc.getX()];
-	}
 	
 	private ArrayList<View> getViewsAt(Location loc)
 	{
@@ -240,8 +242,7 @@ public class AreaViewport extends JPanel
 	
 	public void focusOn(Location loc)
 	{
-		loc = loc.wrapAround(blankMapView[0].length, blankMapView.length);
-		focus = loc;
+		focus = loc.wrapAround(mapWidth, mapHeight);
 		focusView.setLocation(loc);
 		updateView();
 	}

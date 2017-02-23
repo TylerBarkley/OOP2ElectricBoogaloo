@@ -1,4 +1,5 @@
 package view;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -33,7 +34,7 @@ public class View
 		this.image=image;
 	}
 
-	public BufferedImage getImage()
+	protected BufferedImage getImage()
 	{
 		AffineTransform tx = new AffineTransform();
 
@@ -53,6 +54,11 @@ public class View
 		return newImage;
 	}
 
+	public void draw(Graphics2D g2d, int x, int y)
+	{
+		g2d.drawImage(getImage(), x, y, null);
+	}
+	
 	public int getRotation() 
 	{
 		return rotation;
