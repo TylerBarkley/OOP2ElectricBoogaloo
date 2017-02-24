@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import model.Location;
 
-public class TileView extends View
+public class TileView extends ImageView
 {
 	public static final int TILE_SIZE=200;
 	

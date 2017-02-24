@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import model.Location;
 
-public abstract class ResourceView extends View{
+public abstract class ResourceView extends ImageView{
 	private int quantity;
 	private Color textColor;
 	

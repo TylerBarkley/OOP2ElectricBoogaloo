@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import model.Location;
 
-public class UnitView extends View {
+public class UnitView extends ImageView {
 
 	public UnitView(BufferedImage image, Location loc, int rotation) {
 		super(image, loc, rotation);

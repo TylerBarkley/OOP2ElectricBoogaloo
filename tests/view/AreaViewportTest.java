@@ -39,12 +39,12 @@ public class AreaViewportTest {
 		viewport.setBlankMap(map.keySet(), 30, 30);
 		viewport.updateMapView(map);
 
-		viewport.addView(f.getView("Ranged", new Location(8,8), 60));
-		viewport.addView(f.getView("Melee", new Location(8,8), 120));
-		viewport.addView(f.getView("EnemyColonist", new Location(8,8), 180));
-		viewport.addView(f.getView("EnemyExplorer", new Location(8,8), 240));
+		viewport.addView(f.getView("Ranged", new Location(7,8), 60));
+		viewport.addView(f.getView("Melee", new Location(7,8), 0));
+		viewport.addView(f.getView("EnemyColonist", new Location(7,7), 180));
+		viewport.addView(f.getView("EnemyExplorer", new Location(8,7), 240));
 		viewport.addView(f.getView("Worker", new Location(8,8), 300));
-		viewport.addView(f.getView("Explorer", new Location(8,8), 0));
+		viewport.addView(f.getView("Explorer", new Location(8,8), 120));
 
 		viewport.addView(f.getView("Capital", new Location(7,8), 60));
 		viewport.addView(f.getView("Mine", new Location(6, 7), 300));
@@ -53,13 +53,14 @@ public class AreaViewportTest {
 		viewport.addView(f.getView("Factory", new Location(8,8), 0));
 		viewport.addView(f.getView("Farm", new Location(9,8), 120));
 
-		viewport.addView(f.getView("Ore", new Location(8,8), 100));
-		viewport.addView(f.getView("Food", new Location(8,8), 123));
-		viewport.addView(f.getView("Energy", new Location(8,8), 32));
+		viewport.updateResourceView(new Location(8,8), f.getCopositeResourceView(new Location(8,8), 8, 46, 765));
+		viewport.updateResourceView(new Location(8,9), f.getCopositeResourceView(new Location(8,9), 845, 79, 5));
+		viewport.updateResourceView(new Location(7,8), f.getCopositeResourceView(new Location(7,8), 123, 1234, 12));
 
 		frame.add(viewport);
 		frame.setVisible(true);
 		viewport.focusOn(new Location(8,8));
+		viewport.enableResourceView();
 		viewport.focusOn(new Location(7,8));
 		viewport.focusOn(new Location(6,8));
 		viewport.focusOn(new Location(5,8));

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import model.Location;
 
-public class StructureView extends View 
+public class StructureView extends ImageView 
 {
 
 	public StructureView(BufferedImage image, Location loc, int rotation) 

@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 import model.Location;
 
-public class FocusView extends View {
+public class FocusView extends ImageView {
 	public FocusView(Location loc)  
 	{
 		super(loc);
