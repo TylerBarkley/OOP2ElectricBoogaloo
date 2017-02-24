@@ -21,8 +21,6 @@ public class AreaViewport extends JPanel
 
 	private HashMap<Location, TileView> mapView;
 	private HashMap<Location, CompositeView> resources;
-	private int mapWidth;
-	private int mapHeight;
 
 	private Location focus;
 	private FocusView focusView;
@@ -52,7 +50,7 @@ public class AreaViewport extends JPanel
 		displayView();
 	}
 
-	public void setBlankMap(Set<Location> mapLocations, int width, int height)
+	public void setBlankMap(Set<Location> mapLocations)
 	{
 		mapView = new HashMap<Location, TileView>();
 
@@ -65,8 +63,6 @@ public class AreaViewport extends JPanel
 			}
 		}
 
-		mapWidth=width;
-		mapHeight=height;
 		updateView();
 	}
 
@@ -114,7 +110,7 @@ public class AreaViewport extends JPanel
 	
 	public void focusOn(Location loc)
 	{
-		focus = loc.wrapAround(mapWidth, mapHeight);
+		focus = loc;
 		focusView.setLocation(loc);
 		updateView();
 	}
@@ -170,21 +166,36 @@ public class AreaViewport extends JPanel
 		int j=mapDisplayHeight/2;
 
 		Location loc=focus;
-
+		Location temp=loc;
 		while(i>0){
-			loc = loc.getAdjacent(MapDirection.getNorthWest(), mapWidth, mapHeight);
+			temp = loc.getAdjacent(MapDirection.getNorthWest());
+			if(mapView.get(temp) == null)
+			{
+//				break;
+			}
+			loc=temp;
 			i--;
 			j--;
 		}
 
 		while(j>0){
-			loc = loc.getAdjacent(MapDirection.getNorth(), mapWidth, mapHeight);
+			temp = loc.getAdjacent(MapDirection.getNorth());
+			if(mapView.get(temp) == null)
+			{
+//				break;
+			}
+			loc=temp;
 			j-=2;
 		}
 
 
 		while(j<0){
-			loc = loc.getAdjacent(MapDirection.getSouth(), mapWidth, mapHeight);
+			temp = loc.getAdjacent(MapDirection.getSouth());
+			if(mapView.get(temp) == null)
+			{
+//				break;
+			}
+			loc=temp;
 			j+=2;
 		}
 
@@ -223,10 +234,10 @@ public class AreaViewport extends JPanel
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
 			pixelX+= 2*(TileView.TILE_SIZE)-xOffset;
-			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se, mapWidth, mapHeight);
+			topOfDiagonal=topOfDiagonal.getAdjacent(ne).getAdjacent(se);
 		}
 
-		topOfDiagonal=topLeftCorner.getAdjacent(s, mapWidth, mapHeight);
+		topOfDiagonal=topLeftCorner.getAdjacent(s);
 		pixelX=0;
 		pixelY=yOffset;
 
@@ -234,7 +245,7 @@ public class AreaViewport extends JPanel
 		{
 			drawDiagonal(topOfDiagonal, pixelX, pixelY);
 			pixelY+= yOffset;
-			topOfDiagonal=topOfDiagonal.getAdjacent(s, mapWidth, mapHeight);
+			topOfDiagonal=topOfDiagonal.getAdjacent(s);
 		}
 
 	}
@@ -247,10 +258,14 @@ public class AreaViewport extends JPanel
 
 		while(pixelX + TileView.TILE_SIZE < getWidth() && pixelY + TileView.TILE_SIZE < getHeight())
 		{
-			drawViewAt(loc, pixelX, pixelY);
+			if(mapView.get(loc) != null)
+			{
+				drawViewAt(loc, pixelX, pixelY);
+			}
+			//drawViewAt(loc, pixelX, pixelY);
 			pixelX+= TileView.TILE_SIZE-xOffset/2;
 			pixelY+= yOffset/2;
-			loc=loc.getAdjacent(se, mapWidth, mapHeight);
+			loc=loc.getAdjacent(se);
 		}
 	}
 
@@ -273,11 +288,10 @@ public class AreaViewport extends JPanel
 	private ArrayList<View> getViewsAt(Location loc)
 	{
 		ArrayList<View> desiredViews=new ArrayList<View>();
-		loc = loc.wrapAround(mapWidth, mapHeight);
 
 		for(View view: views)
 		{
-			if(view.getLocation().wrapAround(mapWidth, mapHeight).equals(loc))
+			if(view.getLocation().equals(loc))
 			{
 				desiredViews.add(view);
 			}

@@ -30,10 +30,6 @@ public class Location
 		return new Location(newX, newY);
 	}
 
-	public Location getAdjacent(MapDirection md, int width, int height)
-	{
-		return getAdjacent(md).wrapAround(width, height);
-	}
 	
 	public ArrayList<Location> getLocationsAtRadius(int radius)
 	{
@@ -61,32 +57,6 @@ public class Location
 		return locs;
 	}
 	
-	public ArrayList<Location> getLocationsAtRadius(int radius, int width, int height)
-	{
-		ArrayList<Location> locs=new ArrayList<Location>();
-		MapDirection[] mds = {MapDirection.getSouthEast(), MapDirection.getSouth(), 
-				MapDirection.getSouthWest(), MapDirection.getNorthWest(), 
-				MapDirection.getNorth(), MapDirection.getNorthEast()};
-		
-		Location loc=this;
-		
-		for(int i=0; i<radius; i++)
-		{
-			loc = loc.getAdjacent(MapDirection.getNorth(), width, height);
-		}
-		
-		for(int i=0; i<mds.length; i++)
-		{
-			for(int j=0; j<radius; j++)
-			{
-				locs.add(loc);
-				loc = loc.getAdjacent(mds[i], width, height);
-			}
-		}
-		
-		return locs;
-	}
-	
 	public ArrayList<Location> getAllLocationsWithinRadius(int radius)
 	{
 		ArrayList<Location> locs=new ArrayList<Location>();
@@ -97,29 +67,6 @@ public class Location
 		}
 		
 		return locs;
-	}
-	
-	public ArrayList<Location> getAllLocationsWithinRadius(int radius, int width, int height)
-	{
-		ArrayList<Location> locs=new ArrayList<Location>();
-		
-		for(int i=0; i<radius; i++)
-		{
-			locs.addAll(getLocationsAtRadius(radius, width, height));
-		}
-		
-		return locs;
-	}
-	
-	public Location wrapAround(int width, int height)
-	{
-		Location loc=new Location(x,y);
-		while(!loc.isValid(width, height)){
-			loc.x = (loc.x + width) % width;
-			loc.y = (loc.y + height) % height;
-		}
-		
-		return loc;
 	}
 	
 	public boolean isValid(int width, int height)
