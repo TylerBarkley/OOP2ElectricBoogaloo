@@ -24,7 +24,7 @@ public class Map {
 		
 		for(int i=0; i<width; i++)
 		{
-			for(int j=0; j<height; j++)
+			for(int j=-i/2; j<height-i/2; j++)
 			{
 				Location loc=new Location(i,-i-j);
 				tiles.put(loc, new Tile(terrains[rn.nextInt(3)]));
