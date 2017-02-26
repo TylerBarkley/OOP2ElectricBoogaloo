@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>387</x>
+      <y>522</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Unit
+--
+-stats: UnitStats
+-state: State
+-observer:Observer
+-playerID: PlayerID
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>72</x>
+      <y>810</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Colonist
+--
+
+--
++buildCapital(:Location)
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>459</x>
+      <y>1062</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Melee
+--
+
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>351</x>
+      <y>810</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Explorer
+--
+-isProspecting: boolean
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>1062</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Ranged
+--
+
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>117</x>
+      <y>684</y>
+      <w>324</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>340.0;10.0;340.0;80.0;10.0;80.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>477</x>
+      <y>684</y>
+      <w>27</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>972</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>972</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>909</x>
+      <y>135</y>
+      <w>189</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>/model::Stats/
+--
+-offensiveDamage:int
+-defensiveDamage:int
+-health:int
+-armor:int
+-baseUpkeep:int
+-influenceRadius:int
+-movementRate:int
+--
++accessors
+--
+Responsibilities
+-- Should only be initialized in
+the StatsFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>495</x>
+      <y>306</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>/model::State/
+--
+
+--
++getResourceMultiplier(): int
++canMove(): boolean
+--
+Responsibilities
+-- Strategy pattern?
+-- For PowerUp, PowerDown, 
+UpkeepState, etc.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>468</y>
+      <w>108</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;100.0;90.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>603</y>
+      <w>216</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>765</x>
+      <y>540</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::UnitStats
+--
+-movementDistance:int
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>927</x>
+      <y>423</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1017</x>
+      <y>540</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::StructureStats
+--
+-productionRate: int
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1044</x>
+      <y>423</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>567</x>
+      <y>810</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Soldier
+--
+
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>684</y>
+      <w>126</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;120.0;80.0;120.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>522</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::Army
+--
+
+--
+
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>549</x>
+      <y>54</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>model::StatsFacotry
+--
+-colonistStats: Stats
+-explorerStats: Stats
+...
+
+--
++accessors
+--
+Responsibilities
+-- Singleton</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>729</x>
+      <y>189</y>
+      <w>198</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>261</x>
+      <y>369</y>
+      <w>189</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+model::EndTurnObserver</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>396</x>
+      <y>405</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+</diagram>

@@ -20,7 +20,7 @@ public class AreaViewportTest {
 	        TileView[][] map=new TileView[30][30];
 	        for(int i=0; i<30; i++){
 	        	for(int j=0; j<30; j++){
-	        		map[j][i]=(TileView) f.getView(new Ground(), new Location(i,j), false);
+	        		map[j][i]=(TileView) f.getView(Ground.getGroundTerrain(), new Location(i,j), false);
 	        	}
 	        }
 	        AreaViewport viewport=new AreaViewport(1000,1000);
