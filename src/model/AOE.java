@@ -1,6 +1,6 @@
 package model;
 
-public class AOE 
+public interface AOE
 {
-
+    public void apply(Unit target);
 }
