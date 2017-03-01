@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>330</x>
-      <y>540</y>
-      <w>210</w>
-      <h>80</h>
+      <x>245</x>
+      <y>406</y>
+      <w>147</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>/model::RenewableResource/
 --
@@ -21,10 +21,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>110</x>
-      <y>280</y>
-      <w>290</w>
-      <h>190</h>
+      <x>91</x>
+      <y>224</y>
+      <w>203</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>/model::Resource/
 --
@@ -42,10 +42,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>550</y>
-      <w>210</w>
-      <h>30</h>
+      <x>42</x>
+      <y>413</y>
+      <w>147</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>/model::NonrenewableResource/</panel_attributes>
     <additional_attributes/>
@@ -53,10 +53,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>680</y>
-      <w>100</w>
-      <h>30</h>
+      <x>315</x>
+      <y>504</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>model::Food</panel_attributes>
     <additional_attributes/>
@@ -64,10 +64,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>640</y>
-      <w>100</w>
-      <h>30</h>
+      <x>14</x>
+      <y>476</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>model::Ore</panel_attributes>
     <additional_attributes/>
@@ -75,10 +75,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>130</x>
-      <y>640</y>
-      <w>100</w>
-      <h>30</h>
+      <x>105</x>
+      <y>476</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>model::Energy</panel_attributes>
     <additional_attributes/>
@@ -86,10 +86,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>50</x>
-      <y>570</y>
-      <w>30</w>
-      <h>90</h>
+      <x>49</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -97,10 +97,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>170</x>
-      <y>570</y>
-      <w>30</w>
-      <h>90</h>
+      <x>133</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -108,10 +108,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>610</y>
-      <w>30</w>
-      <h>90</h>
+      <x>350</x>
+      <y>455</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -119,10 +119,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
-      <y>460</y>
-      <w>30</w>
-      <h>110</h>
+      <x>168</x>
+      <y>350</y>
+      <w>21</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
@@ -130,10 +130,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>460</y>
-      <w>30</w>
-      <h>100</h>
+      <x>245</x>
+      <y>350</y>
+      <w>21</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -141,10 +141,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>830</x>
-      <y>290</y>
-      <w>210</w>
-      <h>190</h>
+      <x>595</x>
+      <y>231</y>
+      <w>147</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>model::Tile
 --
@@ -163,10 +163,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>530</x>
-      <y>260</y>
-      <w>210</w>
-      <h>230</h>
+      <x>378</x>
+      <y>210</y>
+      <w>147</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>model::ResoureLevel
 --
@@ -189,36 +189,36 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>370</y>
-      <w>160</w>
-      <h>40</h>
+      <x>287</x>
+      <y>287</y>
+      <w>105</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=0..1
 m2=3</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>730</x>
-      <y>340</y>
-      <w>120</w>
-      <h>40</h>
+      <x>518</x>
+      <y>266</y>
+      <w>91</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=0..1
 m2=1</panel_attributes>
-    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>0</y>
-      <w>190</w>
-      <h>160</h>
+      <x>833</x>
+      <y>28</y>
+      <w>133</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>Terrain
 --
@@ -231,10 +231,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1300</x>
-      <y>150</y>
-      <w>100</w>
-      <h>180</h>
+      <x>924</x>
+      <y>133</y>
+      <w>70</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0;80.0;80.0;80.0;160.0</additional_attributes>
@@ -242,10 +242,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1330</x>
-      <y>310</y>
-      <w>100</w>
-      <h>30</h>
+      <x>945</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Water</panel_attributes>
     <additional_attributes/>
@@ -253,10 +253,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1220</x>
-      <y>310</y>
-      <w>100</w>
-      <h>30</h>
+      <x>868</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Ground</panel_attributes>
     <additional_attributes/>
@@ -264,10 +264,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1110</x>
-      <y>310</y>
-      <w>100</w>
-      <h>30</h>
+      <x>791</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Mountain</panel_attributes>
     <additional_attributes/>
@@ -275,10 +275,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1160</x>
-      <y>150</y>
-      <w>110</w>
-      <h>180</h>
+      <x>826</x>
+      <y>133</y>
+      <w>77</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;90.0;80.0;10.0;80.0;10.0;160.0</additional_attributes>
@@ -286,10 +286,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1270</x>
-      <y>150</y>
-      <w>30</w>
-      <h>180</h>
+      <x>903</x>
+      <y>133</y>
+      <w>21</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
@@ -297,10 +297,10 @@ the type of terrain on a tile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>100</y>
-      <w>240</w>
-      <h>210</h>
+      <x>679</x>
+      <y>98</y>
+      <w>168</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=0..*
@@ -310,10 +310,10 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>610</y>
-      <w>290</w>
-      <h>240</h>
+      <x>553</x>
+      <y>455</y>
+      <w>203</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>model::Map
 --
@@ -323,6 +323,7 @@ _-map:Map_
 -itemManager: ItemManager
 -?? unitManager: UnitManager ??
 -?? structureManager: StructureManager ??
+-?? occupancyManager: OccupancyManager ??
 --
 _+getMap()_
 +getTileAt(loc:Location): Tile
@@ -336,10 +337,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>470</y>
-      <w>50</w>
-      <h>160</h>
+      <x>644</x>
+      <y>357</y>
+      <w>35</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=0..*
@@ -349,10 +350,10 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
-      <y>960</y>
-      <w>100</w>
-      <h>30</h>
+      <x>588</x>
+      <y>700</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Location</panel_attributes>
     <additional_attributes/>
@@ -360,10 +361,10 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>860</x>
-      <y>840</y>
-      <w>30</w>
-      <h>140</h>
+      <x>616</x>
+      <y>616</y>
+      <w>21</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
@@ -371,10 +372,10 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>780</y>
-      <w>290</w>
-      <h>30</h>
+      <x>833</x>
+      <y>574</y>
+      <w>203</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>model::ItemManager</panel_attributes>
     <additional_attributes/>
@@ -382,10 +383,10 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1550</x>
-      <y>150</y>
-      <w>290</w>
-      <h>240</h>
+      <x>1099</x>
+      <y>133</y>
+      <w>203</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>model::Manager&lt;T&gt;
 --
@@ -402,10 +403,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>610</y>
-      <w>290</w>
-      <h>30</h>
+      <x>833</x>
+      <y>455</y>
+      <w>203</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>model::AreaOfEffectManager</panel_attributes>
     <additional_attributes/>
@@ -413,10 +414,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1450</x>
-      <y>380</y>
-      <w>180</w>
-      <h>260</h>
+      <x>1029</x>
+      <y>294</y>
+      <w>126</w>
+      <h>182</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>160.0;10.0;160.0;240.0;10.0;240.0</additional_attributes>
@@ -424,10 +425,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1450</x>
-      <y>380</y>
-      <w>250</w>
-      <h>430</h>
+      <x>1029</x>
+      <y>294</y>
+      <w>175</w>
+      <h>301</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>230.0;10.0;230.0;410.0;10.0;410.0</additional_attributes>
@@ -435,10 +436,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>620</y>
-      <w>140</w>
-      <h>40</h>
+      <x>749</x>
+      <y>462</y>
+      <w>98</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=0..*
@@ -448,14 +449,96 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>780</y>
-      <w>140</w>
-      <h>40</h>
+      <x>749</x>
+      <y>574</y>
+      <w>98</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=0..*
 m2=0..1</panel_attributes>
     <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>336</y>
+      <w>245</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>model: OccupancyManager
+--
+-occupancies: Hashmap&lt;Location, Occupancy&gt;
++boolean: checkOccupyingPlayer(pid:int, loc:Location)
++addOccupancy(Occupancy, Location)
++removeOccupancy(Location)
++move(Unit, oldLoc, newLoc)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1267</x>
+      <y>483</y>
+      <w>147</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Singleton???&gt;&gt;
+model: MovementManager
+--
+-Map: myMap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1022</x>
+      <y>294</y>
+      <w>98</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;120.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>273</y>
+      <w>147</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>model: Occupancy
+--
+-occupyingForce: List&lt;Units&gt;
+-occupyingStructure: Structure
+-controllingPlayer: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>301</y>
+      <w>91</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>90.0;50.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>686</x>
+      <y>378</y>
+      <w>112</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..*
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;110.0;140.0;10.0</additional_attributes>
   </element>
 </diagram>
