@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>406</y>
+      <w>147</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>/model::RenewableResource/
+--
+-maxQuantity
+-renewalRate
+--
+#renew()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>91</x>
+      <y>224</y>
+      <w>203</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>/model::Resource/
+--
+-quantity:int
+--
++getAmount():int
+#addAmount(:int)
+#setAmount(:int)
++mineAmount(attemptedMineAmount:int):int
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>42</x>
+      <y>413</y>
+      <w>147</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>/model::NonrenewableResource/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>315</x>
+      <y>504</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>model::Food</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>14</x>
+      <y>476</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>model::Ore</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>105</x>
+      <y>476</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>model::Energy</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>49</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>455</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>168</x>
+      <y>350</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>350</y>
+      <w>21</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>231</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>model::Tile
+--
+-terrain: Terrain
+-isProspected: boolean
+-resourceLevel: ResourceLevel
+--
++getTerrain(): Terrain
++accept (visitor: Visitor)
++prospect()
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>378</x>
+      <y>210</y>
+      <w>147</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>model::ResoureLevel
+--
+-ore: Ore
+-energy: Energy
+-food: Food
+--
++getOreLevel(): int
++getEnergyLevel(): int
++getFoodLevel(): int
++mineOreLevel(:int): int
++mineEnergyLevel(:int): int
++mineFoodLevel(:int): int
++renew()
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>287</x>
+      <y>287</y>
+      <w>105</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=0..1
+m2=3</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>518</x>
+      <y>266</y>
+      <w>91</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=0..1
+m2=1</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>833</x>
+      <y>28</y>
+      <w>133</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Terrain
+--
+Resposibilities
+-- Each terrain type is a 
+singleton representing 
+the type of terrain on a tile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>133</y>
+      <w>70</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;80.0;80.0;80.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Water</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>868</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Ground</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>791</x>
+      <y>245</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Mountain</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>826</x>
+      <y>133</y>
+      <w>77</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;90.0;80.0;10.0;80.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>133</y>
+      <w>21</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>679</x>
+      <y>98</y>
+      <w>168</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>553</x>
+      <y>455</y>
+      <w>203</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>model::Map
+--
+_-map:Map_
+-tiles: HashMap&lt;Location, Tile&gt;
+-areaOfEffectManager:AreaOfEffectManager
+-itemManager: ItemManager
+-?? unitManager: UnitManager ??
+-?? structureManager: StructureManager ??
+-?? occupancyManager: OccupancyManager ??
+--
+_+getMap()_
++getTileAt(loc:Location): Tile
++addAOE(:AOE, :Location)
++addItem(:Item, :Location)
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>644</x>
+      <y>357</y>
+      <w>35</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..*
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>588</x>
+      <y>700</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Location</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>616</y>
+      <w>21</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>833</x>
+      <y>574</y>
+      <w>203</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>model::ItemManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1099</x>
+      <y>133</y>
+      <w>203</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>model::Manager&lt;T&gt;
+--
+-map: HashMap&lt;Location, T&gt;
+--
++remove(:Location)
++add(:Location, :T)
++get(:Location): T
+--
+Responsibilities
+-- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>833</x>
+      <y>455</y>
+      <w>203</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>model::AreaOfEffectManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1029</x>
+      <y>294</y>
+      <w>126</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;160.0;240.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1029</x>
+      <y>294</y>
+      <w>175</w>
+      <h>301</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;230.0;410.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>749</x>
+      <y>462</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..*
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>749</x>
+      <y>574</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..*
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>336</y>
+      <w>245</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>model: OccupancyManager
+--
+-occupancies: Hashmap&lt;Location, Occupancy&gt;
++boolean: checkOccupyingPlayer(pid:int, loc:Location)
++addOccupancy(Occupancy, Location)
++removeOccupancy(Location)
++move(Unit, oldLoc, newLoc)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1267</x>
+      <y>483</y>
+      <w>147</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Singleton???&gt;&gt;
+model: MovementManager
+--
+-Map: myMap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1022</x>
+      <y>294</y>
+      <w>98</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;120.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>273</y>
+      <w>147</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>model: Occupancy
+--
+-occupyingForce: List&lt;Units&gt;
+-occupyingStructure: Structure
+-controllingPlayer: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>301</y>
+      <w>91</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>90.0;50.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>686</x>
+      <y>378</y>
+      <w>112</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=0..*
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;110.0;140.0;10.0</additional_attributes>
+  </element>
+</diagram>

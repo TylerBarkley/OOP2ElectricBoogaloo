@@ -1,5 +1,3 @@
 package model;
 
-public class Terrain {
-
-}
+public abstract class Terrain {}
