@@ -2,7 +2,7 @@ package model;
 
 import utilities.Visitor;
 
-public class Worker extends Unit{
+public class Worker{
 
 
 	public void accept(Visitor visitor){
