@@ -8,4 +8,5 @@ public class Stats {
     int armor;
     int upkeep;
     int defensiveDammage;
+    int influenceRadius;
 }
