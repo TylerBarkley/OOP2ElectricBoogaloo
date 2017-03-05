@@ -56,7 +56,7 @@ public class GameWindow extends JFrame {
 	private void setUpTabbedPane() {
 		tabbedPane.addTab("Main Screen", mainScreen);
 		//tabbedPane.addTab("Structure Overview", structureOverview);
-		//tabbedPane.addTab("Unit Overview", unitOverview);
+		//tabbedPane.addTab("Units Overview", unitOverview);
 		this.add(tabbedPane);
 	}
 

@@ -1,4 +1,6 @@
-package model;
+package model.Controllables.Structures;
+
+import model.Controllables.Structures.Structure;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.

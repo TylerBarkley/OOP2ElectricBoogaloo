@@ -1,11 +1,11 @@
 package utilities;
 
-import model.Colonist;
-import model.Explorer;
-import model.Melee;
-import model.Ranged;
+import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
+import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
 import model.Tile;
-import model.Worker;
+import model.Controllables.Worker;
 
 public interface Visitor {
 	public abstract void visit(Colonist unit);

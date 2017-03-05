@@ -1,6 +1,7 @@
 package model;
 
 import model.AOE.AOE;
+import model.Controllables.Units.Unit;
 
 public class AreaOfEffectManager extends Manager<AOE> {
 

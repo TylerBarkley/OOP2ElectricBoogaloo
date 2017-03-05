@@ -1,6 +1,7 @@
-package model;
+package model.Controllables.Units;
 
 import utilities.Visitor;
+import model.UnitStats;
 
 public abstract class Unit //implements OverviewVisitable, TurnObserver
 {
