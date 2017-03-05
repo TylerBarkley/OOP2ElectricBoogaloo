@@ -5,4 +5,5 @@ package model.Controllables.Structures;
  */
 public class ObservationTower extends PassiveUnstaffedStructure {
     //TODO nothing, cause this class is useless
+    // HK: ^^^LOLOL
 }
