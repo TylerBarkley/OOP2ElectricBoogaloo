@@ -1,9 +1,11 @@
 package model.Controllables.Units;
 
+import model.Controllables.Controllable;
 import utilities.Visitor;
 import model.UnitStats;
 
-public abstract class Unit //implements OverviewVisitable, TurnObserver
+
+public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	int currentHealth;
 	UnitStats myStats;
@@ -28,5 +30,9 @@ public abstract class Unit //implements OverviewVisitable, TurnObserver
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
+	}
+
+	public void makeArmy(){
+		//TODO just copy Iteration 1 code for this
 	}
 }
