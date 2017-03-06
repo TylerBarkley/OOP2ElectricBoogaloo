@@ -1,8 +1,9 @@
-package model;
+package model.Controllables;
 
 import utilities.Visitor;
 
-public class Melee extends Unit{
+public class Worker{
+
 
 	public void accept(Visitor visitor){
 		visitor.visit(this);
