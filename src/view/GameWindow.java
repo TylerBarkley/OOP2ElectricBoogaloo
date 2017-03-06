@@ -20,8 +20,8 @@ public class GameWindow extends JFrame {
 	private JTabbedPane tabbedPane;
 
 	private MainScreen mainScreen;
-	//private UnitOverview unitOverview;
-	//private StructureOverview structureOverview;
+	private UnitOverview unitOverview;
+	private StructureOverview structureOverview;
 
 	public GameWindow(int width, int height) {
 		this.width = width;
@@ -31,8 +31,8 @@ public class GameWindow extends JFrame {
 		this.tabbedPane=new JTabbedPane();
 		
 		this.mainScreen=new MainScreen(width,height);
-		//this.unitOverview=new UnitOverview(width, height);
-		//this.structureOverview=new StructureOverview(width, height);
+		this.unitOverview=new UnitOverview(width, height);
+		this.structureOverview=new StructureOverview(width, height);
 		
 		tabbedPane.setFocusable(true);
 		addComponentListener(new ComponentListener() {
@@ -55,8 +55,8 @@ public class GameWindow extends JFrame {
 
 	private void setUpTabbedPane() {
 		tabbedPane.addTab("Main Screen", mainScreen);
-		//tabbedPane.addTab("Structure Overview", structureOverview);
-		//tabbedPane.addTab("Units Overview", unitOverview);
+		tabbedPane.addTab("Structure Overview", structureOverview);
+		tabbedPane.addTab("Unit Overview", unitOverview);
 		this.add(tabbedPane);
 	}
 
@@ -70,13 +70,13 @@ public class GameWindow extends JFrame {
 		this.closeWindow();
 	}
 
-//	public void switchToUnitOverview(){
-//		tabbedPane.setSelectedComponent(unitOverview);
-//	}
+	public void switchToUnitOverview(){
+		tabbedPane.setSelectedComponent(unitOverview);
+	}
 
-//	public void switchToStructureOverview(){
-//		tabbedPane.setSelectedComponent(structureOverview);
-//	}
+	public void switchToStructureOverview(){
+		tabbedPane.setSelectedComponent(structureOverview);
+	}
 
 	public void switchToMainScreen(){
 		tabbedPane.setSelectedComponent(mainScreen);
@@ -115,5 +115,10 @@ public class GameWindow extends JFrame {
 
 	public void placeDecal(Decal decal) {
 		mainScreen.placeDecal(decal);
+	}
+	
+	public static void main(String arg[]) {
+		GameWindow game = new GameWindow();
+		game.openWindow();
 	}
 }
