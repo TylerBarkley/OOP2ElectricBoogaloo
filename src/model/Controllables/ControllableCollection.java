@@ -1,10 +1,9 @@
 package model.Controllables;
 
+import control.Menu;
 import model.Controllables.Structures.*;
-import model.Controllables.Units.Colonist;
-import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
+import model.Controllables.Units.*;
+
 
 import java.util.ArrayList;
 
@@ -12,6 +11,24 @@ import java.util.ArrayList;
  * Created by hankerins on 3/5/17.
  */
 public class ControllableCollection {
+
+    public final static int EXPLORERTYPE     	= 0;
+    public final static int COLONISTTYPE    	= 1;
+    public final static int MELEEUNITTYPE    	= 2;
+    public final static int RANGEDUNITTYPE    	= 3;
+
+    public final static int CAPITALTYPE     	= 4;
+    public final static int FARMTYPE        	= 5;
+    public final static int FORTTYPE    	    = 6;
+    public final static int MINETYPE        	= 7;
+    public final static int OBSERVATIONTOWERTYPE= 8;
+    public final static int POWERPLANTTYPE    	= 9;
+    public final static int UNIVERSITYTYPE    	= 10;
+
+    public final static int ARMYTYPE    	    = 11;
+    public final static int BATTLEGROUPTYPE    	= 12;
+    public final static int REINFORCEMENTSTYPE 	= 13;
+
     private ArrayList<Colonist> colonists;
     private ArrayList<Explorer> explorers;
     private ArrayList<Melee> melees;
@@ -35,7 +52,6 @@ public class ControllableCollection {
 
         armies = new ArrayList<Army>(10);
 
-
         capitals = new ArrayList<Capital>(10);
         farms = new ArrayList<Farm>(10);
         forts = new ArrayList<Fort>(10);
@@ -43,6 +59,8 @@ public class ControllableCollection {
         observationTowers = new ArrayList<ObservationTower>(10);
         powerPlants = new ArrayList<PowerPlant>(10);
         universities = new ArrayList<University>(10);
+
+        //Initialize each ArrayList to size 10
 
         for(int i = 0; i < 10; i++){
             colonists.add(null);
@@ -62,9 +80,99 @@ public class ControllableCollection {
         }
     }
 
-    public ArrayList<Explorer> getExplorers() {
-        return explorers;
+    //controllableExists is used to check if any controllables exist
+    //for a given mode, determines which mode to switch to when
+    //cycling through modes in the menu
+    public boolean controllableExists(int modeType){
+        if(modeType == Menu.UNITMODE) {
+            System.out.println("CHECKING UNITMODE");
+            for (int i = 0; i < 10 ; i++) {
+                if(colonists.get(i) != null)
+                    return true;
+                if(explorers.get(i) != null)
+                    return true;
+                if(melees.get(i) != null)
+                    return true;
+                if(rangeds.get(i) != null)
+                    return true;
+            }
+        } else if(modeType==Menu.STRUCTUREMODE){
+            System.out.println("CHECKING STRUCTUREMODE");
+            for (int i = 0; i < 10 ; i++) {
+                if(capitals.get(i) != null)
+                    return true;
+                if(farms.get(i) != null)
+                    return true;
+                if(forts.get(i) != null)
+                    return true;
+                if(mines.get(i) != null)
+                    return true;
+                if(observationTowers.get(i) != null)
+                    return true;
+                if(powerPlants.get(i) != null)
+                    return true;
+                if(universities.get(i) != null)
+                    return true;
+            }
+        } else if(modeType==Menu.RALLYPOINTMODE){
+            System.out.println("CHECKING RALLYPOINT");
+            for (int i = 0; i < armies.size(); i++) {
+                if (armies.get(i) != null){
+                    return true;
+                }
+            }
+        } else if(modeType==Menu.ARMYMODE){
+            System.out.println("CHECKING ARMYMODE");
+            for (int i = 0; i < armies.size(); i++) {
+                if (armies.get(i) != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
+
+
+    //GETTERS AND SETTERS
+
+    //One-size fits all get() method for returning any controllable in the collection
+    //x is the constant corresponding to the ArrayList you wish to access,
+    //y is the index in the array.  This method avoids chained getters in other classes
+    public Controllable get(int x, int y){
+        if(x==EXPLORERTYPE)
+            return explorers.get(y);
+        if(x==COLONISTTYPE)
+            return colonists.get(y);
+        if(x==MELEEUNITTYPE)
+            return melees.get(y);
+        if(x==RANGEDUNITTYPE)
+            return rangeds.get(y);
+        if(x==CAPITALTYPE)
+            return capitals.get(y);
+        if(x==FARMTYPE)
+            return farms.get(y);
+        if(x==FORTTYPE)
+            return forts.get(y);
+        if(x==MINETYPE)
+            return mines.get(y);
+        if(x==OBSERVATIONTOWERTYPE)
+            return observationTowers.get(y);
+        if(x==POWERPLANTTYPE)
+            return powerPlants.get(y);
+        if(x==UNIVERSITYTYPE)
+            return universities.get(y);
+        if(x==ARMYTYPE)
+            return armies.get(y);
+
+        //TODO: implement battle group + reinforcements structure
+        if(x==BATTLEGROUPTYPE)
+            return armies.get(y);
+        if(x==REINFORCEMENTSTYPE)
+            return armies.get(y);
+
+        else return null;
+    }
+
 
     public void setExplorers(ArrayList<Explorer> explorers) {
         this.explorers = explorers;

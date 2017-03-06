@@ -2,50 +2,88 @@ package control;
 
 import control.MenuStates.MenuState;
 import model.Controllables.ControllableCollection;
-import model.Player;
 
 /**
  * Created by hankerins on 3/5/17.
  */
 public class Menu {
+
+    public final static int RALLYPOINTMODE      = 0;
+    public final static int ARMYMODE       	    = 1;
+    public final static int UNITMODE       	    = 2;
+    public final static int STRUCTUREMODE       = 3;
+
+
+
+
     MenuState menuState;
     ControllableCollection controllableCollection;
-    ControllableCollection currentControllable;
+
+    int currentMode = UNITMODE;
+    //int currentType = COLONISTTYPE, currentInstance = 0;
 
     Menu(ControllableCollection controllableCollection){
         this.controllableCollection = controllableCollection;
     }
 
-    void setState(MenuState menuState){
-        this.menuState = menuState;
+    public boolean instanceExists(int x, int y){
+        if (controllableCollection.get(x, y) != null)
+            return true;
+        else return false;
     }
 
     void cycleModeL(){
-
+        int startedMode = currentMode;
+        do{
+            currentMode--;
+            if(currentMode < RALLYPOINTMODE) {
+                currentMode = STRUCTUREMODE;
+            }
+        } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
+        //change state here
     }
     void cycleModeR(){
-
+        int startedMode = currentMode;
+        do{
+            currentMode++;
+            if(currentMode > STRUCTUREMODE) {
+                currentMode = RALLYPOINTMODE;
+            }
+        } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
+        //change state here
     }
-    void cycleTypeL(){
 
+    void cycleTypeL(){
+        menuState.cycleTypeL(this);
     }
     void cycleTypeR(){
+        menuState.cycleTypeR(this);
 
     }
     void cycleInstanceL(){
-
+        menuState.cycleInstanceL(this);
     }
     void cycleInstanceR(){
-
+        menuState.cycleInstanceR(this);
     }
     void cycleInstructionL(){
-
+        menuState.cycleInstructionL(this);
     }
     void cycleInstructionR(){
+        menuState.cycleInstructionR(this);
 
     }
 
+    public MenuState getMenuState() {return menuState;}
+    void setMenuState(MenuState menuState){this.menuState = menuState;}
 
+    public ControllableCollection getControllableCollection() {return controllableCollection;}
+
+    public int getCurrentMode() {return currentMode;}
+
+    //public int getCurrentType() {return currentType;}
+
+    //public int getCurrentInstance() {return currentInstance;}
 
 
 }
