@@ -44,6 +44,7 @@ public abstract class UnitMenuState implements MenuState{
                 else currentType--;
             }
         }
+        //updateUnit(context);
     }
     public void cycleTypeR(Menu context){
         int startCurrentType = currentType;
@@ -65,7 +66,7 @@ public abstract class UnitMenuState implements MenuState{
                 else currentType++;
             }
         }
-
+        //updateUnit(context);
     }
     public void cycleInstanceL(Menu context){
         int lastInstance = 9;
@@ -98,7 +99,6 @@ public abstract class UnitMenuState implements MenuState{
                 currentInstance = 0;
             }
         }
-
     }
     public void cycleInstructionL(Menu context){
 

@@ -5,6 +5,9 @@ import model.Controllables.ControllableCollection;
 
 /**
  * Created by hankerins on 3/5/17.
+ *
+ * Q4D: are States allowed to access a context's field like a context itself?
+ * Q4D: review good vs. bad casting
  */
 public class Menu {
 
