@@ -31,4 +31,8 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 			currentHealth = myStats.getHealth();
 		}
 	}
+
+	public void makeArmy(){
+		//TODO just copy Iteration 1 code for this
+	}
 }

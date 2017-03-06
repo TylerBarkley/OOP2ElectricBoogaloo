@@ -26,6 +26,12 @@ public class Menu {
         this.controllableCollection = controllableCollection;
     }
 
+    //State Design Pattern
+    public void select(){
+        menuState.select(this);
+    }
+
+    //check if a given instance exists in the ControllableCollection
     public boolean instanceExists(int x, int y){
         if (controllableCollection.get(x, y) != null)
             return true;
@@ -40,7 +46,7 @@ public class Menu {
                 currentMode = STRUCTUREMODE;
             }
         } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here
+        //change state here, call reset()
     }
     void cycleModeR(){
         int startedMode = currentMode;
@@ -50,7 +56,7 @@ public class Menu {
                 currentMode = RALLYPOINTMODE;
             }
         } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here
+        //change state here, call reset()
     }
 
     void cycleTypeL(){
