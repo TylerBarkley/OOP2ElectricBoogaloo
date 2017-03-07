@@ -1,18 +1,23 @@
 package model.Controllables.Units;
 
 import model.Controllables.Controllable;
+import model.observers.DeathObservable;
 import utilities.Visitor;
+
+import model.UnitID;
 import model.UnitStats;
 
 
-public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
+public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver
 {
-	int currentHealth;
-	UnitStats myStats;
-	
+	private int currentHealth;
+	private UnitStats myStats;
+	private UnitID id;
+
 	public abstract void accept(Visitor visitor);
 
 	public void killMe() {
+		notifyObservers(id);
 		//TODO KILLING SELF
 		//REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
 		//POSSIBLY USING PLAYER MANAGER
@@ -34,5 +39,15 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void makeArmy(){
 		//TODO just copy Iteration 1 code for this
+	}
+	
+	public void setID(UnitID id)
+	{
+		this.id=id;
+	}
+
+	public UnitID getID() 
+	{
+		return id;
 	}
 }

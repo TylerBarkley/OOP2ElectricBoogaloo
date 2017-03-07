@@ -1,8 +1,23 @@
 package model.Controllables.Structures;
+import model.StructureID;
 import model.Controllables.Controllable;
+import model.observers.DeathObservable;
 
-/**
- * Created by Tyler Barkley on 3/1/2017.
- */
-public abstract class Structure implements Controllable {
+public abstract class Structure extends DeathObservable implements Controllable {
+	private StructureID id;
+
+	public void killMe()
+	{
+		notifyObservers(id);
+	}
+	
+	public void setID(StructureID id)
+	{
+		this.id=id;
+	}
+
+	public StructureID getID() 
+	{
+		return id;
+	}
 }
