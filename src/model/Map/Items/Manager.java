@@ -8,7 +8,10 @@ public abstract class Manager<T>
 {
 	private HashMap<Location, T> map;
 	
-	//TODO Constructors
+	public Manager(){
+		map = new HashMap<Location, T>();
+	}
+
 	
 	public T remove(Location loc)
 	{

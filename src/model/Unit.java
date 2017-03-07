@@ -40,4 +40,8 @@ public abstract class Unit //implements OverviewVisitable, ???TurnObserver???
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
 	}
+
+	public void setCurrentHealth(int i){
+		this.currentHealth = i;
+	}
 }
