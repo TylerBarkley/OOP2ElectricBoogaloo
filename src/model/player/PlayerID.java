@@ -1,3 +1,5 @@
 package model.player;
 
-public class PlayerID {}
+import model.ID;
+
+public class PlayerID extends ID{}

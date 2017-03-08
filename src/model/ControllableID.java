@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import model.player.PlayerID;
 
-public abstract class ControllableID {
+public abstract class ControllableID  extends ID{
 	private PlayerID playerID;
 	private int type;
 	private int instanceNumber;

@@ -4,13 +4,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import model.ID;
 import model.Location;
 
 public class SkullCrossbones extends Decal 
 {
-	public SkullCrossbones(Location loc)  
+	public SkullCrossbones(ID id, Location loc)  
 	{
-		super(loc);
+		super(id, loc);
 		
 		try 
 		{
