@@ -1,14 +1,13 @@
 package model.Controllables.Units;
-
-import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
+import model.Controllables.Stats.UnitStats;
 import utilities.Visitor;
 
 
-public abstract class Unit implements Controllable, BasicStats //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
-	BasicStats myStats;
+	UnitStats myStats;
 	
 	//public abstract void accept(Visitor visitor);
 
@@ -36,20 +35,12 @@ public abstract class Unit implements Controllable, BasicStats //implements Over
 		}
 	}
 
-	public int getCurrentHealth() {
-		return currentHealth;
+	public int getCurrentHealth(){
+		return this.currentHealth;
 	}
-	
-	public int getMovement() {
-		return myStats.getMovement();
-	}
-	
-	public int getUpkeep() {
-		return myStats.getUpkeep();
-	}
-	
-	public void setCurrentHealth(int i) {
-		this.currentHealth = i;
+
+	public void setCurrentHealth(int currentHealth){
+		this.currentHealth = currentHealth;
 	}
 
 

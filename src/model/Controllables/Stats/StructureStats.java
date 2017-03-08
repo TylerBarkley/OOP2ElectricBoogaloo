@@ -1,18 +1,17 @@
 package model.Controllables.Stats;
 
-import model.Controllables.BasicStats;
-
 /**
- * Created by Tyler Barkley on 3/7/2017.
+ * Created by Tyler Barkley on 3/8/2017.
  */
-public class RangedStats implements BasicStats{
+public class StructureStats {
+
     private int health;
     private int armor;
     private int upkeep;
     private int defensiveDamage;
     private int influenceRadius;
     private int offensiveDamage;
-    private int movement;
+    private int productionRate;
 
     public int getArmor() {
         return armor;
@@ -42,14 +41,6 @@ public class RangedStats implements BasicStats{
         this.offensiveDamage = offensiveDamage;
     }
 
-    public int getMovement() {
-        return movement;
-    }
-
-    public void setMovement(int movement) {
-        this.movement = movement;
-    }
-
     public void setInfluenceRadius(int influenceRadius) {
         this.influenceRadius = influenceRadius;
     }
@@ -68,5 +59,13 @@ public class RangedStats implements BasicStats{
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getProductionRate() {
+        return productionRate;
+    }
+
+    public void setProductionRate(int productionRate) {
+        this.productionRate = productionRate;
     }
 }

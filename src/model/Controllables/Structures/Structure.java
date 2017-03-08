@@ -1,14 +1,15 @@
 package model.Controllables.Structures;
 import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
+import model.Controllables.Stats.StructureStats;
 import utilities.Visitor;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public abstract class Structure implements Controllable, BasicStats {
+public abstract class Structure implements Controllable {
     int currentHealth;
-    BasicStats myStats;
+    StructureStats myStats;
 
     //public abstract void accept(Visitor visitor);
 
