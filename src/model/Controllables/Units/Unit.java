@@ -8,7 +8,11 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 {
 	private int currentHealth;
 	private UnitStats myStats;
-	
+
+	protected Unit(){
+		myStats = new UnitStats();
+	}
+
 	//public abstract void accept(Visitor visitor);
 
 	public void killMe() {
