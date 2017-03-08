@@ -1,28 +1,28 @@
 package control.MenuStates;
 
 import control.Menu;
+import control.MenuStates.UnitMenuStates.*;
 import model.Controllables.Controllable;
 import model.Controllables.ControllableCollection;
 import model.Controllables.Units.Unit;
+
+import java.util.ArrayList;
 
 /**
  * Created by hankerins on 3/5/17.
  *
  *MAKEARMY
  * JOINARMY
- * BUILDBASE
+ * BUILDCAPITAL
  * STANDBY
  * POWERDOWN
  * POWERUP
- * CANCELQUEUE
- * MOVEENTER
  */
 public abstract class UnitMenuState implements MenuState{
 
-
-
     protected int currentInstance = 0, currentType = ControllableCollection.COLONISTTYPE;
     protected Unit currentUnit;
+
 
     public void cycleTypeL (Menu context){
         int startCurrentType = currentType;
@@ -100,12 +100,8 @@ public abstract class UnitMenuState implements MenuState{
             }
         }
     }
-    public void cycleInstructionL(Menu context){
-
-    }
-    public void cycleInstructionR(Menu context){
-
-    }
+    public abstract void cycleInstructionL(Menu context);
+    public abstract void cycleInstructionR(Menu context);
     public void reset(Menu context){
         currentType = 1;
         cycleTypeL(context);
@@ -116,5 +112,10 @@ public abstract class UnitMenuState implements MenuState{
     public void updateUnit(Menu context){
         currentUnit = (Unit)context.getControllableCollection().get(currentType, currentInstance);
     }
+    public int getCurrentInstance() {return currentInstance;}
+    public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
+
+    public int getCurrentType() {return currentType;}
+    public void setCurrentType(int currentType) {this.currentType = currentType;}
 
 }

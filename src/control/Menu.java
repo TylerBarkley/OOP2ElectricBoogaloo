@@ -17,8 +17,6 @@ public class Menu {
     public final static int STRUCTUREMODE       = 3;
 
 
-
-
     MenuState menuState;
     ControllableCollection controllableCollection;
 
@@ -84,7 +82,7 @@ public class Menu {
     }
 
     public MenuState getMenuState() {return menuState;}
-    void setMenuState(MenuState menuState){this.menuState = menuState;}
+    public void setMenuState(MenuState menuState){this.menuState = menuState;}
 
     public ControllableCollection getControllableCollection() {return controllableCollection;}
 
