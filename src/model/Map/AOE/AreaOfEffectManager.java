@@ -1,7 +1,7 @@
 package model.Map.AOE;
 
 import model.Location;
-import model.Map.Items.Manager;
+import model.Map.Manager;
 import model.Controllables.Units.Unit;
 
 public class AreaOfEffectManager extends Manager<AOE> {

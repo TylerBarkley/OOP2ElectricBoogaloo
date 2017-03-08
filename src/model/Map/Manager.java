@@ -1,4 +1,4 @@
-package model.Map.Items;
+package model.Map;
 
 import model.Location;
 
