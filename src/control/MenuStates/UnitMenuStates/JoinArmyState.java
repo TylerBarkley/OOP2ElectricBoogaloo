@@ -4,35 +4,36 @@ import control.Menu;
 import control.MenuStates.UnitMenuState;
 
 /**
- * Created by hankerins on 3/5/17.
+ * Created by hankerins on 3/8/17.
  */
-public class MakeArmyState extends UnitMenuState{
+public class JoinArmyState extends UnitMenuState {
 
-    private static MakeArmyState instance = new MakeArmyState();
-    public static MakeArmyState getInstance(){return instance;}
-    private MakeArmyState(){}
+    private static JoinArmyState instance = new JoinArmyState();
+    public static JoinArmyState getInstance(){return instance;}
+    private JoinArmyState(){}
 
     @Override
     public void select(Menu context) {
-        
+
         updateControllable(context);
-        currentUnit.makeArmy();
+        //TODO: currentUnit.joinArmy();  make join army menu
     }
+
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = PowerUpState.getInstance();
+        UnitMenuState nextState = MakeArmyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        UnitMenuState nextState = JoinArmyState.getInstance();
+        UnitMenuState nextState = BuildCapitalState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Make Army";
+        return "Join Army";
     }
 }
