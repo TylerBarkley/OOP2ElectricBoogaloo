@@ -1,14 +1,25 @@
 package model.Controllables.Stats;
 
+import model.Controllables.BasicStats;
+import model.Controllables.Structures.ObservationTower;
+
 /**
  * Created by Tyler Barkley on 3/7/2017.
  */
-public class ObservationTowerStats {
+public class ObservationTowerStats implements BasicStats{
     private int health;
     private int armor;
     private int upkeep;
     private int defensiveDamage;
     private int influenceRadius;
+
+    public ObservationTowerStats(){
+        health = 100;
+        armor = 5;
+        upkeep = 10;
+        defensiveDamage = 10;
+        influenceRadius = 2;
+    }
 
     public int getArmor() {
         return armor;

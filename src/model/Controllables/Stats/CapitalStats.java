@@ -1,9 +1,11 @@
 package model.Controllables.Stats;
 
+import model.Controllables.BasicStats;
+
 /**
  * Created by Tyler Barkley on 3/7/2017.
  */
-public class CapitalStats {
+public class CapitalStats implements BasicStats{
     private int health;
     private int armor;
     private int upkeep;
