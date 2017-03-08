@@ -3,12 +3,15 @@ package view;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import model.ID;
+
 public class CompositeView extends View 
 {
 	private ArrayList<View> views;
 
 	public CompositeView(ArrayList<View> views)
 	{
+		super(new ID());
 		this.views=views;
 	}
 	

@@ -4,6 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
+import model.ID;
 import model.Location;
 
 public class ImageView extends View
@@ -11,21 +12,22 @@ public class ImageView extends View
 	private BufferedImage image;
 	private int rotation;
 
-	public ImageView(BufferedImage image, Location loc, int rotation)
+	public ImageView(ID id, BufferedImage image, Location loc, int rotation)
 	{
+		super(id);
 		this.image=image;
 		this.setLocation(loc);
 		this.rotation=rotation;
 	}
 
-	public ImageView(BufferedImage image, Location loc)
+	public ImageView(ID id, BufferedImage image, Location loc)
 	{
-		this(image, loc, 0);
+		this(id, image, loc, 0);
 	}
 
-	protected ImageView(Location loc)
+	protected ImageView(ID id, Location loc)
 	{
-		this(null, loc, 0);
+		this(id, null, loc, 0);
 	}
 
 	protected void setImage(BufferedImage image) 

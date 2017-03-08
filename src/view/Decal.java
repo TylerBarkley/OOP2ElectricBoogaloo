@@ -1,11 +1,12 @@
 package view;
 
+import model.ID;
 import model.Location;
 
 public abstract class Decal extends ImageView
 {
-	protected Decal(Location loc) 
+	protected Decal(ID id, Location loc) 
 	{
-		super(loc);
+		super(id, loc);
 	}
 }
