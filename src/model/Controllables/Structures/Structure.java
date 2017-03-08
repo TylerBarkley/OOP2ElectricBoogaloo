@@ -9,7 +9,7 @@ import utilities.Visitor;
  */
 public abstract class Structure implements Controllable {
     int currentHealth;
-    StructureStats myStats;
+    private StructureStats myStats;
 
     //public abstract void accept(Visitor visitor);
 
@@ -35,5 +35,12 @@ public abstract class Structure implements Controllable {
 
     public void makeArmy(){
         //TODO just copy Iteration 1 code for this
+    }
+
+    public void setMyStats(StructureStats myStats) {
+        this.myStats = myStats;
+    }
+    public StructureStats getMyStats(){
+        return this.myStats;
     }
 }
