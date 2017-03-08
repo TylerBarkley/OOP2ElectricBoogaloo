@@ -39,4 +39,10 @@ public abstract class Structure implements Controllable {
     public StructureStats getMyStats(){
         return this.myStats;
     }
+
+
+    //FOR TESTING DO NOT KEEP
+    public int getPid(){
+        return 100;
+    }
 }

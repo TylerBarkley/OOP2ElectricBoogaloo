@@ -22,6 +22,7 @@ public class UnitOccupancy {
 
     public void addUnit(Unit added){
         occupyingUnits.add(added);
+        pid = added.getPid();
     }
 
     public int getPid() {

@@ -1,6 +1,8 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
+import model.Location;
+import model.MapDirection;
 import utilities.Visitor;
 
 
@@ -8,9 +10,17 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 {
 	private int currentHealth;
 	private UnitStats myStats;
+	private Location location;
+	private MapDirection md;
 
 	protected Unit(){
 		myStats = new UnitStats();
+	}
+
+	protected Unit(Location loc){
+		myStats = new UnitStats();
+		location = loc;
+		md = MapDirection.getNorth();
 	}
 
 	//public abstract void accept(Visitor visitor);
@@ -58,5 +68,25 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public UnitStats getMyStats(){
 		return this.myStats;
+	}
+
+	public int getPid(){
+		return currentHealth;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public MapDirection getMapDirection(){
+		return md;
+	}
+
+	public void setLocation(Location loc){
+		this.location = loc;
+	}
+
+	public void setMapDirection(MapDirection md){
+		this.md = md;
 	}
 }
