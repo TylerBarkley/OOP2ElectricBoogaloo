@@ -12,6 +12,7 @@ public class WorkerStats {
     private int soldierTraining;
     private int breeding;
     private int explorerTraining;
+    private int buildingRate;
 
     public int getFoodProduction() {
         return foodProduction;
@@ -67,5 +68,13 @@ public class WorkerStats {
 
     public void setExplorerTraining(int explorerTraining) {
         this.explorerTraining = explorerTraining;
+    }
+
+    public int getBuildingRate() {
+        return buildingRate;
+    }
+
+    public void setBuildingRate(int buildingRate) {
+        this.buildingRate = buildingRate;
     }
 }

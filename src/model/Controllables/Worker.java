@@ -1,11 +1,8 @@
 package model.Controllables;
-
-import model.Controllables.Stats.WorkerStats;
 import utilities.Visitor;
 
 public class Worker{
 
-	private WorkerStats myStats;
 	//private PID myPID;
 
 	public void upkeep(int food) {
@@ -26,11 +23,4 @@ public class Worker{
 		visitor.visit(this);
 	}
 
-	public WorkerStats getMyStats() {
-		return myStats;
-	}
-
-	public void setMyStats(WorkerStats myStats) {
-		this.myStats = myStats;
-	}
 }
