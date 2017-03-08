@@ -36,13 +36,22 @@ public abstract class Unit implements Controllable, BasicStats //implements Over
 		}
 	}
 
-	public int getCurrentHealth(){
+	public int getCurrentHealth() {
 		return currentHealth;
 	}
-
+	
+	public int getMovement() {
+		return myStats.getMovement();
+	}
+	
+	public int getUpkeep() {
+		return myStats.getUpkeep();
+	}
+	
 	public void setCurrentHealth(int i) {
 		this.currentHealth = i;
 	}
+
 
 	public void makeArmy(){
 		//TODO just copy Iteration 1 code for this

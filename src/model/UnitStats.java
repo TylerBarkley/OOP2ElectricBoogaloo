@@ -4,6 +4,7 @@ package model;
  * Created by zrgam_000 on 3/1/2017.
  */
 public class UnitStats extends Stats{
+
     private int offensiveDamage;
     private int movement;
 
@@ -19,5 +20,6 @@ public class UnitStats extends Stats{
 
     public int getMovement() {
         return movement;
+
     }
 }
