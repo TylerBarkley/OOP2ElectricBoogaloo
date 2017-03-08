@@ -15,6 +15,13 @@ public interface MenuState {
     void cycleInstructionL(Menu context);
     void cycleInstructionR(Menu context);
     void reset(Menu context);
+    void updateControllable(Menu context);
+
+    int getCurrentInstance();
+    void setCurrentInstance(int currentInstance);
+    int getCurrentType();
+    void setCurrentType(int currentType);
+    String typeToString();
 
 
 

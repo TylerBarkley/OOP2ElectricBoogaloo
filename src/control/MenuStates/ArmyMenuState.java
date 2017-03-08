@@ -1,13 +1,18 @@
 package control.MenuStates;
 
 import control.Menu;
+import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
+import model.Controllables.Units.Unit;
 
 /**
  * Created by hankerins on 3/5/17.
+ * TODO: don't know how we are handling battle group/reinforcements,
+ * TODO: currently all 3 Types reference the whole army
  */
 public abstract class ArmyMenuState implements MenuState{
-    int currentInstance = 0, currentType = ControllableCollection.ARMYTYPE ;
+    protected int currentInstance = 0, currentType = ControllableCollection.ARMYTYPE ;
+    protected Army currentArmy;
 
     public void cycleTypeL (Menu context){
         int startCurrentType = currentType;
@@ -29,6 +34,7 @@ public abstract class ArmyMenuState implements MenuState{
                 else currentType--;
             }
         }
+        updateControllable(context);
     }
     public void cycleTypeR(Menu context){
         int startCurrentType = currentType;
@@ -50,6 +56,7 @@ public abstract class ArmyMenuState implements MenuState{
                 else currentType++;
             }
         }
+        updateControllable(context);
     }
     public void cycleInstanceL(Menu context){
         int lastInstance = 9;
@@ -66,6 +73,7 @@ public abstract class ArmyMenuState implements MenuState{
                 currentInstance = lastInstance;
             }
         }
+        updateControllable(context);
     }
     public void cycleInstanceR(Menu context){
         int lastInstance = 9;
@@ -82,11 +90,31 @@ public abstract class ArmyMenuState implements MenuState{
                 currentInstance = 0;
             }
         }
+        updateControllable(context);
     }
     public void reset(Menu context){
         currentType = 1;
         cycleTypeL(context);
         currentInstance = 1;
         cycleInstanceL(context);
+        updateControllable(context);
+    }
+    public void updateControllable(Menu context){
+        currentArmy = (Army)context.getControllableCollection().get(currentType, currentInstance);
+    }
+    public int getCurrentInstance() {return currentInstance;}
+    public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
+
+    public int getCurrentType() {return currentType;}
+    public void setCurrentType(int currentType) {this.currentType = currentType;}
+
+
+    public String typeToString(){
+        switch (currentType){
+            case ControllableCollection.ARMYTYPE: return "Army";
+            case ControllableCollection.BATTLEGROUPTYPE: return "Battle Group";
+            case ControllableCollection.REINFORCEMENTSTYPE: return "Reinforcements";
+        }
+        return null;
     }
 }

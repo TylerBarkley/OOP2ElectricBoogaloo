@@ -1,37 +1,39 @@
-package control.MenuStates.UnitMenuStates;
+package control.MenuStates.StructureMenuStates;
 
 import control.Menu;
+import control.MenuStates.StructureMenuState;
 import control.MenuStates.UnitMenuState;
+import control.MenuStates.UnitMenuStates.StandbyState;
 
 /**
  * Created by hankerins on 3/8/17.
  */
-public class PowerUpState extends UnitMenuState {
-    private static PowerUpState instance = new PowerUpState();
-    public static PowerUpState getInstance(){return instance;}
-    private PowerUpState(){}
+public class StructureAttackState extends StructureMenuState {
+    private static StructureAttackState instance = new StructureAttackState();
+    public static StructureAttackState getInstance(){return instance;}
+    private StructureAttackState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentUnit.powerUp();
+        //TODO: currentStructure.attack();
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = PowerDownState.getInstance();
+        StructureMenuState nextState = StructureAttackState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        UnitMenuState nextState = MakeArmyState.getInstance();
+        StructureMenuState nextState = StructureAttackState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Power Up";
+        return "Attack";
     }
 }

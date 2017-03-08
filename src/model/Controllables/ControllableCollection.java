@@ -44,6 +44,8 @@ public class ControllableCollection {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
+    ArrayList<Worker> workers = new ArrayList<Worker>();
+
     public ControllableCollection(){
         colonists = new ArrayList<Colonist>(10);
         explorers = new ArrayList<Explorer>(10);
@@ -173,107 +175,82 @@ public class ControllableCollection {
         else return null;
     }
 
-
+    public ArrayList<Explorer> getExpolorers() {
+        return explorers;
+    }
     public void setExplorers(ArrayList<Explorer> explorers) {
         this.explorers = explorers;
     }
-
-    public ArrayList<Melee> getMelees() {
-        return melees;
-    }
-
-    public void setMelees(ArrayList<Melee> melees) {
-        this.melees = melees;
-    }
-
-    public ArrayList<Ranged> getRangeds() {
-        return rangeds;
-    }
-
-    public void setRangeds(ArrayList<Ranged> rangeds) {
-        this.rangeds = rangeds;
-    }
-
-    public ArrayList<Army> getArmies() {
-        return armies;
-    }
-
-    public void setArmies(ArrayList<Army> armies) {
-        this.armies = armies;
-    }
-
-    public ArrayList<Capital> getCapitals() {
-        return capitals;
-    }
-
-    public void setCapitals(ArrayList<Capital> capitals) {
-        this.capitals = capitals;
-    }
-
-    public ArrayList<Farm> getFarms() {
-        return farms;
-    }
-
-    public void setFarms(ArrayList<Farm> farms) {
-        this.farms = farms;
-    }
-
-    public ArrayList<Fort> getForts() {
-        return forts;
-    }
-
-    public void setForts(ArrayList<Fort> forts) {
-        this.forts = forts;
-    }
-
-    public ArrayList<Mine> getMines() {
-        return mines;
-    }
-
-    public void setMines(ArrayList<Mine> mines) {
-        this.mines = mines;
-    }
-
-    public ArrayList<ObservationTower> getObservationTowers() {
-        return observationTowers;
-    }
-
-    public void setObservationTowers(ArrayList<ObservationTower> observationTowers) {
-        this.observationTowers = observationTowers;
-    }
-
-    public ArrayList<PowerPlant> getPowerPlants() {
-        return powerPlants;
-    }
-
-    public void setPowerPlants(ArrayList<PowerPlant> powerPlants) {
-        this.powerPlants = powerPlants;
-    }
-
-    public ArrayList<University> getUniversities() {
-        return universities;
-    }
-
-    public void setUniversities(ArrayList<University> universities) {
-        this.universities = universities;
-    }
-
-    public ArrayList<Worker> getWorkers() {
-        return workers;
-    }
-
-    public void setWorkers(ArrayList<Worker> workers) {
-        this.workers = workers;
-    }
-
-    ArrayList<Worker> workers;
-
     public ArrayList<Colonist> getColonists() {
         return colonists;
     }
-
     public void setColonists(ArrayList<Colonist> colonists) {
         this.colonists = colonists;
+    }
+    public ArrayList<Melee> getMelees() {
+        return melees;
+    }
+    public void setMelees(ArrayList<Melee> melees) {
+        this.melees = melees;
+    }
+    public ArrayList<Ranged> getRangeds() {
+        return rangeds;
+    }
+    public void setRangeds(ArrayList<Ranged> rangeds) {
+        this.rangeds = rangeds;
+    }
+    public ArrayList<Army> getArmies() {
+        return armies;
+    }
+    public void setArmies(ArrayList<Army> armies) {
+        this.armies = armies;
+    }
+    public ArrayList<Capital> getCapitals() {
+        return capitals;
+    }
+    public void setCapitals(ArrayList<Capital> capitals) {
+        this.capitals = capitals;
+    }
+    public ArrayList<Farm> getFarms() {
+        return farms;
+    }
+    public void setFarms(ArrayList<Farm> farms) {
+        this.farms = farms;
+    }
+    public ArrayList<Fort> getForts() {
+        return forts;
+    }
+    public void setForts(ArrayList<Fort> forts) {
+        this.forts = forts;
+    }
+    public ArrayList<Mine> getMines() {
+        return mines;
+    }
+    public void setMines(ArrayList<Mine> mines) {
+        this.mines = mines;
+    }
+    public ArrayList<ObservationTower> getObservationTowers() {
+        return observationTowers;
+    }
+    public void setObservationTowers(ArrayList<ObservationTower> observationTowers) {
+        this.observationTowers = observationTowers; }
+    public ArrayList<PowerPlant> getPowerPlants() {
+        return powerPlants;
+    }
+    public void setPowerPlants(ArrayList<PowerPlant> powerPlants) {
+        this.powerPlants = powerPlants;
+    }
+    public ArrayList<University> getUniversities() {
+        return universities;
+    }
+    public void setUniversities(ArrayList<University> universities) {
+        this.universities = universities;
+    }
+    public ArrayList<Worker> getWorkers() {
+        return workers;
+    }
+    public void setWorkers(ArrayList<Worker> workers) {
+        this.workers = workers;
     }
 
 }

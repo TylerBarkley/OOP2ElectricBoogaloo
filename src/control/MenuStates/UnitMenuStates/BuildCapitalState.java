@@ -8,26 +8,28 @@ import control.MenuStates.UnitMenuState;
  */
 public class BuildCapitalState extends UnitMenuState {
 
-    static BuildCapitalState instance = new BuildCapitalState();
+    private static BuildCapitalState instance = new BuildCapitalState();
     public static BuildCapitalState getInstance(){return instance;}
-    public BuildCapitalState(){}
+    private BuildCapitalState(){}
 
     @Override
     public void select(Menu context) {
 
-        updateUnit(context);
+        updateControllable(context);
         //TODO: currentUnit.buildCapital();
     }
     public void cycleInstructionL(Menu context){
         UnitMenuState nextState = BuildCapitalState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
+        nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
         UnitMenuState nextState = StandbyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
+        nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){

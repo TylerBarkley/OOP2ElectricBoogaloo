@@ -1,37 +1,39 @@
-package control.MenuStates.UnitMenuStates;
+package control.MenuStates.RallyPointMenuStates;
 
 import control.Menu;
-import control.MenuStates.UnitMenuState;
+import control.MenuStates.RallyPointMenuState;
+import control.MenuStates.StructureMenuState;
+import control.MenuStates.StructureMenuStates.StructureAttackState;
 
 /**
  * Created by hankerins on 3/8/17.
  */
-public class PowerUpState extends UnitMenuState {
-    private static PowerUpState instance = new PowerUpState();
-    public static PowerUpState getInstance(){return instance;}
-    private PowerUpState(){}
+public class RPBuildState extends RallyPointMenuState{
+    private static RPBuildState instance = new RPBuildState();
+    public static RPBuildState getInstance(){return instance;}
+    private RPBuildState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentUnit.powerUp();
+        //TODO: currentArmy.build(); MAKE A BUILD STRUCTURE MENU FOR WORKERS
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = PowerDownState.getInstance();
+        RallyPointMenuState nextState = RPBuildState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        UnitMenuState nextState = MakeArmyState.getInstance();
+        RallyPointMenuState nextState = RPBuildState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Power Up";
+        return "Build";
     }
 }

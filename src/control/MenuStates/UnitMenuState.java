@@ -44,7 +44,7 @@ public abstract class UnitMenuState implements MenuState{
                 else currentType--;
             }
         }
-        //updateUnit(context);
+        updateControllable(context);
     }
     public void cycleTypeR(Menu context){
         int startCurrentType = currentType;
@@ -66,7 +66,7 @@ public abstract class UnitMenuState implements MenuState{
                 else currentType++;
             }
         }
-        //updateUnit(context);
+        updateControllable(context);
     }
     public void cycleInstanceL(Menu context){
         int lastInstance = 9;
@@ -83,6 +83,7 @@ public abstract class UnitMenuState implements MenuState{
                 currentInstance = lastInstance;
             }
         }
+        updateControllable(context);
     }
     public void cycleInstanceR(Menu context){
         int lastInstance = 9;
@@ -99,9 +100,11 @@ public abstract class UnitMenuState implements MenuState{
                 currentInstance = 0;
             }
         }
+        updateControllable(context);
     }
     public abstract void cycleInstructionL(Menu context);
     public abstract void cycleInstructionR(Menu context);
+
     public void reset(Menu context){
         currentType = 1;
         cycleTypeL(context);
@@ -109,7 +112,7 @@ public abstract class UnitMenuState implements MenuState{
         cycleInstanceL(context);
     }
 
-    public void updateUnit(Menu context){
+    public void updateControllable(Menu context){
         currentUnit = (Unit)context.getControllableCollection().get(currentType, currentInstance);
     }
     public int getCurrentInstance() {return currentInstance;}
@@ -117,5 +120,15 @@ public abstract class UnitMenuState implements MenuState{
 
     public int getCurrentType() {return currentType;}
     public void setCurrentType(int currentType) {this.currentType = currentType;}
+
+    public String typeToString(){
+        switch (currentType){
+            case ControllableCollection.EXPLORERTYPE: return "Explorer";
+            case ControllableCollection.COLONISTTYPE: return "Colonist";
+            case ControllableCollection.MELEEUNITTYPE: return "Melee";
+            case ControllableCollection.RANGEDUNITTYPE: return "Ranged";
+        }
+        return null;
+    }
 
 }

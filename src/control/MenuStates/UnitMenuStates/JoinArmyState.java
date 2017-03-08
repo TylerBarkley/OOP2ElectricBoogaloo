@@ -1,7 +1,6 @@
 package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
-import control.MenuStates.MenuState;
 import control.MenuStates.UnitMenuState;
 
 /**
@@ -9,14 +8,14 @@ import control.MenuStates.UnitMenuState;
  */
 public class JoinArmyState extends UnitMenuState {
 
-    static JoinArmyState instance = new JoinArmyState();
+    private static JoinArmyState instance = new JoinArmyState();
     public static JoinArmyState getInstance(){return instance;}
-    public JoinArmyState(){}
+    private JoinArmyState(){}
 
     @Override
     public void select(Menu context) {
 
-        updateUnit(context);
+        updateControllable(context);
         //TODO: currentUnit.joinArmy();  make join army menu
     }
 
@@ -24,12 +23,14 @@ public class JoinArmyState extends UnitMenuState {
         UnitMenuState nextState = MakeArmyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
+        nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
         UnitMenuState nextState = BuildCapitalState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
+        nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
