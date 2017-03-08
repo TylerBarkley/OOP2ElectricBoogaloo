@@ -6,6 +6,8 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import model.Controllables.Units.Unit;
+
 public class StatusViewport extends JPanel {
 
 	private int width;
@@ -78,6 +80,40 @@ public class StatusViewport extends JPanel {
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.orange);
+	}
+	
+	public void displayUnitStats(Unit unit, int instance, String unitName) {
+		
+		String unitStats = unitName + " " + instance + "\n" 
+		+ "Health: " + unit.getCurrentHealth() + "\n"
+		+ "Movement: " + unit.getMovement() + "\n"
+		+ "Upkeep: " + unit.getUpkeep();
+		
+		String areaText = unitArea.getText();
+		int index = areaText.indexOf(unitName + " " + instance);
+		
+		if(index >= 0) {
+			
+			String oldStats = areaText.substring(index, areaText.indexOf("\n\n",index));
+			areaText = areaText.replace(oldStats, unitStats);
+		}
+		else {
+			areaText = areaText + unitStats + "\n\n";
+		}
+		
+		unitArea.setText(areaText);
+		
+	}
+	
+	public void removeUnitStats(String unitName, int instance) {
+		
+		String areaText = unitArea.getText();
+		int index = areaText.indexOf(unitName + " " + instance);
+		String unitStats = "\n\n" + areaText.substring(index, areaText.indexOf("\n\n",index));
+		
+		areaText = areaText.replace(unitStats, "");
+		unitArea.setText(areaText);
+		
 	}
 	
 }

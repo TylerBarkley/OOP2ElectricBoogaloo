@@ -6,4 +6,12 @@ package model;
 public class UnitStats extends Stats{
     int offensiveDamage;
     int movement;
+    
+    public int getOffensiveDamage() {
+    	return offensiveDamage;
+    }
+    
+    public int getMovement() {
+    	return movement;
+    }
 }

@@ -32,6 +32,18 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		}
 	}
 
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+	
+	public int getMovement() {
+		return myStats.getMovement();
+	}
+	
+	public int getUpkeep() {
+		return myStats.getUpkeep();
+	}
+	
 	public void makeArmy(){
 		//TODO just copy Iteration 1 code for this
 	}
