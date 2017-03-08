@@ -13,6 +13,7 @@ import model.Controllables.ControllableCollection;
  *
  * Q4D: are States allowed to access a context's field like a context itself?
  * Q4D: review good vs. bad casting
+ * TODO: write a reset() method to be called whenever turn changes or something dies
  */
 public class Menu {
 

@@ -22,7 +22,7 @@ public class RunTest {
 
     }
 
-    void debugMenu(){
+    void debugMenu(Menu menu){
         String input = "0";
         System.out.println("0: Mode Left    1: Mode Right\n" +
                 "2: Type Left   3: Type Right\n" +
@@ -31,7 +31,23 @@ public class RunTest {
         input = System.console().readLine();
         switch(input){
             case "0":
+               menu.cycleModeL();
+            case "1":
+                menu.cycleModeR();
+            case "2":
+                menu.cycleTypeL();
+            case "3":
+                menu.cycleTypeR();
+            case "4":
+                menu.cycleInstanceL();
+            case "5":
+                menu.cycleInstanceR();
+            case "6":
+                menu.cycleInstructionL();
+            case "7":
+                menu.cycleInstructionR();
         }
+        menu.printState();
 
     }
 }
