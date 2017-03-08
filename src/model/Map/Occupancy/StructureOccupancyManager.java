@@ -2,7 +2,7 @@ package model.Map.Occupancy;
 
 import model.Controllables.Structures.Structure;
 import model.Location;
-import model.Map.Items.Manager;
+import model.Map.Manager;
 
 /**
  * Created by zrgam_000 on 3/7/2017.

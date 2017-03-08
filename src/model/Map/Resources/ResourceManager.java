@@ -1,7 +1,7 @@
 package model.Map.Resources;
 
 import model.Location;
-import model.Map.Items.Manager;
+import model.Map.Manager;
 
 /**
  * Created by zrgam_000 on 3/5/2017.
