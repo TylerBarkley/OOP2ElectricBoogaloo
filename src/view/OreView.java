@@ -5,12 +5,13 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import model.ID;
 import model.Location;
 
 public class OreView extends ResourceView {
 
-	public OreView(BufferedImage image, Location loc, int quantity) {
-		super(image, loc, quantity, Color.BLACK);
+	public OreView(ID id, BufferedImage image, Location loc, int quantity) {
+		super(id, image, loc, quantity, Color.BLACK);
 	}
 
 	public void draw(Graphics2D g2d, int x, int y)

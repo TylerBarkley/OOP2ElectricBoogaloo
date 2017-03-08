@@ -1,13 +1,16 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
+import model.observers.DeathObservable;
 import utilities.Visitor;
 
 
-public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
+
+public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private UnitStats myStats;
+	private UnitID id;
 
 	protected Unit(){
 		myStats = new UnitStats();
@@ -16,6 +19,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 	//public abstract void accept(Visitor visitor);
 
 	public void killMe() {
+		notifyObservers(id);
 		//TODO KILLING SELF
 		//REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
 		//POSSIBLY USING PLAYER MANAGER
@@ -54,6 +58,16 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
+	}
+
+	public void setID(UnitID id)
+	{
+		this.id=id;
+	}
+
+	public UnitID getID() 
+	{
+		return id;
 	}
 
 	public UnitStats getMyStats(){

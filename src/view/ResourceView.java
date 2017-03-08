@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import model.ID;
 import model.Location;
 
 public abstract class ResourceView extends ImageView{
@@ -15,9 +16,9 @@ public abstract class ResourceView extends ImageView{
 	private Font font;
 	
 	
-	public ResourceView(BufferedImage image, Location loc, int quantity, Color textColor) 
+	public ResourceView(ID id, BufferedImage image, Location loc, int quantity, Color textColor) 
 	{
-		super(image, loc);
+		super(id, image, loc);
 		this.quantity=quantity;
 		font = new Font("Times New Roman", Font.BOLD, 20);
 		this.textColor=textColor;
