@@ -25,7 +25,7 @@ public class StructureStats {
         return upkeep;
     }
 
-    public int getDefensiveDammage() {
+    public int getDefensiveDamage() {
         return defensiveDamage;
     }
 
