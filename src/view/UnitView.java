@@ -13,7 +13,7 @@ public class UnitView extends ImageView {
 		super(id, image, loc, rotation);
 	}
 
-	public UnitView(UnitID id, BufferedImage image, Location loc) {
+	public UnitView(ID id, BufferedImage image, Location loc) {
 		super(id, image, loc);
 	}
 

@@ -15,7 +15,7 @@ public class StructureView extends ImageView
 		super(id, image, loc, rotation);
 	}
 
-	public StructureView(StructureID id, BufferedImage image, Location loc) 
+	public StructureView(ID id, BufferedImage image, Location loc) 
 	{
 		super(id, image, loc);
 	}

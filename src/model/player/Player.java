@@ -19,16 +19,22 @@ import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitManager;
+import model.Map.Resources.Energy;
+import model.Map.Resources.Food;
+import model.Map.Resources.Ore;
 
 public class Player {
 	private PlayerID id;
 	
 	private UnitManager unitManager;
+	private StructureManager structureManager;
 
 	private ArrayList<Army> armies;
 	private ArrayList<Worker> workers;
-
-	private StructureManager structureManager;
+	
+	private Food food;
+	private Energy energy;
+	private Ore ore;
 	
 	public Player()
 	{
@@ -39,6 +45,10 @@ public class Player {
 
 		armies=new ArrayList<Army>();
 		workers=new ArrayList<Worker>();
+		
+		food=new Food(0);
+		energy=new Energy(0);
+		ore=new Ore(0);
 	}
 
 	public PlayerID getId() {
@@ -109,7 +119,18 @@ public class Player {
 		return armies.add(army);
 	}
 
-	public boolean addWorker(Worker worker) {
+	public boolean addWorker(Worker worker) 
+	{
+		if(workers.size() >= 100)
+		{
+			return false;
+		}
 		return workers.add(worker);
+	}
+	
+	public void chargeResources()
+	{
+		unitManager.chargeResources(food);
+		//structureManager.chargeResources(ore, energy);
 	}
 }

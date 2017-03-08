@@ -1,5 +1,6 @@
 package model.Controllables;
-import utilities.Visitor;
+
+import model.Visitor;
 
 public class Worker{
 

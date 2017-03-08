@@ -106,4 +106,12 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 	public void setMapDirection(MapDirection md){
 		this.md = md;
 	}
+
+	public void malnourish() {
+		// TODO This is called if there aren't enough resources for upkeep
+	}
+
+	public int getUpkeep() {
+		return myStats.getUpkeep();
+	}
 }
