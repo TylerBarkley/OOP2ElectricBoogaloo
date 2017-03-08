@@ -3,6 +3,10 @@ package model.Controllables.Units;
 import java.util.ArrayList;
 
 import model.ControllableID;
+import model.Energy;
+import model.Food;
+import model.Ore;
+import model.ResourceLevel;
 import model.UnitID;
 import model.observers.DeathObserver;
 import model.player.PlayerID;
@@ -172,6 +176,25 @@ public class UnitManager implements DeathObserver{
 		if(unit != null)
 		{
 			totalUnits--;
+		}
+	}
+
+	public void chargeResources(Food food) {
+		ArrayList<Unit> units=getUnits();
+		int foodQuantity = food.getAmount();
+		
+		for(Unit unit: units)
+		{
+			int cost = unit.getUpkeep();
+			
+			if(foodQuantity < cost)
+			{
+				unit.malnourish();
+			}
+			else
+			{
+				foodQuantity-=cost;
+			}
 		}
 	}
 }

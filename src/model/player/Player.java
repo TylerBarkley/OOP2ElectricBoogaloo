@@ -2,6 +2,10 @@ package model.player;
 
 import java.util.ArrayList;
 
+import model.Energy;
+import model.Food;
+import model.Ore;
+import model.ResourceLevel;
 import model.Controllables.Army;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
@@ -24,11 +28,14 @@ public class Player {
 	private PlayerID id;
 	
 	private UnitManager unitManager;
+	private StructureManager structureManager;
 
 	private ArrayList<Army> armies;
 	private ArrayList<Worker> workers;
-
-	private StructureManager structureManager;
+	
+	private Food food;
+	private Energy energy;
+	private Ore ore;
 	
 	public Player()
 	{
@@ -39,6 +46,10 @@ public class Player {
 
 		armies=new ArrayList<Army>();
 		workers=new ArrayList<Worker>();
+		
+		food=new Food();
+		energy=new Energy();
+		ore=new Ore();
 	}
 
 	public PlayerID getId() {
@@ -109,7 +120,18 @@ public class Player {
 		return armies.add(army);
 	}
 
-	public boolean addWorker(Worker worker) {
+	public boolean addWorker(Worker worker) 
+	{
+		if(workers.size() >= 100)
+		{
+			return false;
+		}
 		return workers.add(worker);
+	}
+	
+	public void chargeResources()
+	{
+		unitManager.chargeResources(food);
+		//structureManager.chargeResources(ore, energy);
 	}
 }

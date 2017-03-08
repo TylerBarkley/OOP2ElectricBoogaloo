@@ -74,4 +74,13 @@ public abstract class Unit implements Controllable, BasicStats //implements Over
 	{
 		return id;
 	}
+
+	public int getUpkeep(){
+		//TODO This may be abstract but it needs to be implemented;
+		return 0;
+	}
+
+	public void malnourish() {
+		// TODO This is called when there aren't enough resources for upkeep	
+	}
 }
