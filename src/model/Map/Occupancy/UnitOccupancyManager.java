@@ -10,6 +10,11 @@ import model.Map.Manager;
 public class UnitOccupancyManager extends Manager<UnitOccupancy> {
 
     public boolean checkPlayer(int pid, Location loc){
+
+        if(get(loc) == null){
+            return true;
+        }
+
         return pid == get(loc).getPid();
     }
 
@@ -24,6 +29,8 @@ public class UnitOccupancyManager extends Manager<UnitOccupancy> {
 
     public Unit addUnit(Unit target, Location loc){
         UnitOccupancy uo = get(loc);
+
+        target.setLocation(loc);
 
         if(uo != null){
             uo.addUnit(target);

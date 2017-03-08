@@ -10,6 +10,11 @@ import model.Map.Manager;
 public class StructureOccupancyManager extends Manager<StructureOccupancy>{
 
     public boolean checkPlayer(int pid, Location loc){
+
+        if(get(loc) == null){
+            return true;
+        }
+
         return pid == get(loc).getPid();
     }
 

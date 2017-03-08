@@ -3,16 +3,18 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import model.ID;
 import model.Location;
+import model.Controllables.Units.UnitID;
 
 public class UnitView extends ImageView {
 
-	public UnitView(BufferedImage image, Location loc, int rotation) {
-		super(image, loc, rotation);
+	public UnitView(ID id, BufferedImage image, Location loc, int rotation) {
+		super(id, image, loc, rotation);
 	}
 
-	public UnitView(BufferedImage image, Location loc) {
-		super(image, loc);
+	public UnitView(UnitID id, BufferedImage image, Location loc) {
+		super(id, image, loc);
 	}
 
 	public void draw(Graphics2D g2d, int x, int y)

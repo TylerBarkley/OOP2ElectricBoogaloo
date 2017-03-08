@@ -4,12 +4,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import model.ID;
 import model.Location;
 
 public class FocusView extends ImageView {
-	public FocusView(Location loc)  
+	public FocusView(ID id, Location loc)  
 	{
-		super(loc);
+		super(id, loc);
 		
 		try 
 		{

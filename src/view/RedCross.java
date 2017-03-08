@@ -4,13 +4,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import model.ID;
 import model.Location;
 
 public class RedCross extends Decal 
 {
-	public RedCross(Location loc)  
+	public RedCross(ID id, Location loc)  
 	{
-		super(loc);
+		super(id, loc);
 		
 		try 
 		{
