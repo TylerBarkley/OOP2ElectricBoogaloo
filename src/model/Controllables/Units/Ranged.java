@@ -9,13 +9,13 @@ public class Ranged extends Unit {
 	}
 
 	public Ranged(){
-		this.myStats.setHealth(100);
-		this.myStats.setArmor(5);
-		this.myStats.setUpkeep(5);
-		this.myStats.setDefensiveDamage(10);
-		this.myStats.setInfluenceRadius(2);
-		this.myStats.setOffensiveDamage(10);
-		this.myStats.setMovement(2);
+		this.getMyStats().setHealth(100);
+		this.getMyStats().setArmor(5);
+		this.getMyStats().setUpkeep(5);
+		this.getMyStats().setDefensiveDamage(10);
+		this.getMyStats().setInfluenceRadius(2);
+		this.getMyStats().setOffensiveDamage(10);
+		this.getMyStats().setMovement(2);
 		this.setCurrentHealth(100);
 	}
 

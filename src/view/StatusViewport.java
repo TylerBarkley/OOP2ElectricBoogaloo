@@ -86,8 +86,8 @@ public class StatusViewport extends JPanel {
 		
 		String unitStats = unitName + " " + instance + "\n" 
 		+ "Health: " + unit.getCurrentHealth() + "\n"
-		+ "Movement: " + unit.getMovement() + "\n"
-		+ "Upkeep: " + unit.getUpkeep();
+		+ "Movement: " + unit.getMyStats().getMovement() + "\n"
+		+ "Upkeep: " + unit.getMyStats().getUpkeep();
 		
 		String areaText = unitArea.getText();
 		int index = areaText.indexOf(unitName + " " + instance);

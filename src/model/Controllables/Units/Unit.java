@@ -7,7 +7,7 @@ import utilities.Visitor;
 public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
-	UnitStats myStats;
+	private UnitStats myStats;
 	
 	//public abstract void accept(Visitor visitor);
 
@@ -46,5 +46,13 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void makeArmy(){
 		//TODO just copy Iteration 1 code for this
+	}
+
+	public void setMyStats(UnitStats myStats) {
+		this.myStats = myStats;
+	}
+
+	public UnitStats getMyStats(){
+		return this.myStats;
 	}
 }
