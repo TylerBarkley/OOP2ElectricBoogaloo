@@ -1,15 +1,16 @@
 package model.Controllables.Units;
 
+import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
 import utilities.Visitor;
-import model.UnitStats;
 
-public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
+
+public abstract class Unit implements Controllable, BasicStats //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
-	private UnitStats myStats;
+	BasicStats myStats;
 	
-	public abstract void accept(Visitor visitor);
+	//public abstract void accept(Visitor visitor);
 
 	public void killMe() {
 		//TODO KILLING SELF
@@ -37,10 +38,6 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public int getCurrentHealth(){
 		return currentHealth;
-	}
-
-	public void setMyStats(UnitStats myStats) {
-		this.myStats = myStats;
 	}
 
 	public void setCurrentHealth(int i) {

@@ -1,14 +1,21 @@
 package model.Controllables.Units;
-
-import model.UnitStats;
+import model.Controllables.Stats.RangedStats;
 import utilities.Visitor;
 
 public class Ranged extends Unit {
 
-	public Ranged(){
-		//TODO REPLACE WITH STATS FACTORY
-		this.setMyStats(new UnitStats(100, 5, 5, 10, 2, 10, 2));
-		this.setCurrentHealth(100);
+	RangedStats myStats;
+
+	public int getUpkeep(){
+		return this.myStats.getUpkeep();
+	}
+
+	public int getHealth(){
+		return this.myStats.getHealth();
+	}
+
+	public int getArmor() {
+		return this.myStats.getArmor();
 	}
 
 	public void accept(Visitor visitor){
