@@ -7,7 +7,7 @@ import model.Controllables.Units.Ranged;
 import model.Map.Tile;
 import model.Controllables.Worker;
 
-public class EnemyVisitor implements Visitor {
+public class EnemyVisitor implements UnitVisitor,WorkerVisitor,TileVisitor {
 
 	@Override
 	public void visit(Colonist unit) {

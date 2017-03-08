@@ -1,7 +1,7 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
-import utilities.Visitor;
+import utilities.UnitVisitor;
 
 
 public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
