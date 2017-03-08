@@ -1,15 +1,26 @@
 package model.Controllables.Stats;
 
+import model.Controllables.BasicStats;
+
 /**
  * Created by Tyler Barkley on 3/7/2017.
  */
-public class UniversityStats {
+public class UniversityStats implements BasicStats{
     private int health;
     private int armor;
     private int upkeep;
     private int defensiveDamage;
     private int influenceRadius;
     private int productionRate;
+
+    public UniversityStats(){
+        health = 100;
+        armor = 3;
+        upkeep = 20;
+        defensiveDamage = 5;
+        influenceRadius = 1;
+        productionRate = 5;
+    }
 
     public int getArmor() {
         return armor;

@@ -1,16 +1,27 @@
 package model.Controllables.Stats;
 
+import model.Controllables.BasicStats;
+
 /**
  * Created by Tyler Barkley on 3/7/2017.
  */
-public class MeleeStats {
+public class MeleeStats implements BasicStats{
     private int health;
     private int armor;
     private int upkeep;
-    private int defensiveDammage;
+    private int defensiveDamage;
     private int influenceRadius;
     private int offensiveDamage;
     private int movement;
+
+    public MeleeStats(){
+        health = 100;
+        armor = 9;
+        upkeep = 10;
+        defensiveDamage = 5;
+        influenceRadius = 1;
+        movement = 1;
+    }
 
     public int getArmor() {
         return armor;
@@ -24,8 +35,8 @@ public class MeleeStats {
         return upkeep;
     }
 
-    public int getDefensiveDammage() {
-        return defensiveDammage;
+    public int getDefensiveDamage() {
+        return defensiveDamage;
     }
 
     public int getInfluenceRadius() {
@@ -52,8 +63,8 @@ public class MeleeStats {
         this.influenceRadius = influenceRadius;
     }
 
-    public void setDefensiveDammage(int defensiveDammage) {
-        this.defensiveDammage = defensiveDammage;
+    public void setDefensiveDamage(int defensiveDamage) {
+        this.defensiveDamage = defensiveDamage;
     }
 
     public void setUpkeep(int upkeep) {
