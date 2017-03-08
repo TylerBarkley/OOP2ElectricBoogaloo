@@ -9,8 +9,12 @@ import java.util.HashMap;
  * Created by zrgam_000 on 3/7/2017.
  */
 public class UnitOccupancy {
-    ArrayList<Unit> occupyingUnits;
-    int pid;
+    private ArrayList<Unit> occupyingUnits;
+    private int pid;
+
+    public UnitOccupancy(){
+        occupyingUnits = new ArrayList<Unit>();
+    }
 
     public void removeUnit(Unit target){
         occupyingUnits.remove(target);
@@ -22,5 +26,9 @@ public class UnitOccupancy {
 
     public int getPid() {
         return pid;
+    }
+
+    public int getUnitCount(){
+        return occupyingUnits.size();
     }
 }

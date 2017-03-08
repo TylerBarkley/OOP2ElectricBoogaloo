@@ -14,7 +14,29 @@ public class UnitOccupancyManager extends Manager<UnitOccupancy> {
     }
 
     public void removeUnit(Unit target, Location loc){
-        get(loc).removeUnit(target);
+        UnitOccupancy uo = get(loc);
+        uo.removeUnit(target);
+
+        if(uo.getUnitCount() == 0){
+            remove(loc);
+        }
+    }
+
+    public Unit addUnit(Unit target, Location loc){
+        UnitOccupancy uo = get(loc);
+
+        if(uo != null){
+            uo.addUnit(target);
+            return target;
+        }
+
+        uo = new UnitOccupancy();
+
+        uo.addUnit(target);
+
+        this.add(loc, uo);
+
+        return target;
     }
 
 }
