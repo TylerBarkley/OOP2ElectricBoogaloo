@@ -4,9 +4,9 @@ import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
 
+import utilities.StructureVisitor;
 import model.observers.DeathObservable;
 
-import utilities.Visitor;
 
 public abstract class Structure extends DeathObservable implements Controllable {
     int currentHealth;
