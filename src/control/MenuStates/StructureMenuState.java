@@ -92,7 +92,7 @@ public abstract class StructureMenuState implements MenuState {
         updateControllable(context);
     }
     public void reset(Menu context){
-        currentType = 1;
+        currentType = ControllableCollection.FARMTYPE;
         cycleTypeL(context);
         currentInstance = 1;
         cycleInstanceL(context);

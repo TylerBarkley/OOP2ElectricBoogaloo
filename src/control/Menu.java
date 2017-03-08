@@ -61,12 +61,16 @@ public class Menu {
             switch (currentMode){
                 case RALLYPOINTMODE:
                     setMenuState(RPBuildState.getInstance());
+                    break;
                 case ARMYMODE:
                     setMenuState(ArmyAttackState.getInstance());
+                    break;
                 case UNITMODE:
                     setMenuState(MakeArmyState.getInstance());
+                    break;
                 case STRUCTUREMODE:
                     setMenuState(StructureAttackState.getInstance());
+                    break;
             }
             menuState.reset(this);
         }
@@ -84,12 +88,16 @@ public class Menu {
             switch (currentMode){
                 case RALLYPOINTMODE:
                     setMenuState(RPBuildState.getInstance());
+                    break;
                 case ARMYMODE:
                     setMenuState(ArmyAttackState.getInstance());
+                    break;
                 case UNITMODE:
                     setMenuState(MakeArmyState.getInstance());
+                    break;
                 case STRUCTUREMODE:
                     setMenuState(StructureAttackState.getInstance());
+                    break;
             }
             menuState.reset(this);
         }

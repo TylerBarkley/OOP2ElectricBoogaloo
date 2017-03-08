@@ -106,10 +106,11 @@ public abstract class UnitMenuState implements MenuState{
     public abstract void cycleInstructionR(Menu context);
 
     public void reset(Menu context){
-        currentType = 1;
+        currentType = ControllableCollection.COLONISTTYPE;
         cycleTypeL(context);
         currentInstance = 1;
         cycleInstanceL(context);
+        updateControllable(context);
     }
 
     public void updateControllable(Menu context){

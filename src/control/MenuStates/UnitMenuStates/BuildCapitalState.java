@@ -19,7 +19,7 @@ public class BuildCapitalState extends UnitMenuState {
         //TODO: currentUnit.buildCapital();
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = BuildCapitalState.getInstance();
+        UnitMenuState nextState = JoinArmyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

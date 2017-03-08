@@ -18,7 +18,7 @@ public class StandbyState extends UnitMenuState {
         //TODO: currentUnit.standby();
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = StandbyState.getInstance();
+        UnitMenuState nextState = BuildCapitalState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

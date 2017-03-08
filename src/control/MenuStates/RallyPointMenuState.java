@@ -8,7 +8,7 @@ import model.Controllables.ControllableCollection;
  * Created by hankerins on 3/5/17.
  */
 public abstract class RallyPointMenuState implements MenuState {
-    protected int currentInstance = 0, currentType = 0;
+    protected int currentInstance = 0, currentType = ControllableCollection.ARMYTYPE;
     protected Army currentArmy;
 
     public void cycleTypeL (Menu context){

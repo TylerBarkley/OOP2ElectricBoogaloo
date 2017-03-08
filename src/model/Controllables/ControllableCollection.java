@@ -87,7 +87,7 @@ public class ControllableCollection {
     //cycling through modes in the menu
     public boolean controllableExists(int modeType){
         if(modeType == Menu.UNITMODE) {
-            System.out.println("CHECKING UNITMODE");
+            //System.out.println("CHECKING UNITMODE");
             for (int i = 0; i < 10 ; i++) {
                 if(colonists.get(i) != null)
                     return true;
@@ -99,7 +99,7 @@ public class ControllableCollection {
                     return true;
             }
         } else if(modeType==Menu.STRUCTUREMODE){
-            System.out.println("CHECKING STRUCTUREMODE");
+            //System.out.println("CHECKING STRUCTUREMODE");
             for (int i = 0; i < 10 ; i++) {
                 if(capitals.get(i) != null)
                     return true;
@@ -117,14 +117,14 @@ public class ControllableCollection {
                     return true;
             }
         } else if(modeType==Menu.RALLYPOINTMODE){
-            System.out.println("CHECKING RALLYPOINT");
+            //System.out.println("CHECKING RALLYPOINT");
             for (int i = 0; i < armies.size(); i++) {
                 if (armies.get(i) != null){
                     return true;
                 }
             }
         } else if(modeType==Menu.ARMYMODE){
-            System.out.println("CHECKING ARMYMODE");
+            //System.out.println("CHECKING ARMYMODE");
             for (int i = 0; i < armies.size(); i++) {
                 if (armies.get(i) != null){
                     return true;

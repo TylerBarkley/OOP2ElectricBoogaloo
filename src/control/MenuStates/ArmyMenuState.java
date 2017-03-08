@@ -93,7 +93,7 @@ public abstract class ArmyMenuState implements MenuState{
         updateControllable(context);
     }
     public void reset(Menu context){
-        currentType = 1;
+        currentType = ControllableCollection.BATTLEGROUPTYPE;
         cycleTypeL(context);
         currentInstance = 1;
         cycleInstanceL(context);
