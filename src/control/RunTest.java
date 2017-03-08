@@ -68,6 +68,7 @@ public class RunTest {
                 break;
             case 3:
                 menu.cycleTypeR();
+                break;
             case 4:
                 menu.cycleInstanceL();
                 break;

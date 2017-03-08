@@ -13,7 +13,6 @@ import model.Controllables.ControllableCollection;
  *
  * Q4D: are States allowed to access a context's field like a context itself?
  * Q4D: review good vs. bad casting
- * TODO: write a reset() method to be called whenever turn changes or something dies
  */
 public class Menu {
 
@@ -103,26 +102,19 @@ public class Menu {
         }
     }
 
-    void cycleTypeL(){
-        menuState.cycleTypeL(this);
-    }
-    void cycleTypeR(){
-        menuState.cycleTypeR(this);
+    //Call reset() at beginning of turn or when a Controllable ceases to exist
 
+    void reset(){
+        cycleModeL();
+        cycleModeR();
     }
-    void cycleInstanceL(){
-        menuState.cycleInstanceL(this);
-    }
-    void cycleInstanceR(){
-        menuState.cycleInstanceR(this);
-    }
-    void cycleInstructionL(){
-        menuState.cycleInstructionL(this);
-    }
-    void cycleInstructionR(){
-        menuState.cycleInstructionR(this);
 
-    }
+    void cycleTypeL(){menuState.cycleTypeL(this);}
+    void cycleTypeR(){menuState.cycleTypeR(this);}
+    void cycleInstanceL(){menuState.cycleInstanceL(this);}
+    void cycleInstanceR(){menuState.cycleInstanceR(this);}
+    void cycleInstructionL(){menuState.cycleInstructionL(this);}
+    void cycleInstructionR(){menuState.cycleInstructionR(this);}
 
     public MenuState getMenuState() {return menuState;}
     public void setMenuState(MenuState menuState){this.menuState = menuState;}
