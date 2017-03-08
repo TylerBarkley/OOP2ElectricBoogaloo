@@ -89,5 +89,10 @@ public class AreaViewportTest {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 
+	public static void main(String args[]) {
+		AreaViewportTest test = new AreaViewportTest();
+		test.smokeTest();
+	}
 }

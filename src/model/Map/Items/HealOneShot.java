@@ -1,6 +1,6 @@
 package model.Map.Items;
 
-import model.Unit;
+import model.Controllables.Units.Unit;
 
 /**
  * Created by zrgam_000 on 3/5/2017.

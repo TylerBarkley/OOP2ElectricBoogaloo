@@ -1,6 +1,6 @@
 package model.Map.AOE;
 
-import model.Unit;
+import model.Controllables.Units.Unit;
 
 public interface AOE
 {

@@ -1,7 +1,7 @@
 package model.Map.Items;
 
 import model.Location;
-import model.Unit;
+import model.Controllables.Units.Unit;
 
 public class OneShotManager extends Manager<OneShotItem> {
 
