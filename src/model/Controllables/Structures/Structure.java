@@ -33,10 +33,6 @@ public abstract class Structure implements Controllable {
         }
     }
 
-    public void makeArmy(){
-        //TODO just copy Iteration 1 code for this
-    }
-
     public void setMyStats(StructureStats myStats) {
         this.myStats = myStats;
     }
