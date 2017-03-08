@@ -18,7 +18,7 @@ public class Ranged extends Unit {
 		this.getMyStats().setOffensiveDamage(10);
 		this.getMyStats().setMovement(2);
 		this.setCurrentHealth(100);
-		
+
 	}
 
 
