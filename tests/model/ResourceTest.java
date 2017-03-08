@@ -39,9 +39,9 @@ public class ResourceTest {
 
         assertEquals(10, ore.addAmount(10));
 
-        assertEquals(80, ore.getAmount());
+        assertEquals(90, ore.getAmount());
 
-        assertEquals(80, ore.mineAmount(100));
+        assertEquals(90, ore.mineAmount(100));
 
         assertEquals(0, ore.getAmount());
     }
@@ -56,9 +56,9 @@ public class ResourceTest {
 
         assertEquals(10, energy.addAmount(10));
 
-        assertEquals(80, energy.getAmount());
+        assertEquals(90, energy.getAmount());
 
-        assertEquals(80, energy.mineAmount(100));
+        assertEquals(90, energy.mineAmount(100));
 
         assertEquals(0, energy.getAmount());
     }
@@ -73,9 +73,9 @@ public class ResourceTest {
 
         assertEquals(10, food.addAmount(10));
 
-        assertEquals(80, food.getAmount());
+        assertEquals(90, food.getAmount());
 
-        assertEquals(80, food.mineAmount(100));
+        assertEquals(90, food.mineAmount(100));
 
         assertEquals(0, food.getAmount());
 

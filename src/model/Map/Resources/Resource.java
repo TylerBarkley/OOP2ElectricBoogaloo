@@ -20,7 +20,7 @@ public abstract class Resource
 	
 	public int addAmount(int quantity)
 	{
-		quantity+=quantity;
+		this.quantity+=quantity;
 		return quantity;
 	}
 	
