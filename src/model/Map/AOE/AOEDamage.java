@@ -1,4 +1,4 @@
-package model.AOE;
+package model.Map.AOE;
 
 import model.Controllables.Units.Unit;
 
@@ -7,7 +7,7 @@ import model.Controllables.Units.Unit;
  */
 public class AOEDamage implements AOE {
 
-    int intensity;
+    private int intensity;
 
     public AOEDamage(){
         intensity = 10;
@@ -20,5 +20,9 @@ public class AOEDamage implements AOE {
     @Override
     public void apply(Unit target) {
         target.damageMe(intensity);
+    }
+
+    public int getIntensity(){
+        return intensity;
     }
 }

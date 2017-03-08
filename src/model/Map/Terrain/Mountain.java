@@ -1,4 +1,4 @@
-package model;
+package model.Map.Terrain;
 
 public class Mountain extends Terrain
 {

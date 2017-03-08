@@ -1,10 +1,12 @@
-package model;
+package model.Map.Resources;
 
 public abstract class Resource 
 {
 	private int quantity;
 	
-	//TODO Constructors
+	public Resource(int quantity){
+		this.quantity = quantity;
+	}
 	
 	public int getAmount()
 	{
@@ -16,9 +18,9 @@ public abstract class Resource
 		this.quantity=quantity;
 	}
 	
-	protected int addAmount(int quantity)
+	public int addAmount(int quantity)
 	{
-		quantity+=quantity;
+		this.quantity+=quantity;
 		return quantity;
 	}
 	

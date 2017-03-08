@@ -1,11 +1,17 @@
-package model;
+package model.Map.Resources;
 
 public class ResourceLevel 
 {
 	private Ore ore;
 	private Energy energy;
 	private Food food;
-	
+
+	public ResourceLevel(int oreLevel, int energyLevel, int foodLevel){
+		ore = new Ore(oreLevel);
+		energy = new Energy(energyLevel);
+		food = new Food(foodLevel);
+	}
+
 	public int getOreLevel() 
 	{
 		return ore.getAmount();

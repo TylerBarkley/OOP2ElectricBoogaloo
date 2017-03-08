@@ -1,4 +1,6 @@
-package model;
+package model.Map;
+
+import model.Map.Terrain.Terrain;
 
 public class Tile {
 	private Terrain terrain;

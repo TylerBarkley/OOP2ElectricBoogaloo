@@ -10,6 +10,14 @@ public class Stats {
     private int defensiveDammage;
     private int influenceRadius;
 
+    public Stats(int health, int armor, int upkeep, int defensiveDammage, int influenceRadius){
+        this.health = health;
+        this.armor = armor;
+        this.upkeep = upkeep;
+        this.defensiveDammage = defensiveDammage;
+        this.influenceRadius = influenceRadius;
+    }
+
     public int getArmor() {
         return armor;
     }

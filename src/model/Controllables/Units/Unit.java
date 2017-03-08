@@ -7,7 +7,7 @@ import utilities.Visitor;
 
 public abstract class Unit implements Controllable, BasicStats //implements OverviewVisitable, TurnObserver
 {
-	int currentHealth;
+	private int currentHealth;
 	BasicStats myStats;
 	
 	//public abstract void accept(Visitor visitor);
@@ -16,6 +16,10 @@ public abstract class Unit implements Controllable, BasicStats //implements Over
 		//TODO KILLING SELF
 		//REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
 		//POSSIBLY USING PLAYER MANAGER
+		//Possibly a death observer/visitor
+
+		//FOR TESTING PURPOSES
+		System.out.println("KILLING");
 	}
 
 	public void damageMe(int intensity) {
@@ -30,6 +34,14 @@ public abstract class Unit implements Controllable, BasicStats //implements Over
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
+	}
+
+	public int getCurrentHealth(){
+		return currentHealth;
+	}
+
+	public void setCurrentHealth(int i) {
+		this.currentHealth = i;
 	}
 
 	public void makeArmy(){

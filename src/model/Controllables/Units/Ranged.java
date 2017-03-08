@@ -1,5 +1,4 @@
 package model.Controllables.Units;
-
 import model.Controllables.Stats.RangedStats;
 import utilities.Visitor;
 
@@ -15,7 +14,7 @@ public class Ranged extends Unit {
 		return this.myStats.getHealth();
 	}
 
-	public int getArmor(){
+	public int getArmor() {
 		return this.myStats.getArmor();
 	}
 

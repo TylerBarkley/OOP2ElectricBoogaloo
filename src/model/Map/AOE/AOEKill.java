@@ -1,4 +1,4 @@
-package model.AOE;
+package model.Map.AOE;
 
 import model.Controllables.Units.Unit;
 
