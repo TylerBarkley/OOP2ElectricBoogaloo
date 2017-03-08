@@ -3,19 +3,21 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import model.ID;
 import model.Location;
+import model.Controllables.Structures.StructureID;
 
 public class StructureView extends ImageView 
 {
 
-	public StructureView(BufferedImage image, Location loc, int rotation) 
+	public StructureView(ID id, BufferedImage image, Location loc, int rotation) 
 	{
-		super(image, loc, rotation);
+		super(id, image, loc, rotation);
 	}
 
-	public StructureView(BufferedImage image, Location loc) 
+	public StructureView(StructureID id, BufferedImage image, Location loc) 
 	{
-		super(image, loc);
+		super(id, image, loc);
 	}
 
 	public void draw(Graphics2D g2d, int x, int y)

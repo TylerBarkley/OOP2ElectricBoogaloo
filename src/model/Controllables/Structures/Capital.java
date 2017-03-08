@@ -5,4 +5,10 @@ package model.Controllables.Structures;
  */
 public class Capital extends Structure {
 
+
+
+
+
+
+
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import model.ID;
 import model.Location;
 
 public class ViewFactory {
@@ -83,98 +84,98 @@ public class ViewFactory {
 		}
 	}
 
-	public View getView(String id, Location loc, int rotation)
+	public View getView(ID id, String type, Location loc, int rotation)
 	{
-		switch(id)
+		switch(type)
 		{
 		case "Water":
 		case "EnemyWater":
-			return new TileView(water, loc, rotation);
+			return new TileView(id, water, loc, rotation);
 		case "Ground":
 		case "EnemyGround":
-			return new TileView(ground, loc, rotation);
+			return new TileView(id, ground, loc, rotation);
 		case "Mountain":
 		case "EnemyMountain":
-			return new TileView(mountain, loc, rotation);		
+			return new TileView(id, mountain, loc, rotation);		
 		case "UnknownTerrain":
-			return new TileView(unknown, loc, rotation);
+			return new TileView(id, unknown, loc, rotation);
 
 		case "Colonist":
-			return new UnitView(colonist, loc, rotation);
+			return new UnitView(id, colonist, loc, rotation);
 		case "Explorer":
-			return new UnitView(explorer, loc, rotation);			
+			return new UnitView(id, explorer, loc, rotation);			
 		case "Melee":
-			return new UnitView(melee, loc, rotation);
+			return new UnitView(id, melee, loc, rotation);
 		case "Ranged":
-			return new UnitView(ranged, loc, rotation);
+			return new UnitView(id, ranged, loc, rotation);
 		case "Worker":
-			return new UnitView(worker, loc, rotation);		
+			return new UnitView(id, worker, loc, rotation);		
 			
 		case "EnemyColonist":
-			return new UnitView(enemyColonist, loc, rotation);
+			return new UnitView(id, enemyColonist, loc, rotation);
 		case "EnemyExplorer":
-			return new UnitView(enemyExplorer, loc, rotation);
+			return new UnitView(id, enemyExplorer, loc, rotation);
 		case "EnemyMelee":
-			return new UnitView(enemyMelee, loc, rotation);
+			return new UnitView(id, enemyMelee, loc, rotation);
 		case "EnemyRanged":
-			return new UnitView(enemyRanged, loc, rotation);
+			return new UnitView(id, enemyRanged, loc, rotation);
 		case "EnemyWorker":
-			return new UnitView(enemyWorker, loc, rotation);
+			return new UnitView(id, enemyWorker, loc, rotation);
 
 		case "Capital":
-			return new StructureView(capital, loc, rotation);
+			return new StructureView(id, capital, loc, rotation);
 		case "University":
-			return new StructureView(university, loc, rotation);
+			return new StructureView(id, university, loc, rotation);
 		case "Mine":
-			return new StructureView(mine, loc, rotation);
+			return new StructureView(id, mine, loc, rotation);
 		case "Factory":
-			return new StructureView(factoryStructure, loc, rotation);
+			return new StructureView(id, factoryStructure, loc, rotation);
 		case "Farm":
-			return new StructureView(farm, loc, rotation);
+			return new StructureView(id, farm, loc, rotation);
 
 		case "EnemyCapital":
-			return new StructureView(enemyCapital, loc, rotation);
+			return new StructureView(id, enemyCapital, loc, rotation);
 		case "EnemyUniversity":
-			return new StructureView(enemyUniversity, loc, rotation);
+			return new StructureView(id, enemyUniversity, loc, rotation);
 		case "EnemyMine":
-			return new StructureView(enemyMine, loc, rotation);
+			return new StructureView(id, enemyMine, loc, rotation);
 		case "EnemyFactory":
-			return new StructureView(enemyFactory, loc, rotation);
+			return new StructureView(id, enemyFactory, loc, rotation);
 		case "EnemyFarm":
-			return new StructureView(enemyFarm, loc, rotation);
+			return new StructureView(id, enemyFarm, loc, rotation);
 			
 		default:
-			return new ImageView(unknown, loc, rotation);
+			return new ImageView(id, unknown, loc, rotation);
 		}
 	}
 
-	public CompositeView getCopositeResourceView(Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
+	public CompositeView getCopositeResourceView(ID id, Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
 	{
 		CompositeView view=new CompositeView();
-		view.add(new EnergyView(energy, loc, oreQuantity));
-		view.add(new FoodView(food, loc, foodQuantity));
-		view.add(new OreView(ore, loc, energyQuantity));
+		view.add(new EnergyView(id, energy, loc, oreQuantity));
+		view.add(new FoodView(id, food, loc, foodQuantity));
+		view.add(new OreView(id, ore, loc, energyQuantity));
 		return view;
 	}
 	
-	public View getView(String id, Location loc)
+	public View getView(ID id, String type, Location loc)
 	{
-		return getView(id, loc, 0);
+		return getView(id, type, loc, 0);
 	}
 
-	public View getView(String id, Location loc, int rotation, boolean isOpponent)
+	public View getView(ID id, String type, Location loc, int rotation, boolean isOpponent)
 	{
-		if(isOpponent && !id.startsWith("Enemy"))
+		if(isOpponent && !type.startsWith("Enemy"))
 		{
-			id="Enemy"+id;
+			type="Enemy"+type;
 		}
 		
-		return getView(id, loc, rotation);
+		return getView(id, type, loc, rotation);
 	}
 	
-	public View getView(String id, Location loc, boolean isOpponent)
+	public View getView(ID id, String type, Location loc, boolean isOpponent)
 	{
-		return getView(id, loc, 0, isOpponent);
+		return getView(id, type, loc, 0, isOpponent);
 	}
 	
 	public static ViewFactory getFactory() {

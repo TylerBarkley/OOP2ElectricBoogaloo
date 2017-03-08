@@ -11,7 +11,7 @@ public class StructureOccupancy {
 
     public void setStructure(Structure struct){
         occupyingStructure = struct;
-        //pid = struct.getPid();
+        pid = struct.getPid();
     }
 
 
