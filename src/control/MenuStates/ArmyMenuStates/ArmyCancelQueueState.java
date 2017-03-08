@@ -2,17 +2,14 @@ package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
-import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.StructureAttackState;
-import model.Controllables.Army;
 
 /**
  * Created by hankerins on 3/8/17.
  */
-public class ArmyAttackState extends ArmyMenuState {
-    private static ArmyAttackState instance = new ArmyAttackState();
-    public static ArmyAttackState getInstance(){return instance;}
-    private ArmyAttackState(){}
+public class ArmyCancelQueueState extends ArmyMenuState {
+    private static ArmyCancelQueueState instance = new ArmyCancelQueueState();
+    public static ArmyCancelQueueState getInstance(){return instance;}
+    private ArmyCancelQueueState(){}
 
     @Override
     public void select(Menu context) {
@@ -21,20 +18,20 @@ public class ArmyAttackState extends ArmyMenuState {
         //TODO: currentArmy.attack();
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
+        ArmyMenuState nextState = ArmyPowerUpState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyDefendState.getInstance();
+        ArmyMenuState nextState = ArmyAttackState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Attack";
+        return "Cancel Queue";
     }
 }

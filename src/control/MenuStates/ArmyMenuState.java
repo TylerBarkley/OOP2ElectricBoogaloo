@@ -9,6 +9,15 @@ import model.Controllables.Units.Unit;
  * Created by hankerins on 3/5/17.
  * TODO: don't know how we are handling battle group/reinforcements,
  * TODO: currently all 3 Types reference the whole army
+ *
+ * Attack
+ * Defend
+ * Wait
+ * Disband
+ * Decommission
+ * Powerdown
+ * Powerup
+ * CancelQueue
  */
 public abstract class ArmyMenuState implements MenuState{
     protected int currentInstance = 0, currentType = ControllableCollection.ARMYTYPE ;
