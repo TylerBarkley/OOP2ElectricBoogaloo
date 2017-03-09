@@ -11,6 +11,7 @@ public class StructureAdvancements {
     private int influenceRadius;
     private int offensiveDamage;
     private int productionRate;
+    private int workerRadius;
 
     public int getArmor() {
         return armor;
@@ -66,5 +67,13 @@ public class StructureAdvancements {
 
     public void setProductionRate(int productionRate) {
         this.productionRate = productionRate;
+    }
+
+    public int getWorkerRadius() {
+        return workerRadius;
+    }
+
+    public void setWorkerRadius(int workerRadius) {
+        this.workerRadius = workerRadius;
     }
 }
