@@ -67,4 +67,29 @@ public class UnitStats {
     public void setHealth(int health) {
         this.health = health;
     }
+    public void incrementMovement(int increment) {
+        this.movement += increment;
+    }
+
+    public void incrementInfluenceRadius(int increment) {
+        this.influenceRadius +=increment;
+    }
+
+    public void incrementDefensiveDamage(int increment) {
+        this.defensiveDamage += increment;
+    }
+
+    public void incrementUpkeep(int increment) {
+        this.upkeep += increment;
+    }
+
+    public void incrementArmor(int increment) {
+        this.armor +=increment;
+    }
+
+    public void incrementHealth(int increment) {
+
+        this.health += increment;
+    }
+    
 }

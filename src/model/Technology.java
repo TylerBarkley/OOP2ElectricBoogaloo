@@ -37,18 +37,30 @@ Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureSt
 public void editUnitStats(int unitType,String statToBeModified){
         switch(statToBeModified){
             case "health":
+                if(unitAdvancements.get(unitType).getHealth()>3){
+                    break;
+                }
                 unitStats.get(unitType).setHealth(unitStats.get(unitType).getHealth()+1);
                 unitAdvancements.get(unitType).setHealth(unitAdvancements.get(unitType).getHealth()+1);
                 break;
             case "armor":
+                if(unitAdvancements.get(unitType).getArmor()>3){
+                    break;
+                }
                 unitStats.get(unitType).setArmor(unitStats.get(unitType).getArmor()+1);
                 unitAdvancements.get(unitType).setArmor(unitAdvancements.get(unitType).getArmor()+1);
                 break;
             case "upkeep":
+                if(unitAdvancements.get(unitType).getUpkeep()>3){
+                    break;
+                }
                 unitStats.get(unitType).setUpkeep(unitStats.get(unitType).getUpkeep()- 1);
                 unitAdvancements.get(unitType).setUpkeep(unitAdvancements.get(unitType).getUpkeep()-1);
                 break;
             case "defensiveDamage":
+                if(unitAdvancements.get(unitType).getHealth()>3){
+                    break;
+                }
                 unitStats.get(unitType).setDefensiveDamage(unitStats.get(unitType).getDefensiveDamage()+1);
                 unitAdvancements.get(unitType).setDefensiveDamage(unitAdvancements.get(unitType).getDefensiveDamage()+1);
                 break;
@@ -72,35 +84,35 @@ public void editUnitStats(int unitType,String statToBeModified){
         switch(statToBeModified){
             case "health":
                 structureStats.get(structureType).setHealth(structureStats.get(structureType).getHealth()+1);
-                structureAdvancements.get(structureType).setHealth(structureAdvancements.get(structureType).getHealth()+1);
+                //structureAdvancements.get(structureType).setHealth(structureAdvancements.get(structureType).getHealth()+1);
                 break;
             case "armor":
                 structureStats.get(structureType).setArmor(structureStats.get(structureType).getArmor()+1);
-                structureAdvancements.get(structureType).setArmor(structureAdvancements.get(structureType).getArmor()+1);
+                //structureAdvancements.get(structureType).setArmor(structureAdvancements.get(structureType).getArmor()+1);
                 break;
             case "upkeep":
                 structureStats.get(structureType).setUpkeep(structureStats.get(structureType).getUpkeep()- 1);
-                structureAdvancements.get(structureType).setUpkeep(structureAdvancements.get(structureType).getUpkeep()-1);
+                //structureAdvancements.get(structureType).setUpkeep(structureAdvancements.get(structureType).getUpkeep()-1);
                 break;
             case "defensiveDamage":
                 structureStats.get(structureType).setDefensiveDamage(structureStats.get(structureType).getDefensiveDamage()+1);
-                structureAdvancements.get(structureType).setDefensiveDamage(structureAdvancements.get(structureType).getDefensiveDamage()+1);
+                //structureAdvancements.get(structureType).setDefensiveDamage(structureAdvancements.get(structureType).getDefensiveDamage()+1);
                 break;
             case "influenceRadius":
                 structureStats.get(structureType).setInfluenceRadius(structureStats.get(structureType).getInfluenceRadius()+1);
-                structureAdvancements.get(structureType).setInfluenceRadius(structureAdvancements.get(structureType).getInfluenceRadius()+1);
+                //structureAdvancements.get(structureType).setInfluenceRadius(structureAdvancements.get(structureType).getInfluenceRadius()+1);
                 break;
             case "offensiveDamage":
                 structureStats.get(structureType).setOffensiveDamage(structureStats.get(structureType).getOffensiveDamage()+1);
-                structureAdvancements.get(structureType).setOffensiveDamage(structureAdvancements.get(structureType).getOffensiveDamage()+1);
+                //structureAdvancements.get(structureType).setOffensiveDamage(structureAdvancements.get(structureType).getOffensiveDamage()+1);
                 break;
             case "productionRate":
                 structureStats.get(structureType).setProductionRate(structureStats.get(structureType).getProductionRate()+1);
-                structureAdvancements.get(structureType).setProductionRate(structureAdvancements.get(structureType).getProductionRate()+1);
+                //structureAdvancements.get(structureType).setProductionRate(structureAdvancements.get(structureType).getProductionRate()+1);
                 break;
             case "workerRadius":
                 structureStats.get(structureType).setWorkerRadius(structureStats.get(structureType).getWorkerRadius()+1);
-                structureAdvancements.get(structureType).setWorkerRadius(structureAdvancements.get(structureType).getWorkerRadius()+1);
+                //structureAdvancements.get(structureType).setWorkerRadius(structureAdvancements.get(structureType).getWorkerRadius()+1);
                 break;
 
             }
@@ -181,8 +193,8 @@ public void editWorkerStats(String statToBeModified) {
         }
      return -1;
     }
-    public int getWorkerAdvancements(String statToBeModified){
-        switch(statToBeModified){
+    public int getWorkerAdvancements(String statToBeModified) {
+        switch (statToBeModified) {
             case "foodProduction":
                 return workerAdvancements.getFoodProduction();
             case "oreProduction":
@@ -201,6 +213,5 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getBuildingRate();
         }
         return -1;
-
     }
 }

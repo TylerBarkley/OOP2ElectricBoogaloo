@@ -77,4 +77,31 @@ public class StructureStats {
     public void setWorkerRadius(int workerRadius) {
         this.workerRadius = workerRadius;
     }
+
+    public void incrementProductionRate(int increment) {
+        this.productionRate += increment;
+    }
+
+    public void incrementInfluenceRadius(int increment) {
+        this.influenceRadius +=increment;
+    }
+
+    public void incrementDefensiveDamage(int increment) {
+        this.defensiveDamage += increment;
+    }
+
+    public void incrementUpkeep(int increment) {
+        this.upkeep += increment;
+    }
+
+    public void incrementArmor(int increment) {
+        this.armor +=increment;
+    }
+
+    public void incrementHealth(int increment) {
+        this.health += increment;
+    }
+    public void incrementWorkerRadius(int increment){
+        this.workerRadius+=increment;
+    }
 }
