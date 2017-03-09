@@ -2,12 +2,11 @@ package model.Controllables.Units;
 
 import java.util.ArrayList;
 
-import model.Controllables.ControllableID;
 import model.Map.Resources.Food;
-import model.observers.DeathObserver;
+import model.observers.Observer;
 import model.player.PlayerID;
 
-public class UnitManager implements DeathObserver{
+public class UnitManager implements Observer<Unit>{
 	private Colonist[] colonists;
 	private Explorer[] explorers;
 	private Melee[] soldiers;
@@ -145,7 +144,13 @@ public class UnitManager implements DeathObserver{
 	}
 	
 	@Override
-	public void update(ControllableID id) {
+	public void update(Unit observable) {
+		if(observable.isAlive())
+		{
+			return;
+		}
+		
+		UnitID id=observable.getID();
 		int instanceNumber=id.getInstanceNumber();
 		Unit unit=null;
 
