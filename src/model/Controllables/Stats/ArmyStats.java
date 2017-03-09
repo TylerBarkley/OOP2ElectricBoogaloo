@@ -14,6 +14,10 @@ public class ArmyStats {
     private int armor;
     private int numOfUnits;
 
+    public ArmyStats(){
+        movementAL = new ArrayList<Integer>();
+    }
+
     public int getOffensiveDamage() {
         return offensiveDamage;
     }
@@ -107,7 +111,8 @@ public class ArmyStats {
             upkeep = upkeep - unitStats.getUpkeep();
             for(int i = 0; i < movementAL.size(); i++){
                 if(movementAL.get(i) < newMove){
-                    movement = newMove;
+                    movement = movementAL.get(i);
+                    newMove = movement;
                 }
             }
             armor = armor - (unitStats.getArmor()/2);
@@ -118,7 +123,8 @@ public class ArmyStats {
             upkeep = upkeep - unitStats.getUpkeep();
             for(int i = 0; i < movementAL.size(); i++){
                 if(movementAL.get(i) < newMove){
-                    movement = newMove;
+                    movement = movementAL.get(i);
+                    newMove = movement;
                 }
             }
             armor = armor - (unitStats.getArmor()/4);
