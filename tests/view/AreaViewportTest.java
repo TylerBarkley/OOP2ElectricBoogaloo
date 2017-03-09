@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import model.ID;
 import model.Location;
+import model.Map.Map;
 
 public class AreaViewportTest {
 
@@ -135,9 +136,9 @@ public class AreaViewportTest {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-
-	public static void main(String args[]) {
-		AreaViewportTest test = new AreaViewportTest();
-		test.smokeTest();
+	@Test
+	public void smokeTest_lookOfMap() {
+		Map map=new Map("map.txt");
+		while(getClass().equals(null));
 	}
 }
