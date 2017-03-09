@@ -5,7 +5,16 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-public class StructureOverview  extends JPanel {
+import model.Controllables.Structures.Capital;
+import model.Controllables.Structures.Farm;
+import model.Controllables.Structures.Fort;
+import model.Controllables.Structures.Mine;
+import model.Controllables.Structures.ObservationTower;
+import model.Controllables.Structures.PowerPlant;
+import model.Controllables.Structures.University;
+import utilities.StructureVisitor;
+
+public class StructureOverview  extends JPanel implements StructureVisitor {
 
 	private int width, height;
 	private JTable structureTable;
@@ -52,6 +61,48 @@ public class StructureOverview  extends JPanel {
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.orange);
+	}
+
+	@Override
+	public void visit(Capital capital) {
+		// TODO Auto-generated method stub
+		model.addStructure(capital); //structures have current health?
+	}
+
+	@Override
+	public void visit(Farm farm) {
+		// TODO Auto-generated method stub
+		model.addStructure(farm);
+	}
+
+	@Override
+	public void visit(Fort fort) {
+		// TODO Auto-generated method stub
+		model.addStructure(fort);
+	}
+
+	@Override
+	public void visit(Mine mine) {
+		// TODO Auto-generated method stub
+		model.addStructure(mine);
+	}
+
+	@Override
+	public void visit(ObservationTower tower) {
+		// TODO Auto-generated method stub
+		model.addStructure(tower);
+	}
+
+	@Override
+	public void visit(PowerPlant powerPlant) {
+		// TODO Auto-generated method stub
+		model.addStructure(powerPlant);
+	}
+
+	@Override
+	public void visit(University university) {
+		// TODO Auto-generated method stub
+		model.addStructure(university);
 	}
 	
 }
