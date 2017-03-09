@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by Trevor on 3/8/2017.
  */
 public class Technology {
-WorkerStats workerStats;
+/*WorkerStats workerStats;
 ArrayList<UnitStats> unitStats;
 ArrayList<StructureStats> structureStats;
 ArrayList<UnitAdvancements> unitAdvancements;
@@ -202,5 +202,5 @@ public void editWorkerStats(String statToBeModified) {
         }
         return -1;
 
-    }
+    }*/
 }
