@@ -11,16 +11,41 @@ import model.Map.Occupancy.UnitOccupancy;
 import model.Map.Occupancy.UnitOccupancyManager;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
+import model.player.Player;
 import model.player.PlayerID;
+import model.player.PlayerManager;
+
+import java.util.HashMap;
 
 /**
  * Created by zrgam_000 on 3/8/2017.
  */
 public class MovementManager {
-    Map map;
-    StructureOccupancyManager structureOccupancyManager;
-    UnitOccupancyManager unitOccupancyManager;
-    OneShotManager oneShotManager;
+    private Map map;
+    private StructureOccupancyManager structureOccupancyManager;
+    private UnitOccupancyManager unitOccupancyManager;
+    private OneShotManager oneShotManager;
+
+    private static MovementManager mm;
+
+    private MovementManager()
+    {
+        this.map = Map.getInstance();
+        structureOccupancyManager = map.getStructureOccupancyManager();
+        unitOccupancyManager = map.getUnitOccupancyManager();
+        oneShotManager = map.getOneShotManager();
+    }
+
+    public static MovementManager getInstance()
+    {
+        if(mm == null)
+        {
+            mm = new MovementManager();
+        }
+
+        return mm;
+    }
+
 
     MovementManager(Map map){
         this.map = map;

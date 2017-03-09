@@ -3,7 +3,6 @@ package model.Controllables;
 import model.Controllables.Units.Unit;
 import model.Location;
 import model.MapDirection;
-import utilities.UnitObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;

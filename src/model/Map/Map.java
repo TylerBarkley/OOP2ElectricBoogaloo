@@ -33,7 +33,19 @@ public class Map {
 	private ResourceManager resourceManager;
 	private StructureOccupancyManager structureOccupancyManager;
 	private UnitOccupancyManager unitOccupancyManager;
-	
+
+	private static Map map;
+
+	public static Map getInstance(){
+		if(map == null)
+		{
+			map = new Map();
+		}
+
+		return map;
+	}
+
+
 	public Map(int width, int height) //Generates random map
 	{
 		tiles=new HashMap<Location, Tile>();
