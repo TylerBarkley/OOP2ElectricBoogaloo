@@ -96,7 +96,7 @@ public class WorkerManagerTest {
         assertEquals(5, workerManager.trainSoldier(3, 1));
         assertEquals(60, workerManager.trainSoldier(50, 5));
         assertEquals(100, workerManager.trainSoldier(100, 0));
-        assertEquals(20, workerManager.trainSoldier(0, 10));
+        assertEquals(0, workerManager.trainSoldier(0, 10));
     }
 
     @Test

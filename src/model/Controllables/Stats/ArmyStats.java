@@ -1,4 +1,5 @@
 package model.Controllables.Stats;
+import java.util.ArrayList;
 
 /**
  * Created by Tyler Barkley on 3/9/2017.
@@ -9,6 +10,7 @@ public class ArmyStats {
     private int defensiveDamage;
     private int upkeep;
     private int movement;
+    private ArrayList<Integer> movementAL;
     private int armor;
     private int numOfUnits;
 
@@ -54,6 +56,7 @@ public class ArmyStats {
 
     public void addStats(UnitStats unitStats){
         increment_numOfUnits();
+        movementAL.add(unitStats.getMovement());
         if(numOfUnits == 1){
             offensiveDamage = unitStats.getOffensiveDamage();
             defensiveDamage = unitStats.getDefensiveDamage();
@@ -82,7 +85,14 @@ public class ArmyStats {
     }
 
     public void removeStats(UnitStats unitStats){
-        decrement_numOfUnits();;
+        decrement_numOfUnits();
+        for(int i = 0; i < movementAL.size(); i++){
+            if(movementAL.get(i) == unitStats.getMovement()){
+                movementAL.remove(i);
+                break;
+            }
+        }
+        int newMove = 20;
         if(numOfUnits == 0){
             offensiveDamage = 0;
             defensiveDamage = 0;
@@ -95,8 +105,10 @@ public class ArmyStats {
             offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/2);
             defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/2);
             upkeep = upkeep - unitStats.getUpkeep();
-            if(unitStats.getMovement() < movement){
-                movement = unitStats.getMovement();
+            for(int i = 0; i < movementAL.size(); i++){
+                if(movementAL.get(i) < newMove){
+                    movement = newMove;
+                }
             }
             armor = armor - (unitStats.getArmor()/2);
         }
@@ -104,8 +116,10 @@ public class ArmyStats {
             offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/4);
             defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/4);
             upkeep = upkeep - unitStats.getUpkeep();
-            if(unitStats.getMovement() < movement){
-                movement = unitStats.getMovement();
+            for(int i = 0; i < movementAL.size(); i++){
+                if(movementAL.get(i) < newMove){
+                    movement = newMove;
+                }
             }
             armor = armor - (unitStats.getArmor()/4);
         }
@@ -127,4 +141,11 @@ public class ArmyStats {
         this.numOfUnits++;
     }
 
+    public ArrayList<Integer> getMovementAL() {
+        return movementAL;
+    }
+
+    public void setMovementAL(ArrayList<Integer> movementAL) {
+        this.movementAL = movementAL;
+    }
 }
