@@ -1,19 +1,19 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
-
-import model.observers.DeathObservable;
+import model.observers.Observable;
 import model.Location;
 import model.MapDirection;
 import model.player.PlayerID;
 
-public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
+public abstract class Unit extends Observable<Unit> implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private UnitStats myStats;
 	private UnitID id;
 	private Location location;
 	private MapDirection md;
+	private boolean isAlive;
 
 	protected Unit(){
 		myStats = new UnitStats();
@@ -23,12 +23,14 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 		myStats = new UnitStats();
 		location = loc;
 		md = MapDirection.getNorth();
+		isAlive=true;
 	}
 
 	//public abstract void accept(Visitor visitor);
 
 	public void killMe() {
-		notifyObservers(id);
+		isAlive=false;
+		notifyObservers();
 		//TODO KILLING SELF
 		//REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
 		//POSSIBLY USING PLAYER MANAGER
@@ -43,6 +45,8 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 		if(currentHealth <= 0){
 			this.killMe();
 		}
+		
+		notifyObservers();
 	}
 
 	public void healMe(int intensity){
@@ -50,6 +54,8 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
+		
+		notifyObservers();
 	}
 
 	public int getCurrentHealth(){
@@ -58,6 +64,8 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 
 	public void setCurrentHealth(int currentHealth){
 		this.currentHealth = currentHealth;
+		
+		notifyObservers();
 	}
 
 
@@ -67,11 +75,15 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
+		
+		notifyObservers();
 	}
 
 	public void setID(UnitID id)
 	{
 		this.id=id;
+		
+		notifyObservers();
 	}
 
 	public UnitID getID()
@@ -97,10 +109,14 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 
 	public void setLocation(Location loc){
 		this.location = loc;
+		
+		notifyObservers();
 	}
 
 	public void setMapDirection(MapDirection md){
 		this.md = md;
+		
+		notifyObservers();
 	}
 
 	public void malnourish() {
@@ -111,5 +127,8 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 		return myStats.getUpkeep();
 	}
 
+	public boolean isAlive(){
+		return isAlive;
+	}
 }
 
