@@ -56,6 +56,8 @@ public class WorkerManagerTest {
     @Test
     public void mine_Ore_Test(){
         assertEquals(22, workerManager.produceOre(new Location(0,0), 10, 2));
+        assertEquals(78, workerManager.produceOre(new Location(0,0), 50, 10));
+        assertEquals(0, workerManager.produceOre(new Location(0,0), 1, 1));
         assertEquals(50, workerManager.produceOre(new Location(0,1), 10, 5));
     }
 
