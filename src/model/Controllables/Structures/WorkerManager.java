@@ -11,12 +11,18 @@ public class WorkerManager {
     private ResourceManager RM;
     private WorkerStats WS;
 
+    public WorkerManager(){
+        WS = new WorkerStats();
+        RM = new ResourceManager();
+
+    }
+
     public int produceOre(Location loc, int structureProductionRate, int numOfWorkers){
         int amount = (structureProductionRate + WS.getOreProduction()) * numOfWorkers;
         return RM.mineOre(loc, amount);
     }
 
-    public int produceTechnology(Location loc, int structureProductionRate, int numOfWorkers){
+    public int produceTechnology(int structureProductionRate, int numOfWorkers){
         int amount = (structureProductionRate + WS.getTechnologyProduction()) * numOfWorkers;
         return amount;
     }
@@ -31,18 +37,32 @@ public class WorkerManager {
         return RM.mineFood(loc, amount);
     }
 
-    public int breeding(Location loc, int numOfWorkers){
+    public int breeding(int numOfWorkers){
         int newWorkers = ((WS.getBreeding() * numOfWorkers)/2);
         return newWorkers;
     }
 
-    public int building(Location loc, int numOfWorker){
+    public int building(int numOfWorker){
         int percentageBuilt = WS.getBuildingRate() * 2 * numOfWorker;
         return percentageBuilt;
     }
 
+    public int trainSoldier(int numOfWorker, int numOfSoldiers){
+        int percentageTrained = WS.getSoldierTraining() * numOfWorker + (2 * numOfSoldiers * WS.getSoldierTraining());
+        return percentageTrained;
+    }
+
+    public int trainExplorer(int numOfWorker){
+        int percentageTrained = WS.getExplorerTraining() * numOfWorker * 10;
+        return percentageTrained;
+    }
+
     public ResourceManager getRM() {
         return RM;
+    }
+
+    public void setRM(ResourceManager rm){
+        this.RM = rm;
     }
 
     public WorkerStats getWS() {
