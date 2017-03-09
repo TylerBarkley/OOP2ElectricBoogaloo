@@ -2,28 +2,60 @@ package model.Controllables.Structures;
 
 import java.util.ArrayList;
 
+import model.Location;
+import model.MapDirection;
 import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
-import model.Controllables.ControllableID;
 import model.Controllables.Stats.StructureStats;
-import model.observers.Observable;
+import model.Controllables.Stats.UnitStats;
+import model.observers.StructureObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 
-public abstract class Structure extends Observable<Structure> implements Controllable{
+public abstract class Structure implements Controllable {
     int currentHealth;
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
-    
-    
+	private ArrayList<StructureObserver> observers;
+	private MapDirection md;
+	private Location location;
+
+    //public abstract void accept(Visitor visitor);
     public Structure()
     {
-		//TODO
+		myStats = new StructureStats();
+		md = MapDirection.getNorth();
     	isAlive=true;
+		observers=new ArrayList<StructureObserver>();
 	}
-    //public abstract void accept(Visitor visitor);
-
+    
+    public Structure(Location loc)
+    {
+		myStats = new StructureStats();
+		location = loc;
+		md = MapDirection.getNorth();
+    	isAlive=true;
+		observers=new ArrayList<StructureObserver>();
+	}
+	public void addObserver(StructureObserver observer)
+	{
+		observers.add(observer);
+	}
+	
+	public void removeObserver(StructureObserver observer)
+	{
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers()
+	{
+		for(StructureObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+    	
     public void killMe()
     {
     	isAlive=false;
@@ -31,12 +63,13 @@ public abstract class Structure extends Observable<Structure> implements Control
         //TODO KILLING SELF
         //REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
         //POSSIBLY USING PLAYER MANAGER
-
 	}	
+    
 	public void setID(StructureID id)
 	{
-		notifyObservers();
 		this.id=id;
+		
+		notifyObservers();
 	}
 
 	public StructureID getID() 
@@ -77,6 +110,34 @@ public abstract class Structure extends Observable<Structure> implements Control
         return id.getPlayerID();
     }
 
+	public Location getLocation() {
+		return location;
+	}
+
+	public MapDirection getMapDirection(){
+		return md;
+	}
+
+	public void setLocation(Location loc){
+		this.location = loc;
+		
+		notifyObservers();
+	}
+
+	public void setMapDirection(MapDirection md){
+		this.md = md;
+		
+		notifyObservers();
+	}
+
+	public void malnourish() {
+		// TODO This is called if there aren't enough resources for upkeep
+	}
+
+	public int getUpkeep() {
+		return myStats.getUpkeep();
+	}
+	
 	public boolean isAlive() {
 		return isAlive;
 	}

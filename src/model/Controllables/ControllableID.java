@@ -2,10 +2,9 @@ package model.Controllables;
 
 import java.util.Objects;
 
-import model.ID;
 import model.player.PlayerID;
 
-public abstract class ControllableID extends ID{
+public abstract class ControllableID {
 	private PlayerID playerID;
 	private int type;
 	private int instanceNumber;

@@ -3,10 +3,10 @@ package model.Controllables.Structures;
 import java.util.ArrayList;
 
 import model.Controllables.ControllableID;
-import model.observers.Observer;
+import model.observers.StructureObserver;
 import model.player.PlayerID;
 
-public class StructureManager implements Observer<Structure>{
+public class StructureManager implements StructureObserver{
 	private ArrayList<Capital> capitals;
 	private ArrayList<Farm> farms;
 	private ArrayList<Fort> forts;
@@ -109,13 +109,14 @@ public class StructureManager implements Observer<Structure>{
 	}
 	
 	@Override
-	public void update(Structure observable) {
-		if(observable.isAlive())
-		{
-			return;
-		}
-		
-		StructureID id=observable.getID();
+    public void update(Structure observable) {
+        if(observable.isAlive())
+        {
+            return;
+        }
+        
+        StructureID id=observable.getID();
+
 		int instanceNumber=id.getInstanceNumber();
 
 		switch(id.getType())

@@ -1,12 +1,15 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
-import model.observers.Observable;
+import model.observers.UnitObserver;
+
+import java.util.ArrayList;
+
 import model.Location;
 import model.MapDirection;
 import model.player.PlayerID;
 
-public abstract class Unit extends Observable<Unit> implements Controllable //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private int maxActionPoints;
@@ -17,9 +20,11 @@ public abstract class Unit extends Observable<Unit> implements Controllable //im
 	private Location location;
 	private MapDirection md;
 	private boolean isAlive;
+	private ArrayList<UnitObserver> observers;
 
 	protected Unit(){
 		myStats = new UnitStats();
+		observers=new ArrayList<UnitObserver>();
 		maxActionPoints = myStats.getMovement();
 		currentActionPoints = maxActionPoints;
 	}
@@ -32,8 +37,27 @@ public abstract class Unit extends Observable<Unit> implements Controllable //im
 		location = loc;
 		md = MapDirection.getNorth();
 		isAlive=true;
+		observers=new ArrayList<UnitObserver>();
 	}
 
+	public void addObserver(UnitObserver observer)
+	{
+		observers.add(observer);
+	}
+	
+	public void removeObserver(UnitObserver observer)
+	{
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers()
+	{
+		for(UnitObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+	
 	//public abstract void accept(Visitor visitor);
 
 	public void killMe() {
