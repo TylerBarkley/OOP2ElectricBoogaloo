@@ -58,6 +58,7 @@ public class Army implements Controllable//, DeathObserver
 
                 //TODO MOVING THE RALLYPOINT TO THE ARMY'S CURRENT LOCATION
                 //myRP.moveRallyPoint(this.myLocation);
+                myCommands.clear();
 
                 return;
             }
