@@ -98,6 +98,10 @@ public void editUnitStats(int unitType,String statToBeModified){
                 structureStats.get(structureType).setProductionRate(structureStats.get(structureType).getProductionRate()+1);
                 structureAdvancements.get(structureType).setProductionRate(structureAdvancements.get(structureType).getProductionRate()+1);
                 break;
+            case "workerRadius":
+                structureStats.get(structureType).setWorkerRadius(structureStats.get(structureType).getWorkerRadius()+1);
+                structureAdvancements.get(structureType).setWorkerRadius(structureAdvancements.get(structureType).getWorkerRadius()+1);
+                break;
 
             }
 }
@@ -153,6 +157,8 @@ public void editWorkerStats(String statToBeModified) {
                 return structureAdvancements.get(structureType).getOffensiveDamage();
             case "productionRate":
                 return structureAdvancements.get(structureType).getProductionRate();
+            case "workerRadius":
+                return structureAdvancements.get(structureType).getWorkerRadius();
         }
         return -1;
     }
