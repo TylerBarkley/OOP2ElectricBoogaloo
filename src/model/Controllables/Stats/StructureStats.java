@@ -12,6 +12,7 @@ public class StructureStats {
     private int influenceRadius;
     private int offensiveDamage;
     private int productionRate;
+    private int workerRadius;
 
     public int getArmor() {
         return armor;
@@ -67,5 +68,13 @@ public class StructureStats {
 
     public void setProductionRate(int productionRate) {
         this.productionRate = productionRate;
+    }
+
+    public int getWorkerRadius() {
+        return workerRadius;
+    }
+
+    public void setWorkerRadius(int workerRadius) {
+        this.workerRadius = workerRadius;
     }
 }
