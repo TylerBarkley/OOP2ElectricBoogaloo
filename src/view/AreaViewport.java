@@ -201,10 +201,6 @@ public class AreaViewport extends JPanel
 		Location temp=loc;
 		while(i>0){
 			temp = loc.getAdjacent(MapDirection.getNorthWest());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			i--;
 			j--;
@@ -212,10 +208,6 @@ public class AreaViewport extends JPanel
 
 		while(j>0){
 			temp = loc.getAdjacent(MapDirection.getNorth());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			j-=2;
 		}
@@ -223,10 +215,6 @@ public class AreaViewport extends JPanel
 
 		while(j<0){
 			temp = loc.getAdjacent(MapDirection.getSouth());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			j+=2;
 		}

@@ -13,6 +13,9 @@ import model.Controllables.ControllableCollection;
  *
  * Q4D: are States allowed to access a context's field like a context itself?
  * Q4D: review good vs. bad casting
+ *
+ * PlayerManager.getControllableCollection() to get new collection
+ * Structure arrayLists will be variable size
  */
 public class Menu {
 
@@ -121,11 +124,14 @@ public class Menu {
 
     public ControllableCollection getControllableCollection() {return controllableCollection;}
 
-    public int getCurrentMode() {return currentMode;}
+    public String getCurrentMode() {return modeToString();}
 
-    //public int getCurrentType() {return currentType;}
+    public String getCurrentType() {return menuState.typeToString();}
 
-    //public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstance() {return menuState.getCurrentInstance();}
+
+    public String getCurrentInstruction() { return menuState.toString();}
+
 
     String modeToString(){
         switch (currentMode){
