@@ -37,18 +37,30 @@ Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureSt
 public void editUnitStats(int unitType,String statToBeModified){
         switch(statToBeModified){
             case "health":
+                if(unitAdvancements.get(unitType).getHealth()>3){
+                    break;
+                }
                 unitStats.get(unitType).setHealth(unitStats.get(unitType).getHealth()+1);
                 unitAdvancements.get(unitType).setHealth(unitAdvancements.get(unitType).getHealth()+1);
                 break;
             case "armor":
+                if(unitAdvancements.get(unitType).getArmor()>3){
+                    break;
+                }
                 unitStats.get(unitType).setArmor(unitStats.get(unitType).getArmor()+1);
                 unitAdvancements.get(unitType).setArmor(unitAdvancements.get(unitType).getArmor()+1);
                 break;
             case "upkeep":
+                if(unitAdvancements.get(unitType).getUpkeep()>3){
+                    break;
+                }
                 unitStats.get(unitType).setUpkeep(unitStats.get(unitType).getUpkeep()- 1);
                 unitAdvancements.get(unitType).setUpkeep(unitAdvancements.get(unitType).getUpkeep()-1);
                 break;
             case "defensiveDamage":
+                if(unitAdvancements.get(unitType).getHealth()>3){
+                    break;
+                }
                 unitStats.get(unitType).setDefensiveDamage(unitStats.get(unitType).getDefensiveDamage()+1);
                 unitAdvancements.get(unitType).setDefensiveDamage(unitAdvancements.get(unitType).getDefensiveDamage()+1);
                 break;
@@ -181,8 +193,8 @@ public void editWorkerStats(String statToBeModified) {
         }
      return -1;
     }
-    public int getWorkerAdvancements(String statToBeModified){
-        switch(statToBeModified){
+    public int getWorkerAdvancements(String statToBeModified) {
+        switch (statToBeModified) {
             case "foodProduction":
                 return workerAdvancements.getFoodProduction();
             case "oreProduction":
@@ -201,6 +213,5 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getBuildingRate();
         }
         return -1;
-
     }
 }
