@@ -91,5 +91,7 @@ public class UnitStats {
 
         this.health += increment;
     }
-    
+    public void incrementOffensiveDamage(int increment){
+        this.offensiveDamage+=increment;
+    }
 }

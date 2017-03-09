@@ -85,7 +85,7 @@ public class WorkerStats {
         this.energyProduction+=increment;
     }
 
-    public void incrementOreProuction(int increment) {
+    public void incrementOreProduction(int increment) {
         this.oreProduction += increment;
     }
 
