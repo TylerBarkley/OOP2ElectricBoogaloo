@@ -1,5 +1,6 @@
 package model.Controllables.Stats;
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * Created by Tyler Barkley on 3/9/2017.
@@ -13,6 +14,10 @@ public class ArmyStats {
     private ArrayList<Integer> movementAL;
     private int armor;
     private int numOfUnits;
+
+    public ArmyStats(){
+        movementAL = new ArrayList<Integer>();
+    }
 
     public int getOffensiveDamage() {
         return offensiveDamage;
@@ -65,22 +70,22 @@ public class ArmyStats {
             armor = unitStats.getArmor();
         }
         else if(numOfUnits == 2){
-            offensiveDamage = offensiveDamage + (unitStats.getOffensiveDamage()/2);
-            defensiveDamage = defensiveDamage + (unitStats.getDefensiveDamage()/2);
+            offensiveDamage = offensiveDamage + Math.max((unitStats.getOffensiveDamage()/2),1);
+            defensiveDamage = defensiveDamage + Math.max((unitStats.getDefensiveDamage()/2),1);
             upkeep = upkeep + unitStats.getUpkeep();
             if(unitStats.getMovement() < movement){
                 movement = unitStats.getMovement();
             }
-            armor = armor + (unitStats.getArmor()/2);
+            armor = armor + Math.max((unitStats.getArmor()/2),1);
         }
         else if(numOfUnits > 2){
-            offensiveDamage = offensiveDamage + (unitStats.getOffensiveDamage()/4);
-            defensiveDamage = defensiveDamage + (unitStats.getDefensiveDamage()/4);
+            offensiveDamage = offensiveDamage + Math.max((unitStats.getOffensiveDamage()/4),1);
+            defensiveDamage = defensiveDamage + Math.max((unitStats.getDefensiveDamage()/4),1);
             upkeep = upkeep + unitStats.getUpkeep();
             if(unitStats.getMovement() < movement){
                 movement = unitStats.getMovement();
             }
-            armor = armor + (unitStats.getArmor()/4);
+            armor = armor + Math.max((unitStats.getArmor()/4),1);
         }
     }
 
@@ -102,26 +107,28 @@ public class ArmyStats {
             //RIP Army
         }
         else if(numOfUnits == 1){
-            offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/2);
-            defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/2);
+            offensiveDamage = offensiveDamage - Math.max((unitStats.getOffensiveDamage()/2),1);
+            defensiveDamage = defensiveDamage - Math.max((unitStats.getDefensiveDamage()/2),1);
             upkeep = upkeep - unitStats.getUpkeep();
             for(int i = 0; i < movementAL.size(); i++){
                 if(movementAL.get(i) < newMove){
-                    movement = newMove;
+                    movement = movementAL.get(i);
+                    newMove = movement;
                 }
             }
-            armor = armor - (unitStats.getArmor()/2);
+            armor = armor - Math.max((unitStats.getArmor()/2),1);
         }
         else if(numOfUnits > 1){
-            offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/4);
-            defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/4);
+            offensiveDamage = offensiveDamage - Math.max((unitStats.getOffensiveDamage()/4),1);
+            defensiveDamage = defensiveDamage - Math.max((unitStats.getDefensiveDamage()/4),1);
             upkeep = upkeep - unitStats.getUpkeep();
             for(int i = 0; i < movementAL.size(); i++){
                 if(movementAL.get(i) < newMove){
-                    movement = newMove;
+                    movement = movementAL.get(i);
+                    newMove = movement;
                 }
             }
-            armor = armor - (unitStats.getArmor()/4);
+            armor = armor - Math.max((unitStats.getArmor()/4),1);
         }
     }
 
