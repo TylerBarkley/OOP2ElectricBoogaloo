@@ -1,7 +1,7 @@
 package model;
 
 import static org.junit.Assert.*;
-
+import java.util.ArrayList;
 import model.Map.Items.HealOneShot;
 import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import model.Controllables.Units.*;
 import model.Technology;
-//import model.Stats.*;
+import model.Controllables.Stats.*;
 
 
 /**
@@ -17,7 +17,7 @@ import model.Technology;
  */
 public class TechnologyTest {
 
-   /* WorkerStats workerStats;
+   WorkerStats workerStats;
     ArrayList<UnitStats> unitStats;
     ArrayList<StructureStats> structureStats;
     Technology technology;
@@ -30,11 +30,11 @@ public class TechnologyTest {
        structureStats=new ArrayList<StructureStats>();
        unitStats.add(new UnitStats());
        unitStats.add(new UnitStats());
-       unitsStats.add(new UnitStats());
+       unitStats.add(new UnitStats());
        structureStats.add(new StructureStats());
        structureStats.add(new StructureStats());
        structureStats.add(new StructureStats());
-       technology=new Technology(unitStats,workerStats,workerStats);
+       technology=new Technology(unitStats,structureStats,workerStats);
     }
 
     @Test
@@ -55,14 +55,14 @@ public class TechnologyTest {
         technology.editUnitStats(1,"movement");
         assertEquals(1,technology.getUnitAdvancements(0,"health"));
         assertEquals(1,technology.getUnitAdvancements(0,"armor"));
-        assertEquals(1,technology.getUnitAdvancements(0,"upkeep"));
+        assertEquals(-1,technology.getUnitAdvancements(0,"upkeep"));
         assertEquals(1,technology.getUnitAdvancements(0,"offensiveDamage"));
         assertEquals(1,technology.getUnitAdvancements(0,"defensiveDamage"));
         assertEquals(1,technology.getUnitAdvancements(0,"influenceRadius"));
         assertEquals(1,technology.getUnitAdvancements(0,"movement"));
         assertEquals(1,technology.getUnitAdvancements(1,"health"));
         assertEquals(1,technology.getUnitAdvancements(1,"armor"));
-        assertEquals(1,technology.getUnitAdvancements(1,"upkeep"));
+        assertEquals(-1,technology.getUnitAdvancements(1,"upkeep"));
         assertEquals(1,technology.getUnitAdvancements(1,"offensiveDamage"));
         assertEquals(1,technology.getUnitAdvancements(1,"defensiveDamage"));
         assertEquals(1,technology.getUnitAdvancements(1,"influenceRadius"));
@@ -74,12 +74,12 @@ public class TechnologyTest {
         assertEquals(0,technology.getUnitAdvancements(2,"defensiveDamage"));
         assertEquals(0,technology.getUnitAdvancements(2,"influenceRadius"));
         assertEquals(0,technology.getUnitAdvancements(2,"movement"));
-        assertEquals(1,unitStats[0].getHealth());
-        assertEquals(1,unitStats[0].getArmor());
-        assertEquals(-1,unitStats[0].getUpKeep());
-        assertEquals(1,unitStats[0].getOffensiveDamage());
-        assertEquals(1,unitStats[0].getDefensiveDamage());
-        assertEquals(1,unitStats[0].getMovement());
+        assertEquals(1,unitStats.get(0).getHealth());
+        assertEquals(1,unitStats.get(0).getArmor());
+        assertEquals(-1,unitStats.get(0).getUpkeep());
+        assertEquals(1,unitStats.get(0).getOffensiveDamage());
+        assertEquals(1,unitStats.get(0).getDefensiveDamage());
+        assertEquals(1,unitStats.get(0).getMovement());
     }
 
     @Test
@@ -101,14 +101,14 @@ public class TechnologyTest {
         technology.editStructureStats(1,"productionRate");
         assertEquals(1,technology.getStructureAdvancements(0,"health"));
         assertEquals(1,technology.getStructureAdvancements(0,"armor"));
-        assertEquals(1,technology.getStructureAdvancements(0,"upkeep"));
+        assertEquals(-1,technology.getStructureAdvancements(0,"upkeep"));
         assertEquals(1,technology.getStructureAdvancements(0,"offensiveDamage"));
         assertEquals(1,technology.getStructureAdvancements(0,"defensiveDamage"));
         assertEquals(1,technology.getStructureAdvancements(0,"influenceRadius"));
         assertEquals(1,technology.getStructureAdvancements(0,"productionRate"));
         assertEquals(1,technology.getStructureAdvancements(1,"health"));
         assertEquals(1,technology.getStructureAdvancements(1,"armor"));
-        assertEquals(1,technology.getStructureAdvancements(1,"upkeep"));
+        assertEquals(-1,technology.getStructureAdvancements(1,"upkeep"));
         assertEquals(1,technology.getStructureAdvancements(1,"offensiveDamage"));
         assertEquals(1,technology.getStructureAdvancements(1,"defensiveDamage"));
         assertEquals(1,technology.getStructureAdvancements(1,"influenceRadius"));
@@ -120,12 +120,12 @@ public class TechnologyTest {
         assertEquals(0,technology.getStructureAdvancements(2,"defensiveDamage"));
         assertEquals(0,technology.getStructureAdvancements(2,"influenceRadius"));
         assertEquals(0,technology.getStructureAdvancements(2,"productionRate"));
-        assertEquals(1,structureStats[0].getHealth());
-        assertEquals(1,structureStats[0].getArmor());
-        assertEquals(-1,structureStats[0].getUpKeep());
-        assertEquals(1,structureStats[0].getOffensiveDamage());
-        assertEquals(1,structureStats[0].getDefensiveDamage());
-        assertEquals(1,structureStats[0].getProductionRate());
+        assertEquals(1,structureStats.get(0).getHealth());
+        assertEquals(1,structureStats.get(0).getArmor());
+        assertEquals(-1,structureStats.get(0).getUpkeep());
+        assertEquals(1,structureStats.get(0).getOffensiveDamage());
+        assertEquals(1,structureStats.get(0).getDefensiveDamage());
+        assertEquals(1,structureStats.get(0).getProductionRate());
     }
     @Test
     public void editWorkerStatsTest(){
@@ -135,24 +135,23 @@ public class TechnologyTest {
         technology.editWorkerStats("technologyProduction");
         technology.editWorkerStats("soldierTraining");
         technology.editWorkerStats("breeding");
-        technology.editWorkerStats("explorerTesting");
+        technology.editWorkerStats("explorerTraining");
         technology.editWorkerStats("buildingRate");
-        assertEquals(1,technology.getWorkerStats("foodProduction"));
-        assertEquals(1,technology.getWorkerStats("oreProduction"));
-        assertEquals(1,technology.getWorkerStats("energyProduction"));
-        assertEquals(1,technology.getWorkerStats("technologyProduction"));
-        assertEquals(1,technology.getWorkerStats("soldierTraining"));
-        assertEquals(1,technology.getWorkerStats("breeding"));
-        assertEquals(1,technology.getWorkerStats("explorerTesting"));
-        assertEquals(1,technology.getWorkerStats("buildingRate"));
+        assertEquals(1,workerStats.getFoodProduction());
+        assertEquals(1,workerStats.getOreProduction());
+        assertEquals(1,workerStats.getEnergyProduction());
+        assertEquals(1,workerStats.getTechnologyProduction());
+        assertEquals(1,workerStats.getSoldierTraining());
+        assertEquals(1,workerStats.getBreeding());
+        assertEquals(1,workerStats.getExplorerTraining());
+        assertEquals(1,workerStats.getBuildingRate());
         assertEquals(1,technology.getWorkerAdvancements("foodProduction"));
         assertEquals(1,technology.getWorkerAdvancements("oreProduction"));
         assertEquals(1,technology.getWorkerAdvancements("energyProduction"));
         assertEquals(1,technology.getWorkerAdvancements("technologyProduction"));
         assertEquals(1,technology.getWorkerAdvancements("soldierTraining"));
         assertEquals(1,technology.getWorkerAdvancements("breeding"));
-        assertEquals(1,technology.getWorkerAdvancements("explorerTesting"));
+        assertEquals(1,technology.getWorkerAdvancements("explorerTraining"));
         assertEquals(1,technology.getWorkerAdvancements("buildingRate"));
     }
-*/
 }

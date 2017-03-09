@@ -124,8 +124,8 @@ public void editWorkerStats(String statToBeModified) {
             workerAdvancements.setSoldierTraining(workerAdvancements.getSoldierTraining()+1);
             break;
         case "breeding":
-            workerStats.setFoodProduction(workerStats.getFoodProduction()+1);
-            workerAdvancements.setFoodProduction(workerAdvancements.getFoodProduction()+1);
+            workerStats.setBreeding(workerStats.getBreeding()+1);
+            workerAdvancements.setBreeding(workerAdvancements.getBreeding()+1);
             break;
         case "explorerTraining":
             workerStats.setExplorerTraining(workerStats.getExplorerTraining()+1);
