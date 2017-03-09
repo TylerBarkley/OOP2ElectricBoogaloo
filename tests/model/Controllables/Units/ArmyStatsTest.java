@@ -137,9 +137,9 @@ public class ArmyStatsTest {
         armyStats.addStats(unitStats4);
 
         armyStats.removeStats(unitStats1);
-        assertEquals(10, armyStats.getArmor());
-        assertEquals(10, armyStats.getDefensiveDamage());
-        assertEquals(10, armyStats.getOffensiveDamage());
+        assertEquals(9, armyStats.getArmor());
+        assertEquals(9, armyStats.getDefensiveDamage());
+        assertEquals(9, armyStats.getOffensiveDamage());
         assertEquals(28, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
     }
