@@ -21,23 +21,17 @@ WorkerAdvancements workerAdvancements;
 Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats, WorkerStats workerStats){
     this.unitStats=unitStats;
     this.structureStats=structureStats;
-<<<<<<< HEAD
     this.workerStats=workerStats;
     unitAdvancements=new ArrayList<UnitAdvancements>();
     structureAdvancements=new ArrayList<StructureAdvancements>();
-=======
->>>>>>> 32defd54e1562a9c038c1d1930991815fa0c9fae
     for(int i=0;i<unitStats.size();i++){
         unitAdvancements.add(new UnitAdvancements());
     }
     for(int i=0;i<structureStats.size();i++){
         structureAdvancements.add(new StructureAdvancements());
     }
-<<<<<<< HEAD
     workerAdvancements=new WorkerAdvancements();
-=======
 
->>>>>>> 32defd54e1562a9c038c1d1930991815fa0c9fae
 }
 
 public void editUnitStats(int unitType,String statToBeModified){
