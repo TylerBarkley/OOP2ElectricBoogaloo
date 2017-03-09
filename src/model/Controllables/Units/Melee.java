@@ -1,25 +1,9 @@
 package model.Controllables.Units;
-
-import model.Controllables.Stats.MeleeStats;
-import utilities.Visitor;
+import utilities.UnitVisitor;
 
 public class Melee extends Unit {
 
-	MeleeStats myStats;
-
-	public int getUpkeep(){
-		return this.myStats.getUpkeep();
-	}
-
-	public int getHealth(){
-		return this.myStats.getHealth();
-	}
-
-	public int getArmor(){
-		return this.myStats.getArmor();
-	}
-
-	public void accept(Visitor visitor){
+	public void accept(UnitVisitor visitor){
 		visitor.visit(this);
 	}
 

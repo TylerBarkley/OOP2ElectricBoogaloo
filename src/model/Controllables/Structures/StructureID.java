@@ -1,5 +1,6 @@
-package model;
+package model.Controllables.Structures;
 
+import model.Controllables.ControllableID;
 import model.player.PlayerID;
 
 public class StructureID extends ControllableID 
@@ -17,3 +18,4 @@ public class StructureID extends ControllableID
 		super(playerID, type, instanceNumber);
 	}
 }
+

@@ -21,19 +21,20 @@ public abstract class Structure extends DeathObservable implements Controllable 
         //TODO KILLING SELF
         //REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
         //POSSIBLY USING PLAYER MANAGER
-    }
-    public void setID(StructureID id)
-    {
-        this.id=id;
-    }
 
-    public StructureID getID()
-    {
-        return id;
-    }
+	}	
+	public void setID(StructureID id)
+	{
+		this.id=id;
+	}
 
-    public void damageMe(int intensity) {
-        currentHealth -= (intensity - myStats.getArmor());
+	public StructureID getID() 
+	{
+		return id;
+	}
+
+    public void damageMe(int intensity) {        
+    	currentHealth -= (intensity - myStats.getArmor());
         if(currentHealth <= 0){
             this.killMe();
         }

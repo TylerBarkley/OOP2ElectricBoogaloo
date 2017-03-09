@@ -2,8 +2,8 @@ package model.Controllables.Units;
 
 import java.util.ArrayList;
 
-import model.ControllableID;
-import model.UnitID;
+import model.Controllables.ControllableID;
+import model.Map.Resources.Food;
 import model.observers.DeathObserver;
 import model.player.PlayerID;
 
@@ -173,5 +173,70 @@ public class UnitManager implements DeathObserver{
 		{
 			totalUnits--;
 		}
+	}
+
+	public void chargeResources(Food food) {
+		ArrayList<Unit> units=getUnits();
+		int foodQuantity = food.getAmount();
+		
+		for(Unit unit: units)
+		{
+			int cost = unit.getUpkeep();
+			
+			if(foodQuantity < cost)
+			{
+				unit.malnourish();
+			}
+			else
+			{
+				foodQuantity-=cost;
+			}
+		}
+		
+		food.setAmount(foodQuantity);
+	}
+
+	public ArrayList<Colonist> getColonists() {
+		ArrayList<Colonist> list=new ArrayList<Colonist>();
+		
+		for(Colonist unit: colonists)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Explorer> getExplorers() {
+		ArrayList<Explorer> list=new ArrayList<Explorer>();
+		
+		for(Explorer unit: explorers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Melee> getSoldiers() {
+		ArrayList<Melee> list=new ArrayList<Melee>();
+		
+		for(Melee unit: soldiers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Ranged> getRangedSoldiers() {
+		ArrayList<Ranged> list=new ArrayList<Ranged>();
+		
+		for(Ranged unit: rangedSoldiers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 }

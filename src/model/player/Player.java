@@ -3,6 +3,7 @@ package model.player;
 import java.util.ArrayList;
 
 import model.Controllables.Army;
+import model.Controllables.ControllableCollection;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -19,16 +20,22 @@ import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitManager;
+import model.Map.Resources.Energy;
+import model.Map.Resources.Food;
+import model.Map.Resources.Ore;
 
 public class Player {
 	private PlayerID id;
 	
 	private UnitManager unitManager;
+	private StructureManager structureManager;
 
 	private ArrayList<Army> armies;
 	private ArrayList<Worker> workers;
-
-	private StructureManager structureManager;
+	
+	private Food nutrients;
+	private Energy power;
+	private Ore metal;
 	
 	public Player()
 	{
@@ -39,6 +46,10 @@ public class Player {
 
 		armies=new ArrayList<Army>();
 		workers=new ArrayList<Worker>();
+		
+		nutrients=new Food(0);
+		power=new Energy(0);
+		metal=new Ore(0);
 	}
 
 	public PlayerID getId() {
@@ -109,7 +120,38 @@ public class Player {
 		return armies.add(army);
 	}
 
-	public boolean addWorker(Worker worker) {
+	public boolean addWorker(Worker worker) 
+	{
+		if(workers.size() >= 100)
+		{
+			return false;
+		}
 		return workers.add(worker);
+	}
+	
+	public void addNutrients(int food){
+		nutrients.addAmount(food);
+	}
+	
+	public void addMetal(int ore){
+		metal.addAmount(ore);
+	}
+	
+	public void addPower(int energy){
+		power.addAmount(energy);
+	}
+	
+	public void chargeResources()
+	{
+		unitManager.chargeResources(nutrients);
+		//structureManager.chargeResources(metal, power);
+	}
+	
+	public ControllableCollection getControllableCollection()
+	{
+		return new ControllableCollection(unitManager.getColonists(), unitManager.getExplorers(), 
+				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
+				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
+				structureManager.getPlants(), structureManager.getUniversities(), workers);
 	}
 }

@@ -1,11 +1,9 @@
 package model.Controllables.Stats;
 
-import model.Controllables.BasicStats;
-
 /**
- * Created by Tyler Barkley on 3/7/2017.
+ * Created by Tyler Barkley on 3/8/2017.
  */
-public class RangedStats implements BasicStats{
+public class UnitStats {
     private int health;
     private int armor;
     private int upkeep;
@@ -26,7 +24,7 @@ public class RangedStats implements BasicStats{
         return upkeep;
     }
 
-    public int getDefensiveDammage() {
+    public int getDefensiveDamage() {
         return defensiveDamage;
     }
 

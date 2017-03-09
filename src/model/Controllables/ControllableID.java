@@ -1,4 +1,4 @@
-package model;
+package model.Controllables;
 
 import java.util.Objects;
 

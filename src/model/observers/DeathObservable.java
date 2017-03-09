@@ -2,7 +2,7 @@ package model.observers;
 
 import java.util.ArrayList;
 
-import model.ControllableID;
+import model.Controllables.ControllableID;
 
 public abstract class DeathObservable
 {

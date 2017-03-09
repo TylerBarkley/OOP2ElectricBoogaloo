@@ -13,7 +13,7 @@ public abstract class Resource
 		return quantity;
 	}
 	
-	protected void setAmount(int quantity)
+	public void setAmount(int quantity)
 	{
 		this.quantity=quantity;
 	}

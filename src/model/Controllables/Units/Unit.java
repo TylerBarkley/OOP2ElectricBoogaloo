@@ -109,4 +109,6 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 	public int getUpkeep() {
 		return myStats.getUpkeep();
 	}
+
 }
+
