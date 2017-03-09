@@ -77,4 +77,34 @@ public class WorkerStats {
     public void setBuildingRate(int buildingRate) {
         this.buildingRate = buildingRate;
     }
+    public void incrementFoodProduction(int increment) {
+        this.foodProduction += increment;
+    }
+
+    public void incrementEnergyProduction(int increment) {
+        this.energyProduction+=increment;
+    }
+
+    public void incrementOreProuction(int increment) {
+        this.oreProduction += increment;
+    }
+
+    public void incrementTechnologyProduction(int increment) {
+        this.technologyProduction += increment;
+    }
+
+    public void incrementSoldierTraining(int increment) {
+        this.soldierTraining +=increment;
+    }
+
+    public void incrementBreeding(int increment) {
+        this.breeding+= increment;
+    }
+    public void incrementExplorerTraining(int increment){
+        this.explorerTraining+=increment;
+    }
+    public void incrementBuildingRate(int increment){
+        this.buildingRate+=increment;
+    }
+
 }
