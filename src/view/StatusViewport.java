@@ -6,9 +6,14 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import utilities.UnitVisitor;
+import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
+import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 
-public class StatusViewport extends JPanel {
+public class StatusViewport extends JPanel implements UnitVisitor {
 
 	private int width;
 	private int height;
@@ -114,6 +119,58 @@ public class StatusViewport extends JPanel {
 		areaText = areaText.replace(unitStats, "");
 		unitArea.setText(areaText);
 		
+	}
+
+	
+	public void visit(Colonist unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Colonist");
+		}
+		else {
+			
+			removeUnitStats("Colonist",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Explorer unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Explorer");
+		}
+		else {
+			
+			removeUnitStats("Explorer",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Melee unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Melee Unit");
+		}
+		else {
+			
+			removeUnitStats("Melee Unit",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Ranged unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Ranged Unit");
+		}
+		else {
+			
+			removeUnitStats("Ranged Unit",unit.getID().getInstanceNumber());
+		}
 	}
 	
 }
