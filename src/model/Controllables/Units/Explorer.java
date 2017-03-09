@@ -1,10 +1,11 @@
 package model.Controllables.Units;
-
-import utilities.Visitor;
+import utilities.UnitVisitor;
 
 public class Explorer extends Unit {
 
-	public void accept(Visitor visitor){
+	public void accept(UnitVisitor visitor){
 		visitor.visit(this);
 	}
+
+	public Explorer(){};
 }

@@ -10,7 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-public class UnitOverview extends JPanel {
+import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
+import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
+import utilities.UnitVisitor;
+
+public class UnitOverview extends JPanel implements UnitVisitor{
 
 	private int width, height;
 	private JTable unitTable;
@@ -57,6 +63,46 @@ public class UnitOverview extends JPanel {
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.orange);
+	}
+
+	public void visit(Colonist unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			model.addUnit(unit);
+		}
+		else {
+			model.removeUnit(unit);
+		}
+	}
+
+	public void visit(Explorer unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			model.addUnit(unit);
+		}
+		else {
+			model.removeUnit(unit);
+		}
+	}
+
+	public void visit(Melee unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			model.addUnit(unit);
+		}
+		else {
+			model.removeUnit(unit);
+		}
+	}
+	
+	public void visit(Ranged unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			model.addUnit(unit);
+		}
+		else {
+			model.removeUnit(unit);
+		}
 	}
 	
 }

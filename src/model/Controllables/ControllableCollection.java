@@ -36,7 +36,7 @@ public class ControllableCollection {
 
     private ArrayList<Army> armies;
 
-    private  ArrayList<Capital> capitals;
+    private ArrayList<Capital> capitals;
     private ArrayList<Farm> farms;
     private ArrayList<Fort> forts;
     private ArrayList<Mine> mines;
@@ -44,6 +44,32 @@ public class ControllableCollection {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
+    private ArrayList<Worker> workers;
+    
+
+
+    
+    public ControllableCollection(ArrayList<Colonist> colonists, ArrayList<Explorer> explorers, ArrayList<Melee> melees,
+			ArrayList<Ranged> rangeds, ArrayList<Army> armies, ArrayList<Capital> capitals, ArrayList<Farm> farms,
+			ArrayList<Fort> forts, ArrayList<Mine> mines, ArrayList<ObservationTower> observationTowers,
+			ArrayList<PowerPlant> powerPlants, ArrayList<University> universities, ArrayList<Worker> workers) {
+		this.colonists = colonists;
+		this.explorers = explorers;
+		this.melees = melees;
+		this.rangeds = rangeds;
+		this.armies = armies;
+		this.capitals = capitals;
+		this.farms = farms;
+		this.forts = forts;
+		this.mines = mines;
+		this.observationTowers = observationTowers;
+		this.powerPlants = powerPlants;
+		this.universities = universities;
+		this.workers = workers;
+	}
+
+	
+    
     public ControllableCollection(){
         colonists = new ArrayList<Colonist>(10);
         explorers = new ArrayList<Explorer>(10);
@@ -85,7 +111,7 @@ public class ControllableCollection {
     //cycling through modes in the menu
     public boolean controllableExists(int modeType){
         if(modeType == Menu.UNITMODE) {
-            System.out.println("CHECKING UNITMODE");
+            //System.out.println("CHECKING UNITMODE");
             for (int i = 0; i < 10 ; i++) {
                 if(colonists.get(i) != null)
                     return true;
@@ -97,7 +123,7 @@ public class ControllableCollection {
                     return true;
             }
         } else if(modeType==Menu.STRUCTUREMODE){
-            System.out.println("CHECKING STRUCTUREMODE");
+            //System.out.println("CHECKING STRUCTUREMODE");
             for (int i = 0; i < 10 ; i++) {
                 if(capitals.get(i) != null)
                     return true;
@@ -115,14 +141,14 @@ public class ControllableCollection {
                     return true;
             }
         } else if(modeType==Menu.RALLYPOINTMODE){
-            System.out.println("CHECKING RALLYPOINT");
+            //System.out.println("CHECKING RALLYPOINT");
             for (int i = 0; i < armies.size(); i++) {
                 if (armies.get(i) != null){
                     return true;
                 }
             }
         } else if(modeType==Menu.ARMYMODE){
-            System.out.println("CHECKING ARMYMODE");
+            //System.out.println("CHECKING ARMYMODE");
             for (int i = 0; i < armies.size(); i++) {
                 if (armies.get(i) != null){
                     return true;
@@ -173,107 +199,85 @@ public class ControllableCollection {
         else return null;
     }
 
-
+    public ArrayList<Explorer> getExpolorers() {
+        return explorers;
+    }
     public void setExplorers(ArrayList<Explorer> explorers) {
         this.explorers = explorers;
     }
-
+    public ArrayList<Colonist> getColonists() {
+        return colonists;
+    }
+    public void setColonists(ArrayList<Colonist> colonists) {
+        this.colonists = colonists;
+    }
     public ArrayList<Melee> getMelees() {
         return melees;
     }
-
     public void setMelees(ArrayList<Melee> melees) {
         this.melees = melees;
     }
-
     public ArrayList<Ranged> getRangeds() {
         return rangeds;
     }
-
     public void setRangeds(ArrayList<Ranged> rangeds) {
         this.rangeds = rangeds;
     }
-
     public ArrayList<Army> getArmies() {
         return armies;
     }
-
     public void setArmies(ArrayList<Army> armies) {
         this.armies = armies;
     }
-
     public ArrayList<Capital> getCapitals() {
         return capitals;
     }
-
     public void setCapitals(ArrayList<Capital> capitals) {
         this.capitals = capitals;
     }
-
     public ArrayList<Farm> getFarms() {
         return farms;
     }
-
     public void setFarms(ArrayList<Farm> farms) {
         this.farms = farms;
     }
-
     public ArrayList<Fort> getForts() {
         return forts;
     }
-
     public void setForts(ArrayList<Fort> forts) {
         this.forts = forts;
     }
-
     public ArrayList<Mine> getMines() {
         return mines;
     }
-
     public void setMines(ArrayList<Mine> mines) {
         this.mines = mines;
     }
-
     public ArrayList<ObservationTower> getObservationTowers() {
         return observationTowers;
     }
-
     public void setObservationTowers(ArrayList<ObservationTower> observationTowers) {
-        this.observationTowers = observationTowers;
-    }
-
+        this.observationTowers = observationTowers; }
     public ArrayList<PowerPlant> getPowerPlants() {
         return powerPlants;
     }
-
     public void setPowerPlants(ArrayList<PowerPlant> powerPlants) {
         this.powerPlants = powerPlants;
     }
-
     public ArrayList<University> getUniversities() {
         return universities;
     }
-
     public void setUniversities(ArrayList<University> universities) {
         this.universities = universities;
     }
-
     public ArrayList<Worker> getWorkers() {
         return workers;
     }
-
     public void setWorkers(ArrayList<Worker> workers) {
         this.workers = workers;
     }
 
-    ArrayList<Worker> workers;
 
-    public ArrayList<Colonist> getColonists() {
-        return colonists;
-    }
 
-    public void setColonists(ArrayList<Colonist> colonists) {
-        this.colonists = colonists;
-    }
 
 }

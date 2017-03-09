@@ -15,8 +15,13 @@ ArrayList<StructureAdvancements> structureAdvancements;
 Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats){
     this.unitStats=unitStats;
     this.structureStats=structureStats;
-    unitAdvancements=new ArrayList<UnitAdvancements>(unitStats.size());
-    structureAdvancements=new ArrayList<StructureAdvancements>(structureStats.size());
+    for(int i=0;i<unitStats.size();i++){
+        unitAdvancements.add(new UnitAdvancements());
+    }
+    for(int i=0;i<structureStats.size();i++){
+        structureAdvancements.add(new StructureAdvancements());
+    }
+
 }
 public void editUnitStats(int unitType,String statToBeModified){
         switch(statToBeModified){

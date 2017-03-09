@@ -6,7 +6,14 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class StatusViewport extends JPanel {
+import utilities.UnitVisitor;
+import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
+import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
+import model.Controllables.Units.Unit;
+
+public class StatusViewport extends JPanel implements UnitVisitor {
 
 	private int width;
 	private int height;
@@ -78,6 +85,92 @@ public class StatusViewport extends JPanel {
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.orange);
+	}
+	
+	public void displayUnitStats(Unit unit, int instance, String unitName) {
+		
+		String unitStats = unitName + " " + instance + "\n" 
+		+ "Health: " + unit.getCurrentHealth() + "\n"
+		+ "Movement: " + unit.getMyStats().getMovement() + "\n"
+		+ "Upkeep: " + unit.getMyStats().getUpkeep();
+		
+		String areaText = unitArea.getText();
+		int index = areaText.indexOf(unitName + " " + instance);
+		
+		if(index >= 0) {
+			
+			String oldStats = areaText.substring(index, areaText.indexOf("\n\n",index));
+			areaText = areaText.replace(oldStats, unitStats);
+		}
+		else {
+			areaText = areaText + unitStats + "\n\n";
+		}
+		
+		unitArea.setText(areaText);
+		
+	}
+	
+	public void removeUnitStats(String unitName, int instance) {
+		
+		String areaText = unitArea.getText();
+		int index = areaText.indexOf(unitName + " " + instance);
+		String unitStats = "\n\n" + areaText.substring(index, areaText.indexOf("\n\n",index));
+		
+		areaText = areaText.replace(unitStats, "");
+		unitArea.setText(areaText);
+		
+	}
+
+	
+	public void visit(Colonist unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Colonist");
+		}
+		else {
+			
+			removeUnitStats("Colonist",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Explorer unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Explorer");
+		}
+		else {
+			
+			removeUnitStats("Explorer",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Melee unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Melee Unit");
+		}
+		else {
+			
+			removeUnitStats("Melee Unit",unit.getID().getInstanceNumber());
+		}
+	}
+
+	
+	public void visit(Ranged unit) {
+		
+		if(unit.getCurrentHealth() > 0) {
+			
+			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Ranged Unit");
+		}
+		else {
+			
+			removeUnitStats("Ranged Unit",unit.getID().getInstanceNumber());
+		}
 	}
 	
 }

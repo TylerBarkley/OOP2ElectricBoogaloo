@@ -4,10 +4,10 @@ import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
-import model.Tile;
+import model.Map.Tile;
 import model.Controllables.Worker;
 
-public class MyVisitor implements Visitor {
+public class MyVisitor implements UnitVisitor,TileVisitor,WorkerVisitor {
 
 	@Override
 	public void visit(Colonist unit) {

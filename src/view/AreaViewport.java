@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import model.ID;
 import model.Location;
 import model.MapDirection;
 
@@ -17,14 +18,15 @@ public class AreaViewport extends JPanel
 	private static final int xOffset=(int)(TileView.TILE_SIZE*Math.cos(Math.PI/3));
 	private static final int yOffset=(int)(TileView.TILE_SIZE*Math.sin(Math.PI/3));
 
-	private ArrayList<View> views;
+	private HashMap<ID, View> views;
 
 	private HashMap<Location, TileView> mapView;
 	private HashMap<Location, CompositeView> resources;
 
 	private Location focus;
 	private FocusView focusView;
-
+	private ID focusID;
+	
 	private BufferedImage image;
 	private Graphics2D g2d;
 
@@ -34,20 +36,26 @@ public class AreaViewport extends JPanel
 	{
 		setSize(width, height);
 
-		views=new ArrayList<View>();
+		initializeFields();
+		
+		displayView();
+	}
+
+	private void initializeFields() {
+		views=new HashMap<ID, View>();
 
 		resources=new HashMap<Location, CompositeView>();
 
 		focus=new Location(0,0);
-		focusView=new FocusView(focus);
-		views.add(focusView);
+		focusID=new ID();
+		focusView=new FocusView(focusID, focus);
 
-		image=new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		views.put(focusID, focusView);
+		
+		image=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d=image.createGraphics();
 
 		resourceViewVisible=false;
-		
-		displayView();
 	}
 
 	public void setBlankMap(Set<Location> mapLocations)
@@ -59,7 +67,7 @@ public class AreaViewport extends JPanel
 		{
 			if(mapView.get(loc)==null)
 			{
-				mapView.put(loc, (TileView)factory.getView("UnknownTerrain", loc, 0));
+				mapView.put(loc, (TileView)factory.getView(new ID(), "UnknownTerrain", loc, 0));
 			}
 		}
 
@@ -121,16 +129,17 @@ public class AreaViewport extends JPanel
 		g.drawImage(image,0,0,null);
 	}
 	
-	public void setViews(ArrayList<View> views)
+	public void setViews(HashMap<ID, View> views)
 	{
 		this.views=views;
-		this.views.add(focusView);
+		
+		views.put(focusID, focusView);
 		updateView();
 	}
 
 	public void addView(View view)
 	{
-		views.add(view);
+		views.put(view.getID(), view);
 		updateView();
 	}
 
@@ -157,6 +166,29 @@ public class AreaViewport extends JPanel
 		repaint();
 	}
 
+	public AreaViewportMomento saveToMomento()
+	{
+		AreaViewportMomento momento = new AreaViewportMomento(views, mapView, resources, focus, focusView, focusID, image, g2d, resourceViewVisible);
+		initializeFields();
+		return momento;
+	}
+	
+	public void restoreFromMomento(AreaViewportMomento momento)
+	{
+		views=momento.getViews();
+
+		resources=momento.getResources();
+
+		focus=momento.getFocus();
+		focusID=momento.getFocusID();
+		focusView=momento.getFocusView();
+		
+		image=momento.getImage();
+		g2d=momento.getG2d();
+
+		resourceViewVisible=momento.isResourceViewVisible();
+	}
+	
 	private Location getTopLeftCornerOfDisplay() 
 	{
 		int mapDisplayWidth=getMapDisplayWidth();
@@ -262,7 +294,7 @@ public class AreaViewport extends JPanel
 			{
 				drawViewAt(loc, pixelX, pixelY);
 			}
-			//drawViewAt(loc, pixelX, pixelY);
+
 			pixelX+= TileView.TILE_SIZE-xOffset/2;
 			pixelY+= yOffset/2;
 			loc=loc.getAdjacent(se);
@@ -289,7 +321,7 @@ public class AreaViewport extends JPanel
 	{
 		ArrayList<View> desiredViews=new ArrayList<View>();
 
-		for(View view: views)
+		for(View view: views.values())
 		{
 			if(view.getLocation().equals(loc))
 			{

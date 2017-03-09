@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import control.UserControls;
 import model.Location;
 
 public class GameWindow extends JFrame {
@@ -22,8 +23,9 @@ public class GameWindow extends JFrame {
 	private MainScreen mainScreen;
 	private UnitOverview unitOverview;
 	private StructureOverview structureOverview;
-
-	public GameWindow(int width, int height) {
+	private ConfigurationOverview configurationOverview;
+	
+	public GameWindow(int width, int height, UserControls controls) {
 		this.width = width;
 		this.height = height;
 		this.setTitle("Lost In the Sauce");
@@ -33,6 +35,7 @@ public class GameWindow extends JFrame {
 		this.mainScreen=new MainScreen(width,height);
 		this.unitOverview=new UnitOverview(width, height);
 		this.structureOverview=new StructureOverview(width, height);
+		this.configurationOverview=new ConfigurationOverview(controls, width, height);
 		
 		tabbedPane.setFocusable(true);
 		addComponentListener(new ComponentListener() {
@@ -47,10 +50,6 @@ public class GameWindow extends JFrame {
 		
 		setUpTabbedPane();
 		addGameMenu();
-	}
-
-	public GameWindow() {
-		this(1080, 720);
 	}
 
 	private void setUpTabbedPane() {
@@ -105,20 +104,23 @@ public class GameWindow extends JFrame {
 			}
 		});
 
+		JMenuItem controls = new JMenuItem("Configure Controls");
+		controls.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame=new JFrame();
+				frame.setSize(500, 500);
+				frame.add(configurationOverview);
+				frame.setVisible(true);
+				frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			}
+		});
+		
+		fileMenu.add(controls);
 		fileMenu.add(exitItem);
-
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(fileMenu);
 		this.setJMenuBar(menuBar);
 
-	}
-
-	public void placeDecal(Decal decal) {
-		mainScreen.placeDecal(decal);
-	}
-	
-	public static void main(String arg[]) {
-		GameWindow game = new GameWindow();
-		game.openWindow();
 	}
 }
