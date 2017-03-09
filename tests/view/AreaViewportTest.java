@@ -10,6 +10,7 @@ import org.junit.Test;
 import model.ID;
 import model.Location;
 import model.Map.Map;
+import java.lang.Math;
 
 public class AreaViewportTest {
 
