@@ -104,4 +104,7 @@ public class StructureStats {
     public void incrementWorkerRadius(int increment){
         this.workerRadius+=increment;
     }
+    public void incrementOffensiveDamage(int increment){
+        this.offensiveDamage+=increment;
+    }
 }
