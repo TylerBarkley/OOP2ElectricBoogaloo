@@ -1,13 +1,14 @@
 package model.Map.Occupancy;
 
 import model.Controllables.Structures.Structure;
+import model.player.PlayerID;
 
 /**
  * Created by zrgam_000 on 3/7/2017.
  */
 public class StructureOccupancy {
     private Structure occupyingStructure;
-    private int pid;
+    private PlayerID pid;
 
     public void setStructure(Structure struct){
         occupyingStructure = struct;
@@ -19,7 +20,7 @@ public class StructureOccupancy {
         return occupyingStructure;
     }
 
-    public int getPid() {
+    public PlayerID getPid() {
         return pid;
     }
 }

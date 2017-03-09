@@ -4,6 +4,7 @@ import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
 
+import model.player.PlayerID;
 import utilities.StructureVisitor;
 import model.observers.DeathObservable;
 
@@ -56,8 +57,7 @@ public abstract class Structure extends DeathObservable implements Controllable 
     }
 
 
-    //FOR TESTING DO NOT KEEP
-    public int getPid(){
-        return 100;
+    public PlayerID getPid(){
+        return id.getPlayerID();
     }
 }

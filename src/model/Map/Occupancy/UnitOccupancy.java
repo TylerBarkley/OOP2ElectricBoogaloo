@@ -1,6 +1,7 @@
 package model.Map.Occupancy;
 
 import model.Controllables.Units.Unit;
+import model.player.PlayerID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.HashMap;
  */
 public class UnitOccupancy {
     private ArrayList<Unit> occupyingUnits;
-    private int pid;
+    private PlayerID pid;
 
     public UnitOccupancy(){
         occupyingUnits = new ArrayList<Unit>();
@@ -25,7 +26,7 @@ public class UnitOccupancy {
         pid = added.getPid();
     }
 
-    public int getPid() {
+    public PlayerID getPid() {
         return pid;
     }
 

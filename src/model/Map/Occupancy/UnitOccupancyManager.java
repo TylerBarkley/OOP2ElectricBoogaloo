@@ -3,13 +3,14 @@ package model.Map.Occupancy;
 import model.Controllables.Units.Unit;
 import model.Location;
 import model.Map.Manager;
+import model.player.PlayerID;
 
 /**
  * Created by zrgam_000 on 3/7/2017.
  */
 public class UnitOccupancyManager extends Manager<UnitOccupancy> {
 
-    public boolean checkPlayer(int pid, Location loc){
+    public boolean checkPlayer(PlayerID pid, Location loc){
 
         if(get(loc) == null){
             return true;

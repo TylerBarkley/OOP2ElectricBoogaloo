@@ -87,11 +87,12 @@ public class MovementManager {
 
         AOE targetAOE = map.getAoEAt(location);
 
+        oneShotManager.useItem(location, target);
+
         if(targetAOE != null){
             targetAOE.apply(target);
         }
 
-        oneShotManager.useItem(location, target);
     }
 
     public void makeMove(Unit target, MapDirection md){
@@ -109,10 +110,10 @@ public class MovementManager {
 
         AOE targetAOE = map.getAoEAt(location);
 
+        oneShotManager.useItem(location, target);
+
         if(targetAOE != null){
             targetAOE.apply(target);
         }
-
-        oneShotManager.useItem(location, target);
     }
 }

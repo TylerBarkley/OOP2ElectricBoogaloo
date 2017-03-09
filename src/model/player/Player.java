@@ -50,6 +50,8 @@ public class Player {
 		nutrients=new Food(0);
 		power=new Energy(0);
 		metal=new Ore(0);
+
+		PlayerManager.getInstance().addPlayer(this);
 	}
 
 	public PlayerID getId() {

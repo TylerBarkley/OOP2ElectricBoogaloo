@@ -5,6 +5,7 @@ import model.Controllables.Stats.UnitStats;
 import model.observers.DeathObservable;
 import model.Location;
 import model.MapDirection;
+import model.player.PlayerID;
 
 public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
 {
@@ -82,8 +83,8 @@ public abstract class Unit extends DeathObservable implements Controllable //imp
 		return this.myStats;
 	}
 
-	public int getPid(){
-		return currentHealth;
+	public PlayerID getPid(){
+		return id.getPlayerID();
 	}
 
 	public Location getLocation() {

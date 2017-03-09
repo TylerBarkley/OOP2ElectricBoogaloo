@@ -38,6 +38,10 @@ public class PlayerManager {
 		
 		return pm;
 	}
+
+	public void addPlayer(Player player){
+		this.players.put(player.getId(), player);
+	}
 	
 	public ArrayList<Unit> getUnits(PlayerID id) {
 		return players.get(id).getUnits();
