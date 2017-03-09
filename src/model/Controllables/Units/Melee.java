@@ -7,5 +7,12 @@ public class Melee extends Unit {
 		visitor.visit(this);
 	}
 
-	public Melee(){};
+	public Melee(){}
+
+	@Override
+	public boolean canEscort() {
+		return true;
+	}
+
+	;
 }

@@ -7,5 +7,12 @@ public class Colonist extends Unit {
 		visitor.visit(this);
 	}
 
-	public Colonist(){};
+	public Colonist(){}
+
+	@Override
+	public boolean canEscort() {
+		return false;
+	}
+
+	;
 }

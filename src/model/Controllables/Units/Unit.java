@@ -9,6 +9,9 @@ import model.player.PlayerID;
 public abstract class Unit extends Observable<Unit> implements Controllable //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
+	private int maxActionPoints;
+	private int currentActionPoints;
+
 	private UnitStats myStats;
 	private UnitID id;
 	private Location location;
@@ -17,10 +20,15 @@ public abstract class Unit extends Observable<Unit> implements Controllable //im
 
 	protected Unit(){
 		myStats = new UnitStats();
+		maxActionPoints = myStats.getMovement();
+		currentActionPoints = maxActionPoints;
 	}
 
 	protected Unit(Location loc){
 		myStats = new UnitStats();
+		maxActionPoints = myStats.getMovement();
+		currentActionPoints = maxActionPoints;
+
 		location = loc;
 		md = MapDirection.getNorth();
 		isAlive=true;
@@ -125,6 +133,18 @@ public abstract class Unit extends Observable<Unit> implements Controllable //im
 
 	public int getUpkeep() {
 		return myStats.getUpkeep();
+	}
+
+	public abstract boolean canEscort();
+
+	public void setActionPoints(int AP) {
+		this.maxActionPoints = AP;
+		this.currentActionPoints = AP;
+	}
+
+	public void resetAP() {
+		maxActionPoints = myStats.getMovement();
+		currentActionPoints = maxActionPoints;
 	}
 
 	public boolean isAlive(){

@@ -21,5 +21,10 @@ public class Ranged extends Unit {
 
 	}
 
+	@Override
+	public boolean canEscort() {
+		return true;
+	}
+
 
 }
