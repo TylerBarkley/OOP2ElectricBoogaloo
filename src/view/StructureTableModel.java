@@ -2,11 +2,14 @@ package view;
 
 import javax.swing.table.AbstractTableModel;
 
+import model.Controllables.Structures.Structure;
+
+
 public class StructureTableModel extends AbstractTableModel {
 
 	public static final int STRUCTURE_TYPES = 4;
 	public static final int MAX_PER_TYPE = 10;
-	public static final String STRUCTURENAMES[]= {"BASE","MINE","FARM","RESEACH CENTER"};
+	public static final String STRUCTURENAMES[]= {"CAPITAL","FARM","FORT","MINE","OBSERVATION OBSERVER","POWER PLANT","UNIVERSITY"};
 	
 	 private String columnNames[];
 	private Object data[][]; 
@@ -65,4 +68,22 @@ public class StructureTableModel extends AbstractTableModel {
 		return data[rowIndex][columnIndex];
 	}
 	
+public void addStructure(Structure structure) {
+		
+		int row = structure.getID().getType()-1;
+		int column = structure.getID().getInstanceNumber()+1;
+		
+		data[row][column] = structure;
+		this.fireTableCellUpdated(row, column);
+	}
+	
+	public void removeStructure(Structure structure) {
+		
+		int row = structure.getID().getType()-1;
+		int column = structure.getID().getInstanceNumber()+1;
+		
+		data[row][column] = new String("");
+		this.fireTableCellUpdated(row, column);
+		
+	}
 }
