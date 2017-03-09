@@ -20,7 +20,7 @@ public class AreaViewportTest {
 		ViewFactory f=ViewFactory.getFactory();
 		HashMap<Location, TileView> map=new HashMap<Location, TileView>();
 		for(int i=0; i<60; i++){
-			int offset=(i-1)/2;
+            int offset=Math.floorDiv(i-1, 2);
 			for(int j=-offset; j<60-offset; j++){
 				Location loc=new Location(i,60-i-j);
 
@@ -87,6 +87,50 @@ public class AreaViewportTest {
 		viewport.focusOn(new Location(2,0));
 		viewport.focusOn(new Location(1,0));
 		viewport.focusOn(new Location(0,0));
+        viewport.focusOn(new Location(0,1));
+        viewport.focusOn(new Location(0,2));
+        viewport.focusOn(new Location(0,3));
+        viewport.focusOn(new Location(0,4));
+        viewport.focusOn(new Location(0,5));
+        viewport.focusOn(new Location(0,55));
+        viewport.focusOn(new Location(0,56));
+        viewport.focusOn(new Location(0,57));
+        viewport.focusOn(new Location(0,58));
+        viewport.focusOn(new Location(0,59));
+        viewport.focusOn(new Location(1,59));
+        viewport.focusOn(new Location(2,58));
+        viewport.focusOn(new Location(3,58));
+        viewport.focusOn(new Location(4,57));
+        viewport.focusOn(new Location(5,57));
+        viewport.focusOn(new Location(6,56));
+        viewport.focusOn(new Location(54,32));
+        viewport.focusOn(new Location(55,32));
+        viewport.focusOn(new Location(56,31));
+        viewport.focusOn(new Location(57,31));
+        viewport.focusOn(new Location(58,30));
+        viewport.focusOn(new Location(59,30));
+        viewport.focusOn(new Location(59,29));
+        viewport.focusOn(new Location(59,28));
+        viewport.focusOn(new Location(59,27));
+        viewport.focusOn(new Location(59,-26));
+        viewport.focusOn(new Location(59,-27));
+        viewport.focusOn(new Location(59,-28));
+        viewport.focusOn(new Location(59,-29));
+        viewport.focusOn(new Location(58,-29));
+        viewport.focusOn(new Location(57,-28));
+        viewport.focusOn(new Location(56,-28));
+        viewport.focusOn(new Location(55,-27));
+        viewport.focusOn(new Location(54,-27));
+        viewport.focusOn(new Location(53,-26));
+        viewport.focusOn(new Location(52,-26));
+        viewport.focusOn(new Location(7,-3));
+        viewport.focusOn(new Location(6,-3));
+        viewport.focusOn(new Location(5,-2));
+        viewport.focusOn(new Location(4,-2));
+        viewport.focusOn(new Location(3,-1));
+        viewport.focusOn(new Location(2,-1));
+        viewport.focusOn(new Location(1,0));
+        viewport.focusOn(new Location(0,0));
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

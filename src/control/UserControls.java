@@ -1,6 +1,7 @@
 package control;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -52,127 +53,87 @@ public class UserControls {
 		return mapUp;
 	}
 
-	public void setMapUp(Control mapUp) {
-		this.mapUp = mapUp;
-	}
-
 	public Control getMapDown() {
 		return mapDown;
-	}
-
-	public void setMapDown(Control mapDown) {
-		this.mapDown = mapDown;
 	}
 
 	public Control getMapUpRight() {
 		return mapUpRight;
 	}
 
-	public void setMapUpRight(Control mapUpRight) {
-		this.mapUpRight = mapUpRight;
-	}
-
 	public Control getMapUpLeft() {
 		return mapUpLeft;
-	}
-
-	public void setMapUpLeft(Control mapUpLeft) {
-		this.mapUpLeft = mapUpLeft;
 	}
 
 	public Control getMapDownRight() {
 		return mapDownRight;
 	}
 
-	public void setMapDownRight(Control mapDownRight) {
-		this.mapDownRight = mapDownRight;
-	}
-
 	public Control getMapDownLeft() {
 		return mapDownLeft;
-	}
-
-	public void setMapDownLeft(Control mapDownLeft) {
-		this.mapDownLeft = mapDownLeft;
 	}
 
 	public Control getCycleModeUp() {
 		return cycleModeUp;
 	}
 
-	public void setCycleModeUp(Control cycleModeUp) {
-		this.cycleModeUp = cycleModeUp;
-	}
-
 	public Control getCycleModeDown() {
 		return cycleModeDown;
-	}
-
-	public void setCycleModeDown(Control cycleModeDown) {
-		this.cycleModeDown = cycleModeDown;
 	}
 
 	public Control getCycleTypeLeft() {
 		return cycleTypeLeft;
 	}
 
-	public void setCycleTypeLeft(Control cycleTypeLeft) {
-		this.cycleTypeLeft = cycleTypeLeft;
-	}
-
 	public Control getCycleTypeRight() {
 		return cycleTypeRight;
-	}
-
-	public void setCycleTypeRight(Control cycleTypeRight) {
-		this.cycleTypeRight = cycleTypeRight;
 	}
 
 	public Control getCycleCommandUp() {
 		return cycleCommandUp;
 	}
 
-	public void setCycleCommandUp(Control cycleCommandUp) {
-		this.cycleCommandUp = cycleCommandUp;
-	}
-
 	public Control getCycleCommandDown() {
 		return cycleCommandDown;
-	}
-
-	public void setCycleCommandDown(Control cycleCommandDown) {
-		this.cycleCommandDown = cycleCommandDown;
 	}
 
 	public Control getCycleInstanceLeft() {
 		return cycleInstanceLeft;
 	}
 
-	public void setCycleInstanceLeft(Control cycleInstanceLeft) {
-		this.cycleInstanceLeft = cycleInstanceLeft;
-	}
-
 	public Control getCycleInstanceRight() {
 		return cycleInstanceRight;
-	}
-
-	public void setCycleInstanceRight(Control cycleInstanceRight) {
-		this.cycleInstanceRight = cycleInstanceRight;
 	}
 
 	public Control getCenterFocus() {
 		return centerFocus;
 	}
 
-	public void setCenterFocus(Control centerFocus) {
-		this.centerFocus = centerFocus;
-	}
-
 	public Control getEndTurn() {
 		return endTurn;
 	}
-
-	public void setEndTurn(Control endTurn) {
-		this.endTurn = endTurn;
+	
+	public ArrayList<Control> getAllControls() 
+	{
+		ArrayList<Control> list=new ArrayList<Control>();
+		
+		list.add(mapUp);
+		list.add(mapDown);
+		list.add(mapUpRight);
+		list.add(mapUpLeft);
+		list.add(mapDownRight);
+		list.add(mapDownLeft);      
+		list.add(cycleModeUp);
+		list.add(cycleModeDown);
+		list.add(cycleTypeLeft);
+		list.add(cycleTypeRight);
+		list.add(cycleCommandUp);
+		list.add(cycleCommandDown);
+		list.add(cycleInstanceLeft);
+		list.add(cycleInstanceRight);
+		list.add(centerFocus);
+		list.add(endTurn);
+		
+		return list;
 	}
 }

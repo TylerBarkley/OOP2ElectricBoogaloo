@@ -17,10 +17,6 @@ public class Control {
 		this(event, "Default");
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
 	public int hashCode(){
 		return event.hashCode() + super.hashCode();
 	}
@@ -37,5 +33,21 @@ public class Control {
 		b&=event.getModifiers() == e.getModifiers();
 		
 		return b;
+	}
+
+	public KeyEvent getEvent() {
+		return event;
+	}
+
+	public void setEvent(KeyEvent event) {
+		this.event = event;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }
