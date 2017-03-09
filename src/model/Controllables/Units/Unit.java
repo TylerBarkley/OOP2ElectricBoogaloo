@@ -2,14 +2,9 @@ package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
 
-import utilities.UnitVisitor;
-
 import model.observers.DeathObservable;
 import model.Location;
 import model.MapDirection;
-
-
-
 
 public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
 {

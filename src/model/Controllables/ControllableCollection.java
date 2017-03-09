@@ -36,14 +36,35 @@ public class ControllableCollection {
 
     private ArrayList<Army> armies;
 
-    private  ArrayList<Capital> capitals;
+    private ArrayList<Capital> capitals;
     private ArrayList<Farm> farms;
     private ArrayList<Fort> forts;
     private ArrayList<Mine> mines;
     private ArrayList<ObservationTower> observationTowers;
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
+    
+    public ControllableCollection(ArrayList<Colonist> colonists, ArrayList<Explorer> explorers, ArrayList<Melee> melees,
+			ArrayList<Ranged> rangeds, ArrayList<Army> armies, ArrayList<Capital> capitals, ArrayList<Farm> farms,
+			ArrayList<Fort> forts, ArrayList<Mine> mines, ArrayList<ObservationTower> observationTowers,
+			ArrayList<PowerPlant> powerPlants, ArrayList<University> universities, ArrayList<Worker> workers) {
+		this.colonists = colonists;
+		this.explorers = explorers;
+		this.melees = melees;
+		this.rangeds = rangeds;
+		this.armies = armies;
+		this.capitals = capitals;
+		this.farms = farms;
+		this.forts = forts;
+		this.mines = mines;
+		this.observationTowers = observationTowers;
+		this.powerPlants = powerPlants;
+		this.universities = universities;
+		this.workers = workers;
+	}
 
+	private ArrayList<Worker> workers;
+    
     public ControllableCollection(){
         colonists = new ArrayList<Colonist>(10);
         explorers = new ArrayList<Explorer>(10);
@@ -265,8 +286,6 @@ public class ControllableCollection {
     public void setWorkers(ArrayList<Worker> workers) {
         this.workers = workers;
     }
-
-    ArrayList<Worker> workers;
 
     public ArrayList<Colonist> getColonists() {
         return colonists;

@@ -3,6 +3,7 @@ package model.player;
 import java.util.ArrayList;
 
 import model.Controllables.Army;
+import model.Controllables.ControllableCollection;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -32,9 +33,9 @@ public class Player {
 	private ArrayList<Army> armies;
 	private ArrayList<Worker> workers;
 	
-	private Food food;
-	private Energy energy;
-	private Ore ore;
+	private Food nutrients;
+	private Energy power;
+	private Ore metal;
 	
 	public Player()
 	{
@@ -46,9 +47,9 @@ public class Player {
 		armies=new ArrayList<Army>();
 		workers=new ArrayList<Worker>();
 		
-		food=new Food(0);
-		energy=new Energy(0);
-		ore=new Ore(0);
+		nutrients=new Food(0);
+		power=new Energy(0);
+		metal=new Ore(0);
 	}
 
 	public PlayerID getId() {
@@ -128,9 +129,29 @@ public class Player {
 		return workers.add(worker);
 	}
 	
+	public void addNutrients(int food){
+		nutrients.addAmount(food);
+	}
+	
+	public void addMetal(int ore){
+		metal.addAmount(ore);
+	}
+	
+	public void addPower(int energy){
+		power.addAmount(energy);
+	}
+	
 	public void chargeResources()
 	{
-		unitManager.chargeResources(food);
-		//structureManager.chargeResources(ore, energy);
+		unitManager.chargeResources(nutrients);
+		//structureManager.chargeResources(metal, power);
+	}
+	
+	public ControllableCollection getControllableCollection()
+	{
+		return new ControllableCollection(unitManager.getColonists(), unitManager.getExplorers(), 
+				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
+				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
+				structureManager.getPlants(), structureManager.getUniversities(), workers);
 	}
 }

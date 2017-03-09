@@ -192,5 +192,51 @@ public class UnitManager implements DeathObserver{
 				foodQuantity-=cost;
 			}
 		}
+		
+		food.setAmount(foodQuantity);
+	}
+
+	public ArrayList<Colonist> getColonists() {
+		ArrayList<Colonist> list=new ArrayList<Colonist>();
+		
+		for(Colonist unit: colonists)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Explorer> getExplorers() {
+		ArrayList<Explorer> list=new ArrayList<Explorer>();
+		
+		for(Explorer unit: explorers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Melee> getSoldiers() {
+		ArrayList<Melee> list=new ArrayList<Melee>();
+		
+		for(Melee unit: soldiers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Ranged> getRangedSoldiers() {
+		ArrayList<Ranged> list=new ArrayList<Ranged>();
+		
+		for(Ranged unit: rangedSoldiers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 }

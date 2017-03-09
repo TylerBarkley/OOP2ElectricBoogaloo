@@ -98,4 +98,16 @@ public class PlayerManager {
 	public boolean addStructure(PlayerID id, University structure) {
 		return players.get(id).addStructure(structure);
 	}
+	
+	public void addNutrients(PlayerID id, int food){
+		players.get(id).addNutrients(food);
+	}
+	
+	public void addMetal(PlayerID id, int ore){
+		players.get(id).addMetal(ore);
+	}
+	
+	public void addPower(PlayerID id, int energy){
+		players.get(id).addPower(energy);
+	}
 }

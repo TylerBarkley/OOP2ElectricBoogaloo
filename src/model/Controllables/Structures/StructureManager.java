@@ -3,7 +3,6 @@ package model.Controllables.Structures;
 import java.util.ArrayList;
 
 import model.Controllables.ControllableID;
-import model.Controllables.Units.Unit;
 import model.observers.DeathObserver;
 import model.player.PlayerID;
 
@@ -180,4 +179,33 @@ public class StructureManager implements DeathObserver{
 			break;
 		}
 	}
+
+	public ArrayList<Capital> getCapitals() {
+		return capitals;
+	}
+
+	public ArrayList<Farm> getFarms() {
+		return farms;
+	}
+
+	public ArrayList<Fort> getForts() {
+		return forts;
+	}
+
+	public ArrayList<Mine> getMines() {
+		return mines;
+	}
+
+	public ArrayList<ObservationTower> getTowers() {
+		return towers;
+	}
+
+	public ArrayList<PowerPlant> getPlants() {
+		return plants;
+	}
+
+	public ArrayList<University> getUniversities() {
+		return universities;
+	}
+
 }
