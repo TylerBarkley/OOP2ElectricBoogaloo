@@ -10,6 +10,7 @@ public class ArmyStats {
     private int upkeep;
     private int movement;
     private int armor;
+    private int numOfUnits;
 
     public int getOffensiveDamage() {
         return offensiveDamage;
@@ -52,10 +53,53 @@ public class ArmyStats {
     }
 
     public void addStats(UnitStats unitStats){
+        increment_numOfUnits();
+        if(numOfUnits == 1){
+            offensiveDamage = unitStats.getOffensiveDamage();
+            defensiveDamage = unitStats.getDefensiveDamage();
+            upkeep = unitStats.getUpkeep();
+            movement = unitStats.getMovement();
+            armor = unitStats.getArmor();
+        }
+        else if(numOfUnits == 2){
+            offensiveDamage = offensiveDamage + (unitStats.getOffensiveDamage()/2);
+            defensiveDamage = defensiveDamage + (unitStats.getDefensiveDamage()/2);
+            upkeep = upkeep + unitStats.getUpkeep();
+            if(unitStats.getMovement() < movement){
+                movement = unitStats.getMovement();
+            }
+            armor = armor + (unitStats.getArmor()/2);
+        }
+        else if(numOfUnits > 2){
+            offensiveDamage = offensiveDamage + (unitStats.getOffensiveDamage()/4);
+            defensiveDamage = defensiveDamage + (unitStats.getDefensiveDamage()/4);
+            upkeep = upkeep + unitStats.getUpkeep();
+            if(unitStats.getMovement() < movement){
+                movement = unitStats.getMovement();
+            }
+            armor = armor + (unitStats.getArmor()/4);
 
+        }
     }
 
     public void removeStats(UnitStats unitStats){
-        
+
     }
+
+    public int getNumOfUnits() {
+        return numOfUnits;
+    }
+
+    public void setNumOfUnits(int numOfUnits) {
+        this.numOfUnits = numOfUnits;
+    }
+
+    public void decrement_numOfUnits(){
+        this.numOfUnits--;
+    }
+
+    public void increment_numOfUnits(){
+        this.numOfUnits++;
+    }
+
 }
