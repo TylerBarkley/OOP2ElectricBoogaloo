@@ -7,5 +7,12 @@ public class Explorer extends Unit {
 		visitor.visit(this);
 	}
 
-	public Explorer(){};
+	public Explorer(){}
+
+	@Override
+	public boolean canEscort() {
+		return false;
+	}
+
+	;
 }

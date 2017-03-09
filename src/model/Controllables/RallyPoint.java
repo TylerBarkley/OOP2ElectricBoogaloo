@@ -11,8 +11,7 @@ import java.util.HashMap;
 /**
  * Created by zrgam_000 on 3/9/2017.
  */
-public class RallyPoint //implements UnitObserver
-{
+public class RallyPoint {
     Location location;
 
     Army myArmy;
