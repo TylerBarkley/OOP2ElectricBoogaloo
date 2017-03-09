@@ -8,6 +8,8 @@ import model.Map.Items.OneShotManager;
 import org.junit.Before;
 import org.junit.Test;
 import model.Controllables.Units.*;
+import model.Technology;
+import model.Stats.*;
 
 
 /**
@@ -135,7 +137,7 @@ public class TechnologyTest {
         technology.editWorkerStats("breeding");
         technology.editWorkerStats("explorerTesting");
         technology.editWorkerStats("buildingRate");
-        assertEquals(1git,technology.getWorkerStats("foodProduction"));
+        assertEquals(1,technology.getWorkerStats("foodProduction"));
         assertEquals(1,technology.getWorkerStats("oreProduction"));
         assertEquals(1,technology.getWorkerStats("energyProduction"));
         assertEquals(1,technology.getWorkerStats("technologyProduction"));
