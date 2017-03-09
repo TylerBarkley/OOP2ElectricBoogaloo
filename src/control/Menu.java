@@ -13,6 +13,9 @@ import model.Controllables.ControllableCollection;
  *
  * Q4D: are States allowed to access a context's field like a context itself?
  * Q4D: review good vs. bad casting
+ *
+ * PlayerManager.getControllableCollection() to get new collection
+ * Structure arrayLists will be variable size
  */
 public class Menu {
 
