@@ -36,6 +36,12 @@ public class AreaViewport extends JPanel
 	{
 		setSize(width, height);
 
+		initializeFields();
+		
+		displayView();
+	}
+
+	private void initializeFields() {
 		views=new HashMap<ID, View>();
 
 		resources=new HashMap<Location, CompositeView>();
@@ -46,12 +52,10 @@ public class AreaViewport extends JPanel
 
 		views.put(focusID, focusView);
 		
-		image=new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		image=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d=image.createGraphics();
 
 		resourceViewVisible=false;
-		
-		displayView();
 	}
 
 	public void setBlankMap(Set<Location> mapLocations)
@@ -162,6 +166,29 @@ public class AreaViewport extends JPanel
 		repaint();
 	}
 
+	public AreaViewportMomento saveToMomento()
+	{
+		AreaViewportMomento momento = new AreaViewportMomento(views, mapView, resources, focus, focusView, focusID, image, g2d, resourceViewVisible);
+		initializeFields();
+		return momento;
+	}
+	
+	public void restoreFromMomento(AreaViewportMomento momento)
+	{
+		views=momento.getViews();
+
+		resources=momento.getResources();
+
+		focus=momento.getFocus();
+		focusID=momento.getFocusID();
+		focusView=momento.getFocusView();
+		
+		image=momento.getImage();
+		g2d=momento.getG2d();
+
+		resourceViewVisible=momento.isResourceViewVisible();
+	}
+	
 	private Location getTopLeftCornerOfDisplay() 
 	{
 		int mapDisplayWidth=getMapDisplayWidth();
@@ -174,10 +201,6 @@ public class AreaViewport extends JPanel
 		Location temp=loc;
 		while(i>0){
 			temp = loc.getAdjacent(MapDirection.getNorthWest());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			i--;
 			j--;
@@ -185,10 +208,6 @@ public class AreaViewport extends JPanel
 
 		while(j>0){
 			temp = loc.getAdjacent(MapDirection.getNorth());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			j-=2;
 		}
@@ -196,10 +215,6 @@ public class AreaViewport extends JPanel
 
 		while(j<0){
 			temp = loc.getAdjacent(MapDirection.getSouth());
-			if(mapView.get(temp) == null)
-			{
-//				break;
-			}
 			loc=temp;
 			j+=2;
 		}

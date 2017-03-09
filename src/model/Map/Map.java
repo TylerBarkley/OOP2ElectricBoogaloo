@@ -19,8 +19,11 @@ import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Map {
 	private java.util.Map<Location, Tile> tiles;
@@ -30,10 +33,6 @@ public class Map {
 	private ResourceManager resourceManager;
 	private StructureOccupancyManager structureOccupancyManager;
 	private UnitOccupancyManager unitOccupancyManager;
-	
-	//Possibilities:
-	//private UnitManager unitManager;
-	//private StructureManager structManager;
 	
 	public Map(int width, int height) //Generates random map
 	{
@@ -80,6 +79,73 @@ public class Map {
 		tiles.put(new Location(5, 5), new Tile(terrains[1]));
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
 
+	}
+	
+	public Map(String fileName) //Generates test map
+	{
+		tiles = new HashMap<Location, Tile>();
+		aoeManager = new AreaOfEffectManager();
+		oneShotManager = new OneShotManager();
+		obstacleManager = new ObstacleManager();
+		resourceManager = new ResourceManager();
+		structureOccupancyManager = new StructureOccupancyManager();
+		unitOccupancyManager = new UnitOccupancyManager();
+
+		readMap(fileName);
+	}
+
+	private void readMap(String fileName) {
+		Terrain[] terrains={Water.getWaterTerrain(),
+				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
+		File file=new File(fileName);
+
+		Scanner scanner=null;
+		try {
+			scanner = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		Location loc=new Location(0,0);
+		while (scanner.hasNext()){
+			String line=scanner.nextLine();			
+			char[] chars=line.toCharArray();
+
+			Location loc2=loc;
+
+			for(int i=0; i<chars.length; i++)
+			{
+				switch(chars[i])
+				{
+				case 'g':
+					tiles.put(loc2, new Tile(terrains[1]));
+					break;
+				case 'w':
+					tiles.put(loc2, new Tile(terrains[0]));
+					break;
+				case 'm':
+					tiles.put(loc2, new Tile(terrains[2]));
+					break;
+				default:
+					tiles.put(loc2, new Tile(terrains[1]));
+					break;
+				}
+
+				if(i%2==0)
+				{
+					loc2=loc2.getAdjacent(MapDirection.getSouthEast());
+				}
+				else
+				{
+					loc2=loc2.getAdjacent(MapDirection.getNorthEast());
+				}
+			}
+			
+			loc=loc.getAdjacent(MapDirection.getSouth());		
+		}
+		
+		scanner.close();
 	}
 	
 	public Tile getTileAt(Location loc)
@@ -145,6 +211,4 @@ public class Map {
 	public void addStructure(Location loc, Structure target){
 		structureOccupancyManager.addStructure(target, loc);
 	}
-
-
 }

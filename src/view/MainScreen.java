@@ -47,17 +47,4 @@ public class MainScreen extends JPanel{
 	public void focusOn(Location loc){
 		areaView.focusOn(loc);
 	}
-	
-	public static void main(String args[]) {
-		int width = 900;
-		int height = 1800;
-		
-		JFrame frame = new JFrame();
-		frame.setSize(width, height);
-		frame.add(new MainScreen(width,height));
-		
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-	}
 }
