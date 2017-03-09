@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Controllables.Army;
+import model.Controllables.ControllableCollection;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -109,5 +110,9 @@ public class PlayerManager {
 	
 	public void addPower(PlayerID id, int energy){
 		players.get(id).addPower(energy);
+	}
+	
+	public ControllableCollection getControllableCollection(PlayerID id){
+		return players.get(id).getControllableCollection();
 	}
 }
