@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import model.Controllables.Structures.*;
 import model.Controllables.Structures.Structure;
 import model.Map.Occupancy.*;
+import model.player.Player;
 import org.junit.Before;
 import org.junit.Test;
 import model.Controllables.Units.*;
@@ -14,44 +15,38 @@ import model.Controllables.Units.*;
  */
 public class OccupancyTest
 {
+    Player p1;
+
     StructureOccupancyManager som;
 
     StructureOccupancy capitalOcc;
     StructureOccupancy fortOcc;
-    StructureOccupancy farmOcc;
-    StructureOccupancy powerplantOcc;
-    StructureOccupancy mineOcc;
-    StructureOccupancy observationOcc;
-    StructureOccupancy universityOcc;
+
 
     UnitOccupancyManager uom;
 
     UnitOccupancy occ1;
     UnitOccupancy occ2;
 
-    Structure capital;
-    Structure fort;
-    Structure farm;
-    Structure powerplant;
-    Structure mine;
-    Structure observation;
-    Structure university;
+    Capital capital;
+    Fort fort;
 
-    Unit ranged;
-    Unit melee;
-    Unit colonist;
-    Unit explorer;
+
+    Ranged ranged;
+    Melee melee;
+    Colonist colonist;
+    Explorer explorer;
 
     @Before
     public void TestSetup()
     {
+        p1 = new Player();
+
         capital = new Capital();
         fort = new Fort();
-        farm = new Farm();
-        powerplant = new PowerPlant();
-        mine = new Mine();
-        observation = new ObservationTower();
-        university = new University();
+
+        p1.addStructure(capital);
+        p1.addStructure(fort);
 
         occ1 = new UnitOccupancy();
         occ2 = new UnitOccupancy();
@@ -61,17 +56,17 @@ public class OccupancyTest
         colonist = new Colonist();
         explorer = new Explorer();
 
+        p1.addUnit(ranged);
+        p1.addUnit(melee);
+        p1.addUnit(colonist);
+        p1.addUnit(explorer);
+
         som = new StructureOccupancyManager();
         uom = new UnitOccupancyManager();
 
-
         capitalOcc = new StructureOccupancy();
         fortOcc = new StructureOccupancy();
-        farmOcc = new StructureOccupancy();
-        powerplantOcc = new StructureOccupancy();
-        mineOcc = new StructureOccupancy();
-        observationOcc = new StructureOccupancy();
-        universityOcc = new StructureOccupancy();
+
     }
 
     @Test
