@@ -78,12 +78,37 @@ public class ArmyStats {
                 movement = unitStats.getMovement();
             }
             armor = armor + (unitStats.getArmor()/4);
-
         }
     }
 
     public void removeStats(UnitStats unitStats){
-
+        decrement_numOfUnits();;
+        if(numOfUnits == 0){
+            offensiveDamage = 0;
+            defensiveDamage = 0;
+            upkeep = 0;
+            movement = 0;
+            armor = 0;
+            //RIP Army
+        }
+        else if(numOfUnits == 1){
+            offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/2);
+            defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/2);
+            upkeep = upkeep - unitStats.getUpkeep();
+            if(unitStats.getMovement() < movement){
+                movement = unitStats.getMovement();
+            }
+            armor = armor - (unitStats.getArmor()/2);
+        }
+        else if(numOfUnits > 1){
+            offensiveDamage = offensiveDamage - (unitStats.getOffensiveDamage()/4);
+            defensiveDamage = defensiveDamage - (unitStats.getDefensiveDamage()/4);
+            upkeep = upkeep - unitStats.getUpkeep();
+            if(unitStats.getMovement() < movement){
+                movement = unitStats.getMovement();
+            }
+            armor = armor - (unitStats.getArmor()/4);
+        }
     }
 
     public int getNumOfUnits() {
