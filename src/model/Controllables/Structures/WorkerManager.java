@@ -48,6 +48,9 @@ public class WorkerManager {
     }
 
     public int trainSoldier(int numOfWorker, int numOfSoldiers){
+        if(numOfWorker < 1){
+            return 0;
+        }
         int percentageTrained = WS.getSoldierTraining() * numOfWorker + (2 * numOfSoldiers * WS.getSoldierTraining());
         return percentageTrained;
     }
