@@ -1,28 +1,39 @@
 package model;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
+import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Units.Unit;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by Trevor on 3/8/2017.
  */
 public class Technology {
+WorkerStats workerStats;
 ArrayList<UnitStats> unitStats;
 ArrayList<StructureStats> structureStats;
 ArrayList<UnitAdvancements> unitAdvancements;
 ArrayList<StructureAdvancements> structureAdvancements;
-Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats){
+WorkerAdvancements workerAdvancements;
+
+Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats, WorkerStats workerStats){
     this.unitStats=unitStats;
     this.structureStats=structureStats;
+    this.workerStats=workerStats;
+    unitAdvancements=new ArrayList<UnitAdvancements>();
+    structureAdvancements=new ArrayList<StructureAdvancements>();
     for(int i=0;i<unitStats.size();i++){
         unitAdvancements.add(new UnitAdvancements());
     }
     for(int i=0;i<structureStats.size();i++){
         structureAdvancements.add(new StructureAdvancements());
     }
+    workerAdvancements=new WorkerAdvancements();
 
 }
+
 public void editUnitStats(int unitType,String statToBeModified){
         switch(statToBeModified){
             case "health":
@@ -90,6 +101,42 @@ public void editUnitStats(int unitType,String statToBeModified){
 
             }
 }
+public void editWorkerStats(String statToBeModified) {
+    switch (statToBeModified) {
+        case "foodProduction":
+            workerStats.setFoodProduction(workerStats.getFoodProduction()+1);
+            workerAdvancements.setFoodProduction(workerAdvancements.getFoodProduction()+1);
+            break;
+        case "oreProduction":
+            workerStats.setOreProduction(workerStats.getOreProduction()+1);
+            workerAdvancements.setOreProduction(workerAdvancements.getOreProduction()+1);
+            break;
+        case "energyProduction":
+            workerStats.setEnergyProduction(workerStats.getEnergyProduction()+1);
+            workerAdvancements.setEnergyProduction(workerAdvancements.getEnergyProduction()+1);
+            break;
+        case "technologyProduction":
+            workerStats.setTechnologyProduction(workerStats.getTechnologyProduction()+1);
+            workerAdvancements.setTechnologyProduction(workerAdvancements.getTechnologyProduction()+1);
+            break;
+        case "soldierTraining":
+            workerStats.setSoldierTraining(workerStats.getSoldierTraining()+1);
+            workerAdvancements.setSoldierTraining(workerAdvancements.getSoldierTraining()+1);
+            break;
+        case "breeding":
+            workerStats.setBreeding(workerStats.getBreeding()+1);
+            workerAdvancements.setBreeding(workerAdvancements.getBreeding()+1);
+            break;
+        case "explorerTraining":
+            workerStats.setExplorerTraining(workerStats.getExplorerTraining()+1);
+            workerAdvancements.setExplorerTraining(workerAdvancements.getExplorerTraining()+1);
+            break;
+        case "buildingRate":
+            workerStats.setBuildingRate(workerStats.getBuildingRate()+1);
+            workerAdvancements.setBuildingRate(workerAdvancements.getBuildingRate()+1);
+            break;
+    }
+}
     public int getStructureAdvancements(int structureType, String statToBeModified){
         switch(statToBeModified){
             case "health":
@@ -127,5 +174,27 @@ public void editUnitStats(int unitType,String statToBeModified){
                 return unitAdvancements.get(unitType).getMovement();
         }
      return -1;
+    }
+    public int getWorkerAdvancements(String statToBeModified){
+        switch(statToBeModified){
+            case "foodProduction":
+                return workerAdvancements.getFoodProduction();
+            case "oreProduction":
+                return workerAdvancements.getOreProduction();
+            case "energyProduction":
+                return workerAdvancements.getEnergyProduction();
+            case "technologyProduction":
+                return workerAdvancements.getTechnologyProduction();
+            case "soldierTraining":
+                return workerAdvancements.getSoldierTraining();
+            case "breeding":
+                return workerAdvancements.getBreeding();
+            case "explorerTraining":
+                return workerAdvancements.getExplorerTraining();
+            case "buildingRate":
+                return workerAdvancements.getBuildingRate();
+        }
+        return -1;
+
     }
 }
