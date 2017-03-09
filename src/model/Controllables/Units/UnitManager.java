@@ -2,11 +2,12 @@ package model.Controllables.Units;
 
 import java.util.ArrayList;
 
+import model.Controllables.ControllableID;
 import model.Map.Resources.Food;
-import model.observers.Observer;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
 
-public class UnitManager implements Observer<Unit>{
+public class UnitManager implements UnitObserver{
 	private Colonist[] colonists;
 	private Explorer[] explorers;
 	private Melee[] soldiers;

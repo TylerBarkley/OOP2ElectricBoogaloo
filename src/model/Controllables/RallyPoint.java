@@ -1,6 +1,7 @@
 package model.Controllables;
 
 import model.Controllables.Units.Unit;
+import model.observers.UnitObserver;
 import model.Location;
 import model.MapDirection;
 

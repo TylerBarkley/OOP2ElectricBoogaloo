@@ -83,6 +83,6 @@ public class RunTest {
                 break;
         }
         menu.printState();
-        in.close();
+
     }
 }
