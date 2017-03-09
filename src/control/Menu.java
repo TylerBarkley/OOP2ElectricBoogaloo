@@ -124,11 +124,14 @@ public class Menu {
 
     public ControllableCollection getControllableCollection() {return controllableCollection;}
 
-    public int getCurrentMode() {return currentMode;}
+    public String getCurrentMode() {return modeToString();}
 
-    //public int getCurrentType() {return currentType;}
+    public String getCurrentType() {return menuState.typeToString();}
 
-    //public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstance() {return menuState.getCurrentInstance();}
+
+    public String getCurrentInstruction() { return menuState.toString();}
+
 
     String modeToString(){
         switch (currentMode){
