@@ -1,19 +1,28 @@
 package model.Controllables.Units;
-
-import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
+import model.Controllables.Stats.UnitStats;
+
 import model.observers.DeathObservable;
-import utilities.Visitor;
+import model.Location;
+import model.MapDirection;
 
-import model.UnitID;
-import model.UnitStats;
-
-
-public abstract class Unit extends DeathObservable implements Controllable, BasicStats //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
+public abstract class Unit extends DeathObservable implements Controllable //implements OverviewVisitable, TurnObserver //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
-	private BasicStats myStats;
+	private UnitStats myStats;
 	private UnitID id;
+	private Location location;
+	private MapDirection md;
+
+	protected Unit(){
+		myStats = new UnitStats();
+	}
+
+	protected Unit(Location loc){
+		myStats = new UnitStats();
+		location = loc;
+		md = MapDirection.getNorth();
+	}
 
 	//public abstract void accept(Visitor visitor);
 
@@ -43,24 +52,61 @@ public abstract class Unit extends DeathObservable implements Controllable, Basi
 	}
 
 	public int getCurrentHealth(){
-		return currentHealth;
+		return this.currentHealth;
 	}
 
-	public void setCurrentHealth(int i) {
-		this.currentHealth = i;
+	public void setCurrentHealth(int currentHealth){
+		this.currentHealth = currentHealth;
 	}
+
 
 	public void makeArmy(){
 		//TODO just copy Iteration 1 code for this
 	}
-	
+
+	public void setMyStats(UnitStats myStats) {
+		this.myStats = myStats;
+	}
+
 	public void setID(UnitID id)
 	{
 		this.id=id;
 	}
 
-	public UnitID getID() 
+	public UnitID getID()
 	{
 		return id;
+	}
+
+	public UnitStats getMyStats(){
+		return this.myStats;
+	}
+
+	public int getPid(){
+		return currentHealth;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public MapDirection getMapDirection(){
+		return md;
+	}
+
+	public void setLocation(Location loc){
+		this.location = loc;
+	}
+
+	public void setMapDirection(MapDirection md){
+		this.md = md;
+	}
+
+	public void malnourish() {
+		// TODO This is called if there aren't enough resources for upkeep
+	}
+
+	public int getUpkeep() {
+		return myStats.getUpkeep();
 	}
 }
