@@ -1,6 +1,11 @@
 package control;
 
+import control.MenuStates.ArmyMenuStates.ArmyAttackState;
 import control.MenuStates.MenuState;
+import control.MenuStates.RallyPointMenuStates.RPBuildState;
+import control.MenuStates.StructureMenuStates.StructureAttackState;
+import control.MenuStates.UnitMenuStates.BuildCapitalState;
+import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Controllables.ControllableCollection;
 
 /**
@@ -17,16 +22,17 @@ public class Menu {
     public final static int STRUCTUREMODE       = 3;
 
 
-
-
     MenuState menuState;
     ControllableCollection controllableCollection;
 
     int currentMode = UNITMODE;
-    //int currentType = COLONISTTYPE, currentInstance = 0;
 
     Menu(ControllableCollection controllableCollection){
         this.controllableCollection = controllableCollection;
+        //Menu starts on Colonist - Build Capital.
+        //Call updateControllable once to assign the currentUnit variable to the colonist
+        setMenuState(BuildCapitalState.getInstance());
+        menuState.updateControllable(this);
     }
 
     //State Design Pattern
@@ -49,7 +55,24 @@ public class Menu {
                 currentMode = STRUCTUREMODE;
             }
         } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here, call reset()
+        //change state here to first instruction of each mode, call reset()
+        if(currentMode != startedMode){
+            switch (currentMode){
+                case RALLYPOINTMODE:
+                    setMenuState(RPBuildState.getInstance());
+                    break;
+                case ARMYMODE:
+                    setMenuState(ArmyAttackState.getInstance());
+                    break;
+                case UNITMODE:
+                    setMenuState(MakeArmyState.getInstance());
+                    break;
+                case STRUCTUREMODE:
+                    setMenuState(StructureAttackState.getInstance());
+                    break;
+            }
+            menuState.reset(this);
+        }
     }
     void cycleModeR(){
         int startedMode = currentMode;
@@ -59,32 +82,42 @@ public class Menu {
                 currentMode = RALLYPOINTMODE;
             }
         } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here, call reset()
+        //change state here to first instruction of each mode, call reset()
+        if(currentMode != startedMode){
+            switch (currentMode){
+                case RALLYPOINTMODE:
+                    setMenuState(RPBuildState.getInstance());
+                    break;
+                case ARMYMODE:
+                    setMenuState(ArmyAttackState.getInstance());
+                    break;
+                case UNITMODE:
+                    setMenuState(MakeArmyState.getInstance());
+                    break;
+                case STRUCTUREMODE:
+                    setMenuState(StructureAttackState.getInstance());
+                    break;
+            }
+            menuState.reset(this);
+        }
     }
 
-    void cycleTypeL(){
-        menuState.cycleTypeL(this);
-    }
-    void cycleTypeR(){
-        menuState.cycleTypeR(this);
+    //Call reset() at beginning of turn or when a Controllable ceases to exist
 
+    void reset(){
+        cycleModeL();
+        cycleModeR();
     }
-    void cycleInstanceL(){
-        menuState.cycleInstanceL(this);
-    }
-    void cycleInstanceR(){
-        menuState.cycleInstanceR(this);
-    }
-    void cycleInstructionL(){
-        menuState.cycleInstructionL(this);
-    }
-    void cycleInstructionR(){
-        menuState.cycleInstructionR(this);
 
-    }
+    void cycleTypeL(){menuState.cycleTypeL(this);}
+    void cycleTypeR(){menuState.cycleTypeR(this);}
+    void cycleInstanceL(){menuState.cycleInstanceL(this);}
+    void cycleInstanceR(){menuState.cycleInstanceR(this);}
+    void cycleInstructionL(){menuState.cycleInstructionL(this);}
+    void cycleInstructionR(){menuState.cycleInstructionR(this);}
 
     public MenuState getMenuState() {return menuState;}
-    void setMenuState(MenuState menuState){this.menuState = menuState;}
+    public void setMenuState(MenuState menuState){this.menuState = menuState;}
 
     public ControllableCollection getControllableCollection() {return controllableCollection;}
 
@@ -93,6 +126,23 @@ public class Menu {
     //public int getCurrentType() {return currentType;}
 
     //public int getCurrentInstance() {return currentInstance;}
+
+    String modeToString(){
+        switch (currentMode){
+            case RALLYPOINTMODE: return "Rally Point";
+            case ARMYMODE: return "Army";
+            case UNITMODE: return "Unit";
+            case STRUCTUREMODE: return "Structure";
+        }
+        return null;
+    }
+
+    void printState(){
+        System.out.println("Mode: " + modeToString());
+        System.out.println("Type: " + menuState.typeToString());
+        System.out.println("Instance: " + menuState.getCurrentInstance());
+        System.out.println("Instruction: " + menuState.toString());
+    }
 
 
 }

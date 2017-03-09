@@ -1,38 +1,37 @@
-package control.MenuStates.UnitMenuStates;
+package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
-import control.MenuStates.UnitMenuState;
+import control.MenuStates.ArmyMenuState;
 
 /**
- * Created by hankerins on 3/5/17.
+ * Created by hankerins on 3/8/17.
  */
-public class MakeArmyState extends UnitMenuState{
-
-    private static MakeArmyState instance = new MakeArmyState();
-    public static MakeArmyState getInstance(){return instance;}
-    private MakeArmyState(){}
+public class ArmyDisbandState extends ArmyMenuState {
+    private static ArmyDisbandState instance = new ArmyDisbandState();
+    public static ArmyDisbandState getInstance(){return instance;}
+    private ArmyDisbandState(){}
 
     @Override
     public void select(Menu context) {
-        
+
         updateControllable(context);
-        currentUnit.makeArmy();
+        //TODO: currentArmy.disband();
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = PowerUpState.getInstance();
+        ArmyMenuState nextState = ArmyWaitState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        UnitMenuState nextState = JoinArmyState.getInstance();
+        ArmyMenuState nextState = ArmyDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Make Army";
+        return "Disband";
     }
 }

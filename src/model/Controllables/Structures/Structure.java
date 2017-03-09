@@ -13,14 +13,15 @@ public abstract class Structure extends DeathObservable implements Controllable 
     private StructureStats myStats;
     private StructureID id;
 
-	//public abstract void accept(Visitor visitor);
+    //public abstract void accept(Visitor visitor);
 
-	public void killMe()
-	{
-		notifyObservers(id);
+    public void killMe()
+    {
+        notifyObservers(id);
         //TODO KILLING SELF
         //REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
         //POSSIBLY USING PLAYER MANAGER
+
 	}	
 	public void setID(StructureID id)
 	{
