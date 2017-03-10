@@ -66,72 +66,7 @@ public abstract class Structure implements Controllable {
 
     public void killMe() {
         isAlive = false;
-	private ArrayList<StructureObserver> observers;
-	private MapDirection md;
-	private Location location;
-	private int numTotalWorkers;
-	private WorkerManager workerManager;
-	private Boolean beingBuilt;
 
-    public Structure()
-    {
-		myStats = new StructureStats();
-		md = MapDirection.getNorth();
-    	isAlive=true;
-		observers=new ArrayList<StructureObserver>();
-		workerManager = new WorkerManager();
-	}
-    
-    public Structure(Location loc)
-    {
-		myStats = new StructureStats();
-		location = loc;
-		md = MapDirection.getNorth();
-    	isAlive=true;
-		observers=new ArrayList<StructureObserver>();
-	}
-	public void addObserver(StructureObserver observer)
-	{
-		observers.add(observer);
-		notifyObserver(observer);
-	}
-	
-	public void removeObserver(StructureObserver observer)
-	{
-		observers.remove(observer);
-	}
-	
-	public void notifyObservers()
-	{
-		for(StructureObserver ob: observers)
-		{
-			ob.update(this);
-		}
-	}
-    	
-	public void notifyObserver(StructureObserver observer)
-	{
-		observer.update(this);
-	}
-	
-    public void accept(StructureVisitor visitor)
-    {
-    	visitor.visit(this);
-    }
-	
-    public void killMe()
-    {
-    	isAlive=false;
-        notifyObservers();
-        //TODO KILLING SELF
-        //REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
-        //POSSIBLY USING PLAYER MANAGER
-    }
-
-    public void setID(StructureID id) {
-        this.id = id;
-
-        notifyObservers();
     }
 
     public StructureID getID() {
@@ -143,6 +78,13 @@ public abstract class Structure implements Controllable {
         if (currentHealth <= 0) {
             this.killMe();
         }
+
+        notifyObservers();
+    }
+    
+    public void setID(StructureID id)
+    {
+        this.id=id;
 
         notifyObservers();
     }
