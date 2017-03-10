@@ -10,14 +10,14 @@ public class ResourceManager extends Manager<ResourceLevel> {
 
     //Basic resource manager to put in the map
 
-    public int mineOre(Location loc, int ammount){
-        return this.get(loc).mineOreLevel(ammount);
+    public int mineOre(Location loc, int amount){
+        return this.get(loc).mineOreLevel(amount);
     }
-    public int mineEnegry(Location loc, int ammount){
-        return this.get(loc).mineEnergyLevel(ammount);
+    public int mineEnergy(Location loc, int amount){
+        return this.get(loc).mineEnergyLevel(amount);
     }
-    public int mineFood(Location loc, int ammount){
-        return this.get(loc).mineFoodLevel(ammount);
+    public int mineFood(Location loc, int amount){
+        return this.get(loc).mineFoodLevel(amount);
     }
 
 }
