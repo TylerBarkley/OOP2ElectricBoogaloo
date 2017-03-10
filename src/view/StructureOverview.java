@@ -14,6 +14,7 @@ import model.Controllables.Structures.PowerPlant;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 import model.Controllables.Structures.University;
+import model.Controllables.Units.UnitID;
 import model.observers.MenuObserver;
 import model.observers.StructureObserver;
 import utilities.StructureVisitor;
@@ -146,11 +147,26 @@ public class StructureOverview  extends JPanel implements StructureVisitor, Stru
 
 	@Override
 	public void update(String currentMode, int currentInstance,
-			String currentType, String currentInstruction) {
+			int currentType, String currentInstruction) {
+		
+		if(currentType == UnitID.COLONIST_TYPE_ID) {
+			this.currentType.setText("CURRENT TYPE= " + "Colonist");
+		}
+		
+		if(currentType == UnitID.EXPLORER_TYPE_ID) {
+			this.currentType.setText("CURRENT TYPE= " + "Explorer");
+		}
+		
+		if(currentType == UnitID.MELEE_TYPE_ID) {
+			this.currentType.setText("CURRENT TYPE= " + "Melee");
+		}
+
+		if(currentType == UnitID.RANGED_TYPE_ID) {
+			this.currentType.setText("CURRENT TYPE= " + "Ranged");
+		}
 		
 		this.currentMode.setText("CURRENT MODE= " + currentMode);
 		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
-		this.currentType.setText("CURRENT TYPE= " + currentType);
 		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
 	}
 
