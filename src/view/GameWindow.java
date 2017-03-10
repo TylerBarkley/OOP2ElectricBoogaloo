@@ -138,4 +138,16 @@ public class GameWindow extends JFrame implements MenuVisitor{
 		structureOverview.updateMenu(menu);
 		
 	}
+
+	public void setUnitOverview(UnitOverview unitOverview) {
+		this.remove(this.unitOverview);
+		this.unitOverview=unitOverview;
+		this.add(unitOverview);
+	}
+
+	public void setStructureOverview(StructureOverview structureOverview) {
+		this.remove(this.structureOverview);
+		this.structureOverview=structureOverview;
+		this.add(structureOverview);
+	}
 }

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import model.ID;
 import model.Location;
 import model.MapDirection;
+import utilities.AreaViewportVisitor;
+import utilities.ViewVisitor;
 
 public class AreaViewport extends JPanel
 {
@@ -318,5 +320,9 @@ public class AreaViewport extends JPanel
 		}
 
 		return desiredViews;
+	}
+
+	public void accept(AreaViewportVisitor visitor) {
+		visitor.visit(this);
 	}
 }

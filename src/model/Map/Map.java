@@ -22,6 +22,8 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
+import utilities.MapVisitor;
+import utilities.ViewVisitor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +51,15 @@ public class Map {
 		return map;
 	}
 
+	public static Map getInstance(String fileName){
+		if(map == null)
+		{
+			map = new Map(fileName);
+		}
 
+		return map;
+	}
+	
 	private Map(int width, int height) //Generates random map
 	{
 		tiles=new HashMap<Location, Tile>();
@@ -97,7 +107,7 @@ public class Map {
 
 	}
 	
-	public Map(String fileName) //Generates test map
+	private Map(String fileName) //Generates test map
 	{
 		tiles = new HashMap<Location, Tile>();
 		aoeManager = new AreaOfEffectManager();
@@ -236,5 +246,10 @@ public class Map {
 
 	public void visitTile(TerrainVisitor target, Location location) {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
+	}
+
+
+	public void accept(MapVisitor visitor) {
+		visitor.visit(this);
 	}
 }

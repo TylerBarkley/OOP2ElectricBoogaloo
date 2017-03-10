@@ -27,7 +27,8 @@ import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,StructureVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,
+							StructureVisitor, AreaViewportVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;

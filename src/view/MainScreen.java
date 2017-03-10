@@ -53,4 +53,10 @@ public class MainScreen extends JPanel{
 		statusViewport.updateMenu(menu);
 		
 	}
+
+	public void setStatusViewport(StatusViewport statusViewport) {
+		this.remove(this.statusViewport);
+		this.statusViewport=statusViewport;
+		this.add(statusViewport);
+	}
 }

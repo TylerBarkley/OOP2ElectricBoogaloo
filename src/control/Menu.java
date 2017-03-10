@@ -42,12 +42,12 @@ public class Menu {
 
 	public Menu(PlayerID id){
 		this.id=id;
-		updateControllableCollection();
+		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
+		observers=new ArrayList<MenuObserver>();
 		//Menu starts on Colonist - Build Capital.
 		//Call updateControllable once to assign the currentUnit variable to the colonist
 		setMenuState(BuildCapitalState.getInstance());
 		menuState.updateControllable(this);
-		observers=new ArrayList<MenuObserver>();
 	}
 
 	public void addObserver(MenuObserver observer)
@@ -120,6 +120,8 @@ public class Menu {
 			}
 			menuState.reset(this);
 		}
+		
+		notifyObservers();
 	}
 	public void cycleModeR(){
 		int startedMode = currentMode;
@@ -147,6 +149,8 @@ public class Menu {
 			}
 			menuState.reset(this);
 		}
+		
+		notifyObservers();
 	}
 
     public int getCurrentMode() {return currentMode;}
@@ -165,31 +169,37 @@ public class Menu {
 	public void cycleTypeL()
 	{
 		menuState.cycleTypeL(this);
+		notifyObservers();
 	}
 
 	public void cycleTypeR()
 	{
 		menuState.cycleTypeR(this);
+		notifyObservers();
 	}
 
 	public void cycleInstanceL()
 	{
 		menuState.cycleInstanceL(this);
+		notifyObservers();
 	}
 
 	public void cycleInstanceR()
 	{
 		menuState.cycleInstanceR(this);
+		notifyObservers();
 	}
 
 	public void cycleInstructionL()
 	{
 		menuState.cycleInstructionL(this);
+		notifyObservers();
 	}
 
 	public void cycleInstructionR()
 	{
 		menuState.cycleInstructionR(this);
+		notifyObservers();
 	}
 
 	public MenuState getMenuState() 
@@ -200,6 +210,7 @@ public class Menu {
 	public void setMenuState(MenuState menuState)
 	{
 		this.menuState = menuState;
+		notifyObservers();
 	}
 
 	public ControllableCollection getControllableCollection() 
@@ -243,5 +254,8 @@ public class Menu {
 	
 	public void updateControllableCollection(){
 		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
+		reset();
+
+		notifyObservers();
 	}
 }
