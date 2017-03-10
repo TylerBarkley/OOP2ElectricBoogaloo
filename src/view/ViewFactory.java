@@ -27,13 +27,17 @@ public class ViewFactory {
 	private BufferedImage mine;
 	private BufferedImage factoryStructure;
 	private BufferedImage farm;
-
+	private BufferedImage tower;
+	private BufferedImage fort;
+	
 	private BufferedImage enemyCapital;
 	private BufferedImage enemyUniversity;
 	private BufferedImage enemyMine;
 	private BufferedImage enemyFactory;
 	private BufferedImage enemyFarm;
-
+	private BufferedImage enemyTower;
+	private BufferedImage enemyFort;
+	
 	private BufferedImage water;
 	private BufferedImage ground;
 	private BufferedImage mountain;
@@ -63,13 +67,17 @@ public class ViewFactory {
 			mine=ImageIO.read(getClass().getResource("/Mine.png"));
 			factoryStructure=ImageIO.read(getClass().getResource("/Factory.png"));
 			farm=ImageIO.read(getClass().getResource("/Farm.png"));
-
+			tower=ImageIO.read(getClass().getResource("/ObservationTower.png"));
+			fort=ImageIO.read(getClass().getResource("/Fort.png"));
+			
 			enemyCapital=ImageIO.read(getClass().getResource("/EnemyCapital.png"));
 			enemyUniversity=ImageIO.read(getClass().getResource("/EnemyUniversity.png"));
 			enemyMine=ImageIO.read(getClass().getResource("/EnemyMine.png"));
 			enemyFactory=ImageIO.read(getClass().getResource("/EnemyFactory.png"));
 			enemyFarm=ImageIO.read(getClass().getResource("/EnemyFarm.png"));
-
+			enemyTower=ImageIO.read(getClass().getResource("/EnemyObservationTower.png"));
+			enemyFort=ImageIO.read(getClass().getResource("/EnemyFort.png"));
+			
 			water=ImageIO.read(getClass().getResource("/Water.png"));
 			ground=ImageIO.read(getClass().getResource("/Ground.png"));
 			mountain=ImageIO.read(getClass().getResource("/Mountain.png"));
@@ -132,7 +140,11 @@ public class ViewFactory {
 			return new StructureView(id, factoryStructure, loc, rotation);
 		case "Farm":
 			return new StructureView(id, farm, loc, rotation);
-
+		case "Tower":
+			return new StructureView(id, tower, loc, rotation);
+		case "Fort":
+			return new StructureView(id, fort, loc, rotation);
+			
 		case "EnemyCapital":
 			return new StructureView(id, enemyCapital, loc, rotation);
 		case "EnemyUniversity":
@@ -143,6 +155,10 @@ public class ViewFactory {
 			return new StructureView(id, enemyFactory, loc, rotation);
 		case "EnemyFarm":
 			return new StructureView(id, enemyFarm, loc, rotation);
+		case "EnemyTower":
+			return new StructureView(id, enemyTower, loc, rotation);
+		case "EnemyFort":
+			return new StructureView(id, enemyFort, loc, rotation);
 			
 		default:
 			return new ImageView(id, unknown, loc, rotation);

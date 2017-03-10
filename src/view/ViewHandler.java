@@ -72,26 +72,30 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	
 	@Override
 	public void update(Player player) {
-		// TODO Auto-generated method stub
+		//TODO If necessary;
 	}
 
+	@Override
 	public void update(Player player, Unit unit)
 	{
 		unit.addObserver(this);
 	}
 	
+	@Override
 	public void update(Player player, Structure structure)
 	{
 		update(player);
 		structure.addObserver(this);
 	}
 	
+	@Override
 	public void update(Player player, Army army)
 	{
 		update(player);
 		army.addObserver(this);
 	}
 	
+	@Override
 	public void update(Player player, Worker worker)
 	{
 		update(player);

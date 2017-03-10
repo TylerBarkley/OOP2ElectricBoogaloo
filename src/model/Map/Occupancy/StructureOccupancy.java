@@ -1,5 +1,7 @@
 package model.Map.Occupancy;
 
+import java.util.Collection;
+
 import model.Controllables.Structures.Structure;
 import model.player.PlayerID;
 
@@ -27,4 +29,8 @@ public class StructureOccupancy {
     public void damage(int intensity){
         occupyingStructure.damageMe(intensity);
     }
+
+	public Structure getOccupant() {
+		return occupyingStructure;
+	}
 }
