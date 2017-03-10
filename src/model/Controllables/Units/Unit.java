@@ -28,6 +28,8 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		observers=new ArrayList<UnitObserver>();
 		maxActionPoints = myStats.getMovement();
 		currentActionPoints = maxActionPoints;
+		md = MapDirection.getNorth();
+		isAlive=true;
 	}
 
 	protected Unit(Location loc){
@@ -44,13 +46,14 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 	public void addObserver(UnitObserver observer)
 	{
 		observers.add(observer);
+		notifyObserver(observer);
 	}
-	
+
 	public void removeObserver(UnitObserver observer)
 	{
 		observers.remove(observer);
 	}
-	
+
 	public void notifyObservers()
 	{
 		for(UnitObserver ob: observers)
@@ -58,7 +61,12 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 			ob.update(this);
 		}
 	}
-	
+
+	public void notifyObserver(UnitObserver observer)
+	{
+		observer.update(this);
+	}
+
 	public abstract void accept(UnitVisitor visitor);
 
 	public void killMe() {
@@ -78,7 +86,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		if(currentHealth <= 0){
 			this.killMe();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -87,7 +95,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -97,7 +105,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setCurrentHealth(int currentHealth){
 		this.currentHealth = currentHealth;
-		
+
 		notifyObservers();
 	}
 
@@ -108,14 +116,14 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
-		
+
 		notifyObservers();
 	}
 
 	public void setID(UnitID id)
 	{
 		this.id=id;
-		
+
 		notifyObservers();
 	}
 
@@ -142,13 +150,13 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setLocation(Location loc){
 		this.location = loc;
-		
+
 		notifyObservers();
 	}
 
 	public void setMapDirection(MapDirection md){
 		this.md = md;
-		
+
 		notifyObservers();
 	}
 

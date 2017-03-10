@@ -9,6 +9,7 @@ import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.observers.StructureObserver;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 
@@ -45,6 +46,7 @@ public abstract class Structure implements Controllable
 	public void addObserver(StructureObserver observer)
 	{
 		observers.add(observer);
+		notifyObserver(observer);
 	}
 	
 	public void removeObserver(StructureObserver observer)
@@ -60,6 +62,11 @@ public abstract class Structure implements Controllable
 		}
 	}
     	
+	public void notifyObserver(StructureObserver observer)
+	{
+		observer.update(this);
+	}
+	
     public void accept(StructureVisitor visitor)
     {
     	visitor.visit(this);

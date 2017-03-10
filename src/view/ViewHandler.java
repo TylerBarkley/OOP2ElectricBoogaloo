@@ -3,14 +3,16 @@ package view;
 import control.Menu;
 import control.UserControls;
 import model.Controllables.Army;
+import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
 import model.observers.MenuObserver;
 import model.observers.StructureObserver;
 import model.observers.UnitObserver;
+import model.observers.WorkerObserver;
 
-public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, ArmyObserver{
+public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, ArmyObserver, WorkerObserver{
 	private int width;
 	private int height;
 	private UserControls controls;
@@ -67,7 +69,12 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 
 	@Override
 	public void update(Army army) {
-//		army.accept(unitOverview);
+		//army.accept(unitOverview);
+	}
+
+	@Override
+	public void update(Worker worker) {
+		// TODO Auto-generated method stub
 	}
 
 }

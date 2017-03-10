@@ -23,6 +23,8 @@ import model.Controllables.Units.UnitManager;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
+import model.observers.PlayerObserver;
+import model.observers.UnitObserver;
 
 public class Player {
 	private PlayerID id;
@@ -36,6 +38,8 @@ public class Player {
 	private Food nutrients;
 	private Energy power;
 	private Ore metal;
+	
+	private ArrayList<PlayerObserver> observers;
 	
 	public Player()
 	{
@@ -51,6 +55,8 @@ public class Player {
 		power=new Energy(0);
 		metal=new Ore(0);
 
+		observers=new ArrayList<PlayerObserver>();
+		
 		PlayerManager.getInstance().addPlayer(this);
 	}
 
@@ -146,7 +152,7 @@ public class Player {
 	public void chargeResources()
 	{
 		unitManager.chargeResources(nutrients);
-		//structureManager.chargeResources(metal, power);
+		structureManager.chargeResources(metal, power);
 	}
 	
 	public ControllableCollection getControllableCollection()
@@ -155,5 +161,41 @@ public class Player {
 				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
 				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
 				structureManager.getPlants(), structureManager.getUniversities(), workers);
+	}
+
+	public Food getNutrients() {
+		return nutrients;
+	}
+
+	public Energy getPower() {
+		return power;
+	}
+
+	public Ore getMetal() {
+		return metal;
+	}
+
+	public void addObserver(PlayerObserver observer)
+	{
+		observers.add(observer);
+		notifyObserver(observer);
+	}
+
+	public void removeObserver(PlayerObserver observer)
+	{
+		observers.remove(observer);
+	}
+
+	public void notifyObservers()
+	{
+		for(PlayerObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+
+	public void notifyObserver(PlayerObserver observer)
+	{
+		observer.update(this);
 	}
 }
