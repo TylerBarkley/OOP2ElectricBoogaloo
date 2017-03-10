@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
@@ -15,6 +16,7 @@ import model.player.Player;
 import model.player.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
 
 /**
  * Created by zrgam_000 on 3/8/2017.
@@ -39,6 +41,8 @@ public class MoveTest {
 
     @Before
     public void TestSetup(){
+
+
 
         p1 = new Player();
         p2 = new Player();
@@ -108,10 +112,17 @@ public class MoveTest {
 
     }
 
+
+    @After
+    public void tearDown(){
+    	Map.reset();
+    }
+
+    
     @Test
     public void ValidOccupantTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -131,7 +142,7 @@ public class MoveTest {
     @Test
     public void ValidTerrainTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -149,7 +160,7 @@ public class MoveTest {
     @Test
     public void ValidStructureTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -171,7 +182,7 @@ public class MoveTest {
     @Test
     public void ValidObstacleTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -191,7 +202,7 @@ public class MoveTest {
     @Test
     public void ValidAfterMoveTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -215,7 +226,7 @@ public class MoveTest {
     @Test
     public void AOETest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -243,7 +254,7 @@ public class MoveTest {
     @Test
     public void ItemTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -277,7 +288,7 @@ public class MoveTest {
     @Test
     public void APMoveTest(){
 
-        Map.getInstance().resetMap();
+        Map.reset();
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
 

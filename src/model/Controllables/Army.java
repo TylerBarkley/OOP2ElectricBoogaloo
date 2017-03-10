@@ -5,6 +5,8 @@ import model.Controllables.Stats.ArmyStats;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
+import model.observers.ArmyObserver;
+import model.observers.UnitObserver;
 import utilities.ArmyVisitor;
 import model.Location;
 import model.MapDirection;
@@ -26,11 +28,17 @@ public class Army implements Controllable//, DeathObserver
     private boolean canMove;
     private boolean canEscort;
 
+    private int energyResourceLevel;
+    private int metalResourceLevel;
+    private int nutrientResourceLevel;
+
     private int workers;
 
     private CommandQueue myCommands;
     private ArmyStats armyStats;
     private ArrayList<Unit> battleGroup;
+
+	private ArrayList<ArmyObserver> observers;
 
     public Army(Unit unit){
         this.myLocation = unit.getLocation();
@@ -43,13 +51,41 @@ public class Army implements Controllable//, DeathObserver
         this.addUnitToBattleGroup(unit);
 
         this.myRP = new RallyPoint(this);
+
+		observers=new ArrayList<ArmyObserver>();
     }
 
-    public Army() {
-        //TODO REMOVE AND FIX
+    public Army()
+    {
+		//TODO REMOVE AND FIX
         //Currently for testing
-    }
+		observers=new ArrayList<ArmyObserver>();
+	}
 
+	public void addObserver(ArmyObserver observer)
+	{
+		observers.add(observer);
+		notifyObserver(observer);
+	}
+	
+	public void removeObserver(ArmyObserver observer)
+	{
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers()
+	{
+		for(ArmyObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+    
+	public void notifyObserver(ArmyObserver observer)
+	{
+		observer.update(this);
+	}
+	
     public void addUnitToBattleGroup(Unit unit){
         battleGroup.add(unit);
         armyStats.addStats(unit.getMyStats());
@@ -172,5 +208,55 @@ public class Army implements Controllable//, DeathObserver
 
     public CommandQueue getCommandQueue() {
         return myCommands;
+    }
+
+    public void distribute(){
+        for(int i=0;i<battleGroup.size();i++){
+            if(battleGroup.get(i).getUpkeep()>energyResourceLevel){
+                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                energyResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+            if(battleGroup.get(i).getUpkeep()>metalResourceLevel){
+                battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
+                metalResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+            if(battleGroup.get(i).getUpkeep()>nutrientResourceLevel){
+                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                nutrientResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+        }
+    }
+
+    public int getEnergyResourceLevel() {
+        return energyResourceLevel;
+    }
+
+    public void setEnergyResourceLevel(int energyResourceLevel) {
+        this.energyResourceLevel = energyResourceLevel;
+    }
+
+    public int getMetalResourceLevel() {
+        return metalResourceLevel;
+    }
+
+    public void setMetalResourceLevel(int metalResourceLevel) {
+        this.metalResourceLevel = metalResourceLevel;
+    }
+
+    public int getNutrientResourceLevel() {
+        return nutrientResourceLevel;
+    }
+
+    public void setNutrientResourceLevel(int nutrientResourceLevel) {
+        this.nutrientResourceLevel = nutrientResourceLevel;
+    }
+    public void incrementNutrientResourceLevel(int increment){
+        nutrientResourceLevel+=increment;
+    }
+    public void incrementEnergyResourceLevel(int increment){
+        energyResourceLevel+=increment;
+    }
+    public void incrementMetalResourceLevel(int increment){
+        metalResourceLevel+=increment;
     }
 }

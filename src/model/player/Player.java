@@ -23,6 +23,8 @@ import model.Controllables.Units.UnitManager;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
+import model.observers.PlayerObserver;
+import model.observers.UnitObserver;
 
 public class Player {
 	private PlayerID id;
@@ -36,6 +38,8 @@ public class Player {
 	private Food nutrients;
 	private Energy power;
 	private Ore metal;
+	
+	private ArrayList<PlayerObserver> observers;
 	
 	public Player()
 	{
@@ -51,6 +55,8 @@ public class Player {
 		power=new Energy(0);
 		metal=new Ore(0);
 
+		observers=new ArrayList<PlayerObserver>();
+		
 		PlayerManager.getInstance().addPlayer(this);
 	}
 
@@ -142,11 +148,52 @@ public class Player {
 	public void addPower(int energy){
 		power.addAmount(energy);
 	}
-	
+
+	public void distributePower(Structure structure,int percentage){
+		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementEnergyResourceLevel(amountOfPowerGiven);
+	}
+
+	public void distributeMetal(Structure structure,int percentage){
+		int amountOfMetalGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementMetalResourceLevel(amountOfMetalGiven);
+	}
+
+	public void distributeNutrients(Structure structure,int percentage){
+		int amountOfNutrientsGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementNutrientResourceLevel(amountOfNutrientsGiven);
+	}
+
+	public void distributePower(Army army,int percentage){
+		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementEnergyResourceLevel(amountOfPowerGiven);
+			}
+		}
+	}
+	public void distributeMetal(Army army,int percentage){
+		int amountOfMetalGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementMetalResourceLevel(amountOfMetalGiven);
+			}
+
+		}
+	}
+	public void distributeNutrients(Army army,int percentage){
+		int amountOfNutrientsGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			}
+		}
+	}
+
 	public void chargeResources()
 	{
 		unitManager.chargeResources(nutrients);
-		//structureManager.chargeResources(metal, power);
+		structureManager.chargeResources(metal, power);
 	}
 	
 	public ControllableCollection getControllableCollection()
@@ -155,5 +202,41 @@ public class Player {
 				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
 				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
 				structureManager.getPlants(), structureManager.getUniversities(), workers);
+	}
+
+	public Food getNutrients() {
+		return nutrients;
+	}
+
+	public Energy getPower() {
+		return power;
+	}
+
+	public Ore getMetal() {
+		return metal;
+	}
+
+	public void addObserver(PlayerObserver observer)
+	{
+		observers.add(observer);
+		notifyObserver(observer);
+	}
+
+	public void removeObserver(PlayerObserver observer)
+	{
+		observers.remove(observer);
+	}
+
+	public void notifyObservers()
+	{
+		for(PlayerObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+
+	public void notifyObserver(PlayerObserver observer)
+	{
+		observer.update(this);
 	}
 }

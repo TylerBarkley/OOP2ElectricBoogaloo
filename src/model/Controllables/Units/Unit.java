@@ -16,6 +16,9 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 	private int currentHealth;
 	private int maxActionPoints;
 	private int currentActionPoints;
+	private int energyResourceLevel;
+	private int metalResourceLevel;
+	private int nutrientResourceLevel;
 
 	private UnitStats myStats;
 	private UnitID id;
@@ -29,6 +32,8 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		observers=new ArrayList<UnitObserver>();
 		maxActionPoints = myStats.getMovement();
 		currentActionPoints = maxActionPoints;
+		md = MapDirection.getNorth();
+		isAlive=true;
 	}
 
 	protected Unit(Location loc){
@@ -45,13 +50,14 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 	public void addObserver(UnitObserver observer)
 	{
 		observers.add(observer);
+		notifyObserver(observer);
 	}
-	
+
 	public void removeObserver(UnitObserver observer)
 	{
 		observers.remove(observer);
 	}
-	
+
 	public void notifyObservers()
 	{
 		for(UnitObserver ob: observers)
@@ -59,7 +65,12 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 			ob.update(this);
 		}
 	}
-	
+
+	public void notifyObserver(UnitObserver observer)
+	{
+		observer.update(this);
+	}
+
 	public abstract void accept(UnitVisitor visitor);
 
 	public void killMe() {
@@ -79,7 +90,7 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		if(currentHealth <= 0){
 			this.killMe();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -88,7 +99,7 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -98,7 +109,7 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 
 	public void setCurrentHealth(int currentHealth){
 		this.currentHealth = currentHealth;
-		
+
 		notifyObservers();
 	}
 
@@ -111,14 +122,14 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		this.myStats = myStats;
 
 		this.setActionPoints(myStats.getMovement());
-		
+
 		notifyObservers();
 	}
 
 	public void setID(UnitID id)
 	{
 		this.id=id;
-		
+
 		notifyObservers();
 	}
 
@@ -145,18 +156,28 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 
 	public void setLocation(Location loc){
 		this.location = loc;
-		
+
 		notifyObservers();
 	}
 
 	public void setMapDirection(MapDirection md){
 		this.md = md;
-		
+
 		notifyObservers();
 	}
 
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
+		if(energyResourceLevel<0){
+			damageMe(1);
+		}
+		if(metalResourceLevel<0){
+			damageMe(1);
+		}
+		if(nutrientResourceLevel<0){
+			damageMe(1);
+		}
+
 	}
 
 	public int getUpkeep() {
@@ -197,6 +218,39 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 
 	public boolean isAlive(){
 		return isAlive;
+	}
+
+	public int getEnergyResourceLevel() {
+		return energyResourceLevel;
+	}
+
+	public void setEnergyResourceLevel(int energyResourceLevel) {
+		this.energyResourceLevel = energyResourceLevel;
+	}
+
+	public int getMetalResourceLevel() {
+		return metalResourceLevel;
+	}
+
+	public void setMetalResourceLevel(int metalResourceLevel) {
+		this.metalResourceLevel = metalResourceLevel;
+	}
+
+	public int getNutrientResourceLevel() {
+		return nutrientResourceLevel;
+	}
+
+	public void setNutrientResourceLevel(int nutrientResourceLevel) {
+		this.nutrientResourceLevel = nutrientResourceLevel;
+	}
+	public void incrementNutrientResourceLevel(int increment){
+		nutrientResourceLevel+=increment;
+	}
+	public void incrementEnergyResourceLevel(int increment){
+		energyResourceLevel+=increment;
+	}
+	public void incrementMetalResourceLevel(int increment){
+		metalResourceLevel+=increment;
 	}
 }
 

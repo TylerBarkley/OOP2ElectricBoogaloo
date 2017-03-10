@@ -1,10 +1,10 @@
 package model;
 
-import static org.junit.Assert.*;
-
 import model.Map.Resources.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by zrgam_000 on 3/5/2017.

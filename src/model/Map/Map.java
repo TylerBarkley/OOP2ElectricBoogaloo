@@ -225,9 +225,9 @@ public class Map {
 		structureOccupancyManager.addStructure(target, loc);
 	}
 
-	public void resetMap(){
-		this.map = new Map();
-		MovementManager.getInstance().reset();
+	public static void reset() {
+		map=null;
+		MovementManager.reset();
 	}
 
 	public void visitTile(TerrainVisitor target, Location location) {

@@ -87,4 +87,7 @@ public class UnitTableModel extends AbstractTableModel {
 		
 	}
 
+	public void update() {
+		this.fireTableDataChanged();
+	}
 }

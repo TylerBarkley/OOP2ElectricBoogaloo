@@ -33,4 +33,8 @@ public class UnitOccupancy {
     public int getUnitCount(){
         return occupyingUnits.size();
     }
+
+	public ArrayList<Unit> getOccupants() {
+		return occupyingUnits;
+	}
 }

@@ -137,7 +137,7 @@ public class MovementManager {
         return unitOccupancyManager;
     }
 
-    public void reset() {
-        this.mm = new MovementManager();
-    }
+	public static void reset() {
+		mm=null;
+	}
 }

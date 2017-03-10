@@ -1,12 +1,19 @@
 package control;
 
 import control.MenuStates.ArmyMenuStates.ArmyAttackState;
+
+import java.util.ArrayList;
+
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPBuildState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Controllables.ControllableCollection;
+import model.observers.MenuObserver;
+import model.observers.UnitObserver;
+import model.player.PlayerID;
+import model.player.PlayerManager;
 import utilities.MenuVisitor;
 
 /**
@@ -20,139 +27,221 @@ import utilities.MenuVisitor;
  */
 public class Menu {
 
-    public final static int RALLYPOINTMODE      = 0;
-    public final static int ARMYMODE       	    = 1;
-    public final static int UNITMODE       	    = 2;
-    public final static int STRUCTUREMODE       = 3;
+	public final static int RALLYPOINTMODE      = 0;
+	public final static int ARMYMODE       	    = 1;
+	public final static int UNITMODE       	    = 2;
+	public final static int STRUCTUREMODE       = 3;
 
 
-    MenuState menuState;
-    ControllableCollection controllableCollection;
+	private MenuState menuState;
+	private ControllableCollection controllableCollection;
 
-    int currentMode = UNITMODE;
+	private int currentMode = UNITMODE;
+	private ArrayList<MenuObserver> observers;
+	private PlayerID id;
 
-    Menu(ControllableCollection controllableCollection){
-        this.controllableCollection = controllableCollection;
-        //Menu starts on Colonist - Build Capital.
-        //Call updateControllable once to assign the currentUnit variable to the colonist
-        setMenuState(BuildCapitalState.getInstance());
-        menuState.updateControllable(this);
+	public Menu(PlayerID id){
+		this.id=id;
+		updateControllableCollection();
+		//Menu starts on Colonist - Build Capital.
+		//Call updateControllable once to assign the currentUnit variable to the colonist
+		setMenuState(BuildCapitalState.getInstance());
+		menuState.updateControllable(this);
+		observers=new ArrayList<MenuObserver>();
+	}
+
+	public void addObserver(MenuObserver observer)
+	{
+		observers.add(observer);
+		notifyObserver(observer);
+	}
+
+	public void removeObserver(MenuObserver observer)
+	{
+		observers.remove(observer);
+	}
+
+	public void notifyObservers()
+	{
+		for(MenuObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+
+	public void notifyObserver(MenuObserver observer)
+	{
+		observer.update(this);
+	}
+
+	//State Design Pattern
+	public void select(){
+		menuState.select(this);
+	}
+
+	//check if a given instance exists in the ControllableCollection
+	public boolean instanceExists(int x, int y){
+		try{
+		if (controllableCollection.get(x, y) != null)
+			return true;
+
+		else 
+			return false;
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			return false;
+		}
+	}
+
+	public void cycleModeL(){
+		int startedMode = currentMode;
+		do{
+			currentMode--;
+			if(currentMode < RALLYPOINTMODE) {
+				currentMode = STRUCTUREMODE;
+			}
+		} while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
+		//change state here to first instruction of each mode, call reset()
+		if(currentMode != startedMode){
+			switch (currentMode){
+			case RALLYPOINTMODE:
+				setMenuState(RPBuildState.getInstance());
+				break;
+			case ARMYMODE:
+				setMenuState(ArmyAttackState.getInstance());
+				break;
+			case UNITMODE:
+				setMenuState(MakeArmyState.getInstance());
+				break;
+			case STRUCTUREMODE:
+				setMenuState(StructureAttackState.getInstance());
+				break;
+			}
+			menuState.reset(this);
+		}
+	}
+	public void cycleModeR(){
+		int startedMode = currentMode;
+		do{
+			currentMode++;
+			if(currentMode > STRUCTUREMODE) {
+				currentMode = RALLYPOINTMODE;
+			}
+		} while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
+		//change state here to first instruction of each mode, call reset()
+		if(currentMode != startedMode){
+			switch (currentMode){
+			case RALLYPOINTMODE:
+				setMenuState(RPBuildState.getInstance());
+				break;
+			case ARMYMODE:
+				setMenuState(ArmyAttackState.getInstance());
+				break;
+			case UNITMODE:
+				setMenuState(MakeArmyState.getInstance());
+				break;
+			case STRUCTUREMODE:
+				setMenuState(StructureAttackState.getInstance());
+				break;
+			}
+			menuState.reset(this);
+		}
+	}
+
+    public int getCurrentMode() {return currentMode;}
+    
+	//Call reset() at beginning of turn or when a Controllable ceases to exist
+
+	public void reset(){
+		cycleModeL();
+		cycleModeR();
+	}
+    
+    public String typeToString() {
+    	return menuState.typeToString();
     }
 
-    //State Design Pattern
-    public void select(){
-        menuState.select(this);
-    }
+	public void cycleTypeL()
+	{
+		menuState.cycleTypeL(this);
+	}
 
-    //check if a given instance exists in the ControllableCollection
-    public boolean instanceExists(int x, int y){
-        if (controllableCollection.get(x, y) != null)
-            return true;
-        else return false;
-    }
+	public void cycleTypeR()
+	{
+		menuState.cycleTypeR(this);
+	}
 
-    void cycleModeL(){
-        int startedMode = currentMode;
-        do{
-            currentMode--;
-            if(currentMode < RALLYPOINTMODE) {
-                currentMode = STRUCTUREMODE;
-            }
-        } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here to first instruction of each mode, call reset()
-        if(currentMode != startedMode){
-            switch (currentMode){
-                case RALLYPOINTMODE:
-                    setMenuState(RPBuildState.getInstance());
-                    break;
-                case ARMYMODE:
-                    setMenuState(ArmyAttackState.getInstance());
-                    break;
-                case UNITMODE:
-                    setMenuState(MakeArmyState.getInstance());
-                    break;
-                case STRUCTUREMODE:
-                    setMenuState(StructureAttackState.getInstance());
-                    break;
-            }
-            menuState.reset(this);
-        }
-    }
-    void cycleModeR(){
-        int startedMode = currentMode;
-        do{
-            currentMode++;
-            if(currentMode > STRUCTUREMODE) {
-                currentMode = RALLYPOINTMODE;
-            }
-        } while(!controllableCollection.controllableExists(currentMode) && currentMode != startedMode);
-        //change state here to first instruction of each mode, call reset()
-        if(currentMode != startedMode){
-            switch (currentMode){
-                case RALLYPOINTMODE:
-                    setMenuState(RPBuildState.getInstance());
-                    break;
-                case ARMYMODE:
-                    setMenuState(ArmyAttackState.getInstance());
-                    break;
-                case UNITMODE:
-                    setMenuState(MakeArmyState.getInstance());
-                    break;
-                case STRUCTUREMODE:
-                    setMenuState(StructureAttackState.getInstance());
-                    break;
-            }
-            menuState.reset(this);
-        }
-    }
+	public void cycleInstanceL()
+	{
+		menuState.cycleInstanceL(this);
+	}
 
-    //Call reset() at beginning of turn or when a Controllable ceases to exist
+	public void cycleInstanceR()
+	{
+		menuState.cycleInstanceR(this);
+	}
 
-    void reset(){
-        cycleModeL();
-        cycleModeR();
-    }
+	public void cycleInstructionL()
+	{
+		menuState.cycleInstructionL(this);
+	}
 
-    void cycleTypeL(){menuState.cycleTypeL(this);}
-    void cycleTypeR(){menuState.cycleTypeR(this);}
-    void cycleInstanceL(){menuState.cycleInstanceL(this);}
-    void cycleInstanceR(){menuState.cycleInstanceR(this);}
-    void cycleInstructionL(){menuState.cycleInstructionL(this);}
-    void cycleInstructionR(){menuState.cycleInstructionR(this);}
+	public void cycleInstructionR()
+	{
+		menuState.cycleInstructionR(this);
+	}
 
-    public MenuState getMenuState() {return menuState;}
-    public void setMenuState(MenuState menuState){this.menuState = menuState;}
+	public MenuState getMenuState() 
+	{
+		return menuState;
+	}
 
-    public ControllableCollection getControllableCollection() {return controllableCollection;}
+	public void setMenuState(MenuState menuState)
+	{
+		this.menuState = menuState;
+	}
 
-    public String getCurrentMode() {return modeToString();}
+	public ControllableCollection getControllableCollection() 
+	{
+		return controllableCollection;
+	}
 
-    public int getCurrentType() {return menuState.getCurrentType();}
+	public int getCurrentType() {
+		return menuState.getCurrentType();
+	}
 
-    public int getCurrentInstance() {return menuState.getCurrentInstance();}
+	public int getCurrentInstance() {
+		return menuState.getCurrentInstance();
+	}
 
-    public String getCurrentInstruction() { return menuState.toString();}
+	public String getCurrentInstruction() { 
+		return menuState.toString();
+	}
 
+	public String modeToString(){
+		switch (currentMode){
+		case RALLYPOINTMODE: return "Rally Point";
+		case ARMYMODE: return "Army";
+		case UNITMODE: return "Unit";
+		case STRUCTUREMODE: return "Structure";
+		}
+		return null;
+	}
 
-    String modeToString(){
-        switch (currentMode){
-            case RALLYPOINTMODE: return "Rally Point";
-            case ARMYMODE: return "Army";
-            case UNITMODE: return "Unit";
-            case STRUCTUREMODE: return "Structure";
-        }
-        return null;
-    }
+	public void printState(){
+		System.out.println("Mode: " + modeToString());
+		System.out.println("Type: " + menuState.typeToString());
+		System.out.println("Instance: " + menuState.getCurrentInstance());
+		System.out.println("Instruction: " + menuState.toString());
+	}
 
-    void printState(){
-        System.out.println("Mode: " + modeToString());
-        System.out.println("Type: " + menuState.typeToString());
-        System.out.println("Instance: " + menuState.getCurrentInstance());
-        System.out.println("Instruction: " + menuState.toString());
-    }
-
-    public void accept(MenuVisitor visitor)
-    {
-    	visitor.visit(this);
-    }
+	public void accept(MenuVisitor visitor)
+	{
+		visitor.visit(this);
+	}
+	
+	public void updateControllableCollection(){
+		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
+	}
 }
