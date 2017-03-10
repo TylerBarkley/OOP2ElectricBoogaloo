@@ -5,6 +5,7 @@ import model.Controllables.Stats.ArmyStats;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
+import utilities.ArmyVisitor;
 import model.Location;
 import model.MapDirection;
 import model.MovementManager;
@@ -134,7 +135,11 @@ public class Army implements Controllable//, DeathObserver
         return armyStats;
     }
 
-    public ArrayList<Unit> getBattleGroup(){
+    public ArrayList<Unit> getBattleGroup() {
         return battleGroup;
+    }
+    
+    public void accept(ArmyVisitor visitor){
+    	visitor.visit(this);
     }
 }

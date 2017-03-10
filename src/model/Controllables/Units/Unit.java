@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import model.Location;
 import model.MapDirection;
 import model.player.PlayerID;
+import utilities.UnitVisitor;
 
 public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
 {
@@ -58,7 +59,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		}
 	}
 	
-	//public abstract void accept(Visitor visitor);
+	public abstract void accept(UnitVisitor visitor);
 
 	public void killMe() {
 		isAlive=false;

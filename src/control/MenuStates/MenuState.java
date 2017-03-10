@@ -12,11 +12,11 @@ import control.Menu;
  * RP: dropoff workers (requires number, rp must be on structure)
  * RP:pickup/dropoff soldiers at a fort
  * RP:build (requires structure type and worker count)
- * Structure:assign workers to task - maybe not, just # of workers is  production rate multiplier
+ * Structure:assign workers to task - maybe just one task + resource harvest
  * Structure:unassign all workers
  * Unit: go to rally point? how?  DON"T IMPLEMENT THIS
  * Structure: produceUnit(Unit unit) options are structure dependent
- * Structure: heal(direction?)
+ * Structure: heal - select tile to heal
  * University: select research
  *
  *

@@ -54,36 +54,8 @@ public class UnitAdvancements {
         return offensiveDamage;
     }
 
-    public void setOffensiveDamage(int offensiveDamage) {
-        this.offensiveDamage = offensiveDamage;
-    }
-
     public int getMovement() {
         return movement;
-    }
-
-    public void setMovement(int movement) {
-        this.movement = movement;
-    }
-
-    public void setInfluenceRadius(int influenceRadius) {
-        this.influenceRadius = influenceRadius;
-    }
-
-    public void setDefensiveDamage(int defensiveDamage) {
-        this.defensiveDamage = defensiveDamage;
-    }
-
-    public void setUpkeep(int upkeep) {
-        this.upkeep = upkeep;
-    }
-
-    public void setArmor(int armor) {
-        this.armor = armor;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     public int getArmorIncrement() {
@@ -138,7 +110,35 @@ public class UnitAdvancements {
         return maxMovementLevel;
     }
 
-    public int getMaxInfluenceRadius() {
+    public int getMaxInfluenceRadiusLevel() {
         return maxInfluenceRadius;
+    }
+
+    public void incrementOffensiveDamage() {
+        this.offensiveDamage += offensiveDamageIncrement;
+    }
+
+    public void incrementInfluenceRadius() {
+        this.influenceRadius += influenceRadiusIncrement;
+    }
+
+    public void incrementDefensiveDamage() {
+        this.defensiveDamage += defensiveDamageIncrement;
+    }
+
+    public void decrementUpkeep() {
+        this.upkeep += upKeepDecrement;
+    }
+
+    public void incrementArmor() {
+        this.armor += armorIncrement;
+    }
+
+    public void incrementHealth() {
+        this.health += healthIncrement;
+    }
+
+    public void incrementMovement() {
+        this.movement+=movementIncrement;
     }
 }

@@ -12,22 +12,26 @@ import model.observers.StructureObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 
-public abstract class Structure implements Controllable {
-    int currentHealth;
+public abstract class Structure implements Controllable
+{	
+    private int currentHealth;
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
 	private ArrayList<StructureObserver> observers;
 	private MapDirection md;
 	private Location location;
+	private int numTotalWorkers;
+	private WorkerManager workerManager;
+	private Boolean beingBuilt;
 
-    //public abstract void accept(Visitor visitor);
     public Structure()
     {
 		myStats = new StructureStats();
 		md = MapDirection.getNorth();
     	isAlive=true;
 		observers=new ArrayList<StructureObserver>();
+		workerManager = new WorkerManager();
 	}
     
     public Structure(Location loc)
@@ -56,6 +60,11 @@ public abstract class Structure implements Controllable {
 		}
 	}
     	
+    public void accept(StructureVisitor visitor)
+    {
+    	visitor.visit(this);
+    }
+	
     public void killMe()
     {
     	isAlive=false;
@@ -140,5 +149,33 @@ public abstract class Structure implements Controllable {
 	
 	public boolean isAlive() {
 		return isAlive;
+	}
+
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+
+	public int getNumTotalOfWorkers() {
+		return numTotalWorkers;
+	}
+
+	public void setNumTotalOfWorkers(int numTotalOfWorkers) {
+		this.numTotalWorkers = numTotalOfWorkers;
+	}
+
+	public WorkerManager getWorkerManager() {
+		return workerManager;
+	}
+
+	public void setWorkerManager(WorkerManager workerManager) {
+		this.workerManager = workerManager;
+	}
+
+	public Boolean getBeingBuilt() {
+		return beingBuilt;
+	}
+
+	public void setBeingBuilt(Boolean beingBuilt) {
+		this.beingBuilt = beingBuilt;
 	}
 }

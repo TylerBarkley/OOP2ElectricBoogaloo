@@ -166,9 +166,9 @@ public class ResourceTest {
 
         assertNull(rm.get(new Location(5, 1)));
 
-        assertEquals(90, rm.mineEnegry(new Location(0, 0), 90));
+        assertEquals(90, rm.mineEnergy(new Location(0, 0), 90));
 
-        assertEquals(50, rm.mineEnegry(new Location(0, 1), 90));
+        assertEquals(50, rm.mineEnergy(new Location(0, 1), 90));
 
         assertEquals(90, rm.mineFood(new Location(0, 0), 90));
 

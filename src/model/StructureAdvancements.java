@@ -4,6 +4,23 @@ package model;
  * Created by Trevor on 3/8/2017.
  */
 public class StructureAdvancements {
+    private final int healthIncrement = 10;
+    private final int armorIncrement = 5;
+    private final int defensiveDamageIncrement = 5;
+    private final int offensiveDamageIncrement = 2;
+    private final int upKeepDecrement = -5;
+    private final int productionRateIncrement = 1;
+    private final int influenceRadiusIncrement = 1;
+    private final int workerRadiusIncrement = 1;
+    private final int maxHealthLevel = 3;
+    private final int maxArmorLevel = 3;
+    private final int maxDefensiveDamageLevel = 3;
+    private final int maxOffensiveDamageLevel = 2;
+    private final int maxUpKeepLevel = 5;
+    private final int maxProductionRateLevel = 2;
+    private final int maxInfluenceRadius = 1;
+    private final int maxWorkerRadiusLevel = 3;
+
     private int health;
     private int armor;
     private int upkeep;
@@ -12,22 +29,6 @@ public class StructureAdvancements {
     private int offensiveDamage;
     private int productionRate;
     private int workerRadius;
-
-    private final int healthIncrement=10;
-    private final int armorIncrement=5;
-    private final int defensiveDamageIncrement=5;
-    private final int offensiveDamageIncrement=2;
-    private final int upKeepDecrement=-5;
-    private final int productionRateIncrement=1;
-    private final int influenceRadiusIncrement=1;
-
-    private final int maxHealthLevel=3;
-    private final int maxArmorLevel=3;
-    private final int maxDefensiveDamageLevel=3;
-    private final int maxOffensiveDamageLevel=2;
-    private final int maxUpKeepLevel=5;
-    private final int maxProductionRateLevel=2;
-    private final int maxInfluenceRadius=1;
 
     public int getArmor() {
         return armor;
@@ -54,7 +55,7 @@ public class StructureAdvancements {
     }
 
     public void incrementOffensiveDamage(int offensiveDamage) {
-        this.offensiveDamage +=offensiveDamageIncrement;
+        this.offensiveDamage += offensiveDamageIncrement;
     }
 
     public void incrementInfluenceRadius() {
@@ -65,32 +66,35 @@ public class StructureAdvancements {
         this.defensiveDamage += defensiveDamageIncrement;
     }
 
-    public void incrementUpkeep() {
+    public void decrementUpkeep() {
         this.upkeep += upKeepDecrement;
     }
 
     public void incrementArmor() {
-        this.armor += armor;
+        this.armor += armorIncrement;
     }
 
     public void incrementHealth() {
-        this.health = health;
+        this.health += healthIncrement;
     }
 
+    public void incrementProductionRate() {
+        this.productionRate += productionRateIncrement;
+    }
+
+    public void incrementWorkerRadius() {
+        this.workerRadius += workerRadiusIncrement;
+    }
+    public void incrementOffensiveDamage(){
+        this.offensiveDamage+= offensiveDamageIncrement;
+    }
     public int getProductionRate() {
         return productionRate;
     }
 
-    public void incrementProductionRate() {
-        this.productionRate = productionRate;
-    }
 
     public int getWorkerRadius() {
         return workerRadius;
-    }
-
-    public void setWorkerRadius() {
-        this.workerRadius = workerRadius;
     }
 
     public int getArmorIncrement() {
@@ -145,7 +149,14 @@ public class StructureAdvancements {
         return maxProductionRateLevel;
     }
 
-    public int getMaxInfluenceRadius() {
+    public int getMaxInfluenceRadiusLevel() {
         return maxInfluenceRadius;
+    }
+
+    public int getMaxWorkerRadiusLevel() {
+        return maxWorkerRadiusLevel;
+    }
+    public int getWorkerRadiusIncrement(){
+        return workerRadiusIncrement;
     }
 }

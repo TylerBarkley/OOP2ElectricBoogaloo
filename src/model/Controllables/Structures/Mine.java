@@ -5,4 +5,9 @@ package model.Controllables.Structures;
  */
 public class Mine extends Structure {
 
+    public void harvestOre(){
+        //TODO change to assignment number
+        getWorkerManager().produceOre(getLocation(), getMyStats().getProductionRate(), getNumTotalOfWorkers());
+    }
+
 }

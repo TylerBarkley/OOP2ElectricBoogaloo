@@ -5,4 +5,9 @@ package model.Controllables.Structures;
  */
 public class PowerPlant extends Structure {
 
+    public void harvestEnergy(){
+        //TODO change to assignment number
+        getWorkerManager().produceEnergy(getLocation(), getMyStats().getProductionRate(), getNumTotalOfWorkers());
+    }
+
 }
