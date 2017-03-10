@@ -40,13 +40,13 @@ public class TurnManager {
 	{
 		for(EndTurnObserver ob: endObservers)
 		{
-			ob.update(this);
+			ob.endUpdate(this);
 		}
 	}
 
 	public void notifyObserver(EndTurnObserver observer)
 	{
-		observer.update(this);
+		observer.endUpdate(this);
 	}
 	
 	public void addObserver(StartTurnObserver observer)
@@ -64,13 +64,13 @@ public class TurnManager {
 	{
 		for(StartTurnObserver ob: startObservers)
 		{
-			ob.update(this);
+			ob.startUpdate(this);
 		}
 	}
 
 	public void notifyObserver(StartTurnObserver observer)
 	{
-		observer.update(this);
+		observer.startUpdate(this);
 	}
 
 	public ArrayList<Player> getPlayers() {
