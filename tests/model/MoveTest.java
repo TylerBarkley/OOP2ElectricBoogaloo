@@ -19,8 +19,6 @@ import org.junit.Test;
  * Created by zrgam_000 on 3/8/2017.
  */
 public class MoveTest {
-    Map map;
-    MovementManager mm;
 
     Player p1;
     Player p2;
@@ -42,8 +40,6 @@ public class MoveTest {
         PlayerManager.getInstance().addPlayer(p1);
         PlayerManager.getInstance().addPlayer(p2);
 
-        map = new Map();
-        mm = new MovementManager(map);
         ranged1 = new Ranged();
         ranged2 = new Ranged();
 
@@ -62,123 +58,125 @@ public class MoveTest {
         PlayerManager.getInstance().addStructure(p1.getId(), c1);
         PlayerManager.getInstance().addStructure(p1.getId(), c2);
 
-        map.addUnit(new Location(0,0), ranged1);
-        map.addUnit(new Location(0,1), ranged2);
-        map.addUnit(new Location(1,0), enemyRanged1);
-        map.addUnit(new Location(1,1), enemyRanged2);
+        Map.getInstance().addUnit(new Location(0,0), ranged1);
+        Map.getInstance().addUnit(new Location(0,1), ranged2);
+        Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
+        Map.getInstance().addUnit(new Location(1,1), enemyRanged2);
 
 
     }
 
     @Test
     public void ValidOccupantTest(){
-        assertFalse(mm.validateMove(ranged1, new Location(1, 0)));
-        assertFalse(mm.validateMove(ranged1, new Location(1, 1)));
+        assertFalse( MovementManager.getInstance().validateMove(ranged1, new Location(1, 0)));
+        assertFalse( MovementManager.getInstance().validateMove(ranged1, new Location(1, 1)));
 
-        assertTrue(mm.validateMove(ranged1, new Location(0, 1)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(0, 1)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(0, 0)));
-        assertFalse(mm.validateMove(enemyRanged1, new Location(0, 1)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(0, 0)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(0, 1)));
 
-        assertTrue(mm.validateMove(enemyRanged1, new Location(1, 1)));
+        assertTrue(MovementManager.getInstance().validateMove(enemyRanged1, new Location(1, 1)));
     }
 
     @Test
     public void ValidTerrainTest(){
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(ranged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(ranged1, new Location(6, 6)));
 
-        assertTrue(mm.validateMove(enemyRanged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(enemyRanged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(6, 6)));
     }
 
     @Test
     public void ValidStructureTest(){
 
-        map.addStructure(new Location(5,5), c1);
+        Map.getInstance().addStructure(new Location(5,5), c1);
 
-        map.addStructure(new Location(6, 6), c2);
+        Map.getInstance().addStructure(new Location(6, 6), c2);
 
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(ranged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(ranged1, new Location(6, 6)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(5, 5)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(6, 6)));
     }
 
     @Test
     public void ValidObstacleTest(){
 
-        map.addObstacleItem(new Location(5, 5), new RealObstacle());
+        Map.getInstance().addObstacleItem(new Location(5, 5), new RealObstacle());
 
-        assertFalse(mm.validateMove(ranged1, new Location(5, 5)));
+        assertFalse(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(ranged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(ranged1, new Location(6, 6)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(5, 5)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(5, 5)));
 
-        assertFalse(mm.validateMove(enemyRanged1, new Location(6, 6)));
+        assertFalse(MovementManager.getInstance().validateMove(enemyRanged1, new Location(6, 6)));
     }
 
     @Test
     public void ValidAfterMoveTest(){
-        mm.makeMove(ranged1, new Location(5, 5));
+        MovementManager.getInstance().makeMove(ranged1, new Location(5, 5));
 
-        assertTrue(mm.validateMove(enemyRanged1, new Location(0, 0)));
+        assertTrue(MovementManager.getInstance().getUnitOccupancyManager() == Map.getInstance().getUnitOccupancyManager());
 
-        mm.makeMove(enemyRanged1, new Location(0, 0));
+        assertTrue(MovementManager.getInstance().validateMove(enemyRanged1, new Location(0, 0)));
 
-        assertTrue(mm.validateMove(ranged1, new Location(1, 0)));
+        MovementManager.getInstance().makeMove(enemyRanged1, new Location(0, 0));
 
-        mm.makeMove(ranged1, new Location(1, 0));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(1, 0)));
 
-        assertTrue(mm.validateMove(enemyRanged1, new Location(5, 5)));
+        MovementManager.getInstance().makeMove(ranged1, new Location(1, 0));
+
+        assertTrue(MovementManager.getInstance().validateMove(enemyRanged1, new Location(5, 5)));
     }
 
     @Test
     public void AOETest(){
-        map.addAOE(new Location(5, 5), new AOEDamage(10));
+        Map.getInstance().addAOE(new Location(5, 5), new AOEDamage(10));
 
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        mm.makeMove(ranged1, new Location(5, 5));
+        MovementManager.getInstance().makeMove(ranged1, new Location(5, 5));
 
         assertEquals(95, ranged1.getCurrentHealth());
 
-        assertTrue(mm.validateMove(ranged1, new Location(0, 0)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(0, 0)));
 
-        mm.makeMove(ranged1, new Location(0, 0));
+        MovementManager.getInstance().makeMove(ranged1, new Location(0, 0));
 
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        mm.makeMove(ranged1, new Location(5, 5));
+        MovementManager.getInstance().makeMove(ranged1, new Location(5, 5));
 
         assertEquals(90, ranged1.getCurrentHealth());
     }
 
     @Test
     public void ItemTest(){
-        map.addOneShotItem(new Location(5, 5), new HealOneShot());
+        Map.getInstance().addOneShotItem(new Location(5, 5), new HealOneShot());
 
         ranged1.damageMe(20);
 
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        mm.makeMove(ranged1, new Location(5, 5));
+        MovementManager.getInstance().makeMove(ranged1, new Location(5, 5));
 
         assertEquals(95, ranged1.getCurrentHealth());
 
-        assertTrue(mm.validateMove(ranged1, new Location(0, 0)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(0, 0)));
 
-        mm.makeMove(ranged1, new Location(0, 0));
+        MovementManager.getInstance().makeMove(ranged1, new Location(0, 0));
 
-        assertTrue(mm.validateMove(ranged1, new Location(5, 5)));
+        assertTrue(MovementManager.getInstance().validateMove(ranged1, new Location(5, 5)));
 
-        mm.makeMove(ranged1, new Location(5, 5));
+        MovementManager.getInstance().makeMove(ranged1, new Location(5, 5));
 
         assertEquals(95, ranged1.getCurrentHealth());
     }

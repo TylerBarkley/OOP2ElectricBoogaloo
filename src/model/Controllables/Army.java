@@ -28,14 +28,31 @@ public class Army implements Controllable//, DeathObserver
     private boolean canMove;
     private boolean canEscort;
 
+    private int workers;
+
     private CommandQueue myCommands;
     private ArmyStats armyStats;
     private ArrayList<Unit> battleGroup;
 
 	private ArrayList<ArmyObserver> observers;
 
+    public Army(Unit unit){
+        this.myLocation = unit.getLocation();
+        this.myCommands = new CommandQueue();
+        this.armyStats = new ArmyStats();
+        this.battleGroup = new ArrayList<Unit>();
+
+        this.addUnitToBattleGroup(unit);
+
+        this.myRP = new RallyPoint(this);
+
+		observers=new ArrayList<ArmyObserver>();
+    }
+
     public Army()
     {
+		//TODO REMOVE AND FIX
+        //Currently for testing
 		observers=new ArrayList<ArmyObserver>();
 	}
 
@@ -66,14 +83,19 @@ public class Army implements Controllable//, DeathObserver
     public void addUnitToBattleGroup(Unit unit){
         battleGroup.add(unit);
         armyStats.addStats(unit.getMyStats());
-        unit.setActionPoints(armyStats.getMovement());
+
+        updateAP();
         updateEscort();
+        //No Mike
     }
 
     public void removeUnitFromBattleGroup(Unit unit){
         battleGroup.remove(unit);
         armyStats.removeStats(unit.getMyStats());
+
         unit.resetAP();
+
+        updateAP();
         updateEscort();
     }
 
@@ -82,6 +104,12 @@ public class Army implements Controllable//, DeathObserver
 
         for(Unit unit : battleGroup){
             if(unit.canEscort()){ canEscort = true; }
+        }
+    }
+
+    public void updateAP(){
+        for(Unit unit : battleGroup){
+            unit.setActionPoints(armyStats.getMovement());
         }
     }
 
@@ -101,12 +129,25 @@ public class Army implements Controllable//, DeathObserver
         for(Unit unit : battleGroup){
             MovementManager.getInstance().makeMove(unit, md);
         }
+
+        this.myLocation = myLocation.getAdjacent(md);
     }
 
     public void doTurn(){
         while(canMove && !myCommands.isEmpty()){
             myCommands.carryOut();
         }
+    }
+
+    public void disband(){
+        for(Unit unit : battleGroup){
+            unit.resetAP();
+        }
+        battleGroup.clear();
+
+        myRP.detletThis();
+
+        //TODO REMOVE FROM PLAYER
     }
 
 
@@ -118,12 +159,16 @@ public class Army implements Controllable//, DeathObserver
         this.myLocation = myLocation;
     }
 
-    public boolean isCanEscort() {
+    public boolean canEscort() {
         return canEscort;
     }
 
     public ArmyStats getArmyStats() {
         return armyStats;
+    }
+
+    public ArrayList<Unit> getBattleGroup() {
+        return battleGroup;
     }
     
     public void accept(ArmyVisitor visitor){

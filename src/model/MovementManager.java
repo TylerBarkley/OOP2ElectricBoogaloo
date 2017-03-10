@@ -59,11 +59,11 @@ public class MovementManager {
             return false;
         }
 
-        if(!map.getStructureOccupancyManager().checkPlayer(target.getPid(), location)){
+        if(!structureOccupancyManager.checkPlayer(target.getPid(), location)){
             return false;
         }
 
-        if(!map.getUnitOccupancyManager().checkPlayer(target.getPid(), location)){
+        if(!unitOccupancyManager.checkPlayer(target.getPid(), location)){
             return false;
         }
 
@@ -86,11 +86,11 @@ public class MovementManager {
             return false;
         }
 
-        if(!map.getStructureOccupancyManager().checkPlayer(pid, location)){
+        if(!structureOccupancyManager.checkPlayer(pid, location)){
             return false;
         }
 
-        if(!map.getUnitOccupancyManager().checkPlayer(pid, location)){
+        if(!unitOccupancyManager.checkPlayer(pid, location)){
             return false;
         }
 
@@ -129,5 +129,9 @@ public class MovementManager {
         target.setMapDirection(md);
 
         this.makeMove(target, location);
+    }
+
+    public UnitOccupancyManager getUnitOccupancyManager() {
+        return unitOccupancyManager;
     }
 }

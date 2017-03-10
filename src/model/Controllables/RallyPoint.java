@@ -18,4 +18,16 @@ public class RallyPoint {
     ArrayList<Unit> reinforcements;
 
     HashMap<Location, MapDirection> path;
+
+    public RallyPoint(Army myArmy) {
+        this.myArmy = myArmy;
+        location = myArmy.getMyLocation();
+        path = new HashMap<Location, MapDirection>();
+        reinforcements = new ArrayList<Unit>();
+    }
+
+    public void detletThis() {
+        reinforcements.clear();
+        //TODO REMOVE FROM PLAYER
+    }
 }
