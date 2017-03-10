@@ -7,4 +7,9 @@ package model.Controllables.Structures;
  */
 public class University extends Structure {
 
+    public void harvestScience(){
+        //TODO change to assignment number
+        getWorkerManager().produceTechnology(getMyStats().getProductionRate(), getNumTotalOfWorkers());
+    }
+
 }
