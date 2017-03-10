@@ -59,6 +59,10 @@ public abstract class Structure implements Controllable
 			ob.update(this);
 		}
 	}
+
+	public void doWork(){}
+
+	public void unassign(){}
     	
     public void accept(StructureVisitor visitor)
     {
