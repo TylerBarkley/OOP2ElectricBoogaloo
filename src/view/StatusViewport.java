@@ -12,8 +12,11 @@ import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
+import model.Controllables.Units.UnitID;
+import model.observers.MenuObserver;
+import model.observers.UnitObserver;
 
-public class StatusViewport extends JPanel implements UnitVisitor {
+public class StatusViewport extends JPanel implements UnitVisitor, UnitObserver, MenuObserver{
 
 	private int width;
 	private int height;
@@ -124,7 +127,7 @@ public class StatusViewport extends JPanel implements UnitVisitor {
 	
 	public void visit(Colonist unit) {
 		
-		if(unit.getCurrentHealth() > 0) {
+		if(unit.isAlive()) {
 			
 			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Colonist");
 		}
@@ -137,7 +140,7 @@ public class StatusViewport extends JPanel implements UnitVisitor {
 	
 	public void visit(Explorer unit) {
 		
-		if(unit.getCurrentHealth() > 0) {
+		if(unit.isAlive()) {
 			
 			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Explorer");
 		}
@@ -150,7 +153,7 @@ public class StatusViewport extends JPanel implements UnitVisitor {
 	
 	public void visit(Melee unit) {
 		
-		if(unit.getCurrentHealth() > 0) {
+		if(unit.isAlive()) {
 			
 			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Melee Unit");
 		}
@@ -163,7 +166,7 @@ public class StatusViewport extends JPanel implements UnitVisitor {
 	
 	public void visit(Ranged unit) {
 		
-		if(unit.getCurrentHealth() > 0) {
+		if(unit.isAlive()) {
 			
 			displayUnitStats(unit,unit.getID().getInstanceNumber(),"Ranged Unit");
 		}
@@ -171,6 +174,59 @@ public class StatusViewport extends JPanel implements UnitVisitor {
 			
 			removeUnitStats("Ranged Unit",unit.getID().getInstanceNumber());
 		}
+	}
+
+	
+	public void update(Unit unit) {
+		
+		int unitType = unit.getID().getType();
+		
+		if(unit.isAlive()) {
+			
+			if(unitType == UnitID.COLONIST_TYPE_ID) {
+				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Colonist");
+			}
+			
+			if(unitType == UnitID.EXPLORER_TYPE_ID) {
+				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Explorer");
+			}
+			
+			if(unitType == UnitID.MELEE_TYPE_ID) {
+				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Melee Unit");
+			}
+			
+			if(unitType == UnitID.RANGED_TYPE_ID) {
+				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Ranged Unit");
+			}
+		}
+		else {
+			
+			if(unitType == UnitID.COLONIST_TYPE_ID) {
+				removeUnitStats("Colonist",unit.getID().getInstanceNumber());
+			}
+			
+			if(unitType == UnitID.EXPLORER_TYPE_ID) {
+				removeUnitStats("Explorer",unit.getID().getInstanceNumber());
+			}
+			
+			if(unitType == UnitID.MELEE_TYPE_ID) {
+				removeUnitStats("Melee Unit",unit.getID().getInstanceNumber());
+			}
+			
+			if(unitType == UnitID.RANGED_TYPE_ID) {
+				removeUnitStats("Ranged Unit",unit.getID().getInstanceNumber());
+			}
+		}
+	}
+
+	@Override
+	public void update(String currentMode, int currentInstance,
+			String currentType, String currentInstruction) {
+		
+		this.currentMode.setText("CURRENT MODE= " + currentMode);
+		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
+		this.currentType.setText("CURRENT TYPE= " + currentType);
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
 	}
 	
 }
