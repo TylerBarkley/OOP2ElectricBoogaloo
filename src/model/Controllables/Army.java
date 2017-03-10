@@ -43,6 +43,8 @@ public class Army implements Controllable//, DeathObserver
 	private boolean isDisbanded;
 	
     public Army(Unit unit){
+		observers=new ArrayList<ArmyObserver>();
+		
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
         this.armyStats = new ArmyStats();
@@ -53,8 +55,6 @@ public class Army implements Controllable//, DeathObserver
         this.addUnitToBattleGroup(unit);
 
         this.myRP = new RallyPoint(this);
-
-		observers=new ArrayList<ArmyObserver>();
 		
 		isDisbanded=false;
     }
