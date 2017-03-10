@@ -25,13 +25,20 @@ public class TurnManager {
 		notifyStartObservers();
 	}
 
-	public void addObserver(EndTurnObserver observer)
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+	
+	public Player getCurrentPlayer() {
+		return players.get(index);
+	}
+	
+	public void addEndObserver(EndTurnObserver observer)
 	{
 		endObservers.add(observer);
-		notifyObserver(observer);
 	}
 
-	public void removeObserver(EndTurnObserver observer)
+	public void removeEndObserver(EndTurnObserver observer)
 	{
 		endObservers.remove(observer);
 	}
@@ -44,18 +51,17 @@ public class TurnManager {
 		}
 	}
 
-	public void notifyObserver(EndTurnObserver observer)
+	public void notifyEndObserver(EndTurnObserver observer)
 	{
 		observer.endUpdate(this);
 	}
 	
-	public void addObserver(StartTurnObserver observer)
+	public void addStartObserver(StartTurnObserver observer)
 	{
 		startObservers.add(observer);
-		notifyObserver(observer);
 	}
 
-	public void removeObserver(StartTurnObserver observer)
+	public void removeStartObserver(StartTurnObserver observer)
 	{
 		startObservers.remove(observer);
 	}
@@ -68,16 +74,8 @@ public class TurnManager {
 		}
 	}
 
-	public void notifyObserver(StartTurnObserver observer)
+	public void notifyStartObserver(StartTurnObserver observer)
 	{
 		observer.startUpdate(this);
-	}
-
-	public ArrayList<Player> getPlayers() {
-		return players;
-	}
-	
-	public Player getCurrentPlayer() {
-		return players.get(index);
 	}
 }
