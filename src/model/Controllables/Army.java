@@ -26,6 +26,10 @@ public class Army implements Controllable//, DeathObserver
     private boolean canMove;
     private boolean canEscort;
 
+    private int energyResourceLevel;
+    private int metalResourceLevel;
+    private int nutrientResourceLevel;
+
     private int workers;
 
     private CommandQueue myCommands;
@@ -141,5 +145,55 @@ public class Army implements Controllable//, DeathObserver
     
     public void accept(ArmyVisitor visitor){
     	visitor.visit(this);
+    }
+
+    public void distribute(){
+        for(int i=0;i<battleGroup.size();i++){
+            if(battleGroup.get(i).getUpkeep()>energyResourceLevel){
+                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                energyResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+            if(battleGroup.get(i).getUpkeep()>metalResourceLevel){
+                battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
+                metalResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+            if(battleGroup.get(i).getUpkeep()>nutrientResourceLevel){
+                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                nutrientResourceLevel-=battleGroup.get(i).getUpkeep();
+            }
+        }
+    }
+
+    public int getEnergyResourceLevel() {
+        return energyResourceLevel;
+    }
+
+    public void setEnergyResourceLevel(int energyResourceLevel) {
+        this.energyResourceLevel = energyResourceLevel;
+    }
+
+    public int getMetalResourceLevel() {
+        return metalResourceLevel;
+    }
+
+    public void setMetalResourceLevel(int metalResourceLevel) {
+        this.metalResourceLevel = metalResourceLevel;
+    }
+
+    public int getNutrientResourceLevel() {
+        return nutrientResourceLevel;
+    }
+
+    public void setNutrientResourceLevel(int nutrientResourceLevel) {
+        this.nutrientResourceLevel = nutrientResourceLevel;
+    }
+    public void incrementNutrientResourceLevel(int increment){
+        nutrientResourceLevel+=increment;
+    }
+    public void incrementEnergyResourceLevel(int increment){
+        energyResourceLevel+=increment;
+    }
+    public void incrementMetalResourceLevel(int increment){
+        metalResourceLevel+=increment;
     }
 }
