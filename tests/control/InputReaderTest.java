@@ -8,7 +8,7 @@ public class InputReaderTest {
     public static void main(String[] args){
     	JFrame frame=new JFrame();
     	frame.setSize(100, 100);
-    	frame.addKeyListener(new InputReader(new UserControls()));
+    	frame.addKeyListener(new InputReader(null, new UserControls()));
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setVisible(true);
     }

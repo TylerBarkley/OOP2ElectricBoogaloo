@@ -115,6 +115,18 @@ public class PlayerManager {
 	public void addPower(PlayerID id, int energy){
 		players.get(id).addPower(energy);
 	}
+
+	public void distributePower(PlayerID id,Structure structure,int percentage){players.get(id).distributePower(structure,percentage);}
+
+	public void distributeMetal(PlayerID id, Structure structure,int percentage){players.get(id).distributeMetal(structure,percentage);}
+
+	public void distributeNutrients(PlayerID id, Structure structure,int percentage){players.get(id).distributeNutrients(structure,percentage);}
+
+	public void distributePower(PlayerID id,Army army,int percentage){players.get(id).distributePower(army,percentage);}
+
+	public void distributeMetal(PlayerID id, Army army,int percentage){players.get(id).distributeMetal(army,percentage);}
+
+	public void distributeNutrients(PlayerID id, Army army,int percentage){players.get(id).distributeNutrients(army,percentage);}
 	
 	public ControllableCollection getControllableCollection(PlayerID id){
 		return players.get(id).getControllableCollection();

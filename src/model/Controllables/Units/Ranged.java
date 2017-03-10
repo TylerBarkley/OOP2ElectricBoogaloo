@@ -27,4 +27,18 @@ public class Ranged extends Unit {
 	}
 
 
+	@Override
+	public void visitWaterTerrain() {
+		this.reduceAP(2);
+	}
+
+	@Override
+	public void visitGroundTerrain() {
+		this.reduceAP(1);
+	}
+
+	@Override
+	public void visitMountainTerrain() {
+		this.reduceAP(3);
+	}
 }

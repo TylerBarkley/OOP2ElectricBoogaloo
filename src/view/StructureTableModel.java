@@ -86,4 +86,8 @@ public class StructureTableModel extends AbstractTableModel {
 		this.fireTableCellUpdated(row, column);
 
 	}
+	
+	public void update() {
+		this.fireTableDataChanged();
+	}
 }

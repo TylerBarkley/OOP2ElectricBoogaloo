@@ -119,6 +119,8 @@ public class MovementManager {
             targetAOE.apply(target);
         }
 
+        map.visitTile(target, location);
+
     }
 
     public void makeMove(Unit target, MapDirection md){
@@ -134,4 +136,8 @@ public class MovementManager {
     public UnitOccupancyManager getUnitOccupancyManager() {
         return unitOccupancyManager;
     }
+
+	public static void reset() {
+		mm=null;
+	}
 }

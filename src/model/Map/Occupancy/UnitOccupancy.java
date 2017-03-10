@@ -33,4 +33,14 @@ public class UnitOccupancy {
     public int getUnitCount(){
         return occupyingUnits.size();
     }
+
+	public ArrayList<Unit> getOccupants() {
+		return occupyingUnits;
+	}
+
+	public void damageAll(int intensity){
+        for(Unit unit : occupyingUnits){
+            unit.damageMe(intensity);
+        }
+    }
 }

@@ -1,3 +1,5 @@
 package model.Map.Terrain;
 
-public abstract class Terrain {}
+import model.TerrainVisitable;
+
+public abstract class Terrain implements TerrainVisitable{}

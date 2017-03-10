@@ -14,14 +14,13 @@ public class Tile {
 	{
 		return terrain;
 	}
-	/*
-	public void accept(Visitor visitor)
-	{
-		visitor.visit(this);
-	}
-	*/
+	
 	public void prospect()
 	{
 		isProspected=true;
+	}
+
+	public boolean isProspected() {
+		return isProspected;
 	}
 }

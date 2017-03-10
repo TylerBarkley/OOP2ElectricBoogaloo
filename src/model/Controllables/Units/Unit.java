@@ -1,6 +1,7 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
+import model.TerrainVisitor;
 import model.observers.UnitObserver;
 
 import java.util.ArrayList;
@@ -10,11 +11,14 @@ import model.MapDirection;
 import model.player.PlayerID;
 import utilities.UnitVisitor;
 
-public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable, TerrainVisitor //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private int maxActionPoints;
 	private int currentActionPoints;
+	private int energyResourceLevel;
+	private int metalResourceLevel;
+	private int nutrientResourceLevel;
 
 	private UnitStats myStats;
 	private UnitID id;
@@ -28,6 +32,8 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		observers=new ArrayList<UnitObserver>();
 		maxActionPoints = myStats.getMovement();
 		currentActionPoints = maxActionPoints;
+		md = MapDirection.getNorth();
+		isAlive=true;
 	}
 
 	protected Unit(Location loc){
@@ -44,13 +50,14 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 	public void addObserver(UnitObserver observer)
 	{
 		observers.add(observer);
+		notifyObserver(observer);
 	}
-	
+
 	public void removeObserver(UnitObserver observer)
 	{
 		observers.remove(observer);
 	}
-	
+
 	public void notifyObservers()
 	{
 		for(UnitObserver ob: observers)
@@ -58,7 +65,12 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 			ob.update(this);
 		}
 	}
-	
+
+	public void notifyObserver(UnitObserver observer)
+	{
+		observer.update(this);
+	}
+
 	public abstract void accept(UnitVisitor visitor);
 
 	public void killMe() {
@@ -78,7 +90,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		if(currentHealth <= 0){
 			this.killMe();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -87,7 +99,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		if(currentHealth > myStats.getHealth()){
 			currentHealth = myStats.getHealth();
 		}
-		
+
 		notifyObservers();
 	}
 
@@ -97,7 +109,7 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setCurrentHealth(int currentHealth){
 		this.currentHealth = currentHealth;
-		
+
 		notifyObservers();
 	}
 
@@ -108,14 +120,16 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
-		
+
+		this.setActionPoints(myStats.getMovement());
+
 		notifyObservers();
 	}
 
 	public void setID(UnitID id)
 	{
 		this.id=id;
-		
+
 		notifyObservers();
 	}
 
@@ -142,18 +156,28 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void setLocation(Location loc){
 		this.location = loc;
-		
+
 		notifyObservers();
 	}
 
 	public void setMapDirection(MapDirection md){
 		this.md = md;
-		
+
 		notifyObservers();
 	}
 
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
+		if(energyResourceLevel<0){
+			damageMe(1);
+		}
+		if(metalResourceLevel<0){
+			damageMe(1);
+		}
+		if(nutrientResourceLevel<0){
+			damageMe(1);
+		}
+
 	}
 
 	public int getUpkeep() {
@@ -180,8 +204,53 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 		currentActionPoints = maxActionPoints;
 	}
 
+	public void reduceAP(int amount){
+		this.currentActionPoints -= amount;
+	}
+
+	public void refreshAP(){
+		this.currentActionPoints += maxActionPoints;
+
+		if(currentActionPoints > maxActionPoints){
+			currentActionPoints = maxActionPoints;
+		}
+	}
+
 	public boolean isAlive(){
 		return isAlive;
+	}
+
+	public int getEnergyResourceLevel() {
+		return energyResourceLevel;
+	}
+
+	public void setEnergyResourceLevel(int energyResourceLevel) {
+		this.energyResourceLevel = energyResourceLevel;
+	}
+
+	public int getMetalResourceLevel() {
+		return metalResourceLevel;
+	}
+
+	public void setMetalResourceLevel(int metalResourceLevel) {
+		this.metalResourceLevel = metalResourceLevel;
+	}
+
+	public int getNutrientResourceLevel() {
+		return nutrientResourceLevel;
+	}
+
+	public void setNutrientResourceLevel(int nutrientResourceLevel) {
+		this.nutrientResourceLevel = nutrientResourceLevel;
+	}
+	public void incrementNutrientResourceLevel(int increment){
+		nutrientResourceLevel+=increment;
+	}
+	public void incrementEnergyResourceLevel(int increment){
+		energyResourceLevel+=increment;
+	}
+	public void incrementMetalResourceLevel(int increment){
+		metalResourceLevel+=increment;
 	}
 }
 

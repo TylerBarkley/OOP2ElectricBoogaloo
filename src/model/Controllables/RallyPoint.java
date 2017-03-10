@@ -1,7 +1,6 @@
 package model.Controllables;
 
 import model.Controllables.Units.Unit;
-import model.observers.UnitObserver;
 import model.Location;
 import model.MapDirection;
 
@@ -21,7 +20,7 @@ public class RallyPoint {
 
     public RallyPoint(Army myArmy) {
         this.myArmy = myArmy;
-        location = myArmy.getMyLocation();
+        location = myArmy.getLocation();
         path = new HashMap<Location, MapDirection>();
         reinforcements = new ArrayList<Unit>();
     }

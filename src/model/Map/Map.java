@@ -3,17 +3,21 @@ package model.Map;
 import model.*;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
+
 import model.Map.AOE.AOE;
 import model.Map.AOE.AreaOfEffectManager;
+
 import model.Map.Items.ObstacleItem;
 import model.Map.Items.ObstacleManager;
 import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
-import model.Map.Occupancy.StructureOccupancy;
+
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancyManager;
+
 import model.Map.Resources.ResourceLevel;
 import model.Map.Resources.ResourceManager;
+
 import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
@@ -46,7 +50,7 @@ public class Map {
 	}
 
 
-	public Map(int width, int height) //Generates random map
+	private Map(int width, int height) //Generates random map
 	{
 		tiles=new HashMap<Location, Tile>();
 		aoeManager=new AreaOfEffectManager();
@@ -71,7 +75,7 @@ public class Map {
 		}
 	}
 
-	public Map() //Generates test map
+	private Map() //Generates test map
 	{
 		tiles = new HashMap<Location, Tile>();
 		aoeManager = new AreaOfEffectManager();
@@ -222,5 +226,15 @@ public class Map {
 
 	public void addStructure(Location loc, Structure target){
 		structureOccupancyManager.addStructure(target, loc);
+	}
+
+	public static void reset() {
+		map=null;
+		MovementManager.reset();
+		AttackManager.reset();
+	}
+
+	public void visitTile(TerrainVisitor target, Location location) {
+		this.getTileAt(location).getTerrain().visitTerrain(target);
 	}
 }

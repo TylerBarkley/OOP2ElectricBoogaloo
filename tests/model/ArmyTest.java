@@ -12,8 +12,6 @@ import model.player.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Locale;
-
 import static org.junit.Assert.*;
 
 /**
@@ -103,7 +101,7 @@ public class ArmyTest {
     public void JoinArmyTest(){
         army = new Army(explorer);
 
-        assertEquals(explorer.getLocation(), army.getMyLocation());
+        assertEquals(explorer.getLocation(), army.getLocation());
         assertEquals(1, army.getBattleGroup().size());
 
         army.addUnitToBattleGroup(melee);
@@ -171,6 +169,8 @@ public class ArmyTest {
     @Test
     public void MoveTest(){
 
+        Map.reset();
+
         Map.getInstance().addUnit(new Location(0,0), melee);
         Map.getInstance().addUnit(new Location(0,0), ranged);
         Map.getInstance().addUnit(new Location(0,0), colonist);
@@ -181,7 +181,7 @@ public class ArmyTest {
 
         assertEquals(new Location(0, 0), explorer.getLocation());
         assertEquals(new Location(0, 0), melee.getLocation());
-        assertEquals(new Location(0, 0), army.getMyLocation());
+        assertEquals(new Location(0, 0), army.getLocation());
         assertEquals(new Location(0, 0), colonist.getLocation());
         assertEquals(new Location(0, 0), ranged.getLocation());
 
@@ -189,7 +189,7 @@ public class ArmyTest {
 
         assertEquals(new Location(0, 1), explorer.getLocation());
         assertEquals(new Location(0, 1), melee.getLocation());
-        assertEquals(new Location(0, 1), army.getMyLocation());
+        assertEquals(new Location(0, 1), army.getLocation());
         assertEquals(new Location(0, 0), colonist.getLocation());
         assertEquals(new Location(0, 0), ranged.getLocation());
 
@@ -198,15 +198,78 @@ public class ArmyTest {
 
         assertEquals(new Location(1, 0), explorer.getLocation());
         assertEquals(new Location(0, 1), melee.getLocation());
-        assertEquals(new Location(1, 0), army.getMyLocation());
+        assertEquals(new Location(1, 0), army.getLocation());
         assertEquals(new Location(0, 0), colonist.getLocation());
         assertEquals(new Location(0, 0), ranged.getLocation());
     }
 
-    /*
+
     @Test
     public void QueuedMoveTest(){
+        Map.reset();
 
+        Map.getInstance().addUnit(new Location(0,0), melee);
+        Map.getInstance().addUnit(new Location(0,0), explorer);
+
+        army = new Army(melee);
+        army.addUnitToBattleGroup(explorer);
+
+        //Move to Water
+        army.giveOrder(new MoveCommand(army, MapDirection.getSouthEast()));
+        //Move to Ground
+        army.giveOrder(new MoveCommand(army, MapDirection.getNorthWest()));
+
+        army.giveOrder(new MoveCommand(army, MapDirection.getSouthEast()));
+        army.giveOrder(new MoveCommand(army, MapDirection.getNorthWest()));
+
+        assertTrue(army.canMove());
+        assertEquals(1, melee.getActionPoints());
+        assertEquals(1, explorer.getActionPoints());
+
+
+        army.doTurn();
+        
+        assertEquals(new Location(1, 0), melee.getLocation());
+        assertEquals(new Location(1, 0), explorer.getLocation());
+        assertEquals(new Location(1, 0), army.getLocation());
+
+        assertEquals(3, army.getCommandQueue().size());
+
+        assertFalse(army.canMove());
+        assertEquals(-1, melee.getActionPoints());
+        assertEquals(-1, explorer.getActionPoints());
+
+        melee.refreshAP();
+        explorer.refreshAP();
+        army.startTurn();
+
+        assertTrue(army.canMove());
+        assertEquals(0, melee.getActionPoints());
+        assertEquals(0, explorer.getActionPoints());
+
+        army.doTurn();
+
+        assertEquals(3, army.getCommandQueue().size());
+
+        assertFalse(army.canMove());
+        assertEquals(0, melee.getActionPoints());
+        assertEquals(0, explorer.getActionPoints());
+
+        melee.refreshAP();
+        explorer.refreshAP();
+        army.startTurn();
+
+        assertTrue(army.canMove());
+        assertEquals(1, melee.getActionPoints());
+        assertEquals(1, explorer.getActionPoints());
+
+        army.doTurn();
+
+        assertEquals(2, army.getCommandQueue().size());
+
+        assertFalse(army.canMove());
+        assertEquals(0, melee.getActionPoints());
+        assertEquals(0, explorer.getActionPoints());
     }
-    */
+
 }

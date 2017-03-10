@@ -56,8 +56,38 @@ public class WorkerManager {
         return newWorkers;
     }
 
-    public int building(){
+    public int building() {
         int percentageBuilt = WS.getBuildingRate() * 2 * numOfWorkers_Building;
+        return percentageBuilt;
+    }
+
+    public int produceOre(Location loc, int structureProductionRate, int numOfWorkers){
+        int amount = (structureProductionRate + WS.getOreProduction()) * numOfWorkers;
+        return RM.mineOre(loc, amount);
+    }
+
+    public int produceTechnology(int structureProductionRate, int numOfWorkers){
+        int amount = (structureProductionRate + WS.getTechnologyProduction()) * numOfWorkers;
+        return amount;
+    }
+
+    public int produceEnergy(Location loc, int structureProductionRate, int numOfWorkers){
+        int amount = (structureProductionRate + WS.getEnergyProduction()) * numOfWorkers;
+        return RM.mineEnergy(loc, amount);
+    }
+
+    public int produceFood(Location loc, int structureProductionRate, int numOfWorkers){
+        int amount = (structureProductionRate + WS.getFoodProduction()) * numOfWorkers;
+        return RM.mineFood(loc, amount);
+    }
+
+    public int breeding(int numOfWorkers){
+        int newWorkers = ((WS.getBreeding() * numOfWorkers)/2);
+        return newWorkers;
+    }
+
+    public int building(int numOfWorker){
+        int percentageBuilt = WS.getBuildingRate() * 2 * numOfWorker;
         return percentageBuilt;
     }
 
@@ -65,12 +95,18 @@ public class WorkerManager {
         if(numOfWorkers_SoldierTraining < 1){
             return 0;
         }
+
         int percentageTrained = WS.getSoldierTraining() * numOfWorkers_SoldierTraining + (2 * numOfSoldiers * WS.getSoldierTraining());
         return percentageTrained;
     }
 
     public int trainExplorer(){
         int percentageTrained = WS.getExplorerTraining() * numOfWorkers_ExplorerTraining * 10;
+        return percentageTrained;
+    }
+
+    public int trainExplorer(int numOfWorker){
+        int percentageTrained = WS.getExplorerTraining() * numOfWorker * 10;
         return percentageTrained;
     }
 
