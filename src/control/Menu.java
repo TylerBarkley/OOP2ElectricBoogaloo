@@ -125,16 +125,20 @@ public class Menu {
 
     public ControllableCollection getControllableCollection() {return controllableCollection;}
 
-    public String getCurrentMode() {return modeToString();}
-
+    public int getCurrentMode() {return currentMode;}
+    
     public int getCurrentType() {return menuState.getCurrentType();}
+    
+    public String typeToString() {
+    	return menuState.typeToString();
+    }
 
     public int getCurrentInstance() {return menuState.getCurrentInstance();}
 
     public String getCurrentInstruction() { return menuState.toString();}
 
 
-    String modeToString(){
+   public String modeToString(){
         switch (currentMode){
             case RALLYPOINTMODE: return "Rally Point";
             case ARMYMODE: return "Army";

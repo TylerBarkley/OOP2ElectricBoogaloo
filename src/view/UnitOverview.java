@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
+import control.Menu;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.Unit;
 import model.observers.MenuObserver;
@@ -20,6 +21,7 @@ public class UnitOverview extends JPanel implements UnitVisitor {
 	private int width, height;
 	private JTable unitTable;
 	private UnitTableModel model;
+	private TableRenderer renderer;
 	private JTextArea unitStatsArea;
 	private JLabel currentMode, currentInstance,currentType,currentInstruction;
 	
@@ -44,6 +46,9 @@ public class UnitOverview extends JPanel implements UnitVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		renderer = new TableRenderer();
+		unitTable.setDefaultRenderer(Unit.class, renderer);
 		
 		displayView();
 	}
@@ -73,10 +78,19 @@ public class UnitOverview extends JPanel implements UnitVisitor {
 		}
 	}
 
-	public void updateMenu(String mode, String instance, String type, String instruction) {
-		currentMode.setText(mode);
-		currentInstance.setText(instance);
-		currentType.setText(type);
-		currentInstruction.setText(instruction);
+	public void updateMenu(Menu menu) {
+		
+		this.currentMode.setText("CURRENT MODE= " + menu.modeToString());
+		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstance());
+		this.currentType.setText("CURRENT TYPE= " + menu.typeToString());
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstance());
+		
+		if(menu.getCurrentMode() == Menu.UNITMODE) {
+			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstance());
+		} 
+		else {
+			renderer.deSelectUnit();
+		}
+		model.update();
 	}
 }
