@@ -29,7 +29,7 @@ public class WorkerManager {
 
     public int produceEnergy(Location loc, int structureProductionRate, int numOfWorkers){
         int amount = (structureProductionRate + WS.getEnergyProduction()) * numOfWorkers;
-        return RM.mineEnegry(loc, amount);
+        return RM.mineEnergy(loc, amount);
     }
 
     public int produceFood(Location loc, int structureProductionRate, int numOfWorkers){
