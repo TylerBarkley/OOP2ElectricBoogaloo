@@ -2,13 +2,15 @@ package view;
 
 import control.Menu;
 import control.UserControls;
+import model.Controllables.Army;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
+import model.observers.ArmyObserver;
 import model.observers.MenuObserver;
 import model.observers.StructureObserver;
 import model.observers.UnitObserver;
 
-public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver{
+public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, ArmyObserver{
 	private int width;
 	private int height;
 	private UserControls controls;
@@ -61,6 +63,11 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	@Override
 	public void update(Menu menu) {
 		menu.accept(window);
+	}
+
+	@Override
+	public void update(Army army) {
+//		army.accept(unitOverview);
 	}
 
 }
