@@ -18,7 +18,7 @@ public abstract class Structure implements Controllable {
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
-<<<<<<< HEAD
+
     private ArrayList<StructureObserver> observers;
     private MapDirection md;
     private Location location;
@@ -66,7 +66,6 @@ public abstract class Structure implements Controllable {
 
     public void killMe() {
         isAlive = false;
-=======
 	private ArrayList<StructureObserver> observers;
 	private MapDirection md;
 	private Location location;

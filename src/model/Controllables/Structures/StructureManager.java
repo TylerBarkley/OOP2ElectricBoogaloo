@@ -221,7 +221,7 @@ public class StructureManager implements StructureObserver{
 	public ArrayList<University> getUniversities() {
 		return universities;
 	}
-	
+
 	public Structure getSpecificStructure(Structure structure){
 		ArrayList<Structure> structureList=getStructures();
 		for(int i=0;i<structureList.size();i++){
@@ -230,6 +230,7 @@ public class StructureManager implements StructureObserver{
 			}
 		}
 		return null;
+	}
 	public void chargeResources(Ore metal, Energy power) {
 		ArrayList<Structure> structures=getStructures();
 		int metalQuantity = metal.getAmount();
@@ -264,7 +265,7 @@ public class StructureManager implements StructureObserver{
 
 		metal.setAmount(metalQuantity);
 		power.setAmount(powerQuantity);
->>>>>>> a5a73272c4000aa822cd17afdb24f2c16650b982
+
 	}
 
 }
