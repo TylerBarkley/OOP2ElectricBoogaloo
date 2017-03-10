@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -10,11 +11,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
-import control.UserControls;
+import control.Menu;
 import model.Location;
+import utilities.MenuVisitor;
 
-public class GameWindow extends JFrame {
-
+public class GameWindow extends JFrame implements MenuVisitor{
 	private int width;
 	private int height;
 
@@ -24,18 +25,24 @@ public class GameWindow extends JFrame {
 	private UnitOverview unitOverview;
 	private StructureOverview structureOverview;
 	private ConfigurationOverview configurationOverview;
-	
-	public GameWindow(int width, int height, UserControls controls) {
+
+	public GameWindow(int width, int height, 
+			MainScreen mainScreen, 
+			UnitOverview unitOverview,
+			StructureOverview structureOverview, 
+			ConfigurationOverview configurationOverview) 
+	{
+		
 		this.width = width;
 		this.height = height;
+		this.mainScreen = mainScreen;
+		this.unitOverview = unitOverview;
+		this.structureOverview = structureOverview;
+		this.configurationOverview = configurationOverview;
+		
 		this.setTitle("Lost In the Sauce");
 		
 		this.tabbedPane=new JTabbedPane();
-		
-		this.mainScreen=new MainScreen(width,height);
-		this.unitOverview=new UnitOverview(width, height);
-		this.structureOverview=new StructureOverview(width, height);
-		this.configurationOverview=new ConfigurationOverview(controls, width, height);
 		
 		tabbedPane.setFocusable(true);
 		addComponentListener(new ComponentListener() {
@@ -51,7 +58,7 @@ public class GameWindow extends JFrame {
 		setUpTabbedPane();
 		addGameMenu();
 	}
-
+	
 	private void setUpTabbedPane() {
 		tabbedPane.addTab("Main Screen", mainScreen);
 		tabbedPane.addTab("Structure Overview", structureOverview);
@@ -121,6 +128,17 @@ public class GameWindow extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(fileMenu);
 		this.setJMenuBar(menuBar);
+	}
 
+	@Override
+	public void visit(Menu menu) {
+		String instruction=menu.getCurrentInstruction();
+		String mode=menu.getCurrentMode();
+		String type=menu.getCurrentType();
+		String instance=""+menu.getCurrentInstance();
+		
+		mainScreen.updateMenu(mode, instance, type, instruction);                      
+		unitOverview.updateMenu(mode, instance, type, instruction);
+		structureOverview.updateMenu(mode, instance, type, instruction);
 	}
 }

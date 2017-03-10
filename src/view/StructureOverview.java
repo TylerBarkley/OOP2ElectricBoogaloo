@@ -68,80 +68,22 @@ public class StructureOverview  extends JPanel implements StructureVisitor, Stru
 	}
 
 	@Override
-	public void visit(Capital capital) {
-		
-		if(capital.isAlive()) {
-			model.addStructure(capital); 
+	public void visit(Structure structure) {
+		if(structure.isAlive())
+		{
+			model.addStructure(structure); //structures have current health?
 		}
-		else {
-			model.removeStructure(capital);
-		}
-	}
-
-	@Override
-	public void visit(Farm farm) {
-		
-		if(farm.isAlive()) {
-			model.addStructure(farm);
-		}
-		else {
-			model.removeStructure(farm);
+		else
+		{
+			model.removeStructure(structure);
 		}
 	}
 
-	@Override
-	public void visit(Fort fort) {
-		
-		if(fort.isAlive()) {
-			model.addStructure(fort);
-		}
-		else {
-			model.removeStructure(fort);
-		}
-	}
-
-	@Override
-	public void visit(Mine mine) {
-		
-		if(mine.isAlive()) {
-			model.addStructure(mine);
-		}
-		else {
-			model.removeStructure(mine);
-		}
-	}
-
-	@Override
-	public void visit(ObservationTower tower) {
-		
-		if(tower.isAlive()) {
-			model.addStructure(tower);
-		}
-		else {
-			model.removeStructure(tower);
-		}
-	}
-
-	@Override
-	public void visit(PowerPlant powerPlant) {
-		
-		if(powerPlant.isAlive()) {
-			model.addStructure(powerPlant);
-		}
-		else {
-			model.removeStructure(powerPlant);
-		}
-	}
-
-	@Override
-	public void visit(University university) {
-		
-		if(university.isAlive()) {
-			model.addStructure(university);
-		}
-		else {
-			model.removeStructure(university);
-		}
+	public void updateMenu(String mode, String instance, String type, String instruction) {
+		currentMode.setText(mode);
+		currentInstance.setText(instance);
+		currentType.setText(type);
+		currentInstruction.setText(instruction);
 	}
 
 	@Override

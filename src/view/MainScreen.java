@@ -8,26 +8,26 @@ import model.Location;
 
 public class MainScreen extends JPanel{
 
-	private StatusViewport statusView;
-	private AreaViewport areaView;
+	private StatusViewport statusViewport;
+	private AreaViewport areaViewport;
 	
-	public MainScreen(int width, int height){
+	public MainScreen(int width, int height, StatusViewport statusViewport, AreaViewport areaViewport){
 		
 		this.setSize(width, height);
 		
-		statusView=new StatusViewport(width/3, height);
-		areaView=new AreaViewport((2 * width)/3, height);
+		this.statusViewport=statusViewport;
+		this.areaViewport=areaViewport;
 
 		displayView();
 	}
 	
 	public void updateView() {
 		//statusView.updateView();
-		areaView.updateView();
+		areaViewport.updateView();
 	}
 
 	public void updateAreaView() {
-		areaView.updateView();
+		areaViewport.updateView();
 	}
 	
 //	public void updateSatusView() {
@@ -36,15 +36,20 @@ public class MainScreen extends JPanel{
 	
 	public void displayView() {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		this.add(areaView);
-		this.add(statusView);
+		this.add(areaViewport);
+		this.add(statusViewport);
 	}
 	
 	public void placeDecal(Decal decal){
-		areaView.addView(decal);
+		areaViewport.addView(decal);
 	}
 	
 	public void focusOn(Location loc){
-		areaView.focusOn(loc);
+		areaViewport.focusOn(loc);
+	}
+
+	public void updateMenu(String mode, String instance, String type, String instruction) {
+		statusViewport.updateMenu(mode, instance, type, instruction);
+		
 	}
 }

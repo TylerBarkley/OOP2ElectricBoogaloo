@@ -4,16 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-import model.Controllables.Units.Colonist;
-import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
+import model.Controllables.Units.Unit;
 import model.Controllables.Units.Unit;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
@@ -65,41 +61,10 @@ public class UnitOverview extends JPanel implements UnitVisitor, UnitObserver, M
 		this.add(currentType);
 		this.add(currentInstance);
 		this.add(currentInstruction);
-		this.setBackground(Color.orange);
-	}
-
-	public void visit(Colonist unit) {
-		
-		if(unit.isAlive()) {
-			model.addUnit(unit);
-		}
-		else {
-			model.removeUnit(unit);
-		}
-	}
-
-	public void visit(Explorer unit) {
-		
-		if(unit.isAlive()) {
-			model.addUnit(unit);
-		}
-		else {
-			model.removeUnit(unit);
-		}
-	}
-
-	public void visit(Melee unit) {
-		
-		if(unit.isAlive()) {
-			model.addUnit(unit);
-		}
-		else {
-			model.removeUnit(unit);
-		}
+		this.setBackground(Color.ORANGE);
 	}
 	
-	public void visit(Ranged unit) {
-		
+	public void visit(Unit unit) {	
 		if(unit.isAlive()) {
 			model.addUnit(unit);
 		}
@@ -107,6 +72,14 @@ public class UnitOverview extends JPanel implements UnitVisitor, UnitObserver, M
 			model.removeUnit(unit);
 		}
 	}
+
+	public void updateMenu(String mode, String instance, String type, String instruction) {
+		currentMode.setText(mode);
+		currentInstance.setText(instance);
+		currentType.setText(type);
+		currentInstruction.setText(instruction);
+	}
+	
 
 	@Override
 	public void update(String currentMode, int currentInstance,

@@ -12,8 +12,9 @@ import model.observers.StructureObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 
-public abstract class Structure implements Controllable {
-    int currentHealth;
+public abstract class Structure implements Controllable
+{	
+    private int currentHealth;
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
@@ -24,7 +25,6 @@ public abstract class Structure implements Controllable {
 	private WorkerManager workerManager;
 	private Boolean beingBuilt;
 
-    //public abstract void accept(Visitor visitor);
     public Structure()
     {
 		myStats = new StructureStats();
@@ -60,6 +60,11 @@ public abstract class Structure implements Controllable {
 		}
 	}
     	
+    public void accept(StructureVisitor visitor)
+    {
+    	visitor.visit(this);
+    }
+	
     public void killMe()
     {
     	isAlive=false;
@@ -144,6 +149,10 @@ public abstract class Structure implements Controllable {
 	
 	public boolean isAlive() {
 		return isAlive;
+	}
+
+	public int getCurrentHealth() {
+		return currentHealth;
 	}
 
 	public int getNumTotalOfWorkers() {

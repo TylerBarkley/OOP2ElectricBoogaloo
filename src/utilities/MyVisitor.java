@@ -1,36 +1,23 @@
 package utilities;
 
-import model.Controllables.Units.Colonist;
-import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
+import model.Controllables.Units.Unit;
 import model.Map.Tile;
+import model.player.PlayerID;
+import model.ID;
 import model.Controllables.Worker;
+import model.Controllables.Structures.Structure;
 
-public class MyVisitor implements UnitVisitor,TileVisitor,WorkerVisitor {
+public class MyVisitor implements UnitVisitor,TileVisitor,WorkerVisitor,StructureVisitor {
 
-	@Override
-	public void visit(Colonist unit) {
-		// TODO Auto-generated method stub
+	private PlayerID playerID;
 
+	public MyVisitor(PlayerID playerID){
+		this.playerID=playerID;
 	}
-
+	
 	@Override
-	public void visit(Explorer unit) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Melee unit) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Ranged unit) {
-		// TODO Auto-generated method stub
-
+	public void visit(Unit unit) {
+		ID id=unit.getID();
 	}
 
 	@Override
@@ -43,6 +30,12 @@ public class MyVisitor implements UnitVisitor,TileVisitor,WorkerVisitor {
 	public void visit(Tile tile) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void visit(Structure structure) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

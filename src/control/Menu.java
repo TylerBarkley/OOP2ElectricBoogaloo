@@ -7,6 +7,7 @@ import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Controllables.ControllableCollection;
+import utilities.MenuVisitor;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -150,5 +151,8 @@ public class Menu {
         System.out.println("Instruction: " + menuState.toString());
     }
 
-
+    public void accept(MenuVisitor visitor)
+    {
+    	visitor.visit(this);
+    }
 }
