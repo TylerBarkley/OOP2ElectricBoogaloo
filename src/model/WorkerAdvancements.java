@@ -12,6 +12,7 @@ public class WorkerAdvancements {
     final private int breedingIncrement=2;
     final private int explorerTrainingIncrement=1;
     final private int buildingRateIncrement=2;
+
     final private int maxFoodProductionLevel=2;
     final private int maxOreProductionLevel=2;
     final private int maxEnergyProductionLevel=3;

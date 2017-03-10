@@ -15,6 +15,9 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 	private int currentHealth;
 	private int maxActionPoints;
 	private int currentActionPoints;
+	private int energyResourceLevel;
+	private int metalResourceLevel;
+	private int nutrientResourceLevel;
 
 	private UnitStats myStats;
 	private UnitID id;
@@ -162,6 +165,16 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
+		if(energyResourceLevel<0){
+			damageMe(1);
+		}
+		if(metalResourceLevel<0){
+			damageMe(1);
+		}
+		if(nutrientResourceLevel<0){
+			damageMe(1);
+		}
+
 	}
 
 	public int getUpkeep() {
@@ -190,6 +203,39 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public boolean isAlive(){
 		return isAlive;
+	}
+
+	public int getEnergyResourceLevel() {
+		return energyResourceLevel;
+	}
+
+	public void setEnergyResourceLevel(int energyResourceLevel) {
+		this.energyResourceLevel = energyResourceLevel;
+	}
+
+	public int getMetalResourceLevel() {
+		return metalResourceLevel;
+	}
+
+	public void setMetalResourceLevel(int metalResourceLevel) {
+		this.metalResourceLevel = metalResourceLevel;
+	}
+
+	public int getNutrientResourceLevel() {
+		return nutrientResourceLevel;
+	}
+
+	public void setNutrientResourceLevel(int nutrientResourceLevel) {
+		this.nutrientResourceLevel = nutrientResourceLevel;
+	}
+	public void incrementNutrientResourceLevel(int increment){
+		nutrientResourceLevel+=increment;
+	}
+	public void incrementEnergyResourceLevel(int increment){
+		energyResourceLevel+=increment;
+	}
+	public void incrementMetalResourceLevel(int increment){
+		metalResourceLevel+=increment;
 	}
 }
 

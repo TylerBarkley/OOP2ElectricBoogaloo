@@ -1,6 +1,9 @@
+
 package model.Controllables.Structures;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Controllables.ControllableID;
 import model.Controllables.Units.Unit;
@@ -17,6 +20,7 @@ public class StructureManager implements StructureObserver{
 	private ArrayList<ObservationTower> towers;
 	private ArrayList<PowerPlant> plants;
 	private ArrayList<University> universities;
+
 
 	private PlayerID playerID;
 
@@ -218,6 +222,15 @@ public class StructureManager implements StructureObserver{
 		return universities;
 	}
 
+	public Structure getSpecificStructure(Structure structure){
+		ArrayList<Structure> structureList=getStructures();
+		for(int i=0;i<structureList.size();i++){
+			if(structureList.get(i)==structure){
+				return structureList.get(i);
+			}
+		}
+		return null;
+	}
 	public void chargeResources(Ore metal, Energy power) {
 		ArrayList<Structure> structures=getStructures();
 		int metalQuantity = metal.getAmount();
@@ -252,6 +265,7 @@ public class StructureManager implements StructureObserver{
 
 		metal.setAmount(metalQuantity);
 		power.setAmount(powerQuantity);
+
 	}
 
 }

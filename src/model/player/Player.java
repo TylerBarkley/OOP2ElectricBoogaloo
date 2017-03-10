@@ -148,7 +148,48 @@ public class Player {
 	public void addPower(int energy){
 		power.addAmount(energy);
 	}
-	
+
+	public void distributePower(Structure structure,int percentage){
+		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementEnergyResourceLevel(amountOfPowerGiven);
+	}
+
+	public void distributeMetal(Structure structure,int percentage){
+		int amountOfMetalGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementMetalResourceLevel(amountOfMetalGiven);
+	}
+
+	public void distributeNutrients(Structure structure,int percentage){
+		int amountOfNutrientsGiven=(int)((double) (percentage)/100*power.getAmount());
+		structureManager.getSpecificStructure(structure).incrementNutrientResourceLevel(amountOfNutrientsGiven);
+	}
+
+	public void distributePower(Army army,int percentage){
+		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementEnergyResourceLevel(amountOfPowerGiven);
+			}
+		}
+	}
+	public void distributeMetal(Army army,int percentage){
+		int amountOfMetalGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementMetalResourceLevel(amountOfMetalGiven);
+			}
+
+		}
+	}
+	public void distributeNutrients(Army army,int percentage){
+		int amountOfNutrientsGiven=(int)((double) (percentage)/100*power.getAmount());
+		for(int i=0;i<armies.size();i++){
+			if(armies.get(i)==army){
+				armies.get(i).incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			}
+		}
+	}
+
 	public void chargeResources()
 	{
 		unitManager.chargeResources(nutrients);
