@@ -22,12 +22,12 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
+import model.player.Player;
+import model.player.PlayerID;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Map {
 	private java.util.Map<Location, Tile> tiles;
@@ -108,6 +108,36 @@ public class Map {
 		unitOccupancyManager = new UnitOccupancyManager();
 
 		readMap(fileName);
+	}
+
+	public HashMap<Location, Location> BFS(PlayerID PID, Location RPlocation){
+		//HashMap<Location, MapDirection> paths = new HashMap<Location, MapDirection>();
+		HashMap<Location, Location> parents = new HashMap<Location, Location>();
+
+		HashSet<Location> visited = new HashSet<Location>();
+		ArrayDeque<Location> q = new ArrayDeque<Location>();
+
+		parents.put(RPlocation, null);
+		visited.add(RPlocation);
+		q.add(RPlocation);
+
+		MovementManager mm = MovementManager.getInstance();
+
+		while(!q.isEmpty()){
+			Location current = q.poll();
+			//if current is the goal, return current
+
+			ArrayList<Location> adjacents =current.getAllLocationsWithinRadius(1);
+			for(Location l: adjacents){
+				if(!visited.contains(l)){
+					visited.add(l);
+					parents.put(l, current);
+					if(mm.validateMove(PID, l))
+						q.add(l);
+				}
+			}
+		}
+		return parents;
 	}
 
 	private void readMap(String fileName) {
