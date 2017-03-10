@@ -15,7 +15,7 @@ import model.observers.MenuObserver;
 import model.observers.UnitObserver;
 import utilities.UnitVisitor;
 
-public class UnitOverview extends JPanel implements UnitVisitor, UnitObserver, MenuObserver {
+public class UnitOverview extends JPanel implements UnitVisitor {
 
 	private int width, height;
 	private JTable unitTable;
@@ -79,27 +79,4 @@ public class UnitOverview extends JPanel implements UnitVisitor, UnitObserver, M
 		currentType.setText(type);
 		currentInstruction.setText(instruction);
 	}
-	
-
-	@Override
-	public void update(String currentMode, int currentInstance,
-			String currentType, String currentInstruction) {
-		
-		this.currentMode.setText("CURRENT MODE= " + currentMode);
-		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
-		this.currentType.setText("CURRENT TYPE= " + currentType);
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
-	}
-
-	@Override
-	public void update(Unit unit) {
-		
-		if(unit.isAlive()) {
-			model.addUnit(unit);
-		}
-		else {
-			model.removeUnit(unit);
-		}
-	}
-	
 }

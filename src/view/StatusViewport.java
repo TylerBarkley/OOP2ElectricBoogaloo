@@ -6,6 +6,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import control.Menu;
 import utilities.StructureVisitor;
 import utilities.UnitVisitor;
 import model.Controllables.Structures.Structure;
@@ -19,7 +20,7 @@ import model.Controllables.Units.UnitID;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
 
-public class StatusViewport extends JPanel implements UnitVisitor, UnitObserver, MenuObserver{
+public class StatusViewport extends JPanel implements UnitVisitor, StructureVisitor{
 
 	private int width;
 	private int height;
@@ -219,11 +220,12 @@ public class StatusViewport extends JPanel implements UnitVisitor, UnitObserver,
 	}
 
 	public void updateMenu(String mode, String instance, String type, String instruction) {
-		currentMode.setText(mode);
-		currentInstance.setText(instance);
-		currentType.setText(type);
-		currentInstruction.setText(instruction);
+		this.currentMode.setText("CURRENT MODE= " + currentMode);
+		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
+		this.currentType.setText("CURRENT TYPE= " + currentType);
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
 	}
+	
 	public void update(Unit unit) {
 		
 		int unitType = unit.getID().getType();
@@ -265,15 +267,4 @@ public class StatusViewport extends JPanel implements UnitVisitor, UnitObserver,
 			}
 		}
 	}
-
-	@Override
-	public void update(String currentMode, int currentInstance,
-			String currentType, String currentInstruction) {
-		
-		this.currentMode.setText("CURRENT MODE= " + currentMode);
-		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
-		this.currentType.setText("CURRENT TYPE= " + currentType);
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
-	}
-	
 }

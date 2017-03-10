@@ -1,6 +1,8 @@
 package model.observers;
 
+import control.Menu;
+
 public interface MenuObserver {
 
-	public void update(String currentMode, int currentInstance, String currentType, String currentInstruction);
+	public void update(Menu menu);
 }

@@ -18,7 +18,7 @@ import model.observers.MenuObserver;
 import model.observers.StructureObserver;
 import utilities.StructureVisitor;
 
-public class StructureOverview  extends JPanel implements StructureVisitor, StructureObserver, MenuObserver {
+public class StructureOverview  extends JPanel implements StructureVisitor {
 
 	private int width, height;
 	private JTable structureTable;
@@ -85,26 +85,4 @@ public class StructureOverview  extends JPanel implements StructureVisitor, Stru
 		currentType.setText(type);
 		currentInstruction.setText(instruction);
 	}
-
-	@Override
-	public void update(String currentMode, int currentInstance,
-			String currentType, String currentInstruction) {
-		
-		this.currentMode.setText("CURRENT MODE= " + currentMode);
-		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
-		this.currentType.setText("CURRENT TYPE= " + currentType);
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
-	}
-
-	@Override
-	public void update(Structure structure) {
-		
-		if(structure.isAlive()) {
-			model.addStructure(structure);
-		}
-		else {
-			model.removeStructure(structure);
-		}
-	}
-	
 }

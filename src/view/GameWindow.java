@@ -134,7 +134,7 @@ public class GameWindow extends JFrame implements MenuVisitor{
 	public void visit(Menu menu) {
 		String instruction=menu.getCurrentInstruction();
 		String mode=menu.getCurrentMode();
-		String type=menu.getCurrentType();
+		String type=""+menu.getCurrentType();
 		String instance=""+menu.getCurrentInstance();
 		
 		mainScreen.updateMenu(mode, instance, type, instruction);                      
