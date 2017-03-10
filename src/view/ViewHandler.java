@@ -2,17 +2,21 @@ package view;
 
 import control.Menu;
 import control.UserControls;
+import model.TurnManager;
 import model.Controllables.Army;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
+import model.observers.EndTurnObserver;
 import model.observers.MenuObserver;
+import model.observers.StartTurnObserver;
 import model.observers.StructureObserver;
 import model.observers.UnitObserver;
 import model.observers.WorkerObserver;
 
-public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, ArmyObserver, WorkerObserver{
+public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, 
+							ArmyObserver, WorkerObserver, EndTurnObserver, StartTurnObserver{
 	private int width;
 	private int height;
 	private UserControls controls;
@@ -75,6 +79,12 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	@Override
 	public void update(Worker worker) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void update(TurnManager turn) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
