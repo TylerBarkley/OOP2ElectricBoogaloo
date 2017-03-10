@@ -109,6 +109,8 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
+
+		this.setActionPoints(myStats.getMovement());
 		
 		notifyObservers();
 	}
@@ -183,6 +185,14 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 
 	public void reduceAP(int amount){
 		this.currentActionPoints -= amount;
+	}
+
+	public void refreshAP(){
+		this.currentActionPoints += maxActionPoints;
+
+		if(currentActionPoints > maxActionPoints){
+			currentActionPoints = maxActionPoints;
+		}
 	}
 
 	public boolean isAlive(){

@@ -11,7 +11,8 @@ public class MoveCommand implements Command{
     Army target;
     MapDirection md;
 
-    public void MoveCommand(Army army, MapDirection md){
+
+    public MoveCommand(Army army, MapDirection md){
         this.target = army;
         this.md = md;
     }

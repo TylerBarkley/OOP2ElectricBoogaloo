@@ -34,4 +34,8 @@ public class CommandQueue {
     public Queue<Command> getCommandQueue() {
         return queue;
     }
+
+    public int size() {
+        return queue.size();
+    }
 }

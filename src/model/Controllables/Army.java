@@ -38,6 +38,8 @@ public class Army implements Controllable//, DeathObserver
         this.armyStats = new ArmyStats();
         this.battleGroup = new ArrayList<Unit>();
 
+        this.canMove = true;
+
         this.addUnitToBattleGroup(unit);
 
         this.myRP = new RallyPoint(this);
@@ -102,9 +104,30 @@ public class Army implements Controllable//, DeathObserver
     }
 
     public void doTurn(){
+
+        for(Unit unit : battleGroup){
+            if(unit.getActionPoints() <= 0){
+                canMove = false;
+            }
+        }
+
         while(canMove && !myCommands.isEmpty()){
             myCommands.carryOut();
+
+            for(Unit unit : battleGroup){
+                if(unit.getActionPoints() <= 0){
+                    canMove = false;
+                }
+            }
         }
+    }
+
+    public void giveOrder(Command command){
+        this.myCommands.add(command);
+    }
+
+    public void startTurn(){
+        this.canMove = true;
     }
 
     public void disband(){
@@ -119,7 +142,7 @@ public class Army implements Controllable//, DeathObserver
     }
 
 
-    public Location getMyLocation() {
+    public Location getLocation() {
         return myLocation;
     }
 
@@ -141,5 +164,13 @@ public class Army implements Controllable//, DeathObserver
     
     public void accept(ArmyVisitor visitor){
     	visitor.visit(this);
+    }
+
+    public boolean canMove() {
+        return canMove;
+    }
+
+    public CommandQueue getCommandQueue() {
+        return myCommands;
     }
 }

@@ -119,7 +119,7 @@ public class MovementManager {
             targetAOE.apply(target);
         }
 
-        map.getTileAt(location).getTerrain().visitTerrain(target);
+        map.visitTile(target, location);
 
     }
 
@@ -135,5 +135,9 @@ public class MovementManager {
 
     public UnitOccupancyManager getUnitOccupancyManager() {
         return unitOccupancyManager;
+    }
+
+    public void reset() {
+        this.mm = new MovementManager();
     }
 }
