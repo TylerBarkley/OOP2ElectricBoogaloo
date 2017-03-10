@@ -16,7 +16,6 @@ import model.player.Player;
 import model.player.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
 
 /**
  * Created by zrgam_000 on 3/8/2017.

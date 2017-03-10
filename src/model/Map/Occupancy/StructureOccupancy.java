@@ -1,5 +1,7 @@
 package model.Map.Occupancy;
 
+import java.util.Collection;
+
 import model.Controllables.Structures.Structure;
 import model.player.PlayerID;
 
@@ -23,4 +25,9 @@ public class StructureOccupancy {
     public PlayerID getPid() {
         return pid;
     }
+
+
+	public Structure getOccupant() {
+		return occupyingStructure;
+	}
 }

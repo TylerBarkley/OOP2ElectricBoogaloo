@@ -10,11 +10,12 @@ import model.observers.WorkerObserver;
 public class Worker{
 
 	private ArrayList<WorkerObserver> observers;
-
+	private boolean isAlive;
 	//private PID myPID;
 
 	public Worker(){
 		observers=new ArrayList<WorkerObserver>();
+		isAlive=true;
 	}
 	
 	public void addObserver(WorkerObserver observer)
@@ -50,11 +51,17 @@ public class Worker{
 	}
 
 	public void killMe(){
+		isAlive=false;
+		notifyObservers();
 		//TODO kill me
 		//TODO me_irl
 		//pm.removeWorker(myPID);
 	}
 
+	public boolean isAlive(){
+		return isAlive;
+	}
+	
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
