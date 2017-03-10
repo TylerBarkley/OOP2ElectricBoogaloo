@@ -149,12 +149,18 @@ public class Menu {
 		}
 	}
 
+    public int getCurrentMode() {return currentMode;}
+    
 	//Call reset() at beginning of turn or when a Controllable ceases to exist
 
 	public void reset(){
 		cycleModeL();
 		cycleModeR();
 	}
+    
+    public String typeToString() {
+    	return menuState.typeToString();
+    }
 
 	public void cycleTypeL()
 	{
