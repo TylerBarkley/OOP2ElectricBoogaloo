@@ -134,4 +134,8 @@ public class MovementManager {
     public UnitOccupancyManager getUnitOccupancyManager() {
         return unitOccupancyManager;
     }
+
+	public static void reset() {
+		mm=null;
+	}
 }

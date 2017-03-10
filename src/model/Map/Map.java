@@ -223,4 +223,9 @@ public class Map {
 	public void addStructure(Location loc, Structure target){
 		structureOccupancyManager.addStructure(target, loc);
 	}
+
+
+	public static void reset() {
+		map=null;
+	}
 }

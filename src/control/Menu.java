@@ -207,11 +207,6 @@ public class Menu {
 		return controllableCollection;
 	}
 
-	public String getCurrentMode() 
-	{
-		return modeToString();
-	}
-
 	public int getCurrentType() {
 		return menuState.getCurrentType();
 	}
