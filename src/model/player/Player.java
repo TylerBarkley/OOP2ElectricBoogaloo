@@ -80,6 +80,12 @@ public class Player {
 		return workers;
 	}
 
+	public Food getFood(){return nutrients;}
+
+	public Ore getOre(){ return metal;}
+
+	public Energy getEnergy(){ return power;}
+
 	public boolean addUnit(Colonist unit) {
 		boolean b=unitManager.add(unit);
 		if(b)

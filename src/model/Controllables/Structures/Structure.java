@@ -18,7 +18,6 @@ public abstract class Structure implements Controllable {
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
-
     private ArrayList<StructureObserver> observers;
     private MapDirection md;
     private Location location;
@@ -30,12 +29,39 @@ public abstract class Structure implements Controllable {
     private int metalResourceLevel;
     private int nutrientResourceLevel;
 
-    public Structure() {
-        myStats = new StructureStats();
-        md = MapDirection.getNorth();
-        isAlive = true;
-        observers = new ArrayList<StructureObserver>();
-        workerManager = new WorkerManager();
+    public Structure()
+    {
+		myStats = new StructureStats();
+		md = MapDirection.getNorth();
+    	isAlive=true;
+		observers=new ArrayList<StructureObserver>();
+		workerManager = new WorkerManager();
+	}
+
+	public void addObserver(StructureObserver observer)
+	{
+		observers.add(observer);
+	}
+	
+	public void removeObserver(StructureObserver observer)
+	{
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers()
+	{
+		for(StructureObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+
+	public void doWork(){}
+
+	public void unassign(){}
+    	
+    public void accept(StructureVisitor visitor) {
+        visitor.visit(this);
     }
 
     public Structure(Location loc) {
@@ -44,24 +70,6 @@ public abstract class Structure implements Controllable {
         md = MapDirection.getNorth();
         isAlive = true;
         observers = new ArrayList<StructureObserver>();
-    }
-
-    public void addObserver(StructureObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(StructureObserver observer) {
-        observers.remove(observer);
-    }
-
-    public void notifyObservers() {
-        for (StructureObserver ob : observers) {
-            ob.update(this);
-        }
-    }
-
-    public void accept(StructureVisitor visitor) {
-        visitor.visit(this);
     }
 
     public void killMe() {
