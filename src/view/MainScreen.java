@@ -4,6 +4,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import control.Menu;
 import model.Location;
 
 public class MainScreen extends JPanel{
@@ -48,8 +49,8 @@ public class MainScreen extends JPanel{
 		areaViewport.focusOn(loc);
 	}
 
-	public void updateMenu(String mode, String instance, String type, String instruction) {
-		statusViewport.updateMenu(mode, instance, type, instruction);
+	public void updateMenu(Menu menu) {
+		statusViewport.updateMenu(menu);
 		
 	}
 }
