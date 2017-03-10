@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Controllables.ControllableID;
+import model.Controllables.Units.Unit;
+import model.Map.Resources.Energy;
+import model.Map.Resources.Ore;
 import model.observers.StructureObserver;
 import model.player.PlayerID;
 
@@ -51,7 +54,7 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public boolean add(Fort structure)
 	{
 		StructureID id = new StructureID(playerID, StructureID.FORT_TYPE_ID, forts.size());
@@ -60,7 +63,7 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public boolean add(Mine structure)
 	{
 		StructureID id = new StructureID(playerID, StructureID.MINE_TYPE_ID, mines.size());
@@ -69,7 +72,7 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public boolean add(ObservationTower structure)
 	{
 		StructureID id = new StructureID(playerID, StructureID.OBSERVATIONTOWER_TYPE_ID, towers.size());
@@ -78,7 +81,7 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public boolean add(PowerPlant structure)
 	{
 		StructureID id = new StructureID(playerID, StructureID.POWERPLANT_TYPE_ID, plants.size());
@@ -87,7 +90,7 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public boolean add(University structure)
 	{
 		StructureID id = new StructureID(playerID, StructureID.UNIVERSITY_TYPE_ID, universities.size());
@@ -96,11 +99,11 @@ public class StructureManager implements StructureObserver{
 		structure.setID(id);
 		return true;
 	}
-	
+
 	public ArrayList<Structure> getStructures()
 	{
 		ArrayList<Structure> structures=new ArrayList<Structure>();
-		
+
 		structures.addAll(capitals);
 		structures.addAll(farms);
 		structures.addAll(forts);
@@ -108,18 +111,18 @@ public class StructureManager implements StructureObserver{
 		structures.addAll(towers);
 		structures.addAll(plants);
 		structures.addAll(universities);
-		
+
 		return structures;
 	}
-	
+
 	@Override
-    public void update(Structure observable) {
-        if(observable.isAlive())
-        {
-            return;
-        }
-        
-        StructureID id=observable.getID();
+	public void update(Structure observable) {
+		if(observable.isAlive())
+		{
+			return;
+		}
+
+		StructureID id=observable.getID();
 
 		int instanceNumber=id.getInstanceNumber();
 
@@ -127,66 +130,66 @@ public class StructureManager implements StructureObserver{
 		{
 		case StructureID.CAPITAL_TYPE_ID:
 			capitals.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<capitals.size(); i++)
 			{
 				capitals.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.FARM_TYPE_ID:
 			farms.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<farms.size(); i++)
 			{
 				farms.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.FORT_TYPE_ID:
 			forts.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<forts.size(); i++)
 			{
 				forts.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.MINE_TYPE_ID:
 			mines.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<mines.size(); i++)
 			{
 				mines.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.OBSERVATIONTOWER_TYPE_ID:
 			towers.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<towers.size(); i++)
 			{
 				towers.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.POWERPLANT_TYPE_ID:
 			plants.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<plants.size(); i++)
 			{
 				plants.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		case StructureID.UNIVERSITY_TYPE_ID:
 			universities.remove(instanceNumber);
-			
+
 			for(int i=instanceNumber; i<universities.size(); i++)
 			{
 				universities.get(i).getID().setInstanceNumber(i);
 			}
-			
+
 			break;
 		}
 	}
@@ -218,7 +221,7 @@ public class StructureManager implements StructureObserver{
 	public ArrayList<University> getUniversities() {
 		return universities;
 	}
-
+	
 	public Structure getSpecificStructure(Structure structure){
 		ArrayList<Structure> structureList=getStructures();
 		for(int i=0;i<structureList.size();i++){
@@ -227,6 +230,41 @@ public class StructureManager implements StructureObserver{
 			}
 		}
 		return null;
+	public void chargeResources(Ore metal, Energy power) {
+		ArrayList<Structure> structures=getStructures();
+		int metalQuantity = metal.getAmount();
+		int powerQuantity = metal.getAmount();
+
+		for(Structure structure: structures)
+		{
+			int cost = structure.getUpkeep();
+			if(structure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID)
+			{
+				if(powerQuantity < cost)
+				{
+					structure.malnourish();
+				}
+				else
+				{
+					powerQuantity-=cost;
+				}
+			}
+			else
+			{
+				if(metalQuantity < cost)
+				{
+					structure.malnourish();
+				}
+				else
+				{
+					metalQuantity-=cost;
+				}
+			}
+		}
+
+		metal.setAmount(metalQuantity);
+		power.setAmount(powerQuantity);
+>>>>>>> a5a73272c4000aa822cd17afdb24f2c16650b982
 	}
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 
 import model.Controllables.Structures.Capital;
 import model.Controllables.Units.Ranged;
@@ -66,6 +67,12 @@ public class MoveTest {
 
     }
 
+    @After
+    public void tearDown(){
+    	MovementManager.reset();
+    	Map.reset();
+    }
+    
     @Test
     public void ValidOccupantTest(){
         assertFalse( MovementManager.getInstance().validateMove(ranged1, new Location(1, 0)));

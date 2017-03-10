@@ -5,6 +5,7 @@ import java.awt.Component;
 
 import javax.swing.*;
 
+import control.Menu;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
 import model.Controllables.Structures.Fort;
@@ -23,6 +24,7 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 	private int width, height;
 	private JTable structureTable;
 	private StructureTableModel model;
+	private TableRenderer renderer;
 	private JTextArea structureStatsArea;
 	private JLabel currentMode, currentInstance,currentType,currentInstruction;
 	
@@ -47,6 +49,9 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		renderer = new TableRenderer();
+		structureTable.setDefaultRenderer(Structure.class, renderer);
 		
 		displayView();
 	}
@@ -79,10 +84,21 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		}
 	}
 
-	public void updateMenu(String mode, String instance, String type, String instruction) {
-		currentMode.setText(mode);
-		currentInstance.setText(instance);
-		currentType.setText(type);
-		currentInstruction.setText(instruction);
+	public void updateMenu(Menu menu) {
+		
+		this.currentMode.setText("CURRENT MODE= " + menu.modeToString());
+		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstance());
+		this.currentType.setText("CURRENT TYPE= " + menu.typeToString());
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstance());
+		
+		if(menu.getCurrentMode() == Menu.STRUCTUREMODE) {
+			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstance());
+			model.update();
+		}
+		else {
+			renderer.deSelectUnit();
+		}
+		
+		model.update();
 	}
 }

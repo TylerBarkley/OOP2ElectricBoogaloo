@@ -8,6 +8,9 @@ import model.Controllables.Structures.Fort;
 import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
+import model.player.Player;
+import model.player.PlayerID;
+
 import java.util.*;
 
 /**
@@ -16,29 +19,27 @@ import java.util.*;
 public class RunTest {
 
     public static void main(String args[]){
-
-       //DUMMY DATA TO TEST NAVIGATION
-        ControllableCollection cc = new ControllableCollection();
-        cc.getColonists().set(0, new Colonist());
-        cc.getMelees().set(0, new Melee());
-        cc.getMelees().set(4, new Melee());
-        cc.getMelees().set(8, new Melee());
-        cc.getExpolorers().set(7, new Explorer());
-
-        cc.getCapitals().set(1, new Capital());
-        cc.getFarms().set(3, new Farm());
-        cc.getFarms().set(4, new Farm());
-        cc.getFarms().set(6, new Farm());
-        cc.getFarms().set(9, new Farm());
-        cc.getForts().set(5, new Fort());
-
-        cc.getArmies().set(4, new Army());
-        cc.getArmies().set(1, new Army());
-        cc.getArmies().set(2, new Army());
-
-
-
-        Menu menu = new Menu(cc);
+    	Player p=new Player();
+    	p.addArmy(new Army());
+    	p.addArmy(new Army());
+    	p.addArmy(new Army());
+    	
+    	p.addStructure(new Capital());
+    	p.addStructure(new Farm());
+    	p.addStructure(new Farm());
+    	p.addStructure(new Farm());
+    	p.addStructure(new Farm());
+    	p.addStructure(new Farm());
+    	
+    	p.addUnit(new Colonist());
+    	p.addUnit(new Melee());
+    	p.addUnit(new Melee());
+    	p.addUnit(new Melee());
+    	p.addUnit(new Melee());
+    	p.addUnit(new Melee());
+    	p.addUnit(new Explorer());
+    
+        Menu menu = new Menu(p.getId());
 
         menu.printState();
 
@@ -83,6 +84,5 @@ public class RunTest {
                 break;
         }
         menu.printState();
-        in.close();
     }
 }

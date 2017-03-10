@@ -9,6 +9,7 @@ import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.observers.StructureObserver;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 
@@ -17,6 +18,7 @@ public abstract class Structure implements Controllable {
     private StructureStats myStats;
     private StructureID id;
     private boolean isAlive;
+<<<<<<< HEAD
     private ArrayList<StructureObserver> observers;
     private MapDirection md;
     private Location location;
@@ -64,6 +66,63 @@ public abstract class Structure implements Controllable {
 
     public void killMe() {
         isAlive = false;
+=======
+	private ArrayList<StructureObserver> observers;
+	private MapDirection md;
+	private Location location;
+	private int numTotalWorkers;
+	private WorkerManager workerManager;
+	private Boolean beingBuilt;
+
+    public Structure()
+    {
+		myStats = new StructureStats();
+		md = MapDirection.getNorth();
+    	isAlive=true;
+		observers=new ArrayList<StructureObserver>();
+		workerManager = new WorkerManager();
+	}
+    
+    public Structure(Location loc)
+    {
+		myStats = new StructureStats();
+		location = loc;
+		md = MapDirection.getNorth();
+    	isAlive=true;
+		observers=new ArrayList<StructureObserver>();
+	}
+	public void addObserver(StructureObserver observer)
+	{
+		observers.add(observer);
+		notifyObserver(observer);
+	}
+	
+	public void removeObserver(StructureObserver observer)
+	{
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers()
+	{
+		for(StructureObserver ob: observers)
+		{
+			ob.update(this);
+		}
+	}
+    	
+	public void notifyObserver(StructureObserver observer)
+	{
+		observer.update(this);
+	}
+	
+    public void accept(StructureVisitor visitor)
+    {
+    	visitor.visit(this);
+    }
+	
+    public void killMe()
+    {
+    	isAlive=false;
         notifyObservers();
         //TODO KILLING SELF
         //REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER

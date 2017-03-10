@@ -219,52 +219,13 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 		}
 	}
 
-	public void updateMenu(String mode, String instance, String type, String instruction) {
-		this.currentMode.setText("CURRENT MODE= " + currentMode);
-		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
-		this.currentType.setText("CURRENT TYPE= " + currentType);
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
+	public void updateMenu(Menu menu) {
+		
+		this.currentMode.setText("CURRENT MODE= " + menu.modeToString());
+		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstance());
+		this.currentType.setText("CURRENT TYPE= " + menu.typeToString());
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstance());
 	}
 	
-	public void update(Unit unit) {
-		
-		int unitType = unit.getID().getType();
-		
-		if(unit.isAlive()) {
-			
-			if(unitType == UnitID.COLONIST_TYPE_ID) {
-				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Colonist");
-			}
-			
-			if(unitType == UnitID.EXPLORER_TYPE_ID) {
-				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Explorer");
-			}
-			
-			if(unitType == UnitID.MELEE_TYPE_ID) {
-				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Melee Unit");
-			}
-			
-			if(unitType == UnitID.RANGED_TYPE_ID) {
-				displayUnitStats(unit,unit.getID().getInstanceNumber(),"Ranged Unit");
-			}
-		}
-		else {
-			
-			if(unitType == UnitID.COLONIST_TYPE_ID) {
-				removeUnitStats("Colonist",unit.getID().getInstanceNumber());
-			}
-			
-			if(unitType == UnitID.EXPLORER_TYPE_ID) {
-				removeUnitStats("Explorer",unit.getID().getInstanceNumber());
-			}
-			
-			if(unitType == UnitID.MELEE_TYPE_ID) {
-				removeUnitStats("Melee Unit",unit.getID().getInstanceNumber());
-			}
-			
-			if(unitType == UnitID.RANGED_TYPE_ID) {
-				removeUnitStats("Ranged Unit",unit.getID().getInstanceNumber());
-			}
-		}
-	}
+	
 }
