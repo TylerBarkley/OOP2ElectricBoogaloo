@@ -161,6 +161,14 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 
 	public abstract boolean canEscort();
 
+	public int getMaxActionPoints(){
+		return maxActionPoints;
+	}
+
+	public int getActionPoints(){
+		return currentActionPoints;
+	}
+
 	public void setActionPoints(int AP) {
 		this.maxActionPoints = AP;
 		this.currentActionPoints = AP;
