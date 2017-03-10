@@ -5,4 +5,14 @@ package model.Controllables.Structures;
  */
 public class Fort extends Structure {
 
+    private int numOfSoldiers;
+
+    public void makeSoldiers(){
+        //TODO change to assignment number
+        getWorkerManager().trainSoldier(getNumTotalOfWorkers(), numOfSoldiers);
+    }
+
+    public void setNumOfSoldiers(int numOfSoldiers) {
+        this.numOfSoldiers = numOfSoldiers;
+    }
 }
