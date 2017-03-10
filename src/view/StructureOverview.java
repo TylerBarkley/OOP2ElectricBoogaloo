@@ -11,10 +11,14 @@ import model.Controllables.Structures.Fort;
 import model.Controllables.Structures.Mine;
 import model.Controllables.Structures.ObservationTower;
 import model.Controllables.Structures.PowerPlant;
+import model.Controllables.Structures.Structure;
+import model.Controllables.Structures.StructureID;
 import model.Controllables.Structures.University;
+import model.observers.MenuObserver;
+import model.observers.StructureObserver;
 import utilities.StructureVisitor;
 
-public class StructureOverview  extends JPanel implements StructureVisitor {
+public class StructureOverview  extends JPanel implements StructureVisitor, StructureObserver, MenuObserver {
 
 	private int width, height;
 	private JTable structureTable;
@@ -65,44 +69,100 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 
 	@Override
 	public void visit(Capital capital) {
-		// TODO Auto-generated method stub
-		model.addStructure(capital); //structures have current health?
+		
+		if(capital.isAlive()) {
+			model.addStructure(capital); 
+		}
+		else {
+			model.removeStructure(capital);
+		}
 	}
 
 	@Override
 	public void visit(Farm farm) {
-		// TODO Auto-generated method stub
-		model.addStructure(farm);
+		
+		if(farm.isAlive()) {
+			model.addStructure(farm);
+		}
+		else {
+			model.removeStructure(farm);
+		}
 	}
 
 	@Override
 	public void visit(Fort fort) {
-		// TODO Auto-generated method stub
-		model.addStructure(fort);
+		
+		if(fort.isAlive()) {
+			model.addStructure(fort);
+		}
+		else {
+			model.removeStructure(fort);
+		}
 	}
 
 	@Override
 	public void visit(Mine mine) {
-		// TODO Auto-generated method stub
-		model.addStructure(mine);
+		
+		if(mine.isAlive()) {
+			model.addStructure(mine);
+		}
+		else {
+			model.removeStructure(mine);
+		}
 	}
 
 	@Override
 	public void visit(ObservationTower tower) {
-		// TODO Auto-generated method stub
-		model.addStructure(tower);
+		
+		if(tower.isAlive()) {
+			model.addStructure(tower);
+		}
+		else {
+			model.removeStructure(tower);
+		}
 	}
 
 	@Override
 	public void visit(PowerPlant powerPlant) {
-		// TODO Auto-generated method stub
-		model.addStructure(powerPlant);
+		
+		if(powerPlant.isAlive()) {
+			model.addStructure(powerPlant);
+		}
+		else {
+			model.removeStructure(powerPlant);
+		}
 	}
 
 	@Override
 	public void visit(University university) {
-		// TODO Auto-generated method stub
-		model.addStructure(university);
+		
+		if(university.isAlive()) {
+			model.addStructure(university);
+		}
+		else {
+			model.removeStructure(university);
+		}
+	}
+
+	@Override
+	public void update(String currentMode, int currentInstance,
+			String currentType, String currentInstruction) {
+		
+		this.currentMode.setText("CURRENT MODE= " + currentMode);
+		this.currentInstance.setText("CURRENT INSTANCE= " + currentInstance);
+		this.currentType.setText("CURRENT TYPE= " + currentType);
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + currentInstruction);
+	}
+
+	@Override
+	public void update(Structure structure) {
+		
+		if(structure.isAlive()) {
+			model.addStructure(structure);
+		}
+		else {
+			model.removeStructure(structure);
+		}
 	}
 	
 }
