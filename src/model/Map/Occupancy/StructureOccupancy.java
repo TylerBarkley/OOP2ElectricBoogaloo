@@ -23,4 +23,8 @@ public class StructureOccupancy {
     public PlayerID getPid() {
         return pid;
     }
+
+    public void damage(int intensity){
+        occupyingStructure.damageMe(intensity);
+    }
 }

@@ -47,4 +47,11 @@ public class UnitOccupancyManager extends Manager<UnitOccupancy> {
         return target;
     }
 
+    public void attackLocation(int intensity, Location loc){
+        if(this.get(loc) == null){
+            return;
+        }
+        this.get(loc).damageAll(intensity);
+    }
+
 }

@@ -220,4 +220,10 @@ public abstract class Structure implements Controllable {
     public void incrementMetalResourceLevel(int increment){
         metalResourceLevel+=increment;
     }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+
+        this.notifyObservers();
+    }
 }

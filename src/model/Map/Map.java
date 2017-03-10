@@ -228,6 +228,7 @@ public class Map {
 	public static void reset() {
 		map=null;
 		MovementManager.reset();
+		AttackManager.reset();
 	}
 
 	public void visitTile(TerrainVisitor target, Location location) {
