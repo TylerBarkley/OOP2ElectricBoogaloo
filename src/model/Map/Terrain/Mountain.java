@@ -1,5 +1,7 @@
 package model.Map.Terrain;
 
+import model.TerrainVisitor;
+
 public class Mountain extends Terrain
 {
 	private static Mountain terrain;
@@ -13,5 +15,10 @@ public class Mountain extends Terrain
 		}
 		
 		return terrain;
+	}
+
+	@Override
+	public void visitTerrain(TerrainVisitor tv) {
+		tv.visitMountainTerrain();
 	}
 }

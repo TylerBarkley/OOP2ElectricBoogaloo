@@ -1,6 +1,7 @@
 package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
+import model.TerrainVisitor;
 import model.observers.UnitObserver;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import model.MapDirection;
 import model.player.PlayerID;
 import utilities.UnitVisitor;
 
-public abstract class Unit implements Controllable //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable, TerrainVisitor //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private int maxActionPoints;
@@ -178,6 +179,10 @@ public abstract class Unit implements Controllable //implements OverviewVisitabl
 	public void resetAP() {
 		maxActionPoints = myStats.getMovement();
 		currentActionPoints = maxActionPoints;
+	}
+
+	public void reduceAP(int amount){
+		this.currentActionPoints -= amount;
 	}
 
 	public boolean isAlive(){

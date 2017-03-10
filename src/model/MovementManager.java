@@ -119,6 +119,8 @@ public class MovementManager {
             targetAOE.apply(target);
         }
 
+        map.getTileAt(location).getTerrain().visitTerrain(target);
+
     }
 
     public void makeMove(Unit target, MapDirection md){
