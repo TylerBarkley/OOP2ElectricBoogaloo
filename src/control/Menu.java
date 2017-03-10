@@ -126,7 +126,7 @@ public class Menu {
 
     public String getCurrentMode() {return modeToString();}
 
-    public String getCurrentType() {return menuState.typeToString();}
+    public int getCurrentType() {return menuState.getCurrentType();}
 
     public int getCurrentInstance() {return menuState.getCurrentInstance();}
 
