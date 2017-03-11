@@ -52,8 +52,6 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
         this.addUnitToBattleGroup(unit);
 
-        this.myRP = new RallyPoint(this);
-		
 		isDisbanded=false;
     }
 

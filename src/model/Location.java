@@ -94,4 +94,8 @@ public class Location
     {
         return "("+x+", "+y+")";
     }
+
+    public MapDirection getDirectionTo(Location location) {
+		return new MapDirection(this.x - location.getX(), this.y - location.getY());
+    }
 }
