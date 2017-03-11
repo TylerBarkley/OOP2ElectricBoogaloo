@@ -9,7 +9,7 @@ public class StructureTableModel extends AbstractTableModel {
 
 	public static final int STRUCTURE_TYPES = 4;
 	public static final int MAX_PER_TYPE = 10;
-	public static final String STRUCTURENAMES[]= {"CAPITAL","FARM","FORT","MINE","OBSERVATION OBSERVER","POWER PLANT","UNIVERSITY"};
+	public static final String STRUCTURENAMES[]= {"CAPITAL","FARM","FORT","MINE","OBSERVATION TOWER","POWER PLANT","UNIVERSITY"};
 
 	private String columnNames[];
 	private Object data[][]; 
