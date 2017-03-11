@@ -1,6 +1,7 @@
 package model.Controllables;
 
 
+import model.*;
 import model.Controllables.Stats.ArmyStats;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
@@ -8,16 +9,13 @@ import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
 import model.observers.UnitObserver;
 import utilities.ArmyVisitor;
-import model.Location;
-import model.MapDirection;
-import model.MovementManager;
 
 import java.util.ArrayList;
 
 /**
  * Created by hankerins on 3/5/17.
  */
-public class Army implements Controllable//, DeathObserver
+public class Army implements Controllable, Attacker//, DeathObserver
 {
     //TODO LMAO DECAL
 
@@ -40,7 +38,11 @@ public class Army implements Controllable//, DeathObserver
 
 	private ArrayList<ArmyObserver> observers;
 
+	private boolean isDisbanded;
+	
     public Army(Unit unit){
+		observers=new ArrayList<ArmyObserver>();
+		
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
         this.armyStats = new ArmyStats();
@@ -51,8 +53,8 @@ public class Army implements Controllable//, DeathObserver
         this.addUnitToBattleGroup(unit);
 
         this.myRP = new RallyPoint(this);
-
-		observers=new ArrayList<ArmyObserver>();
+		
+		isDisbanded=false;
     }
 
     public Army()
@@ -93,6 +95,8 @@ public class Army implements Controllable//, DeathObserver
         updateAP();
         updateEscort();
         //No Mike
+        
+        notifyObservers();
     }
 
     public void removeUnitFromBattleGroup(Unit unit){
@@ -103,14 +107,21 @@ public class Army implements Controllable//, DeathObserver
 
         updateAP();
         updateEscort();
+        
+        notifyObservers();
     }
 
     public void updateEscort(){
         canEscort = false;
 
         for(Unit unit : battleGroup){
-            if(unit.canEscort()){ canEscort = true; }
+            if(unit.canEscort()){ 
+            	canEscort = true;
+            	break;
+           	} 
         }
+        
+        notifyObservers();
     }
 
     public void updateAP(){
@@ -137,6 +148,8 @@ public class Army implements Controllable//, DeathObserver
         }
 
         this.myLocation = myLocation.getAdjacent(md);
+        
+        notifyObservers();
     }
 
     public void doTurn(){
@@ -167,14 +180,15 @@ public class Army implements Controllable//, DeathObserver
     }
 
     public void disband(){
+    	isDisbanded=true;
         for(Unit unit : battleGroup){
             unit.resetAP();
         }
         battleGroup.clear();
 
         myRP.detletThis();
-
-        //TODO REMOVE FROM PLAYER
+        
+        notifyObservers();
     }
 
 
@@ -184,6 +198,8 @@ public class Army implements Controllable//, DeathObserver
 
     public void setMyLocation(Location myLocation) {
         this.myLocation = myLocation;
+        
+        notifyObservers();
     }
 
     public boolean canEscort() {
@@ -258,5 +274,14 @@ public class Army implements Controllable//, DeathObserver
     }
     public void incrementMetalResourceLevel(int increment){
         metalResourceLevel+=increment;
+    }
+
+    @Override
+    public int getAttackDamage() {
+        return armyStats.getOffensiveDamage();
+    }
+
+    public void attack(Location loc){
+        AttackManager.getInstance().attack(this, loc);
     }
 }

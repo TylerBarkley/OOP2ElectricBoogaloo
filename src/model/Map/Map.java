@@ -3,28 +3,31 @@ package model.Map;
 import model.*;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
+
 import model.Map.AOE.AOE;
 import model.Map.AOE.AreaOfEffectManager;
+
 import model.Map.Items.ObstacleItem;
 import model.Map.Items.ObstacleManager;
 import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
-import model.Map.Occupancy.StructureOccupancy;
+
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancyManager;
+
 import model.Map.Resources.ResourceLevel;
 import model.Map.Resources.ResourceManager;
+
 import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
-import utilities.TileVisitor;
+import model.player.Player;
+import model.player.PlayerID;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Map {
 	private java.util.Map<Location, Tile> tiles;
@@ -37,10 +40,19 @@ public class Map {
 
 	private static Map map;
 
+	private static boolean MoveDebug = false;
+	private static boolean BFSDebug = false;
+
 	public static Map getInstance(){
+
 		if(map == null)
 		{
-			map = new Map();
+			if(BFSDebug) map = new Map(69);
+			else if (MoveDebug) map = new Map();
+
+
+			//TODO the real one goes here
+			else map = new Map(100, 100);
 		}
 
 		return map;
@@ -93,6 +105,8 @@ public class Map {
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
 
 	}
+
+
 	
 	public Map(String fileName) //Generates test map
 	{
@@ -106,6 +120,64 @@ public class Map {
 
 		readMap(fileName);
 	}
+
+	//TODO: delete this post-test
+	private Map(int bfs) //Generates test map for BFS
+	{
+		tiles = new HashMap<Location, Tile>();
+		aoeManager = new AreaOfEffectManager();
+		oneShotManager = new OneShotManager();
+		obstacleManager = new ObstacleManager();
+		resourceManager = new ResourceManager();
+		structureOccupancyManager = new StructureOccupancyManager();
+		unitOccupancyManager = new UnitOccupancyManager();
+
+		Terrain[] terrains={Water.getWaterTerrain(),
+				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
+
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+
+				if(j == 5 && i >= 2){
+					tiles.put(new Location(i, j), new Tile(terrains[2]));
+				}
+				else tiles.put(new Location(i, j), new Tile(terrains[0]));
+			}
+		}
+	}
+
+	public HashMap<Location, Location> BFS(PlayerID PID, Location RPlocation){
+		//HashMap<Location, MapDirection> paths = new HashMap<Location, MapDirection>();
+		HashMap<Location, Location> parents = new HashMap<Location, Location>();
+
+		HashSet<Location> visited = new HashSet<Location>();
+		ArrayDeque<Location> q = new ArrayDeque<Location>();
+
+		parents.put(RPlocation, null);
+		visited.add(RPlocation);
+		q.add(RPlocation);
+
+		MovementManager mm = MovementManager.getInstance();
+
+		while(!q.isEmpty()){
+			Location current = q.poll();
+			//if current is the goal, return current
+
+			ArrayList<Location> adjacents =current.getAllLocationsWithinRadius(1);
+			for(Location l: adjacents){
+				if(!visited.contains(l)){
+					visited.add(l);
+					parents.put(l, current);
+					if(tiles.containsKey(l)){
+						if(mm.validateMove(PID, l))
+							q.add(l);
+					}
+				}
+			}
+		}
+		return parents;
+	}
+
 
 	private void readMap(String fileName) {
 		Terrain[] terrains={Water.getWaterTerrain(),
@@ -228,9 +300,21 @@ public class Map {
 	public static void reset() {
 		map=null;
 		MovementManager.reset();
+		AttackManager.reset();
+		resetDebug();
 	}
 
 	public void visitTile(TerrainVisitor target, Location location) {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
+	}
+
+	public static void setMoveDebug(){MoveDebug = true;}
+
+	public static void setBFSDebug() {BFSDebug = true;
+	}
+
+	public static void resetDebug(){
+		MoveDebug = false;
+		BFSDebug = false;
 	}
 }

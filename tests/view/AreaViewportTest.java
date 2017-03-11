@@ -57,8 +57,9 @@ public class AreaViewportTest {
 		viewport.addView(f.getView(new ID(), "EnemyUniversity", new Location(8,7), 180));
 		viewport.addView(f.getView(new ID(), "EnemyFarm", new Location(7,7), 240));
 		viewport.addView(f.getView(new ID(), "Factory", new Location(8,8), 300));
-		viewport.addView(f.getView(new ID(), "Farm", new Location(9,8), 120));
-
+		viewport.addView(f.getView(new ID(), "Fort", new Location(9,8), 120));
+		viewport.addView(f.getView(new ID(), "EnemyTower", new Location(9,9), 120));
+		
 		viewport.updateResourceView(new Location(8,8), f.getCopositeResourceView(new ID(), new Location(8,8), 8, 46, 765));
 		viewport.updateResourceView(new Location(8,9), f.getCopositeResourceView(new ID(), new Location(8,9), 845, 79, 5));
 		viewport.updateResourceView(new Location(7,8), f.getCopositeResourceView(new ID(), new Location(7,8), 123, 1234, 12));

@@ -170,6 +170,7 @@ public class ArmyTest {
     public void MoveTest(){
 
         Map.reset();
+        Map.setMoveDebug();
 
         Map.getInstance().addUnit(new Location(0,0), melee);
         Map.getInstance().addUnit(new Location(0,0), ranged);
@@ -207,6 +208,7 @@ public class ArmyTest {
     @Test
     public void QueuedMoveTest(){
         Map.reset();
+        Map.setMoveDebug();
 
         Map.getInstance().addUnit(new Location(0,0), melee);
         Map.getInstance().addUnit(new Location(0,0), explorer);

@@ -80,52 +80,130 @@ public class Player {
 		return workers;
 	}
 
+	public Food getFood(){return nutrients;}
+
+	public Ore getOre(){ return metal;}
+
+	public Energy getEnergy(){ return power;}
+
 	public boolean addUnit(Colonist unit) {
-		return unitManager.add(unit);
+		boolean b=unitManager.add(unit);
+		if(b)
+		{
+			notifyObservers(unit);
+		}
+		
+		return b;
 	}
 
 	public boolean addUnit(Explorer unit) {
-		return unitManager.add(unit);
+		boolean b=unitManager.add(unit);
+		if(b)
+		{
+			notifyObservers(unit);
+		}
+		
+		return b;
 	}
 
 	public boolean addUnit(Melee unit) {
-		return unitManager.add(unit);
+		boolean b=unitManager.add(unit);
+		if(b)
+		{
+			notifyObservers(unit);
+		}
+		
+		return b;
 	}
 
 	public boolean addUnit(Ranged unit) {
-		return unitManager.add(unit);
+		boolean b=unitManager.add(unit);
+		if(b)
+		{
+			notifyObservers(unit);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(Capital structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 
 	public boolean addStructure(Farm structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(Fort structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(Mine structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(ObservationTower structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(PowerPlant structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addStructure(University structure) {
-		return structureManager.add(structure);
+		boolean b=structureManager.add(structure);
+		if(b)
+		{
+			notifyObservers(structure);
+		}
+		
+		return b;
 	}
 	
 	public boolean addArmy(Army army) {
-		return armies.add(army);
+		boolean b=armies.add(army);
+		if(b)
+		{
+			notifyObservers(army);
+		}
+		
+		return b;
 	}
 
 	public boolean addWorker(Worker worker) 
@@ -134,7 +212,14 @@ public class Player {
 		{
 			return false;
 		}
-		return workers.add(worker);
+		
+		boolean b=workers.add(worker);
+		if(b)
+		{
+			notifyObservers(worker);
+		}
+		
+		return b;
 	}
 	
 	public void addNutrients(int food){
@@ -227,16 +312,68 @@ public class Player {
 		observers.remove(observer);
 	}
 
+	public void notifyObserver(PlayerObserver observer)
+	{
+		observer.update(this);
+	}
+	
 	public void notifyObservers()
 	{
 		for(PlayerObserver ob: observers)
 		{
-			ob.update(this);
+			notifyObserver(ob);
 		}
 	}
 
-	public void notifyObserver(PlayerObserver observer)
+	public void notifyObserver(PlayerObserver observer, Unit object)
 	{
-		observer.update(this);
+		observer.update(this, object);
+	}
+	
+	public void notifyObservers(Unit unit)
+	{
+		for(PlayerObserver ob: observers)
+		{
+			notifyObserver(ob, unit);
+		}
+	}
+
+	public void notifyObserver(PlayerObserver observer, Structure object)
+	{
+		observer.update(this, object);
+	}
+	
+	public void notifyObservers(Structure object)
+	{
+		for(PlayerObserver ob: observers)
+		{
+			notifyObserver(ob, object);
+		}
+	}
+
+	public void notifyObserver(PlayerObserver observer, Worker object)
+	{
+		observer.update(this, object);
+	}
+	
+	public void notifyObservers(Worker object)
+	{
+		for(PlayerObserver ob: observers)
+		{
+			notifyObserver(ob, object);
+		}
+	}
+
+	public void notifyObserver(PlayerObserver observer, Army object)
+	{
+		observer.update(this, object);
+	}
+	
+	public void notifyObservers(Army object)
+	{
+		for(PlayerObserver ob: observers)
+		{
+			notifyObserver(ob, object);
+		}
 	}
 }

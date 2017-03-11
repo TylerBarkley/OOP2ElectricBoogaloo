@@ -38,4 +38,11 @@ public class StructureOccupancyManager extends Manager<StructureOccupancy>{
 
         return target;
     }
+
+    public void attackLocation(int intensity, Location location){
+        if(this.get(location) == null){
+            return;
+        }
+        this.get(location).damage(intensity);
+    }
 }
