@@ -81,7 +81,7 @@ public abstract class Structure implements Controllable {
 
         notifyObservers();
     }
-    
+
     public void setID(StructureID id)
     {
         this.id=id;

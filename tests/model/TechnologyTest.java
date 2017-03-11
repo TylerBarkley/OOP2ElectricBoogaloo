@@ -2,9 +2,6 @@ package model;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import model.Map.Items.HealOneShot;
-import model.Map.Items.OneShotItem;
-import model.Map.Items.OneShotManager;
 import org.junit.Before;
 import org.junit.Test;
 import model.Controllables.Units.*;
@@ -53,7 +50,7 @@ public class TechnologyTest {
         technology.editUnitStats(1,"defensiveDamage");
         technology.editUnitStats(1,"influenceRadius");
         technology.editUnitStats(1,"movement");
-        assertEquals(1,technology.getUnitAdvancements(0,"health"));
+        assertEquals(technology,technology.getUnitAdvancements(0,"health"));
         assertEquals(1,technology.getUnitAdvancements(0,"armor"));
         assertEquals(-1,technology.getUnitAdvancements(0,"upkeep"));
         assertEquals(1,technology.getUnitAdvancements(0,"offensiveDamage"));
