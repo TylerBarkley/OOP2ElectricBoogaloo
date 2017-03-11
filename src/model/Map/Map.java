@@ -43,7 +43,8 @@ public class Map {
 	public static Map getInstance(){
 		if(map == null)
 		{
-			map = new Map();
+			//TODO: change this back to old default constructor if necessary
+			map = new Map(69);
 		}
 
 		return map;
@@ -96,6 +97,8 @@ public class Map {
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
 
 	}
+
+
 	
 	public Map(String fileName) //Generates test map
 	{
@@ -108,6 +111,31 @@ public class Map {
 		unitOccupancyManager = new UnitOccupancyManager();
 
 		readMap(fileName);
+	}
+
+	//TODO: delete this post-test
+	private Map(int bfs) //Generates test map for BFS
+	{
+		tiles = new HashMap<Location, Tile>();
+		aoeManager = new AreaOfEffectManager();
+		oneShotManager = new OneShotManager();
+		obstacleManager = new ObstacleManager();
+		resourceManager = new ResourceManager();
+		structureOccupancyManager = new StructureOccupancyManager();
+		unitOccupancyManager = new UnitOccupancyManager();
+
+		Terrain[] terrains={Water.getWaterTerrain(),
+				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
+
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+
+				if(j == 5 && i >= 2){
+					tiles.put(new Location(i, j), new Tile(terrains[2]));
+				}
+				else tiles.put(new Location(i, j), new Tile(terrains[0]));
+			}
+		}
 	}
 
 	public HashMap<Location, Location> BFS(PlayerID PID, Location RPlocation){
@@ -132,13 +160,16 @@ public class Map {
 				if(!visited.contains(l)){
 					visited.add(l);
 					parents.put(l, current);
-					if(mm.validateMove(PID, l))
-						q.add(l);
+					if(tiles.containsKey(l)){
+						if(mm.validateMove(PID, l))
+							q.add(l);
+					}
 				}
 			}
 		}
 		return parents;
 	}
+
 
 	private void readMap(String fileName) {
 		Terrain[] terrains={Water.getWaterTerrain(),
