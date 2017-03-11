@@ -13,6 +13,7 @@ public abstract class StructureMenuState implements MenuState {
     protected int currentInstance = 0, currentType = ControllableCollection.CAPITALTYPE ;
     protected Structure currentStructure;
 
+    //can probably eliminate for() loops here because if an instance exists, it will always be in index 0
     public void cycleTypeL (Menu context){
         int startCurrentType = currentType;
         if(currentType == ControllableCollection.CAPITALTYPE)
@@ -57,6 +58,8 @@ public abstract class StructureMenuState implements MenuState {
         }
         updateControllable(context);
     }
+
+    //TODO: set lastInstance to the appropriate value for cycleInstance() methods
     public void cycleInstanceL(Menu context){
         int lastInstance = 9;
         int startIndex=currentInstance;

@@ -1,4 +1,4 @@
-package model.player;
+package model;
 
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
@@ -10,6 +10,8 @@ import model.Map.Items.RealObstacle;
 import model.Map.Map;
 import model.Map.Tile;
 import model.MovementManager;
+import model.player.Player;
+import model.player.PlayerManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -129,6 +131,7 @@ public class BFSTest {
         Map.getInstance().addUnit(new Location(8,3), ranged2);
         Map.getInstance().addUnit(new Location(1,5), enemyRanged1); //in the way
         Map.getInstance().addUnit(new Location(8,8), enemyRanged2);
+
 
 
         Location RP = new Location(7, 8);
