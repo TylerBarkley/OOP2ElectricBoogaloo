@@ -40,11 +40,19 @@ public class Map {
 
 	private static Map map;
 
+	private static boolean MoveDebug = false;
+	private static boolean BFSDebug = false;
+
 	public static Map getInstance(){
+
 		if(map == null)
 		{
-			//TODO: change this back to old default constructor if necessary
-			map = new Map(69);
+			if(BFSDebug) map = new Map(69);
+			else if (MoveDebug) map = new Map();
+
+
+			//TODO the real one goes here
+			else map = new Map(100, 100);
 		}
 
 		return map;
@@ -293,9 +301,20 @@ public class Map {
 		map=null;
 		MovementManager.reset();
 		AttackManager.reset();
+		resetDebug();
 	}
 
 	public void visitTile(TerrainVisitor target, Location location) {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
+	}
+
+	public static void setMoveDebug(){MoveDebug = true;}
+
+	public static void setBFSDebug() {BFSDebug = true;
+	}
+
+	public static void resetDebug(){
+		MoveDebug = false;
+		BFSDebug = false;
 	}
 }

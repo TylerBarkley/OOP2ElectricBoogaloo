@@ -142,6 +142,8 @@ public class AttackTest {
     @Test
     public void AttackUnitTest(){
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,0), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);

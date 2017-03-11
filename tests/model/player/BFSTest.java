@@ -10,6 +10,7 @@ import model.Map.Items.RealObstacle;
 import model.Map.Map;
 import model.Map.Tile;
 import model.MovementManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class BFSTest {
 
     @Before
     public void TestSetup(){
-
-
+        Map.reset();
+        Map.setBFSDebug();
 
         p1 = new Player();
         p2 = new Player();
@@ -125,6 +126,7 @@ public class BFSTest {
         System.out.println("BFS TEST\n");
 
         Map.reset();
+        Map.setBFSDebug();
         Map.getInstance().addUnit(new Location(8,2), ranged1);
         Map.getInstance().addUnit(new Location(8,3), ranged2);
         Map.getInstance().addUnit(new Location(1,5), enemyRanged1); //in the way
