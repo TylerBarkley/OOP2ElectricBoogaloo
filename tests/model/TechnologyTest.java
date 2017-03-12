@@ -134,7 +134,7 @@ public class TechnologyTest {
         assertEquals(technology.getStructureStatsIncrements(0, "productionRate"), structureStats.get(0).getProductionRate());
 
     }
-    /*@Test
+/*  @Test
 
     public void editWorkerStatsTest(){
         technology.editWorkerStats("foodProduction");
@@ -145,21 +145,17 @@ public class TechnologyTest {
         technology.editWorkerStats("breeding");
         technology.editWorkerStats("explorerTraining");
         technology.editWorkerStats("buildingRate");
-        assertEquals(1,workerStats.getFoodProduction());
-        assertEquals(1,workerStats.getOreProduction());
-        assertEquals(1,workerStats.getEnergyProduction());
-        assertEquals(1,workerStats.getTechnologyProduction());
-        assertEquals(1,workerStats.getSoldierTraining());
-        assertEquals(1,workerStats.getBreeding());
-        assertEquals(1,workerStats.getExplorerTraining());
-        assertEquals(1,workerStats.getBuildingRate());
-        assertEquals(1,technology.getWorkerAdvancements("foodProduction"));
-        assertEquals(1,technology.getWorkerAdvancements("oreProduction"));
-        assertEquals(1,technology.getWorkerAdvancements("energyProduction"));
-        assertEquals(1,technology.getWorkerAdvancements("technologyProduction"));
-        assertEquals(1,technology.getWorkerAdvancements("soldierTraining"));
-        assertEquals(1,technology.getWorkerAdvancements("breeding"));
-        assertEquals(1,technology.getWorkerAdvancements("explorerTraining"));
-        assertEquals(1,technology.getWorkerAdvancements("buildingRate"));
+        technology.editWorkerStats("workerDensity");
+        technology.editWorkerStats("workerRadius");
+        assertEquals(technology.getWorkerStatsIncrement("foodProduction"),workerStats.getFoodProduction());
+        assertEquals(technology.getWorkerStatsIncrement("oreProduction"),workerStats.getOreProduction());
+        assertEquals(technology.getWorkerStatsIncrement("energyProduction"),workerStats.getEnergyProduction());
+        assertEquals(technology.getWorkerStatsIncrement("technologyProduction"),workerStats.getTechnologyProduction());
+        assertEquals(technology.getWorkerStatsIncrement("soldierTraining"),workerStats.getSoldierTraining());
+        assertEquals(technology.getWorkerStatsIncrement("breeding"),workerStats.getBreeding());
+        assertEquals(technology.getWorkerStatsIncrement("explorerTraining"),workerStats.getExplorerTraining());
+        assertEquals(technology.getWorkerStatsIncrement("buildingRate"),workerStats.getBuildingRate());
+        assertEquals(technology.getWorkerStatsIncrement("workerDensity"),workerStats.getWorkerDensity());
+        assertEquals(technology.getWorkerStatsIncrement("workerRadius"),workerStats.getWorkerRadius());
     }*/
 }
