@@ -1,9 +1,6 @@
 package control;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import model.MapDirection;
 
@@ -15,7 +12,7 @@ public class InputReader extends KeyAdapter {
 		this.handler=handler;
         this.userControls=userControls;
     }
-
+	
     @Override
     public void keyReleased(KeyEvent e) {
     	Control input = new Control(e);

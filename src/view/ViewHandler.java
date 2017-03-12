@@ -2,6 +2,8 @@ package view;
 
 import java.util.HashMap;
 
+import control.InputHandler;
+import control.InputReader;
 import control.Menu;
 import control.UserControls;
 
@@ -42,11 +44,7 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	private HashMap<PlayerID, AreaViewportMomento> areaMomentos;
 	private ViewVisitor viewVisitor;
 	
-	public ViewHandler(){
-		this(1080,720,new UserControls());
-	}
-	
-	public ViewHandler(int width, int height, UserControls controls){
+	public ViewHandler(int width, int height, Menu menu, TurnManager turn, UserControls controls){
 		this.width=width;
 		this.height=height;
 		this.controls=controls;
@@ -56,8 +54,13 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 		unitOverview=new UnitOverview(width, height);
 		structureOverview=new StructureOverview(width, height);
 		configurationOverview=new ConfigurationOverview(controls, width, height);
-		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview);
+		
+		InputReader ir=new InputReader(new InputHandler(menu, turn),controls);
+		
+		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, ir);
 		areaMomentos=new HashMap<PlayerID, AreaViewportMomento>();
+	
+		viewVisitor=new ViewVisitor(turn.getCurrentPlayer().getId());
 	}
 	
 	@Override

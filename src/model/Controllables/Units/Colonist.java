@@ -1,4 +1,5 @@
 package model.Controllables.Units;
+import model.Location;
 import utilities.UnitVisitor;
 
 public class Colonist extends Unit {
@@ -8,6 +9,10 @@ public class Colonist extends Unit {
 	}
 
 	public Colonist(){}
+
+	public Colonist(Location location) {
+		super(location);
+	}
 
 	@Override
 	public boolean canEscort() {
