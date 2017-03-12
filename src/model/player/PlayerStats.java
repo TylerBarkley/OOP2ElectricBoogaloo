@@ -3,6 +3,7 @@ package model.player;
 import com.sun.org.glassfish.external.statistics.Stats;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
+import model.Controllables.Structures.StructureID;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
 
@@ -77,6 +78,92 @@ public class PlayerStats {
         unitStats.setMovement(2);
 
         myUnitStats.set(UnitID.RANGED_TYPE_ID, unitStats);
+
+
+        //Capital
+        StructureStats structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.CAPITAL_TYPE_ID, structureStats);
+
+        //Farm
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.FARM_TYPE_ID, structureStats);
+
+        //Fort
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.FORT_TYPE_ID, structureStats);
+
+        //Mine
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.MINE_TYPE_ID, structureStats);
+
+        //ObservationTower
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.OBSERVATIONTOWER_TYPE_ID, structureStats);
+
+        //PowerPlant
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.POWERPLANT_TYPE_ID, structureStats);
+
+        //University
+        structureStats = new StructureStats();
+        structureStats.setHealth(100);
+        structureStats.setArmor(5);
+        structureStats.setUpkeep(20);
+        structureStats.setDefensiveDamage(5);
+        structureStats.setInfluenceRadius(1);
+        structureStats.setOffensiveDamage(10);
+        structureStats.setProductionRate(5);
+
+        myStructureStats.set(StructureID.UNIVERSITY_TYPE_ID, structureStats);
+
     }
 
     public UnitStats getExplorerStats(){
@@ -94,4 +181,18 @@ public class PlayerStats {
     public UnitStats getRangedStats(){
         return myUnitStats.get(UnitID.RANGED_TYPE_ID);
     }
+
+    public StructureStats getCapitalStats(){ return myStructureStats.get(StructureID.CAPITAL_TYPE_ID);}
+
+    public StructureStats getFarmStats(){ return myStructureStats.get(StructureID.FARM_TYPE_ID);}
+
+    public StructureStats getFortStats(){ return myStructureStats.get(StructureID.FORT_TYPE_ID);}
+
+    public StructureStats getMineStats(){ return myStructureStats.get(StructureID.MINE_TYPE_ID);}
+
+    public StructureStats getObservationTowerStats(){ return myStructureStats.get(StructureID.OBSERVATIONTOWER_TYPE_ID);}
+
+    public StructureStats getPowerPlantStats(){ return myStructureStats.get(StructureID.POWERPLANT_TYPE_ID);}
+
+    public StructureStats getUniversityStats(){ return myStructureStats.get(StructureID.UNIVERSITY_TYPE_ID);}
 }
