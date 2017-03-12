@@ -27,16 +27,7 @@ public class University extends Structure {
     }
 
     public void assignWorkersToHarvestTechnology(int numOfWorkers_HarvestingTech){
-        if(universityManager.getNumOfWorkers_Unassigned() < numOfWorkers_HarvestingTech){
-            numOfWorkers_HarvestingTech = universityManager.getNumOfWorkers_Unassigned();
-            universityManager.setNumOfWorkers_Unassigned(0);
-            universityManager.setNumOfWorkers_HarvestingTechnology(numOfWorkers_HarvestingTech);
-        }
-        else{
-            unassign();
-            universityManager.setNumOfWorkers_HarvestingTechnology(numOfWorkers_HarvestingTech);
-            universityManager.assignWorkers(numOfWorkers_HarvestingTech);
-        }
+        universityManager.assignWorkers(numOfWorkers_HarvestingTech);
     }
 
     @Override
@@ -46,8 +37,14 @@ public class University extends Structure {
         universityManager.setNumOfWorkers_Building(0);
     }
 
+    public void addWorkers(int numWorkers){
+        universityManager.addUnassignedWorkers(numWorkers);
+    }
+
     public void setStats(WorkerStats workerStats){
         universityManager.setWorkerStats(workerStats);
     }
+
+    public void setUniversityManager(UniversityManager universityManager){this.universityManager = universityManager; }
 
 }
