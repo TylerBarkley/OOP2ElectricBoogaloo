@@ -32,7 +32,19 @@ public class FortManager extends WorkerManager{
     }
 
     public void assignWorkers(int assignNum){
-        numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+        if((numOfWorkers_Unassigned + numOfWorkers_SoldierTraining) < (assignNum + 1)){
+            numOfWorkers_SoldierTraining = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+            numOfWorkers_Unassigned = 0;
+        }
+        else if(assignNum < 1){
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+            numOfWorkers_SoldierTraining = 0;
+        }
+        else{
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+            numOfWorkers_SoldierTraining = assignNum;
+        }
     }
 
     public WorkerStats getWorkerStats() {
@@ -66,4 +78,5 @@ public class FortManager extends WorkerManager{
     public void setNumOfWorkers_SoldierTraining(int numOfWorkers_SoldierTraining) {
         this.numOfWorkers_SoldierTraining = numOfWorkers_SoldierTraining;
     }
+
 }
