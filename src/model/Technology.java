@@ -139,6 +139,14 @@ public void editWorkerStats(String statToBeModified) {
             workerStats.incrementBuildingRate(workerAdvancements.getBuildingRateIncrement());
             workerAdvancements.incrementBuildingRate();
             break;
+        case "workerRadius":
+            workerStats.incrementWorkerRadius(workerAdvancements.getWorkerRadiusIncrement());
+            workerAdvancements.incrementBuildingRate();
+            break;
+        case "workerDensity":
+            workerStats.incrementWorkerDensity(workerAdvancements.getWorkerDensityIncrement());
+            workerAdvancements.incrementBuildingRate();
+            break;
     }
 }
     public int getCurrentStructureAdvancements(int structureType, String statToBeSearched){
@@ -199,6 +207,10 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getExplorerTraining();
             case "buildingRate":
                 return workerAdvancements.getBuildingRate();
+            case "workerRadius":
+                return workerAdvancements.getWorkerRadius();
+            case "workerDensity":
+                return workerAdvancements.getWorkerDensity();
         }
         return -1;
     }
@@ -220,6 +232,10 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getExplorerTrainingIncrement();
             case "buildingRate":
                 return workerAdvancements.getBuildingRateIncrement();
+            case "workerRadius":
+                return workerAdvancements.getWorkerRadiusIncrement();
+            case "workerDensity":
+                return workerAdvancements.getWorkerDensityIncrement();
         }
         return -1;
     }
@@ -283,6 +299,10 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getMaxBreedingLevel();
             case "buildingRate":
                 return workerAdvancements.getMaxBuildingRateLevel();
+            case "workerRadius":
+                return workerAdvancements.getMaxWorkerRadiusLevel();
+            case "workerDensity":
+                return workerAdvancements.getMaxWorkerDensityLevel();
         }
         return -1;
     }
@@ -346,6 +366,10 @@ public void editWorkerStats(String statToBeModified) {
                 return workerAdvancements.getExplorerTraining()/workerAdvancements.getExplorerTrainingIncrement();
             case "buildingRate":
                 return workerAdvancements.getBuildingRate()/workerAdvancements.getBuildingRateIncrement();
+            case "workerRadius":
+                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement();
+            case "workerDensity":
+                return workerAdvancements.getWorkerDensity()/workerAdvancements.getWorkerDensityIncrement();
         }
         return -1;
     }

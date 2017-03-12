@@ -78,7 +78,6 @@ public class TechnologyTest {
         assertEquals(1,unitStats.get(0).getOffensiveDamage());
         assertEquals(1,unitStats.get(0).getDefensiveDamage());
         assertEquals(1,unitStats.get(0).getMovement());
-=======
         assertEquals(technology.getUnitStatsIncrements(0,"health"),technology.getCurrentUnitAdvancements(0,"health"));
         assertEquals(technology.getUnitStatsIncrements(0,"armor"),technology.getCurrentUnitAdvancements(0,"armor"));
         assertEquals(technology.getUnitStatsIncrements(0,"offensiveDamage"),technology.getCurrentUnitAdvancements(0,"offensiveDamage"));
@@ -97,7 +96,6 @@ public class TechnologyTest {
         assertEquals(technology.getUnitStatsIncrements(0,"offensiveDamage"),unitStats.get(0).getOffensiveDamage());
         assertEquals(technology.getUnitStatsIncrements(0,"defensiveDamage"),unitStats.get(0).getDefensiveDamage());
         assertEquals(technology.getUnitStatsIncrements(0,"movement"),unitStats.get(0).getMovement());
->>>>>>> 37041f9935eb5e92aff5b15afb7de57eba6fcbb8
     }
 
     @Test
