@@ -24,4 +24,8 @@ public class ObservationTower extends Structure {
         observationTowerManager.setWorkerStats(workerStats);
     }
 
+    public void setObservationTowerManager(ObservationTowerManager observationTowerManager){
+        this.observationTowerManager = observationTowerManager;
+    }
+
 }
