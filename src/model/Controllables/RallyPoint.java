@@ -13,10 +13,12 @@ import java.util.*;
 /**
  * Created by zrgam_000 on 3/9/2017.
  */
-public class RallyPoint {
+public class RallyPoint implements Controllable {
     private Location location;
 
     private PlayerID playerID;
+
+    private MovementManager movementManager;
 
     private Army myArmy;
     private ArrayList<Unit> reinforcements;
@@ -25,6 +27,8 @@ public class RallyPoint {
     private HashMap<Location, Location> path;
 
     public RallyPoint(Unit myUnit){
+        this.movementManager = MovementManager.getInstance();
+
         this.location = myUnit.getLocation();
         this.playerID = myUnit.getPid();
         this.reinforcements = new ArrayList<Unit>();
@@ -34,6 +38,8 @@ public class RallyPoint {
     }
 
     public RallyPoint(Unit myUnit, Location location){
+        this.movementManager = MovementManager.getInstance();
+
         this.location = location;
         this.playerID = myUnit.getPid();
         this.reinforcements = new ArrayList<Unit>();
@@ -61,8 +67,6 @@ public class RallyPoint {
         HashSet<Location> visited2 = new HashSet<Location>();
         ArrayDeque<Location> q2 = new ArrayDeque<Location>();
 
-        MovementManager mm = MovementManager.getInstance();
-
         q2.add(RPlocation);
         visited2.add(RPlocation);
 
@@ -75,7 +79,7 @@ public class RallyPoint {
                 if(!visited2.contains(l)){
                     visited2.add(l);
 
-                    if(mm.validateMove(PID, l)) {
+                    if(movementManager.validateMove(PID, l)) {
                         return l;
                     }
                 }
@@ -97,9 +101,7 @@ public class RallyPoint {
 
         ArrayDeque<Location> q = new ArrayDeque<Location>();
 
-        MovementManager mm = MovementManager.getInstance();
-
-        if(!mm.validateMove(PID, RPlocation)){
+        if(!movementManager.validateMove(PID, RPlocation)){
             RPlocation = getNearestValid();
             this.location = RPlocation;
         }
@@ -117,7 +119,7 @@ public class RallyPoint {
                 if(!visited.contains(l)){
                     visited.add(l);
 
-                        if(mm.validateMove(PID, l)) {
+                        if(movementManager.validateMove(PID, l)) {
                             q.add(l);
                             parents.put(l, current);
                         }
@@ -145,14 +147,14 @@ public class RallyPoint {
                     break;
                 }
 
-                goodMove = MovementManager.getInstance().validateMove(unit, path.get(unit.getLocation()));
+                goodMove = movementManager.validateMove(unit, path.get(unit.getLocation()));
 
                 if(!goodMove){
                     this.getPath();
                     continue;
                 }
 
-                MovementManager.getInstance().makeMove(unit, path.get(unit.getLocation()));
+                movementManager.makeMove(unit, path.get(unit.getLocation()));
 
                 if(path.get(unit.getLocation()) == null){
                     unitItr.remove();

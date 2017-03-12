@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
+import model.Controllables.RallyPoint;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -103,7 +104,15 @@ public class PlayerManager {
 	public boolean addStructure(PlayerID id, University structure) {
 		return players.get(id).addStructure(structure);
 	}
-	
+
+	public boolean addArmy(PlayerID id, Army army) {
+		return players.get(id).addArmy(army);
+	}
+
+	public boolean addRallyPoint(PlayerID id, RallyPoint rp) {
+		return players.get(id).addRallyPoint(rp);
+	}
+
 	public void addNutrients(PlayerID id, int food){
 		players.get(id).addNutrients(food);
 	}

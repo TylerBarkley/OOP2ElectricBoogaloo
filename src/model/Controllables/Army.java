@@ -21,6 +21,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     private Location myLocation;
 
+    private MovementManager movementManager;
+
     private boolean canMove;
     private boolean canEscort;
 
@@ -40,6 +42,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	
     public Army(Unit unit){
 		observers=new ArrayList<ArmyObserver>();
+
+        movementManager = MovementManager.getInstance();
 		
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
@@ -130,7 +134,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     public void moveBattleGroup(MapDirection md){
         for(Unit unit : battleGroup){
-            if(!MovementManager.getInstance().validateMove(unit, md)){
+            if(!movementManager.validateMove(unit, md)){
 
                 //TODO MOVING THE RALLYPOINT TO THE ARMY'S CURRENT LOCATION
                 //myRP.moveRallyPoint(this.myLocation);
@@ -141,7 +145,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
         }
 
         for(Unit unit : battleGroup){
-            MovementManager.getInstance().makeMove(unit, md);
+            movementManager.makeMove(unit, md);
         }
 
         this.myLocation = myLocation.getAdjacent(md);

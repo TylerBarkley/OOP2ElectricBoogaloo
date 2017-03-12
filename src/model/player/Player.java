@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
+import model.Controllables.RallyPoint;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -35,6 +36,7 @@ public class Player {
 	private PlayerStats PStats;
 
 	private ArrayList<Army> armies;
+	private ArrayList<RallyPoint> rallyPoints;
 	private ArrayList<Worker> workers;
 	
 	private Food nutrients;
@@ -236,6 +238,16 @@ public class Player {
 			notifyObservers(army);
 		}
 		
+		return b;
+	}
+
+	public boolean addRallyPoint(RallyPoint rp) {
+		boolean b=rallyPoints.add(rp);
+		if(b)
+		{
+			notifyObservers();
+		}
+
 		return b;
 	}
 
