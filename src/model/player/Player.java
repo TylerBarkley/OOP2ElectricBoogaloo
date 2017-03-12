@@ -32,6 +32,8 @@ public class Player {
 	private UnitManager unitManager;
 	private StructureManager structureManager;
 
+	private PlayerStats PStats;
+
 	private ArrayList<Army> armies;
 	private ArrayList<Worker> workers;
 	
@@ -44,7 +46,9 @@ public class Player {
 	public Player()
 	{
 		id = new PlayerID();
-		
+
+		PStats = new PlayerStats();
+
 		unitManager=new UnitManager(id);
 		structureManager=new StructureManager(id);
 
