@@ -28,9 +28,11 @@ public class CapitalManagerTest {
     ResourceManager resourceManager;
     ResourceLevel r1;
     ResourceLevel r2;
+    ResourceLevel r3;
 
     Location loc1;
     Location loc2;
+    Location loc3;
 
     Map map;
 
@@ -66,8 +68,10 @@ public class CapitalManagerTest {
 
         r1 = new ResourceLevel(100, 100, 100);
         r2 = new ResourceLevel(50, 50, 50);
+        r3 = new ResourceLevel(60, 60, 60);
         r1.setWorking(false);
         r2.setWorking(false);
+        r3.setWorking(false);
 
         map = Map.getInstance();
         resourceManager = map.getResourceManager();
@@ -76,9 +80,11 @@ public class CapitalManagerTest {
 
         resourceManager.add(new Location(0,0), r1);
         resourceManager.add(new Location(0, 1), r2);
+        resourceManager.add(new Location(1, 0), r3);
 
         loc1 = new Location(0, 0);
         loc2 = new Location(0, 1);
+        loc3 = new Location(1, 0);
 
     }
 
@@ -217,6 +223,53 @@ public class CapitalManagerTest {
         assertEquals(10, capitalManager.getNumOfWorkers_Breeding());
         assertEquals(0, capitalManager.getNumOfWorkers_Unassigned());
         assertEquals(5, capitalManager.breeding());
+    }
+
+    @Test
+    public void CapitalManager_ComprehensiveHarvesting_Test(){
+        Map.reset();
+        Map.setMoveDebug();
+        capital.setLocation(loc1);
+        capital.setNumTotalOfWorkers(10);
+        capitalManager.setNumOfWorkers_Unassigned(10);
+        capital.unassign();
+        capital.assignWorkersToFarm(loc2, 5);
+        assertEquals(false, resourceManager.get(loc2).getWorking());
+        assertEquals(0, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(10, capitalManager.getNumOfWorkers_Unassigned());
+        capital.assignWorkersToFarm(loc1, 5);
+        assertEquals(5, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(5, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(true, resourceManager.get(loc1).getWorking());
+        capital.assignWorkersToMine(loc1, 4);
+        assertEquals(4, capitalManager.getNumOfWorkers_HarvestingOre());
+        assertEquals(0, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(6, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(true, resourceManager.get(loc1).getWorking());
+        capitalManager.getWorkerStats().setWorkerRadius(1);
+        capital.assignWorkersToFarm(loc2,3);
+        assertEquals(3, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(3, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(4, capitalManager.getNumOfWorkers_HarvestingOre());
+        assertEquals(true, resourceManager.get(loc1).getWorking());
+        assertEquals(true, resourceManager.get(loc2).getWorking());
+        assertEquals(false, resourceManager.get(loc3).getWorking());
+        capital.assignWorkersToPowerPlant(loc3, 2);
+        assertEquals(1, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(2, capitalManager.getNumOfWorkers_HarvestingEnergy());
+        assertEquals(4, capitalManager.getNumOfWorkers_HarvestingOre());
+        assertEquals(3, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(true, resourceManager.get(loc1).getWorking());
+        assertEquals(true, resourceManager.get(loc2).getWorking());
+        assertEquals(true, resourceManager.get(loc3).getWorking());
+        capital.unassign();
+        assertEquals(10, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(0, capitalManager.getNumOfWorkers_HarvestingEnergy());
+        assertEquals(0, capitalManager.getNumOfWorkers_HarvestingOre());
+        assertEquals(0, capitalManager.getNumOfWorkers_HarvestingFood());
+        assertEquals(false, resourceManager.get(loc1).getWorking());
+        assertEquals(false, resourceManager.get(loc2).getWorking());
+        assertEquals(false, resourceManager.get(loc3).getWorking());
     }
 
 }
