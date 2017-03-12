@@ -159,6 +159,24 @@ public class CapitalManager extends WorkerManager{
         }
     }
 
+    public void resetWork(Location myLoc){
+        if(harvestingFoodLocation != null){
+            resourceManager.setWorking(harvestingFoodLocation, false);
+        }
+        if(harvestingEnergyLocation != null){
+            resourceManager.setWorking(harvestingEnergyLocation, false);
+        }
+        if(harvestingOreLocation != null){
+            resourceManager.setWorking(harvestingOreLocation, false);
+        }
+        harvestingFoodLocation = myLoc;
+        harvestingEnergyLocation = myLoc;
+        harvestingOreLocation = myLoc;
+        resourceManager.setWorking(harvestingFoodLocation, false);
+        resourceManager.setWorking(harvestingEnergyLocation, false);
+        resourceManager.setWorking(harvestingOreLocation, false);
+    }
+
     public int produceOre(int structureProductionRate){
         int amount = (structureProductionRate + workerStats.getOreProduction()) * numOfWorkers_HarvestingOre;
         return resourceManager.mineOre(harvestingOreLocation, amount);
