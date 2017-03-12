@@ -91,7 +91,7 @@ public class PowerPlantManagerTest {
     }
 
     @Test
-    public void FarmManager_Test(){
+    public void PowerPlantManager_Test(){
         Map.reset();
         Map.setMoveDebug();
         powerPlant.setLocation(loc1);

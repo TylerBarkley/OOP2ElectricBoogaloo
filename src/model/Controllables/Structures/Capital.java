@@ -92,6 +92,7 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
         capitalManager.setNumOfWorkers_ExplorerTraining(0);
         capitalManager.setNumOfWorkers_Breeding(0);
         capitalManager.setNumOfWorkers_Building(0);
+        capitalManager.resetWork(getLocation());
     }
 
     public void setStats(WorkerStats workerStats){

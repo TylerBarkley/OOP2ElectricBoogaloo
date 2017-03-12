@@ -90,7 +90,7 @@ public class MineManagerTest {
     }
 
     @Test
-    public void FarmManager_Test(){
+    public void MineManager_Test(){
         Map.reset();
         Map.setMoveDebug();
         mine.setLocation(loc1);
