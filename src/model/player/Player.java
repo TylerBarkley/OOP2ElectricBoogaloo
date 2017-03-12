@@ -94,6 +94,8 @@ public class Player {
 		boolean b=unitManager.add(unit);
 		if(b)
 		{
+			unit.setMyStats(PStats.getColonistStats());
+
 			notifyObservers(unit);
 		}
 		
@@ -104,6 +106,8 @@ public class Player {
 		boolean b=unitManager.add(unit);
 		if(b)
 		{
+			unit.setMyStats(PStats.getExplorerStats());
+
 			notifyObservers(unit);
 		}
 		
@@ -114,6 +118,8 @@ public class Player {
 		boolean b=unitManager.add(unit);
 		if(b)
 		{
+			unit.setMyStats(PStats.getMeleeStats());
+
 			notifyObservers(unit);
 		}
 		
@@ -124,6 +130,8 @@ public class Player {
 		boolean b=unitManager.add(unit);
 		if(b)
 		{
+			unit.setMyStats(PStats.getRangedStats());
+
 			notifyObservers(unit);
 		}
 		
