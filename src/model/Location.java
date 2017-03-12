@@ -96,6 +96,6 @@ public class Location
     }
 
     public MapDirection getDirectionTo(Location location) {
-		return new MapDirection(this.x - location.getX(), this.y - location.getY());
+		return new MapDirection(location.getX() - this.x, location.getY() - this.y);
     }
 }
