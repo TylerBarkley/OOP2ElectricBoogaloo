@@ -29,12 +29,14 @@ public class GameWindow extends JFrame implements MenuVisitor{
 	private UnitOverview unitOverview;
 	private StructureOverview structureOverview;
 	private ConfigurationOverview configurationOverview;
+	private TechnologyViewport techView;
 
 	public GameWindow(int width, int height, 
 			MainScreen mainScreen, 
 			UnitOverview unitOverview,
 			StructureOverview structureOverview, 
 			ConfigurationOverview configurationOverview,
+			TechnologyViewport techView,
 			KeyListener inputReader) 
 	{
 		
@@ -43,6 +45,7 @@ public class GameWindow extends JFrame implements MenuVisitor{
 		this.mainScreen = mainScreen;
 		this.unitOverview = unitOverview;
 		this.structureOverview = structureOverview;
+		this.techView=techView;
 		this.configurationOverview = configurationOverview;
 		
 		this.setTitle("Lost In the Sauce");
@@ -71,6 +74,7 @@ public class GameWindow extends JFrame implements MenuVisitor{
 		tabbedPane.addTab("Main Screen", mainScreen);
 		tabbedPane.addTab("Structure Overview", structureOverview);
 		tabbedPane.addTab("Unit Overview", unitOverview);
+		tabbedPane.addTab("Tech Tree", techView);
 		this.add(tabbedPane);
 	}
 
@@ -158,6 +162,13 @@ public class GameWindow extends JFrame implements MenuVisitor{
 		this.structureOverview=structureOverview;
 		tabbedPane.add(structureOverview, "Structure Overview");
 	}
+	
+	public void setTechView(TechnologyViewport techView) {
+		tabbedPane.remove(this.techView);
+		this.techView=techView;
+		tabbedPane.add(techView, "Tech Tree");
+	}
+	
 	
 	private void removeDefaultKeyListeners() {
 		 

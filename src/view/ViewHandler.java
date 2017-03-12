@@ -49,6 +49,7 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	private HashMap<PlayerID, AreaViewportMomento> areaMomentos;
 	private HashMap<PlayerID, Location> focusLocations;
 	private ViewVisitor viewVisitor;
+	private TechnologyViewport techViewport;
 	
 	public ViewHandler(int width, int height, Menu menu, TurnManager turn, UserControls controls){
 		this.width=width;
@@ -62,10 +63,11 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 		unitOverview=new UnitOverview(width, height);
 		structureOverview=new StructureOverview(width, height);
 		configurationOverview=new ConfigurationOverview(controls, width, height);
+		techViewport=new TechnologyViewport(width, height);
 		
 		InputReader ir=new InputReader(new InputHandler(menu, turn),controls);
 		
-		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, ir);
+		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, techViewport, ir);
 		areaMomentos=new HashMap<PlayerID, AreaViewportMomento>();
 	
 		focusLocations=new HashMap<PlayerID, Location>();

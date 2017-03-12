@@ -11,7 +11,7 @@ public class GameWindowTest {
 		GameWindow game = new GameWindow(1080, 720, 
 				new MainScreen(1080, 720, new StatusViewport(360, 720), new AreaViewport(720,720)),
 				new UnitOverview(1080, 720), new StructureOverview(1080, 720),
-				new ConfigurationOverview(new UserControls(), 1080, 720), new KeyAdapter(){});
+				new ConfigurationOverview(new UserControls(), 1080, 720), new TechnologyViewport(1080, 720), new KeyAdapter(){});
 		game.openWindow();
 	}
 }
