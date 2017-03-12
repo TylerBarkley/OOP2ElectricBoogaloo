@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.Controllables.Army;
-import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
 import model.Controllables.Structures.Fort;

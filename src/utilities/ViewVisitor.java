@@ -27,12 +27,10 @@ import java.util.Map.Entry;
 
 import model.ID;
 import model.Location;
-import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,
-StructureVisitor, AreaViewportVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -60,11 +58,6 @@ StructureVisitor, AreaViewportVisitor {
 
 			units.add(unit);
 		}
-	}
-
-	@Override
-	public void visit(Worker unit) {
-		// TODO Do we need this? If there is time, we can.
 	}
 
 	@Override

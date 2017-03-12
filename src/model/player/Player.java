@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
 import model.Controllables.RallyPoint;
-import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
 import model.Controllables.Structures.Fort;
@@ -24,10 +23,12 @@ import model.Controllables.Units.UnitManager;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
+import model.observers.ArmyObserver;
 import model.observers.PlayerObserver;
+import model.observers.StructureObserver;
 import model.observers.UnitObserver;
 
-public class Player {
+public class Player implements ArmyObserver{
 	private PlayerID id;
 	
 	private UnitManager unitManager;
@@ -402,19 +403,6 @@ public class Player {
 		}
 	}
 
-	public void notifyObserver(PlayerObserver observer, Worker object)
-	{
-		observer.update(this, object);
-	}
-	
-	public void notifyObservers(Worker object)
-	{
-		for(PlayerObserver ob: observers)
-		{
-			notifyObserver(ob, object);
-		}
-	}
-
 	public void notifyObserver(PlayerObserver observer, Army object)
 	{
 		observer.update(this, object);
@@ -428,7 +416,17 @@ public class Player {
 		}
 	}
 
-
+	@Override
+	public void update(Army army) {
+		if(army.isDisbanded())
+		{
+			armies.remove(army);
+			army.removeObserver(this);
+		}
+		
+		notifyObservers(army);
+	}
+	
 	public int getWorkers(){
 		return this.workers;
 	}

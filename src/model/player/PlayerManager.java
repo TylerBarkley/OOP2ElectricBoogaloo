@@ -6,7 +6,6 @@ import java.util.HashMap;
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
 import model.Controllables.RallyPoint;
-import model.Controllables.Worker;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
 import model.Controllables.Structures.Fort;

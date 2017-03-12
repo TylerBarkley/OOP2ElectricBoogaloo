@@ -190,18 +190,13 @@ public class LocationTest
 	public void getAllLocationsWithinRadius_radius2_18correctLocations(){
 		ArrayList<Location> actual=loc.getAllLocationsWithinRadius(2);
 		ArrayList<Location> expected=new ArrayList<Location>();
-		expected.add(new Location(5,3));
-		expected.add(new Location(6,3));
-		expected.add(new Location(7,3));
-		expected.add(new Location(7,4));
-		expected.add(new Location(7,5));
-		expected.add(new Location(6,6));
-		expected.add(new Location(5,7));
-		expected.add(new Location(4,7));
-		expected.add(new Location(3,7));
-		expected.add(new Location(3,6));
-		expected.add(new Location(3,5));
-		expected.add(new Location(4,4));
+		expected.add(loc);
+		expected.add(new Location(5,4));
+		expected.add(new Location(6,4));
+		expected.add(new Location(6,5));
+		expected.add(new Location(5,6));
+		expected.add(new Location(4,6));
+		expected.add(new Location(4,5));
 		expected.add(new Location(5,3));
 		expected.add(new Location(6,3));
 		expected.add(new Location(7,3));

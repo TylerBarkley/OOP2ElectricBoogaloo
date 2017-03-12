@@ -245,4 +245,8 @@ public class UnitManager implements UnitObserver{
 		
 		return list;
 	}
+
+	public void remove(Unit unit) {
+		UnitID id=unit.getID();
+	}
 }
