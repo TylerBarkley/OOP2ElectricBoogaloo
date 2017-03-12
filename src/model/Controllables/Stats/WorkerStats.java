@@ -16,6 +16,19 @@ public class WorkerStats {
     private int workerDensity;
     private int workerRadius;
 
+    public WorkerStats(){
+        foodProduction = 1;
+        oreProduction = 1;
+        energyProduction = 1;
+        technologyProduction = 1;
+        soldierTraining = 1;
+        breeding = 1;
+        explorerTraining = 1;
+        buildingRate = 2;
+        workerDensity = 5;
+        workerRadius = 0;
+    }
+
     public int getFoodProduction() {
         return foodProduction;
     }
