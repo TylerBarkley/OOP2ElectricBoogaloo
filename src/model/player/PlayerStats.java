@@ -3,6 +3,7 @@ package model.player;
 import com.sun.org.glassfish.external.statistics.Stats;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
+import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Structures.StructureID;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
@@ -17,6 +18,8 @@ public class PlayerStats {
     ArrayList<UnitStats> myUnitStats;
 
     ArrayList<StructureStats> myStructureStats;
+
+    WorkerStats workerStats = new WorkerStats();
 
     public PlayerStats(){
         myUnitStats = new ArrayList<UnitStats>();
@@ -195,4 +198,8 @@ public class PlayerStats {
     public StructureStats getPowerPlantStats(){ return myStructureStats.get(StructureID.POWERPLANT_TYPE_ID);}
 
     public StructureStats getUniversityStats(){ return myStructureStats.get(StructureID.UNIVERSITY_TYPE_ID);}
+
+    public WorkerStats getWorkerStats(){
+        return workerStats;
+    }
 }

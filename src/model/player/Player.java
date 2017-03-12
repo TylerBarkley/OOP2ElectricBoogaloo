@@ -142,6 +142,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getCapitalStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -152,6 +155,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getFarmStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -162,6 +168,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getFortStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -172,6 +181,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getMineStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -182,6 +194,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getObservationTowerStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -192,6 +207,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getPowerPlantStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
@@ -202,6 +220,9 @@ public class Player {
 		boolean b=structureManager.add(structure);
 		if(b)
 		{
+			structure.setMyStats(PStats.getUniversityStats());
+			structure.setStats(PStats.getWorkerStats());
+
 			notifyObservers(structure);
 		}
 		
