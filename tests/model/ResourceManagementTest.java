@@ -50,7 +50,6 @@ public class ResourceManagementTest {
          player.distributePower(army,30);
         player.distributeNutrients(army,20);
         player.distributeMetal(capital, 10);
-
     }
 
     */
