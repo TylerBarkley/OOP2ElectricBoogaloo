@@ -44,7 +44,7 @@ public class ControllableCollection {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
-    private ArrayList<Worker> workers;
+    private int workers;
     
 
 
@@ -52,7 +52,7 @@ public class ControllableCollection {
     public ControllableCollection(ArrayList<Colonist> colonists, ArrayList<Explorer> explorers, ArrayList<Melee> melees,
 			ArrayList<Ranged> rangeds, ArrayList<Army> armies, ArrayList<Capital> capitals, ArrayList<Farm> farms,
 			ArrayList<Fort> forts, ArrayList<Mine> mines, ArrayList<ObservationTower> observationTowers,
-			ArrayList<PowerPlant> powerPlants, ArrayList<University> universities, ArrayList<Worker> workers) {
+			ArrayList<PowerPlant> powerPlants, ArrayList<University> universities, int workers) {
 		this.colonists = colonists;
 		this.explorers = explorers;
 		this.melees = melees;
@@ -270,10 +270,10 @@ public class ControllableCollection {
     public void setUniversities(ArrayList<University> universities) {
         this.universities = universities;
     }
-    public ArrayList<Worker> getWorkers() {
+    public int getWorkers() {
         return workers;
     }
-    public void setWorkers(ArrayList<Worker> workers) {
+    public void setWorkers(int workers) {
         this.workers = workers;
     }
 
