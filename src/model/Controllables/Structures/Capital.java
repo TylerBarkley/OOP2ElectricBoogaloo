@@ -63,43 +63,24 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     }
 
     public void assignWorkersToFarm(Location loc, int numOfWorkers_AssignToFarm){
-        if(capitalManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToFarm){
-            numOfWorkers_AssignToFarm = capitalManager.getNumOfWorkers_Unassigned();
-            capitalManager.assignWorkers(numOfWorkers_AssignToFarm);
-            capitalManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
-        }
-        else{
-            capitalManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
-            capitalManager.assignWorkers(numOfWorkers_AssignToFarm);
-        }
-        capitalManager.setHarvestingFoodLocation(loc);
+        capitalManager.assignWorkersFood(loc, numOfWorkers_AssignToFarm, getLocation());
     }
 
     public void assignWorkersToMine(Location loc, int numOfWorkers_AssignToMine){
-        if(capitalManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToMine){
-            numOfWorkers_AssignToMine = capitalManager.getNumOfWorkers_Unassigned();
-            capitalManager.assignWorkers(numOfWorkers_AssignToMine);
-            capitalManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
-        }
-        else{
-            capitalManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
-            capitalManager.assignWorkers(numOfWorkers_AssignToMine);
-        }
-        capitalManager.setHarvestingOreLocation(loc);
+        capitalManager.assignWorkersMine(loc, numOfWorkers_AssignToMine, getLocation());
     }
 
     @Override
     public void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant) {
-        if(capitalManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToPowerPlant){
-            numOfWorkers_AssignToPowerPlant = capitalManager.getNumOfWorkers_Unassigned();
-            capitalManager.assignWorkers(numOfWorkers_AssignToPowerPlant);
-            capitalManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
-        }
-        else{
-            capitalManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
-            capitalManager.assignWorkers(numOfWorkers_AssignToPowerPlant);
-        }
-        capitalManager.setHarvestingEnergyLocation(loc);
+        capitalManager.assignWorkersEnergy(loc, numOfWorkers_AssignToPowerPlant, getLocation());
+    }
+
+    public void assignWorkersToBreed(int numOfWorkers_Breeding){
+        capitalManager.assignWorkersBreeding(numOfWorkers_Breeding);
+    }
+
+    public void assignWorkersToTrainExplorers(int numOfWorkers_TrainingExplorers){
+        capitalManager.assignWorkersTrainingExplorers(numOfWorkers_TrainingExplorers);
     }
 
     @Override
