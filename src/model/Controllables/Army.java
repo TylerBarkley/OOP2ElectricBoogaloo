@@ -19,8 +19,6 @@ public class Army implements Controllable, Attacker//, DeathObserver
 {
     //TODO LMAO DECAL
 
-    private RallyPoint myRP;
-
     private Location myLocation;
 
     private boolean canMove;
@@ -52,8 +50,6 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
         this.addUnitToBattleGroup(unit);
 
-        this.myRP = new RallyPoint(this);
-		
 		isDisbanded=false;
     }
 
@@ -63,6 +59,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
         //Currently for testing
 		observers=new ArrayList<ArmyObserver>();
 	}
+
 
 	public void addObserver(ArmyObserver observer)
 	{
@@ -186,8 +183,6 @@ public class Army implements Controllable, Attacker//, DeathObserver
         }
         battleGroup.clear();
 
-        myRP.detletThis();
-        
         notifyObservers();
     }
 
@@ -283,5 +278,9 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     public void attack(Location loc){
         AttackManager.getInstance().attack(this, loc);
+    }
+
+    public void clearQueue() {
+        this.myCommands.clear();
     }
 }

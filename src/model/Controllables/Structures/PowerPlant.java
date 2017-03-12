@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -8,41 +9,49 @@ import model.player.PlayerManager;
  */
 public class PowerPlant extends Structure implements Energizing {
 
-    private WorkerManager workerManager;
+    private PowerPlantManager powerPlantManager;
+
+    public PowerPlant(){
+        powerPlantManager = new PowerPlantManager();
+    }
 
     @Override
     public void doWork(){
-        if(workerManager.getNumOfWorkers_HarvestingEnergy() > 0){
+        if(powerPlantManager.getNumOfWorkers_HarvestingEnergy() > 0){
             harvestEnergy();
         }
     }
 
     public void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant){
-        if(workerManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToPowerPlant){
-            numOfWorkers_AssignToPowerPlant = workerManager.getNumOfWorkers_Unassigned();
-            workerManager.setNumOfWorkers_Unassigned(0);
-            workerManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
+        if(powerPlantManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToPowerPlant){
+            numOfWorkers_AssignToPowerPlant = powerPlantManager.getNumOfWorkers_Unassigned();
+            powerPlantManager.setNumOfWorkers_Unassigned(0);
+            powerPlantManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
         }
         else{
-            workerManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
-            workerManager.assignWorkers(numOfWorkers_AssignToPowerPlant);
+            powerPlantManager.setNumOfWorkers_HarvestingEnergy(numOfWorkers_AssignToPowerPlant);
+            powerPlantManager.assignWorkers(numOfWorkers_AssignToPowerPlant);
         }
-        workerManager.setHarvestingEnergyLocation(loc);
+        powerPlantManager.setHarvestingEnergyLocation(loc);
     }
 
     @Override
     public void unassign(){
-        workerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        workerManager.setNumOfWorkers_HarvestingEnergy(0);
+        powerPlantManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
+        powerPlantManager.setNumOfWorkers_HarvestingEnergy(0);
+        powerPlantManager.setNumOfWorkers_Building(0);
     }
 
     public void harvestEnergy(){
-        int energyMined = workerManager.produceEnergy(getMyStats().getProductionRate());
+        int energyMined = powerPlantManager.produceEnergy(getMyStats().getProductionRate());
         PlayerManager.getInstance().addPower(getPid(), energyMined);
     }
 
-    @Override
-    public void setWorkerManager(WorkerManager workerManager) {
-        this.workerManager = workerManager;
+    public void setStats(WorkerStats workerStats){
+        powerPlantManager.setWorkerStats(workerStats);
+    }
+
+    public void setPowerPlantManager(PowerPlantManager powerPlantManager) {
+        this.powerPlantManager = powerPlantManager;
     }
 }

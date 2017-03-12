@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -8,41 +9,49 @@ import model.player.PlayerManager;
  */
 public class Farm extends Structure implements Farming{
 
-    private WorkerManager workerManager;
+    private FarmManager farmManager;
+
+    public Farm(){
+        farmManager = new FarmManager();
+    }
 
     @Override
     public void doWork(){
-        if(workerManager.getNumOfWorkers_HarvestingFood() > 0){
+        if(farmManager.getNumOfWorkers_HarvestingFood() > 0){
             harvestFood();
         }
     }
 
     public void assignWorkersToFarm(Location loc, int numOfWorkers_AssignToFarm){
-        if(workerManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToFarm){
-            numOfWorkers_AssignToFarm = workerManager.getNumOfWorkers_Unassigned();
-            workerManager.setNumOfWorkers_Unassigned(0);
-            workerManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
+        if(farmManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToFarm){
+            numOfWorkers_AssignToFarm = farmManager.getNumOfWorkers_Unassigned();
+            farmManager.setNumOfWorkers_Unassigned(0);
+            farmManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
         }
         else{
-            workerManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
-            workerManager.assignWorkers(numOfWorkers_AssignToFarm);
+            farmManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
+            farmManager.assignWorkers(numOfWorkers_AssignToFarm);
         }
-        workerManager.setHarvestingFoodLocation(loc);
+        farmManager.setHarvestingFoodLocation(loc);
     }
 
     @Override
     public void unassign(){
-        workerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        workerManager.setNumOfWorkers_HarvestingFood(0);
+        farmManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
+        farmManager.setNumOfWorkers_HarvestingFood(0);
+        farmManager.setNumOfWorkers_Building(0);
     }
 
     public void harvestFood(){
-        int foodMined = workerManager.produceFood(getMyStats().getProductionRate());
+        int foodMined = farmManager.produceFood(getMyStats().getProductionRate());
         PlayerManager.getInstance().addNutrients(getPid(), foodMined);
     }
 
-    @Override
-    public void setWorkerManager(WorkerManager workerManager) {
-        this.workerManager = workerManager;
+    public void setStats(WorkerStats workerStats){
+        farmManager.setWorkerStats(workerStats);
+    }
+
+    public void setFarmManager(FarmManager farmManager) {
+        this.farmManager = farmManager;
     }
 }

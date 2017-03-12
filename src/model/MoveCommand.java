@@ -11,10 +11,14 @@ public class MoveCommand implements Command{
     Army target;
     MapDirection md;
 
-
     public MoveCommand(Army army, MapDirection md){
         this.target = army;
         this.md = md;
+    }
+
+    public MoveCommand(Army army, Location location){
+        this.target  = army;
+        this.md = army.getLocation().getDirectionTo(location);
     }
 
     @Override

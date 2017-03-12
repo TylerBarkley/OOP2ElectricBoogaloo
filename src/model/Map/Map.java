@@ -22,14 +22,14 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
+import model.player.Player;
+import model.player.PlayerID;
 import utilities.MapVisitor;
 import utilities.ViewVisitor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Map {
 	private java.util.Map<Location, Tile> tiles;
@@ -42,10 +42,19 @@ public class Map {
 
 	private static Map map;
 
+	private static boolean MoveDebug = false;
+	private static boolean BFSDebug = false;
+
 	public static Map getInstance(){
+
 		if(map == null)
 		{
-			map = new Map();
+			if(BFSDebug) map = new Map(69);
+			else if (MoveDebug) map = new Map();
+
+
+			//TODO the real one goes here
+			else map = new Map(100, 100);
 		}
 
 		return map;
@@ -102,10 +111,20 @@ public class Map {
 		tiles.put(new Location(0, 1), new Tile(terrains[1]));
 		tiles.put(new Location(1, 0), new Tile(terrains[0]));
 		tiles.put(new Location(1, 1), new Tile(terrains[0]));
+		tiles.put(new Location(1, -1), new Tile(terrains[1]));
+		tiles.put(new Location(0, -1), new Tile(terrains[0]));
+		tiles.put(new Location(-1, 0), new Tile(terrains[0]));
+		tiles.put(new Location(-1, 1), new Tile(terrains[0]));
+		tiles.put(new Location(-2, 1), new Tile(terrains[0]));
+		tiles.put(new Location(2, 0), new Tile(terrains[0]));
+		tiles.put(new Location(2, -1), new Tile(terrains[0]));
+		tiles.put(new Location(3, -1), new Tile(terrains[2]));
 		tiles.put(new Location(5, 5), new Tile(terrains[1]));
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
 
 	}
+
+
 	
 	private Map(String fileName) //Generates test map
 	{
@@ -119,6 +138,32 @@ public class Map {
 
 		readMap(fileName);
 	}
+
+	//TODO: delete this post-test
+	private Map(int bfs) //Generates test map for BFS
+	{
+		tiles = new HashMap<Location, Tile>();
+		aoeManager = new AreaOfEffectManager();
+		oneShotManager = new OneShotManager();
+		obstacleManager = new ObstacleManager();
+		resourceManager = new ResourceManager();
+		structureOccupancyManager = new StructureOccupancyManager();
+		unitOccupancyManager = new UnitOccupancyManager();
+
+		Terrain[] terrains={Water.getWaterTerrain(),
+				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
+
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+
+				if(j == 5 && i >= 2){
+					tiles.put(new Location(i, j), new Tile(terrains[2]));
+				}
+				else tiles.put(new Location(i, j), new Tile(terrains[0]));
+			}
+		}
+	}
+
 
 	private void readMap(String fileName) {
 		Terrain[] terrains={Water.getWaterTerrain(),
@@ -242,11 +287,23 @@ public class Map {
 		map=null;
 		MovementManager.reset();
 		AttackManager.reset();
+		resetDebug();
 	}
 
 	public void visitTile(TerrainVisitor target, Location location) {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
 	}
+
+	public static void setMoveDebug(){MoveDebug = true;}
+
+	public static void setBFSDebug() {BFSDebug = true;
+	}
+
+	public static void resetDebug(){
+		MoveDebug = false;
+		BFSDebug = false;
+	}
+
 
 
 	public void accept(MapVisitor visitor) {

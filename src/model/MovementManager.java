@@ -55,6 +55,15 @@ public class MovementManager {
     }
 
     public boolean validateMove(Unit target, Location location){
+
+        if(location == null){
+            return false;
+        }
+
+        if(map.getTileAt(location) == null){
+            return false;
+        }
+
         if(map.getObstacleAt(location) != null){
             return false;
         }
@@ -82,6 +91,15 @@ public class MovementManager {
     }
 
     public boolean validateMove(PlayerID pid, Location location){
+
+        if(location == null){
+            return false;
+        }
+
+        if(map.getTileAt(location) == null){
+            return false;
+        }
+
         if(map.getObstacleAt(location) != null){
             return false;
         }

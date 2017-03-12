@@ -12,6 +12,8 @@ public class WorkerAdvancements {
     final private int breedingIncrement=2;
     final private int explorerTrainingIncrement=1;
     final private int buildingRateIncrement=2;
+    final private int workerDensityIncrement=5;
+    final private int workerRadiusIncrement=1;
 
     final private int maxFoodProductionLevel=2;
     final private int maxOreProductionLevel=2;
@@ -21,6 +23,8 @@ public class WorkerAdvancements {
     final private int maxBreedingLevel=3;
     final private int maxExplorerTrainingLevel=1;
     final private int maxBuildingRateLevel=3;
+    final private int maxWorkerDensityLevel=20;
+    final private int maxWorkerRadiusLevel=1;
 
 
     private int foodProduction;
@@ -31,6 +35,8 @@ public class WorkerAdvancements {
     private int breeding;
     private int explorerTraining;
     private int buildingRate;
+    private int workerRadius;
+    private int workerDensity;
 
     public int getFoodProduction() {
         return foodProduction;
@@ -158,5 +164,37 @@ public class WorkerAdvancements {
 
     public int getMaxBuildingRateLevel() {
         return maxBuildingRateLevel;
+    }
+
+    public int getWorkerDensityIncrement() {
+        return workerDensityIncrement;
+    }
+
+    public int getWorkerRadiusIncrement() {
+        return workerRadiusIncrement;
+    }
+
+    public int getWorkerDensity() {
+        return workerDensity;
+    }
+
+    public void setWorkerDensity(int workerDensity) {
+        this.workerDensity = workerDensity;
+    }
+
+    public int getWorkerRadius() {
+        return workerRadius;
+    }
+
+    public void setWorkerRadius(int workerRadius) {
+        this.workerRadius = workerRadius;
+    }
+
+    public int getMaxWorkerDensityLevel() {
+        return maxWorkerDensityLevel;
+    }
+
+    public int getMaxWorkerRadiusLevel() {
+        return maxWorkerRadiusLevel;
     }
 }

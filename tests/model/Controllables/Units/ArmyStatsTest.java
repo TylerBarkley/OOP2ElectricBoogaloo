@@ -4,8 +4,6 @@ import model.Controllables.Stats.ArmyStats;
 import model.Controllables.Stats.UnitStats;
 
 import static org.junit.Assert.*;
-import model.Controllables.Stats.WorkerStats;
-import model.Controllables.Structures.WorkerManager;
 import model.Location;
 import model.Map.Resources.*;
 import org.junit.Before;

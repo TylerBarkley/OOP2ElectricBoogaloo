@@ -12,7 +12,7 @@ public class MapDirection
 	private int dx;
 	private int dy;
 
-	private MapDirection(int dx, int dy) 
+	public MapDirection(int dx, int dy)
 	{
 		this.dx = dx;
 		this.dy = dy;

@@ -15,7 +15,7 @@ import org.junit.Test;
  * Created by Tyler Barkley on 3/9/2017.
  */
 public class WorkerManagerTest {
-
+/*
     WorkerManager workerManager;
     WorkerManager workerManager2;
     WorkerStats workerStats;
@@ -249,6 +249,6 @@ public class WorkerManagerTest {
         assertEquals(25, workerManager2.getNumOfWorkers_Unassigned());
 
     }
-
+*/
 
 }

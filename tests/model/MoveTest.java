@@ -122,6 +122,8 @@ public class MoveTest {
     public void ValidOccupantTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -142,6 +144,8 @@ public class MoveTest {
     public void ValidTerrainTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -160,6 +164,8 @@ public class MoveTest {
     public void ValidStructureTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -182,6 +188,8 @@ public class MoveTest {
     public void ValidObstacleTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -202,6 +210,8 @@ public class MoveTest {
     public void ValidAfterMoveTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -226,6 +236,8 @@ public class MoveTest {
     public void AOETest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -254,6 +266,8 @@ public class MoveTest {
     public void ItemTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
         Map.getInstance().addUnit(new Location(1,0), enemyRanged1);
@@ -288,6 +302,8 @@ public class MoveTest {
     public void APMoveTest(){
 
         Map.reset();
+        Map.setMoveDebug();
+
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
 

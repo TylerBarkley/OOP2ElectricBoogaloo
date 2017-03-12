@@ -8,6 +8,8 @@ import model.player.Player;
 
 public class TurnManager {
 
+	//4 commits
+
 	private ArrayList<EndTurnObserver> endObservers;
 	private ArrayList<StartTurnObserver> startObservers;
 	

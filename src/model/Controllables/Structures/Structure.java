@@ -22,7 +22,6 @@ public abstract class Structure implements Controllable {
     private MapDirection md;
     private Location location;
     private int numTotalWorkers;
-    private WorkerManager workerManager;
     private Boolean beingBuilt;
 
     private int energyResourceLevel;
@@ -35,7 +34,6 @@ public abstract class Structure implements Controllable {
 		md = MapDirection.getNorth();
     	isAlive=true;
 		observers=new ArrayList<StructureObserver>();
-		workerManager = new WorkerManager();
 	}
 
 	public void addObserver(StructureObserver observer)
@@ -89,7 +87,7 @@ public abstract class Structure implements Controllable {
 
         notifyObservers();
     }
-    
+
     public void setID(StructureID id)
     {
         this.id=id;
@@ -173,14 +171,6 @@ public abstract class Structure implements Controllable {
 
     public void setNumTotalOfWorkers(int numTotalOfWorkers) {
         this.numTotalWorkers = numTotalOfWorkers;
-    }
-
-    public WorkerManager getWorkerManager() {
-        return workerManager;
-    }
-
-    public void setWorkerManager(WorkerManager workerManager) {
-        this.workerManager = workerManager;
     }
 
     public Boolean getBeingBuilt() {
