@@ -1,6 +1,7 @@
 package model;
 
 import model.Controllables.Army;
+import model.Controllables.RallyPoint;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Explorer;
@@ -33,6 +34,8 @@ public class ArmyTest {
 
     Army army;
 
+    RallyPoint rallyPoint;
+
     @Before
     public void TestSetup(){
 
@@ -50,11 +53,16 @@ public class ArmyTest {
         PlayerManager.getInstance().addUnit(p1.getId(), melee);
         PlayerManager.getInstance().addUnit(p1.getId(), ranged);
 
+        Map.getInstance().addUnit(new Location(0, 0), explorer);
+
     }
 
     @Test
     public void JoinArmyTest(){
-        army = new Army(explorer);
+
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
 
         assertEquals(explorer.getLocation(), army.getLocation());
         assertEquals(1, army.getBattleGroup().size());
@@ -69,7 +77,9 @@ public class ArmyTest {
 
     @Test
     public void DeadUnitTest(){
-        army = new Army(explorer);
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
 
         assertEquals(explorer.getLocation(), army.getLocation());
         assertEquals(1, army.getBattleGroup().size());
@@ -93,7 +103,9 @@ public class ArmyTest {
 
     @Test
     public void EscortTest(){
-        army = new Army(explorer);
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
 
         assertFalse(army.canEscort());
 
@@ -120,7 +132,9 @@ public class ArmyTest {
 
     @Test
     public void MoveSpeedTest(){
-        army = new Army(explorer);
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
 
         assertEquals(explorer.getMaxActionPoints(), 2);
         assertEquals(army.getArmyStats().getMovement(), 2);
@@ -156,7 +170,10 @@ public class ArmyTest {
         Map.getInstance().addUnit(new Location(0,0), colonist);
         Map.getInstance().addUnit(new Location(0,0), explorer);
 
-        army = new Army(explorer);
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
+
         army.addUnitToBattleGroup(melee);
 
         assertEquals(new Location(0, 0), explorer.getLocation());
@@ -192,8 +209,11 @@ public class ArmyTest {
         Map.getInstance().addUnit(new Location(0,0), melee);
         Map.getInstance().addUnit(new Location(0,0), explorer);
 
-        army = new Army(melee);
-        army.addUnitToBattleGroup(explorer);
+        rallyPoint = new RallyPoint(explorer);
+
+        army = rallyPoint.getArmy();
+
+        army.addUnitToBattleGroup(melee);
 
         //Move to Water
         army.giveOrder(new MoveCommand(army, MapDirection.getSouthEast()));

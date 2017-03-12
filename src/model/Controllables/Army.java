@@ -42,12 +42,15 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	private ArrayList<ArmyObserver> observers;
 
 	private boolean isDisbanded;
-	
-    public Army(Unit unit){
+    private RallyPoint myRP;
+
+    public Army(Unit unit, RallyPoint rallyPoint){
 		observers=new ArrayList<ArmyObserver>();
 
         movementManager = MovementManager.getInstance();
-		
+
+        this.myRP = rallyPoint;
+
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
         this.armyStats = new ArmyStats();
@@ -140,7 +143,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
             if(!movementManager.validateMove(unit, md)){
 
                 //TODO MOVING THE RALLYPOINT TO THE ARMY'S CURRENT LOCATION
-                //myRP.moveRallyPoint(this.myLocation);
+                myRP.moveRallyPoint(this.myLocation);
                 myCommands.clear();
 
                 return;
@@ -159,18 +162,14 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public void doTurn(){
 
         for(Unit unit : battleGroup){
-            if(unit.getActionPoints() <= 0){
-                canMove = false;
-            }
+            canMove = unit.canMove();
         }
 
         while(canMove && !myCommands.isEmpty()){
             myCommands.carryOut();
 
             for(Unit unit : battleGroup){
-                if(unit.getActionPoints() <= 0){
-                    canMove = false;
-                }
+                canMove = unit.canMove();
             }
         }
     }

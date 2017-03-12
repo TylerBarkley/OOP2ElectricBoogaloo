@@ -1,6 +1,7 @@
 package model;
 
 import model.Controllables.Army;
+import model.Controllables.RallyPoint;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
@@ -29,10 +30,7 @@ public class AttackTest {
     Ranged enemyRanged1;
     Ranged enemyRanged2;
 
-    UnitStats unitStats1;
-    UnitStats unitStats2;
-    UnitStats unitStats3;
-    UnitStats unitStats4;
+    RallyPoint rallyPoint;
 
     Capital c1;
     Fort f2;
@@ -88,7 +86,9 @@ public class AttackTest {
 
         Map.getInstance().addStructure(new Location(5,5), f2);
 
-        army = new Army(ranged1);
+        rallyPoint = new RallyPoint(ranged1);
+
+        army = rallyPoint.getArmy();
 
         assertEquals(15, army.getAttackDamage());
 
@@ -130,11 +130,15 @@ public class AttackTest {
         Map.getInstance().addStructure(new Location(5,5), f2);
 
 
-        Army army2 = new Army(enemyRanged1);
+        RallyPoint rallyPoint2 = new RallyPoint(enemyRanged1);
+
+        Army army2 = rallyPoint2.getArmy();
 
         assertEquals(15, army2.getAttackDamage());
 
-        army = new Army(ranged1);
+        rallyPoint = new RallyPoint(ranged1);
+
+        army = rallyPoint.getArmy();
 
         assertEquals(15, army.getAttackDamage());
 

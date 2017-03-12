@@ -33,7 +33,7 @@ public class RallyPoint implements Controllable {
         this.playerID = myUnit.getPid();
         this.reinforcements = new ArrayList<Unit>();
         this.waitingForArmy = new LinkedList<Unit>();
-        this.myArmy = new Army(myUnit);
+        this.myArmy = new Army(myUnit, this);
         this.getPath();
     }
 
@@ -139,7 +139,7 @@ public class RallyPoint implements Controllable {
         while(unitItr.hasNext()){
             Unit unit = unitItr.next();
 
-            while(unit.getActionPoints() >= 0){
+            while(unit.canMove()){
 
                 if(path.get(unit.getLocation()) == null){
                     unitItr.remove();
@@ -169,7 +169,7 @@ public class RallyPoint implements Controllable {
         if(waitingForArmy.isEmpty()) return;
 
         if(myArmy == null){
-            myArmy = new Army(waitingForArmy.poll());
+            myArmy = new Army(waitingForArmy.poll(), this);
         }
 
         if(myArmy.getLocation().equals(this.getLocation())){

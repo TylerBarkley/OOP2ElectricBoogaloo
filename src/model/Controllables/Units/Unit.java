@@ -221,6 +221,8 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		return isAlive;
 	}
 
+	public boolean canMove(){ return this.currentActionPoints > 0; }
+
 	public int getEnergyResourceLevel() {
 		return energyResourceLevel;
 	}
