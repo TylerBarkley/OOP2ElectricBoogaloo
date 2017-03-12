@@ -13,6 +13,8 @@ public class WorkerStats {
     private int breeding;
     private int explorerTraining;
     private int buildingRate;
+    private int workerDensity;
+    private int workerRadius;
 
     public int getFoodProduction() {
         return foodProduction;
@@ -107,4 +109,19 @@ public class WorkerStats {
         this.buildingRate+=increment;
     }
 
+    public int getWorkerRadius() {
+        return workerRadius;
+    }
+
+    public void setWorkerRadius(int workerRadius) {
+        this.workerRadius = workerRadius;
+    }
+
+    public int getWorkerDensity() {
+        return workerDensity;
+    }
+
+    public void setWorkerDensity(int workerDensity) {
+        this.workerDensity = workerDensity;
+    }
 }
