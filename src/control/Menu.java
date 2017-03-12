@@ -9,6 +9,8 @@ import control.MenuStates.RallyPointMenuStates.RPBuildState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
+import model.Location;
+import model.MapDirection;
 import model.Controllables.ControllableCollection;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
@@ -39,7 +41,8 @@ public class Menu {
 	private int currentMode = UNITMODE;
 	private ArrayList<MenuObserver> observers;
 	private PlayerID id;
-
+	private Location focus;
+	
 	public Menu(PlayerID id){
 		this.id=id;
 		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
@@ -48,6 +51,8 @@ public class Menu {
 		//Call updateControllable once to assign the currentUnit variable to the colonist
 		setMenuState(BuildCapitalState.getInstance());
 		menuState.updateControllable(this);
+		
+		setFocus(new Location(0,0));
 	}
 
 	public void addObserver(MenuObserver observer)
@@ -160,6 +165,7 @@ public class Menu {
 	public void reset(){
 		cycleModeL();
 		cycleModeR();
+		notifyObservers();
 	}
     
     public String typeToString() {
@@ -256,6 +262,20 @@ public class Menu {
 		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
 		reset();
 
+		notifyObservers();
+	}
+
+	public Location getFocus() {
+		return focus;
+	}
+
+	public void setFocus(Location focus) {
+		this.focus = focus;
+		notifyObservers();
+	}
+	
+	public void setFocus(MapDirection direction) {
+		this.focus = focus.getAdjacent(direction);
 		notifyObservers();
 	}
 }

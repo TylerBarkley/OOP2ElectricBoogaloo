@@ -294,19 +294,24 @@ public class Map {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
 	}
 
-	public static void setMoveDebug(){MoveDebug = true;}
+	public Set<Location> getLocations(){
+		return tiles.keySet();
+	}
 
-	public static void setBFSDebug() {BFSDebug = true;
+	public void accept(MapVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public static void setMoveDebug(){
+		MoveDebug = true;
+		}
+
+	public static void setBFSDebug() {
+		BFSDebug = true;
 	}
 
 	public static void resetDebug(){
 		MoveDebug = false;
 		BFSDebug = false;
-	}
-
-
-
-	public void accept(MapVisitor visitor) {
-		visitor.visit(this);
 	}
 }

@@ -100,5 +100,7 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		}
 		
 		model.update();
+		
+		repaint();
 	}
 }

@@ -7,13 +7,16 @@ import control.InputReader;
 import control.Menu;
 import control.UserControls;
 
+import model.Location;
 import model.TurnManager;
 
 import model.Controllables.Army;
 import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
+
 import model.Map.Map;
+
 import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
 import model.observers.MenuObserver;
@@ -26,6 +29,7 @@ import model.observers.WorkerObserver;
 import model.player.Player;
 import model.player.PlayerID;
 import model.player.PlayerManager;
+
 import utilities.ViewVisitor;
 
 public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, PlayerObserver,
@@ -33,6 +37,7 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 {
 	private int width;
 	private int height;
+	private Menu menu;
 	private UserControls controls;
 	private StatusViewport statusViewport;
 	private AreaViewport areaViewport;
@@ -42,14 +47,17 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	private ConfigurationOverview configurationOverview;
 	private GameWindow window;
 	private HashMap<PlayerID, AreaViewportMomento> areaMomentos;
+	private HashMap<PlayerID, Location> focusLocations;
 	private ViewVisitor viewVisitor;
 	
 	public ViewHandler(int width, int height, Menu menu, TurnManager turn, UserControls controls){
 		this.width=width;
 		this.height=height;
+		this.menu=menu;
 		this.controls=controls;
 		statusViewport=new StatusViewport(width/3,height);
 		areaViewport=new AreaViewport(width*2/3, height);
+		areaViewport.setBlankMap(Map.getInstance().getLocations());
 		mainScreen=new MainScreen(width, height, statusViewport, areaViewport);
 		unitOverview=new UnitOverview(width, height);
 		structureOverview=new StructureOverview(width, height);
@@ -60,6 +68,8 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, ir);
 		areaMomentos=new HashMap<PlayerID, AreaViewportMomento>();
 	
+		focusLocations=new HashMap<PlayerID, Location>();
+		
 		viewVisitor=new ViewVisitor(turn.getCurrentPlayer().getId());
 	}
 	
@@ -84,6 +94,8 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	@Override
 	public void update(Menu menu) {
 		menu.accept(window);
+		
+		areaViewport.focusOn(menu.getFocus());
 	}
 	
 	@Override
@@ -132,6 +144,8 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 	public void endUpdate(TurnManager turn) {
 		PlayerID id=turn.getCurrentPlayer().getId();
 		areaMomentos.put(id, areaViewport.saveToMomento());
+		
+		focusLocations.put(id, menu.getFocus());
 	}
 
 	@Override
@@ -139,14 +153,28 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 		PlayerID id=turn.getCurrentPlayer().getId();
 		
 		AreaViewportMomento momento = areaMomentos.get(id);
+		
 		if(momento!=null)
 		{
 			areaViewport.restoreFromMomento(momento);
 		}
+		else
+		{
+			areaViewport.setBlankMap(Map.getInstance().getLocations());
+		}
 		
+		Location focus=focusLocations.get(id);
+		if(focus!=null)
+		{
+			menu.setFocus(focus);
+		}
+		else
+		{
+			menu.setFocus(new Location(0,0));
+		}
 		structureOverview=new StructureOverview(width, height);
 		unitOverview=new UnitOverview(width, height);
-		statusViewport=new StatusViewport(width, height);
+		statusViewport=new StatusViewport(width/3, height);
 		
 		window.setUnitOverview(unitOverview);
 		window.setStructureOverview(structureOverview);
@@ -154,6 +182,8 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 		mainScreen.setStatusViewport(statusViewport);
 		
 		viewVisitor=new ViewVisitor(id);
+		
+		currentPlayerRefresh(id);
 	}
 	
 	private void updateView()

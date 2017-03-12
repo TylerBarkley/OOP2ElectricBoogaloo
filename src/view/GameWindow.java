@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
-import control.InputReader;
 import control.Menu;
 import model.Location;
 import utilities.MenuVisitor;
@@ -149,15 +148,15 @@ public class GameWindow extends JFrame implements MenuVisitor{
 	}
 
 	public void setUnitOverview(UnitOverview unitOverview) {
-		this.remove(this.unitOverview);
+		tabbedPane.remove(this.unitOverview);
 		this.unitOverview=unitOverview;
-		this.add(unitOverview);
+		tabbedPane.add(unitOverview, "Unit Overview");
 	}
 
 	public void setStructureOverview(StructureOverview structureOverview) {
-		this.remove(this.structureOverview);
+		tabbedPane.remove(this.structureOverview);
 		this.structureOverview=structureOverview;
-		this.add(structureOverview);
+		tabbedPane.add(structureOverview, "Structure Overview");
 	}
 	
 	private void removeDefaultKeyListeners() {

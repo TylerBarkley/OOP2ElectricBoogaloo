@@ -47,6 +47,7 @@ public class ViewFactory {
 	private BufferedImage ore;
 
 	private BufferedImage unknown;
+	private BufferedImage invisible;
 	
 	private ViewFactory(){
 		try {
@@ -87,6 +88,7 @@ public class ViewFactory {
 			ore=ImageIO.read(getClass().getResource("/Ore.png"));
 
 			unknown=ImageIO.read(getClass().getResource("/Unknown.png"));
+			invisible=ImageIO.read(getClass().getResource("/Invisible.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -159,6 +161,9 @@ public class ViewFactory {
 			return new StructureView(id, enemyTower, loc, rotation);
 		case "EnemyFort":
 			return new StructureView(id, enemyFort, loc, rotation);
+		
+		case "Invisible":
+			return new ImageView(id, invisible, loc, rotation);
 			
 		default:
 			return new ImageView(id, unknown, loc, rotation);

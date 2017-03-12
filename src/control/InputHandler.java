@@ -2,6 +2,7 @@ package control;
 
 import model.MapDirection;
 import model.TurnManager;
+import model.Controllables.Controllable;
 
 public class InputHandler {
 	private Menu menu;
@@ -13,8 +14,7 @@ public class InputHandler {
 	}
 
 	public void moveFocus(MapDirection direction) {
-		// TODO Auto-generated method stub
-		
+		menu.setFocus(direction);
 	}
 
 	public void cycleMode() {
@@ -50,8 +50,14 @@ public class InputHandler {
 	}
 
 	public void centerFocus() {
-		// TODO Auto-generated method stub
+		int mode=menu.getCurrentMode();
+		int instance=menu.getCurrentInstance();
+		Controllable c=menu.getControllableCollection().get(mode,instance);
 		
+		if(c!=null && c.getLocation()!=null)
+		{
+			menu.setFocus(c.getLocation());
+		}
 	}
 
 	public void endTurn() {

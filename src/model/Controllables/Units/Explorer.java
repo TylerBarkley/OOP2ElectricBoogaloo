@@ -1,4 +1,5 @@
 package model.Controllables.Units;
+import model.Location;
 import utilities.UnitVisitor;
 
 public class Explorer extends Unit {
@@ -9,6 +10,10 @@ public class Explorer extends Unit {
 
 	public Explorer(){}
 
+	public Explorer(Location loc){
+		super(loc);
+	}
+	
 	@Override
 	public boolean canEscort() {
 		return false;
