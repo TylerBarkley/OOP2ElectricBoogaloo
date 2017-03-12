@@ -109,6 +109,13 @@ public class WorkerStats {
         this.buildingRate+=increment;
     }
 
+    public void incrementWorkerRadius(int increment){
+        this.workerRadius+=increment;
+    }
+    public void incrementWorkerDensity(int increment){
+        this.workerDensity+=increment;
+    }
+
     public int getWorkerRadius() {
         return workerRadius;
     }
