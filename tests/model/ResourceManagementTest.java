@@ -33,22 +33,33 @@ public class ResourceManagementTest {
     }
 
     @Test
-    public void resourcePercentagesTest(){
+    public void resourceDistributionTest(){
         player.distributePower(capital,50);
+        player.storePower(50);
         player.distributeNutrients(capital,20);
+        player.storeNutrients(80);
         player.distributeMetal(capital, 10);
+        player.storeMetal(90);
         assertEquals(5,capital.getEnergyResourceLevel());
         assertEquals(2,capital.getNutrientResourceLevel());
         assertEquals(1,capital.getMetalResourceLevel());
+        assertEquals(5,player.getPower().getAmount());
+        assertEquals(8,player.getNutrients().getAmount());
+         assertEquals(8,player.getMetal().getAmount());
     }
       @Test
-    public void resourcePercentagesTest(){
+    public void resourceConsumptionTest(){
         player.distributePower(capital,50);
         player.distributeNutrients(capital,20);
         player.distributeMetal(capital, 10);
          player.distributePower(army,30);
         player.distributeNutrients(army,20);
-        player.distributeMetal(capital, 10);
+        player.distributeMetal(army, 10);
+        player.storePower(20);
+        player.storeNutrients(60);
+        player.storeMetal(80);
+        army.distribute();
+        capital.distribute();
     }
 
     */
