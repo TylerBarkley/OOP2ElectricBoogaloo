@@ -62,31 +62,14 @@ public class ArmyStats {
     public void addStats(UnitStats unitStats){
         increment_numOfUnits();
         movementAL.add(unitStats.getMovement());
-        if(numOfUnits == 1){
-            offensiveDamage = unitStats.getOffensiveDamage();
-            defensiveDamage = unitStats.getDefensiveDamage();
-            upkeep = unitStats.getUpkeep();
+
+        offensiveDamage += unitStats.getOffensiveDamage();
+        defensiveDamage += unitStats.getDefensiveDamage();
+        upkeep += unitStats.getUpkeep();
+        if(unitStats.getMovement() < movement || movement == 0){
             movement = unitStats.getMovement();
-            armor = unitStats.getArmor();
         }
-        else if(numOfUnits == 2){
-            offensiveDamage = offensiveDamage + Math.max((unitStats.getOffensiveDamage()/2),1);
-            defensiveDamage = defensiveDamage + Math.max((unitStats.getDefensiveDamage()/2),1);
-            upkeep = upkeep + unitStats.getUpkeep();
-            if(unitStats.getMovement() < movement){
-                movement = unitStats.getMovement();
-            }
-            armor = armor + Math.max((unitStats.getArmor()/2),1);
-        }
-        else if(numOfUnits > 2){
-            offensiveDamage = offensiveDamage + Math.max((unitStats.getOffensiveDamage()/4),1);
-            defensiveDamage = defensiveDamage + Math.max((unitStats.getDefensiveDamage()/4),1);
-            upkeep = upkeep + unitStats.getUpkeep();
-            if(unitStats.getMovement() < movement){
-                movement = unitStats.getMovement();
-            }
-            armor = armor + Math.max((unitStats.getArmor()/4),1);
-        }
+        armor += unitStats.getArmor();
     }
 
     public void removeStats(UnitStats unitStats){
@@ -104,33 +87,23 @@ public class ArmyStats {
             upkeep = 0;
             movement = 0;
             armor = 0;
+
+            return;
             //RIP Army
         }
-        else if(numOfUnits == 1){
-            offensiveDamage = offensiveDamage - Math.max((unitStats.getOffensiveDamage()/2),1);
-            defensiveDamage = defensiveDamage - Math.max((unitStats.getDefensiveDamage()/2),1);
-            upkeep = upkeep - unitStats.getUpkeep();
-            for(int i = 0; i < movementAL.size(); i++){
-                if(movementAL.get(i) < newMove){
-                    movement = movementAL.get(i);
-                    newMove = movement;
-                }
+
+        offensiveDamage = offensiveDamage - unitStats.getOffensiveDamage();
+        defensiveDamage = defensiveDamage - unitStats.getDefensiveDamage();
+        upkeep = upkeep - unitStats.getUpkeep();
+        for(int i = 0; i < movementAL.size(); i++){
+            if(movementAL.get(i) < newMove){
+                movement = movementAL.get(i);
+                newMove = movement;
             }
-            armor = armor - Math.max((unitStats.getArmor()/2),1);
         }
-        else if(numOfUnits > 1){
-            offensiveDamage = offensiveDamage - Math.max((unitStats.getOffensiveDamage()/4),1);
-            defensiveDamage = defensiveDamage - Math.max((unitStats.getDefensiveDamage()/4),1);
-            upkeep = upkeep - unitStats.getUpkeep();
-            for(int i = 0; i < movementAL.size(); i++){
-                if(movementAL.get(i) < newMove){
-                    movement = movementAL.get(i);
-                    newMove = movement;
-                }
-            }
-            armor = armor - Math.max((unitStats.getArmor()/4),1);
-        }
+        armor = armor - unitStats.getArmor();
     }
+
 
     public int getNumOfUnits() {
         return numOfUnits;
