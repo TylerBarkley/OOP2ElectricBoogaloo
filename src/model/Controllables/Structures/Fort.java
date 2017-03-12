@@ -1,6 +1,7 @@
 package model.Controllables.Structures;
 
 import model.Attacker;
+import model.Controllables.Stats.WorkerStats;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.
@@ -43,6 +44,10 @@ public class Fort extends Structure implements Attacker{
         fortManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         fortManager.setNumOfWorkers_SoldierTraining(0);
         fortManager.setNumOfWorkers_Building(0);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        fortManager.setWorkerStats(workerStats);
     }
 
 

@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -44,6 +45,10 @@ public class PowerPlant extends Structure implements Energizing {
     public void harvestEnergy(){
         int energyMined = powerPlantManager.produceEnergy(getMyStats().getProductionRate());
         PlayerManager.getInstance().addPower(getPid(), energyMined);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        powerPlantManager.setWorkerStats(workerStats);
     }
 
     public void setPowerPlantManager(PowerPlantManager powerPlantManager) {

@@ -1,6 +1,8 @@
 package model.Controllables.Structures;
 
 
+import model.Controllables.Stats.WorkerStats;
+
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
@@ -42,6 +44,10 @@ public class University extends Structure {
         universityManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         universityManager.setNumOfWorkers_HarvestingTechnology(0);
         universityManager.setNumOfWorkers_Building(0);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        universityManager.setWorkerStats(workerStats);
     }
 
 }

@@ -1,5 +1,7 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
+
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
@@ -16,6 +18,10 @@ public class ObservationTower extends Structure {
     public void unassign(){
         observationTowerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         observationTowerManager.setNumOfWorkers_Building(0);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        observationTowerManager.setWorkerStats(workerStats);
     }
 
 }
