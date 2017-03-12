@@ -75,4 +75,12 @@ public class UniversityManager extends WorkerManager{
     public void setNumOfWorkers_Building(int numOfWorkers_Building) {
         this.numOfWorkers_Building = numOfWorkers_Building;
     }
+
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= number;
+    }
 }

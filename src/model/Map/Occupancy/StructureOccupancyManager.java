@@ -3,12 +3,13 @@ package model.Map.Occupancy;
 import model.Controllables.Structures.Structure;
 import model.Location;
 import model.Map.Manager;
+import model.observers.StructureObserver;
 import model.player.PlayerID;
 
 /**
  * Created by zrgam_000 on 3/7/2017.
  */
-public class StructureOccupancyManager extends Manager<StructureOccupancy>{
+public class StructureOccupancyManager extends Manager<StructureOccupancy> implements StructureObserver{
 
     public boolean checkPlayer(PlayerID pid, Location loc){
 
@@ -36,6 +37,8 @@ public class StructureOccupancyManager extends Manager<StructureOccupancy>{
 
         this.add(loc, so);
 
+        target.addObserver(this);
+
         return target;
     }
 
@@ -44,5 +47,12 @@ public class StructureOccupancyManager extends Manager<StructureOccupancy>{
             return;
         }
         this.get(location).damage(intensity);
+    }
+
+    @Override
+    public void update(Structure structure) {
+        if(!structure.isAlive()){
+            this.removeStructure(structure.getLocation());
+        }
     }
 }

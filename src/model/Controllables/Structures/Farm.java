@@ -45,4 +45,13 @@ public class Farm extends Structure implements Farming{
     public void setFarmManager(FarmManager farmManager) {
         this.farmManager = farmManager;
     }
+
+    public void addWorker(int number) {
+        farmManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        farmManager.removeUnassigned(number);
+    }
 }

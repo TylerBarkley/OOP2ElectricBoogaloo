@@ -15,6 +15,13 @@ public class ObservationTower extends Structure {
         observationTowerManager = new ObservationTowerManager();
     }
 
+    @Override
+    public void doWork() {
+        if(observationTowerManager.getNumOfWorkers_Building() > 0){
+            observationTowerManager.building();
+        }
+    }
+
     public void unassign(){
         observationTowerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         observationTowerManager.setNumOfWorkers_Building(0);
@@ -26,6 +33,15 @@ public class ObservationTower extends Structure {
 
     public void setObservationTowerManager(ObservationTowerManager observationTowerManager){
         this.observationTowerManager = observationTowerManager;
+    }
+
+    public void addWorker(int number) {
+        observationTowerManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        observationTowerManager.removeUnassigned(number);
     }
 
 }

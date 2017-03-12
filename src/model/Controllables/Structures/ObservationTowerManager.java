@@ -29,6 +29,14 @@ public class ObservationTowerManager extends WorkerManager{
         this.numOfWorkers_Unassigned = numOfWorkers_Unassigned;
     }
 
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= number;
+    }
+
     public int getNumOfWorkers_Building() {
         return numOfWorkers_Building;
     }

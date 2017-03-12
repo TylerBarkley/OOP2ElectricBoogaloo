@@ -3,12 +3,13 @@ package model.Map.Occupancy;
 import model.Controllables.Units.Unit;
 import model.Location;
 import model.Map.Manager;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
 
 /**
  * Created by zrgam_000 on 3/7/2017.
  */
-public class UnitOccupancyManager extends Manager<UnitOccupancy> {
+public class UnitOccupancyManager extends Manager<UnitOccupancy> implements UnitObserver{
 
     public boolean checkPlayer(PlayerID pid, Location loc){
 
@@ -31,10 +32,15 @@ public class UnitOccupancyManager extends Manager<UnitOccupancy> {
     public Unit addUnit(Unit target, Location loc){
         UnitOccupancy uo = get(loc);
 
+        if(target.getLocation() == null){
+            target.addObserver(this);
+        }
+
         target.setLocation(loc);
 
         if(uo != null){
             uo.addUnit(target);
+
             return target;
         }
 
@@ -54,4 +60,10 @@ public class UnitOccupancyManager extends Manager<UnitOccupancy> {
         this.get(loc).damageAll(intensity);
     }
 
+    @Override
+    public void update(Unit unit) {
+        if(!unit.isAlive()){
+            this.removeUnit(unit, unit.getLocation());
+        }
+    }
 }

@@ -371,4 +371,12 @@ public class CapitalManager extends WorkerManager{
         numOfWorkers_Unassigned += numOfWorkers_HarvestingOre;
         numOfWorkers_HarvestingOre= 0;
     }
+
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= number;
+    }
 }

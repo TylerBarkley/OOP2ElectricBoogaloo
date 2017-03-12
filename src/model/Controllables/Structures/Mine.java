@@ -46,4 +46,13 @@ public class Mine extends Structure implements Mining{
     public void setMineManager(MineManager mineManager) {
         this.mineManager = mineManager;
     }
+
+    public void addWorker(int number) {
+        mineManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        mineManager.removeUnassigned(number);
+    }
 }

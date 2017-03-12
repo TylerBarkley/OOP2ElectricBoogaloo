@@ -56,4 +56,13 @@ public class Fort extends Structure implements Attacker{
     public void setFortManager(FortManager fortManager) {
         this.fortManager = fortManager;
     }
+
+    public void addWorker(int number) {
+        fortManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        fortManager.removeUnassigned(number);
+    }
 }

@@ -46,4 +46,13 @@ public class PowerPlant extends Structure implements Energizing {
     public void setPowerPlantManager(PowerPlantManager powerPlantManager) {
         this.powerPlantManager = powerPlantManager;
     }
+
+    public void addWorker(int number) {
+        powerPlantManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        powerPlantManager.removeUnassigned(number);
+    }
 }

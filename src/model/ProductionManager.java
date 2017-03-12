@@ -21,7 +21,11 @@ public class ProductionManager {
         playerManager = PlayerManager.getInstance();
     }
 
-    public ProductionManager getInstance(){
+    public static void reset(){
+        productionManager = null;
+    }
+
+    public static ProductionManager getInstance(){
         if(productionManager == null){
             productionManager = new ProductionManager();
         }
@@ -48,9 +52,17 @@ public class ProductionManager {
         }
         if(playerManager.addStructure(playerID, newCap)){
             map.addStructure(location, newCap);
+
             //Need to add Workers
+            playerManager.addWorker(playerID, 5);
+            newCap.setBeingBuilt(false);
+            newCap.addWorker(5);
         }
 
         martyr.killMe();
+    }
+
+    public void buildBase(){
+
     }
 }

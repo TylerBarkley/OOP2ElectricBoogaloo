@@ -124,4 +124,12 @@ public abstract class HarvestManager extends WorkerManager{
     public void setHarvestingLocation(Location harvestingLocation) {
         this.harvestingLocation = harvestingLocation;
     }
+
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= number;
+    }
 }
