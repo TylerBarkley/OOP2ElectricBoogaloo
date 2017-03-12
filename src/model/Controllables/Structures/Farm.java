@@ -17,7 +17,7 @@ public class Farm extends Structure implements Farming{
 
     @Override
     public void doWork(){
-        if(farmManager.getNumOfWorkers_HarvestingFood() > 0){
+        if(farmManager.getNumOfWorkers_Harvesting() > 0){
             harvestFood();
         }
     }
@@ -29,11 +29,10 @@ public class Farm extends Structure implements Farming{
     @Override
     public void unassign(){
         farmManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        farmManager.setNumOfWorkers_HarvestingFood(0);
+        farmManager.setNumOfWorkers_Harvesting(0);
         farmManager.setNumOfWorkers_Building(0);
         farmManager.resetWork(getLocation());
     }
-
     public void harvestFood(){
         int foodMined = farmManager.produceFood(getMyStats().getProductionRate());
         PlayerManager.getInstance().addNutrients(getPid(), foodMined);

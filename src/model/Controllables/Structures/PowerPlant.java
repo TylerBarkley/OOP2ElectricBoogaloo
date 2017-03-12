@@ -17,7 +17,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     @Override
     public void doWork(){
-        if(powerPlantManager.getNumOfWorkers_HarvestingEnergy() > 0){
+        if(powerPlantManager.getNumOfWorkers_Harvesting() > 0){
             harvestEnergy();
         }
     }
@@ -29,7 +29,7 @@ public class PowerPlant extends Structure implements Energizing {
     @Override
     public void unassign(){
         powerPlantManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        powerPlantManager.setNumOfWorkers_HarvestingEnergy(0);
+        powerPlantManager.setNumOfWorkers_Harvesting(0);
         powerPlantManager.setNumOfWorkers_Building(0);
         powerPlantManager.resetWork(getLocation());
     }
