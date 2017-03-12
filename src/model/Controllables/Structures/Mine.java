@@ -23,16 +23,7 @@ public class Mine extends Structure implements Mining{
     }
     
     public void assignWorkersToMine(Location loc, int numOfWorkers_AssignToMine){
-        if(mineManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToMine){
-            numOfWorkers_AssignToMine = mineManager.getNumOfWorkers_Unassigned();
-            mineManager.setNumOfWorkers_Unassigned(0);
-            mineManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
-        }
-        else{
-            mineManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
-            mineManager.assignWorkers(numOfWorkers_AssignToMine);
-        }
-        mineManager.setHarvestingOreLocation(loc);
+        mineManager.assignWorkers(loc, numOfWorkers_AssignToMine, getLocation());
     }
     
     @Override
@@ -40,6 +31,7 @@ public class Mine extends Structure implements Mining{
         mineManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         mineManager.setNumOfWorkers_HarvestingOre(0);
         mineManager.setNumOfWorkers_Building(0);
+        mineManager.resetWork(getLocation());
     }
     
     public void harvestOre(){
