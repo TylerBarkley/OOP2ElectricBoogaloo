@@ -4,6 +4,8 @@ import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.Map.Resources.ResourceManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Tyler Barkley on 3/11/2017.
  */
@@ -24,9 +26,137 @@ public class CapitalManager extends WorkerManager{
     private Location harvestingEnergyLocation;
     private Location harvestingFoodLocation;
 
+    private ArrayList<Location> adjacencies;
+
     public CapitalManager(){
         workerStats = new WorkerStats();
         resourceManager = new ResourceManager();
+    }
+
+    public void assignWorkersMine(Location loc, int assignNum, Location myLoc){
+        adjacencies = myLoc.getAllLocationsWithinRadius(workerStats.getWorkerRadius());
+        boolean flag = false;
+        for(int i = 0; i < adjacencies.size(); i++){
+            if(adjacencies.get(i).equals(loc)){
+                flag = true;
+            }
+        }
+        if(flag == false){
+            return;
+        }
+        if(loc != harvestingOreLocation && resourceManager.isWorking(loc) == true){
+            return;
+        }
+        if(loc.equals(harvestingEnergyLocation)){
+            resetEnergy(myLoc);
+        }
+        if(loc.equals(harvestingFoodLocation)){
+            resetFood(myLoc);
+        }
+        if((numOfWorkers_HarvestingOre + numOfWorkers_Unassigned) < assignNum){
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingOre;
+            assignNum = numOfWorkers_Unassigned;
+            numOfWorkers_HarvestingOre = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingOre;
+            resourceManager.setWorking(harvestingOreLocation, false);
+            harvestingOreLocation = loc;
+            resourceManager.setWorking(harvestingOreLocation, true);
+        }
+        else if(assignNum < 1){
+            resetOre(myLoc);
+        }
+        else{
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingOre;
+            numOfWorkers_HarvestingOre = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingOre;
+            resourceManager.setWorking(harvestingOreLocation, false);
+            harvestingOreLocation = loc;
+            resourceManager.setWorking(harvestingOreLocation, true);
+        }
+    }
+
+    public void assignWorkersEnergy(Location loc, int assignNum, Location myLoc){
+        adjacencies = myLoc.getAllLocationsWithinRadius(workerStats.getWorkerRadius());
+        boolean flag = false;
+        for(int i = 0; i < adjacencies.size(); i++){
+            if(adjacencies.get(i).equals(loc)){
+                flag = true;
+            }
+        }
+        if(flag == false){
+            return;
+        }
+        if(loc != harvestingEnergyLocation && resourceManager.isWorking(loc) == true){
+            return;
+        }
+        if(loc.equals(harvestingOreLocation)){
+            resetOre(myLoc);
+        }
+        if(loc.equals(harvestingFoodLocation)){
+            resetFood(myLoc);
+        }
+        if((numOfWorkers_HarvestingEnergy + numOfWorkers_Unassigned) < assignNum){
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingEnergy;
+            assignNum = numOfWorkers_Unassigned;
+            numOfWorkers_HarvestingEnergy = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingEnergy;
+            resourceManager.setWorking(harvestingEnergyLocation, false);
+            harvestingEnergyLocation = loc;
+            resourceManager.setWorking(harvestingEnergyLocation, true);
+        }
+        else if(assignNum < 1){
+            resetEnergy(myLoc);
+        }
+        else{
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingEnergy;
+            numOfWorkers_HarvestingEnergy = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingEnergy;
+            resourceManager.setWorking(harvestingEnergyLocation, false);
+            harvestingEnergyLocation = loc;
+            resourceManager.setWorking(harvestingEnergyLocation, true);
+        }
+    }
+
+    public void assignWorkersFood(Location loc, int assignNum, Location myLoc){
+        adjacencies = myLoc.getAllLocationsWithinRadius(workerStats.getWorkerRadius());
+        boolean flag = false;
+        for(int i = 0; i < adjacencies.size(); i++){
+            if(adjacencies.get(i).equals(loc)){
+                flag = true;
+            }
+        }
+        if(flag == false){
+            return;
+        }
+        if(loc != harvestingFoodLocation && resourceManager.isWorking(loc) == true){
+            return;
+        }
+        if(loc.equals(harvestingOreLocation)){
+            resetOre(myLoc);
+        }
+        if(loc.equals(harvestingEnergyLocation)){
+            resetEnergy(myLoc);
+        }
+        if((numOfWorkers_HarvestingFood + numOfWorkers_Unassigned) < assignNum){
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingFood;
+            assignNum = numOfWorkers_Unassigned;
+            numOfWorkers_HarvestingFood = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingFood;
+            resourceManager.setWorking(harvestingFoodLocation, false);
+            harvestingFoodLocation = loc;
+            resourceManager.setWorking(harvestingFoodLocation, true);
+        }
+        else if(assignNum < 1){
+            resetFood(myLoc);
+        }
+        else{
+            numOfWorkers_Unassigned += numOfWorkers_HarvestingFood;
+            numOfWorkers_HarvestingFood = Math.min(assignNum, workerStats.getWorkerDensity());
+            numOfWorkers_Unassigned -= numOfWorkers_HarvestingFood;
+            resourceManager.setWorking(harvestingFoodLocation, false);
+            harvestingFoodLocation = loc;
+            resourceManager.setWorking(harvestingFoodLocation, true);
+        }
     }
 
     public int produceOre(int structureProductionRate){
@@ -59,7 +189,35 @@ public class CapitalManager extends WorkerManager{
         return percentageTrained;
     }
 
-    public void assignWorkers(int assignNum){
+    public void assignWorkersBreeding(int assignNum){
+        if(assignNum > numOfWorkers_Unassigned){
+            assignNum = numOfWorkers_Unassigned;
+            numOfWorkers_Breeding = assignNum;
+        }
+        else if(assignNum < 1){
+            numOfWorkers_Unassigned += numOfWorkers_Breeding;
+            numOfWorkers_Breeding = 0;
+        }
+        else{
+            numOfWorkers_Breeding = assignNum;
+            numOfWorkers_Unassigned -= numOfWorkers_Breeding;
+        }
+        numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+    }
+
+    public void assignWorkersTrainingExplorers(int assignNum){
+        if(assignNum > numOfWorkers_Unassigned){
+            assignNum = numOfWorkers_Unassigned;
+            numOfWorkers_ExplorerTraining = assignNum;
+        }
+        else if(assignNum < 1){
+            numOfWorkers_Unassigned += numOfWorkers_ExplorerTraining;
+            numOfWorkers_ExplorerTraining = 0;
+        }
+        else{
+            numOfWorkers_ExplorerTraining = assignNum;
+            numOfWorkers_Unassigned -= numOfWorkers_ExplorerTraining;
+        }
         numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
     }
 
@@ -157,5 +315,26 @@ public class CapitalManager extends WorkerManager{
 
     public void setHarvestingFoodLocation(Location harvestingFoodLocation) {
         this.harvestingFoodLocation = harvestingFoodLocation;
+    }
+
+    public void resetEnergy(Location myLoc){
+        resourceManager.get(harvestingEnergyLocation).setWorking(false);
+        harvestingEnergyLocation = myLoc;
+        numOfWorkers_Unassigned += numOfWorkers_HarvestingEnergy;
+        numOfWorkers_HarvestingEnergy = 0;
+    }
+
+    public void resetFood(Location myLoc){
+        resourceManager.get(harvestingFoodLocation).setWorking(false);
+        harvestingFoodLocation = myLoc;
+        numOfWorkers_Unassigned += numOfWorkers_HarvestingFood;
+        numOfWorkers_HarvestingFood = 0;
+    }
+
+    public void resetOre(Location myLoc){
+        resourceManager.get(harvestingOreLocation).setWorking(false);
+        harvestingOreLocation = myLoc;
+        numOfWorkers_Unassigned += numOfWorkers_HarvestingOre;
+        numOfWorkers_HarvestingOre= 0;
     }
 }
