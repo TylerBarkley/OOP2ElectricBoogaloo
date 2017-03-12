@@ -180,4 +180,43 @@ public class CapitalManagerTest {
         assertEquals(false, resourceManager.isWorking(loc2));
     }
 
+    @Test
+    public void CapitalManager_ExplorerTrainingTest(){
+        Map.reset();
+        Map.setMoveDebug();
+        capital.setLocation(loc1);
+        capital.setNumTotalOfWorkers(10);
+        capitalManager.setNumOfWorkers_Unassigned(10);
+        capital.unassign();
+        capital.assignWorkersToTrainExplorers(5);
+        assertEquals(5, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(5, capitalManager.getNumOfWorkers_ExplorerTraining());
+        assertEquals(50, capitalManager.trainExplorer());
+        capital.unassign();
+        assertEquals(0, capitalManager.trainExplorer());
+        capital.assignWorkersToTrainExplorers(50);
+        assertEquals(10, capitalManager.getNumOfWorkers_ExplorerTraining());
+        assertEquals(0, capitalManager.getNumOfWorkers_Unassigned());
+    }
+
+    @Test
+    public void CapitalManager_BreedingTest() {
+        Map.reset();
+        Map.setMoveDebug();
+        capital.setLocation(loc1);
+        capital.setNumTotalOfWorkers(10);
+        capitalManager.setNumOfWorkers_Unassigned(10);
+        capital.unassign();
+        capital.assignWorkersToBreed(4);
+        assertEquals(6, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(4, capitalManager.getNumOfWorkers_Breeding());
+        assertEquals(2, capitalManager.breeding());
+        capital.unassign();
+        assertEquals(0, capitalManager.breeding());
+        capital.assignWorkersToBreed(50);
+        assertEquals(10, capitalManager.getNumOfWorkers_Breeding());
+        assertEquals(0, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(5, capitalManager.breeding());
+    }
+
 }
