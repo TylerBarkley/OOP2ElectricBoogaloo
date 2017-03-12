@@ -73,23 +73,23 @@ public class ArmyStatsTest {
         assertEquals(10, armyStats.getMovement());
 
         armyStats.addStats(unitStats2);
-        assertEquals(4, armyStats.getArmor());
-        assertEquals(4, armyStats.getDefensiveDamage());
-        assertEquals(4, armyStats.getOffensiveDamage());
+        assertEquals(6, armyStats.getArmor());
+        assertEquals(6, armyStats.getDefensiveDamage());
+        assertEquals(6, armyStats.getOffensiveDamage());
         assertEquals(6, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
 
         armyStats.addStats(unitStats3);
-        assertEquals(6, armyStats.getArmor());
-        assertEquals(6, armyStats.getDefensiveDamage());
-        assertEquals(6, armyStats.getOffensiveDamage());
+        assertEquals(14, armyStats.getArmor());
+        assertEquals(14, armyStats.getDefensiveDamage());
+        assertEquals(14, armyStats.getOffensiveDamage());
         assertEquals(14, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
 
         armyStats.addStats(unitStats4);
-        assertEquals(10, armyStats.getArmor());
-        assertEquals(10, armyStats.getDefensiveDamage());
-        assertEquals(10, armyStats.getOffensiveDamage());
+        assertEquals(30, armyStats.getArmor());
+        assertEquals(30, armyStats.getDefensiveDamage());
+        assertEquals(30, armyStats.getOffensiveDamage());
         assertEquals(30, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
     }
@@ -102,16 +102,16 @@ public class ArmyStatsTest {
         armyStats.addStats(unitStats4);
 
         armyStats.removeStats(unitStats4);
-        assertEquals(6, armyStats.getArmor());
-        assertEquals(6, armyStats.getDefensiveDamage());
-        assertEquals(6, armyStats.getOffensiveDamage());
+        assertEquals(14, armyStats.getArmor());
+        assertEquals(14, armyStats.getDefensiveDamage());
+        assertEquals(14, armyStats.getOffensiveDamage());
         assertEquals(14, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
 
         armyStats.removeStats(unitStats3);
-        assertEquals(4, armyStats.getArmor());
-        assertEquals(4, armyStats.getDefensiveDamage());
-        assertEquals(4, armyStats.getOffensiveDamage());
+        assertEquals(6, armyStats.getArmor());
+        assertEquals(6, armyStats.getDefensiveDamage());
+        assertEquals(6, armyStats.getOffensiveDamage());
         assertEquals(6, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
 
@@ -135,9 +135,9 @@ public class ArmyStatsTest {
         armyStats.addStats(unitStats4);
 
         armyStats.removeStats(unitStats1);
-        assertEquals(9, armyStats.getArmor());
-        assertEquals(9, armyStats.getDefensiveDamage());
-        assertEquals(9, armyStats.getOffensiveDamage());
+        assertEquals(28, armyStats.getArmor());
+        assertEquals(28, armyStats.getDefensiveDamage());
+        assertEquals(28, armyStats.getOffensiveDamage());
         assertEquals(28, armyStats.getUpkeep());
         assertEquals(5, armyStats.getMovement());
     }

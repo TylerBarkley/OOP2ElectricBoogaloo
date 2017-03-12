@@ -45,55 +45,10 @@ public class ArmyTest {
         colonist = new Colonist();
         explorer = new Explorer();
 
-        unitStats1 = new UnitStats();
-        unitStats2 = new UnitStats();
-        unitStats3 = new UnitStats();
-        unitStats4 = new UnitStats();
-
-        unitStats1.setArmor(2);
-        unitStats1.setDefensiveDamage(2);
-        unitStats1.setHealth(2);
-        unitStats1.setOffensiveDamage(2);
-        unitStats1.setInfluenceRadius(2);
-        unitStats1.setUpkeep(2);
-        unitStats1.setMovement(1);
-
-        unitStats2.setArmor(4);
-        unitStats2.setDefensiveDamage(4);
-        unitStats2.setHealth(4);
-        unitStats2.setOffensiveDamage(4);
-        unitStats2.setInfluenceRadius(4);
-        unitStats2.setUpkeep(4);
-        unitStats2.setMovement(1);
-
-        unitStats3.setArmor(8);
-        unitStats3.setDefensiveDamage(8);
-        unitStats3.setHealth(8);
-        unitStats3.setOffensiveDamage(8);
-        unitStats3.setInfluenceRadius(8);
-        unitStats3.setUpkeep(8);
-        unitStats3.setMovement(1);
-
-        unitStats4.setArmor(16);
-        unitStats4.setDefensiveDamage(16);
-        unitStats4.setHealth(16);
-        unitStats4.setOffensiveDamage(16);
-        unitStats4.setInfluenceRadius(16);
-        unitStats4.setUpkeep(16);
-        unitStats4.setMovement(2);
-
-        melee.setMyStats(unitStats1);
-        ranged.setMyStats(unitStats2);
-        colonist.setMyStats(unitStats3);
-        explorer.setMyStats(unitStats4);
-
         PlayerManager.getInstance().addUnit(p1.getId(), colonist);
         PlayerManager.getInstance().addUnit(p1.getId(), explorer);
         PlayerManager.getInstance().addUnit(p1.getId(), melee);
         PlayerManager.getInstance().addUnit(p1.getId(), ranged);
-
-
-
 
     }
 
@@ -109,6 +64,30 @@ public class ArmyTest {
 
         army.removeUnitFromBattleGroup(explorer);
         assertEquals(1, army.getBattleGroup().size());
+
+    }
+
+    @Test
+    public void DeadUnitTest(){
+        army = new Army(explorer);
+
+        assertEquals(explorer.getLocation(), army.getLocation());
+        assertEquals(1, army.getBattleGroup().size());
+        assertEquals(1, army.getBattleGroup().size());
+
+        army.addUnitToBattleGroup(melee);
+        assertEquals(2, army.getBattleGroup().size());
+
+        army.addUnitToBattleGroup(colonist);
+        assertEquals(3, army.getBattleGroup().size());
+
+        army.addUnitToBattleGroup(ranged);
+        assertEquals(4, army.getBattleGroup().size());
+
+        explorer.killMe();
+        colonist.killMe();
+        army.startTurn();
+        assertEquals(2, army.getBattleGroup().size());
 
     }
 

@@ -94,29 +94,29 @@ public class AttackTest {
 
         army.addUnitToBattleGroup(ranged2);
 
-        assertEquals(22, army.getAttackDamage());
+        assertEquals(30, army.getAttackDamage());
 
         AttackManager.getInstance().attack(army, new Location(1, 0));
 
-        assertEquals(83, enemyRanged1.getCurrentHealth());
+        assertEquals(75, enemyRanged1.getCurrentHealth());
         assertEquals(100, enemyRanged2.getCurrentHealth());
 
         army.attack(new Location(1, 0));
 
-        assertEquals(66, enemyRanged1.getCurrentHealth());
+        assertEquals(50, enemyRanged1.getCurrentHealth());
         assertEquals(100, enemyRanged2.getCurrentHealth());
 
         MovementManager.getInstance().makeMove(enemyRanged2, new Location(1, 0));
 
         AttackManager.getInstance().attack(army, new Location(1, 0));
 
-        assertEquals(49, enemyRanged1.getCurrentHealth());
-        assertEquals(83, enemyRanged2.getCurrentHealth());
+        assertEquals(25, enemyRanged1.getCurrentHealth());
+        assertEquals(75, enemyRanged2.getCurrentHealth());
 
         AttackManager.getInstance().attack(f2, new Location(1, 0));
 
-        assertEquals(44, enemyRanged1.getCurrentHealth());
-        assertEquals(78, enemyRanged2.getCurrentHealth());
+        assertEquals(20, enemyRanged1.getCurrentHealth());
+        assertEquals(70, enemyRanged2.getCurrentHealth());
     }
 
     @Test
@@ -140,15 +140,15 @@ public class AttackTest {
 
         army.addUnitToBattleGroup(ranged2);
 
-        assertEquals(22, army.getAttackDamage());
+        assertEquals(30, army.getAttackDamage());
 
         AttackManager.getInstance().attack(army, new Location(5, 5));
 
-        assertEquals(83, f2.getCurrentHealth());
+        assertEquals(75, f2.getCurrentHealth());
 
         army2.attack(new Location(5,5));
 
-        assertEquals(73, f2.getCurrentHealth());
+        assertEquals(65, f2.getCurrentHealth());
 
     }
 }
