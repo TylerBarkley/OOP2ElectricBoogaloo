@@ -137,10 +137,4 @@ public class AreaViewportTest {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	@Test
-	public void smokeTest_lookOfMap() {
-		Map map=new Map("map.txt");
-		while(getClass().equals(null));
-	}
 }

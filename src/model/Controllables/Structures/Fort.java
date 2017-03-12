@@ -23,15 +23,7 @@ public class Fort extends Structure implements Attacker{
     }
 
     public void assignWorkersToTrainSoldiers(int numOfWorkers_AssignToTrain){
-        if(fortManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToTrain){
-            numOfWorkers_AssignToTrain = fortManager.getNumOfWorkers_Unassigned();
-            fortManager.setNumOfWorkers_Unassigned(0);
-            fortManager.setNumOfWorkers_SoldierTraining(numOfWorkers_AssignToTrain);
-        }
-        else{
-            fortManager.setNumOfWorkers_SoldierTraining(numOfWorkers_AssignToTrain);
-            fortManager.assignWorkers(numOfWorkers_AssignToTrain);
-        }
+        fortManager.assignWorkers(numOfWorkers_AssignToTrain);
     }
 
     public void makeSoldiers(){
@@ -54,6 +46,8 @@ public class Fort extends Structure implements Attacker{
     public void setNumOfSoldiers(int numOfSoldiers) {
         this.numOfSoldiers = numOfSoldiers;
     }
+
+    public int getNumOfSoldiers(){return this.numOfSoldiers; }
 
     public int getAttackDamage(){
         return this.getMyStats().getOffensiveDamage();

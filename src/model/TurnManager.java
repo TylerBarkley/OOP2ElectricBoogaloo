@@ -19,6 +19,9 @@ public class TurnManager {
 	public TurnManager(ArrayList<Player> players){
 		this.players=players;
 		index=0;
+		
+		endObservers=new ArrayList<EndTurnObserver>();
+		startObservers=new ArrayList<StartTurnObserver>();
 	}
 	
 	public void endTurn() {

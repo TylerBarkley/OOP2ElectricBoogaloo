@@ -24,6 +24,8 @@ import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
 import model.player.Player;
 import model.player.PlayerID;
+import utilities.MapVisitor;
+import utilities.ViewVisitor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,7 +60,15 @@ public class Map {
 		return map;
 	}
 
+	public static Map getInstance(String fileName){
+		if(map == null)
+		{
+			map = new Map(fileName);
+		}
 
+		return map;
+	}
+	
 	private Map(int width, int height) //Generates random map
 	{
 		tiles=new HashMap<Location, Tile>();
@@ -116,7 +126,7 @@ public class Map {
 
 
 	
-	public Map(String fileName) //Generates test map
+	private Map(String fileName) //Generates test map
 	{
 		tiles = new HashMap<Location, Tile>();
 		aoeManager = new AreaOfEffectManager();
@@ -284,14 +294,24 @@ public class Map {
 		this.getTileAt(location).getTerrain().visitTerrain(target);
 	}
 
-	public static void setMoveDebug(){MoveDebug = true;}
+	public Set<Location> getLocations(){
+		return tiles.keySet();
+	}
 
-	public static void setBFSDebug() {BFSDebug = true;
+	public void accept(MapVisitor visitor) {
+		visitor.visit(this);
+	}
+	
+	public static void setMoveDebug(){
+		MoveDebug = true;
+		}
+
+	public static void setBFSDebug() {
+		BFSDebug = true;
 	}
 
 	public static void resetDebug(){
 		MoveDebug = false;
 		BFSDebug = false;
 	}
-
 }

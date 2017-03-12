@@ -9,6 +9,8 @@ import control.MenuStates.RallyPointMenuStates.RPBuildState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
+import model.Location;
+import model.MapDirection;
 import model.Controllables.ControllableCollection;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
@@ -39,15 +41,18 @@ public class Menu {
 	private int currentMode = UNITMODE;
 	private ArrayList<MenuObserver> observers;
 	private PlayerID id;
-
+	private Location focus;
+	
 	public Menu(PlayerID id){
 		this.id=id;
-		updateControllableCollection();
+		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
+		observers=new ArrayList<MenuObserver>();
 		//Menu starts on Colonist - Build Capital.
 		//Call updateControllable once to assign the currentUnit variable to the colonist
 		setMenuState(BuildCapitalState.getInstance());
 		menuState.updateControllable(this);
-		observers=new ArrayList<MenuObserver>();
+		
+		setFocus(new Location(0,0));
 	}
 
 	public void addObserver(MenuObserver observer)
@@ -120,6 +125,8 @@ public class Menu {
 			}
 			menuState.reset(this);
 		}
+		
+		notifyObservers();
 	}
 	public void cycleModeR(){
 		int startedMode = currentMode;
@@ -147,6 +154,8 @@ public class Menu {
 			}
 			menuState.reset(this);
 		}
+		
+		notifyObservers();
 	}
 
     public int getCurrentMode() {return currentMode;}
@@ -156,6 +165,7 @@ public class Menu {
 	public void reset(){
 		cycleModeL();
 		cycleModeR();
+		notifyObservers();
 	}
     
     public String typeToString() {
@@ -165,31 +175,37 @@ public class Menu {
 	public void cycleTypeL()
 	{
 		menuState.cycleTypeL(this);
+		notifyObservers();
 	}
 
 	public void cycleTypeR()
 	{
 		menuState.cycleTypeR(this);
+		notifyObservers();
 	}
 
 	public void cycleInstanceL()
 	{
 		menuState.cycleInstanceL(this);
+		notifyObservers();
 	}
 
 	public void cycleInstanceR()
 	{
 		menuState.cycleInstanceR(this);
+		notifyObservers();
 	}
 
 	public void cycleInstructionL()
 	{
 		menuState.cycleInstructionL(this);
+		notifyObservers();
 	}
 
 	public void cycleInstructionR()
 	{
 		menuState.cycleInstructionR(this);
+		notifyObservers();
 	}
 
 	public MenuState getMenuState() 
@@ -200,6 +216,7 @@ public class Menu {
 	public void setMenuState(MenuState menuState)
 	{
 		this.menuState = menuState;
+		notifyObservers();
 	}
 
 	public ControllableCollection getControllableCollection() 
@@ -243,5 +260,22 @@ public class Menu {
 	
 	public void updateControllableCollection(){
 		controllableCollection=PlayerManager.getInstance().getControllableCollection(id);
+		reset();
+
+		notifyObservers();
+	}
+
+	public Location getFocus() {
+		return focus;
+	}
+
+	public void setFocus(Location focus) {
+		this.focus = focus;
+		notifyObservers();
+	}
+	
+	public void setFocus(MapDirection direction) {
+		this.focus = focus.getAdjacent(direction);
+		notifyObservers();
 	}
 }

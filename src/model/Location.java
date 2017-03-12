@@ -60,10 +60,11 @@ public class Location
 	public ArrayList<Location> getAllLocationsWithinRadius(int radius)
 	{
 		ArrayList<Location> locs=new ArrayList<Location>();
+		locs.add(this);
 		
-		for(int i=0; i<radius; i++)
+		for(int i=0; i<=radius; i++)
 		{
-			locs.addAll(getLocationsAtRadius(radius));
+			locs.addAll(getLocationsAtRadius(i));
 		}
 		
 		return locs;

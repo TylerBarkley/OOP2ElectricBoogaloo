@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import model.ID;
 import model.Location;
 import model.MapDirection;
+import utilities.AreaViewportVisitor;
+import utilities.ViewVisitor;
 
 public class AreaViewport extends JPanel
 {
@@ -22,7 +24,8 @@ public class AreaViewport extends JPanel
 
 	private HashMap<Location, TileView> mapView;
 	private HashMap<Location, CompositeView> resources;
-
+	private HashMap<Location, View> shades;
+	
 	private Location focus;
 	private FocusView focusView;
 	private ID focusID;
@@ -45,7 +48,8 @@ public class AreaViewport extends JPanel
 		views=new HashMap<ID, View>();
 
 		resources=new HashMap<Location, CompositeView>();
-
+		shades=new HashMap<Location, View>();
+		
 		focus=new Location(0,0);
 		focusID=new ID();
 		focusView=new FocusView(focusID, focus);
@@ -77,12 +81,19 @@ public class AreaViewport extends JPanel
 	public void updateMapView(Location loc, TileView view)
 	{
 		mapView.put(loc, view);
+		shades.remove(loc);
 		updateView();
 	}
 
 	public void updateMapView(HashMap<Location, TileView> views)
 	{
 		mapView.putAll(views);
+		
+		for(Location loc: views.keySet())
+		{
+			shades.remove(loc);
+		}
+		
 		updateView();
 	}
 
@@ -187,6 +198,10 @@ public class AreaViewport extends JPanel
 		g2d=momento.getG2d();
 
 		resourceViewVisible=momento.isResourceViewVisible();
+		
+		mapView=momento.getMapView();
+		
+		addShades();
 	}
 	
 	private Location getTopLeftCornerOfDisplay() 
@@ -303,6 +318,12 @@ public class AreaViewport extends JPanel
 		{
 			resourcesView.draw(g2d, pixelX, pixelY);
 		}
+		
+		View view = shades.get(loc);
+		if(view!=null)
+		{
+			view.draw(g2d, pixelX, pixelY);
+		}
 	}	
 
 	private ArrayList<View> getViewsAt(Location loc)
@@ -318,5 +339,19 @@ public class AreaViewport extends JPanel
 		}
 
 		return desiredViews;
+	}
+
+	private void addShades()
+	{
+		ViewFactory factory=ViewFactory.getFactory();
+		for(Location loc: mapView.keySet())
+		{
+			View shade=factory.getView(new ID(), "Invisible", loc);
+			shades.put(loc, shade);
+		}
+	}
+	
+	public void accept(AreaViewportVisitor visitor) {
+		visitor.visit(this);
 	}
 }

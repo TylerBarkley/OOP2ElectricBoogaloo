@@ -92,5 +92,7 @@ public class UnitOverview extends JPanel implements UnitVisitor {
 			renderer.deSelectUnit();
 		}
 		model.update();
+		
+		repaint();
 	}
 }

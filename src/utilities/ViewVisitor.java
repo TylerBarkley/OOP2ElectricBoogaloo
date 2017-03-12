@@ -4,6 +4,10 @@ import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
 import model.Map.Map;
 import model.Map.Tile;
+import model.Map.Occupancy.StructureOccupancy;
+import model.Map.Occupancy.StructureOccupancyManager;
+import model.Map.Occupancy.UnitOccupancy;
+import model.Map.Occupancy.UnitOccupancyManager;
 import model.Map.Resources.ResourceLevel;
 import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
@@ -27,7 +31,8 @@ import model.Controllables.Worker;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,StructureVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,
+StructureVisitor, AreaViewportVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -35,7 +40,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 	private HashMap<Location, ResourceLevel> resources;
 	private ArrayList<Unit> units;
 	private ArrayList<Structure> structures;
-	
+
 	public ViewVisitor(PlayerID playerID){
 		this.playerID=playerID;
 		visibleLocations=new ArrayList<Location>();
@@ -44,15 +49,17 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 		units=new ArrayList<Unit>();
 		structures=new ArrayList<Structure>();
 	}
-	
+
 	@Override
 	public void visit(Unit unit) {
-		Location loc=unit.getLocation();
-		int sight = unit.getMyStats().getInfluenceRadius();
-		
-		visibleLocations.addAll(loc.getAllLocationsWithinRadius(sight));
-		
-		units.add(unit);
+		if(unit.getID().getPlayerID().equals(playerID)){
+			Location loc=unit.getLocation();
+			int sight = unit.getMyStats().getInfluenceRadius();
+
+			visibleLocations.addAll(loc.getAllLocationsWithinRadius(sight));
+
+			units.add(unit);
+		}
 	}
 
 	@Override
@@ -65,32 +72,47 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 		for(Location loc: visibleLocations)
 		{
 			Tile tile = map.getTileAt(loc);
-			terrains.put(loc, tile.getTerrain());
-			
-			boolean prospected = tile.isProspected();
-			if(prospected){
-				resources.put(loc,map.getResourcesAt(loc));
+			if(tile!=null)
+			{
+				terrains.put(loc, tile.getTerrain());
+				boolean prospected = tile.isProspected();
+				if(prospected){
+					resources.put(loc,map.getResourcesAt(loc));
+				}
 			}
-			
-			units.addAll(map.getUnitOccupancyManager().get(loc).getOccupants());
-			structures.add(map.getStructureOccupancyManager().get(loc).getOccupant());
+
+			UnitOccupancyManager uOccMan=map.getUnitOccupancyManager();
+			UnitOccupancy uOcc=uOccMan.get(loc);
+			if(uOcc!=null)
+			{
+				units.addAll(uOcc.getOccupants());
+			}
+
+			StructureOccupancyManager sOccMan=map.getStructureOccupancyManager();
+			StructureOccupancy sOcc=sOccMan.get(loc);
+			if(sOcc!=null)
+			{
+				structures.add(sOcc.getOccupant());
+			}
 		}
 	}
 
 	@Override
 	public void visit(Structure structure) {
-		Location loc=structure.getLocation();
-		int sight = structure.getMyStats().getInfluenceRadius();
-		
-		visibleLocations.addAll(loc.getAllLocationsWithinRadius(sight));
-		
-		structures.add(structure);
+		if(structure.getID().getPlayerID().equals(playerID)){
+			Location loc=structure.getLocation();
+			int sight = structure.getMyStats().getInfluenceRadius();
+
+			visibleLocations.addAll(loc.getAllLocationsWithinRadius(sight));
+
+			structures.add(structure);
+		}
 	}
 
 	public void visit(AreaViewport viewport)
 	{
 		ViewFactory factory = ViewFactory.getFactory();
-		
+
 
 		addTerrainsToView(viewport,factory);
 		addResourcesToView(viewport,factory);
@@ -102,7 +124,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 		for(Entry<Location, Terrain> entry: terrains.entrySet())
 		{
 			String type="";
-			
+
 			if(entry.getValue().equals(Water.getWaterTerrain()))
 			{
 				type="Water";
@@ -115,7 +137,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 			{
 				type="Ground";
 			}
-			
+
 			TileView view = (TileView)factory.getView(new ID(), type, entry.getKey());
 			viewport.updateMapView(entry.getKey(), view);
 		}
@@ -127,10 +149,10 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 			int oreQuantity=entry.getValue().getOreLevel();
 			int energyQuantity=entry.getValue().getEnergyLevel();
 			int foodQuantity=entry.getValue().getFoodLevel();
-			
+
 			CompositeView view = factory.getCopositeResourceView(new ID(), 
 					entry.getKey(), oreQuantity, energyQuantity, foodQuantity);
-			
+
 			viewport.updateResourceView(entry.getKey(), view);
 		}
 	}
@@ -140,7 +162,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 		{
 			String type="";
 			StructureID id= structure.getID(); 
-			
+
 			switch(id.getType()){
 			case StructureID.CAPITAL_TYPE_ID:
 				type="Capital";
@@ -164,11 +186,11 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 				type="University";
 				break;
 			}
-			
+
 			Location loc=structure.getLocation();
 			int dir=structure.getMapDirection().getAngle();
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
-			
+
 			View view = factory.getView(id, type, loc, dir, isOpponent);
 			viewport.addView(view);
 		}
@@ -179,35 +201,26 @@ public class ViewVisitor implements UnitVisitor,MapVisitor,WorkerVisitor,Structu
 		{
 			String type="";
 			UnitID id= unit.getID(); 
-			
+
 			switch(id.getType()){
-			case StructureID.CAPITAL_TYPE_ID:
-				type="Capital";
+			case UnitID.COLONIST_TYPE_ID:
+				type="Colonist";
 				break;
-			case StructureID.FARM_TYPE_ID:
-				type="Farm";
+			case UnitID.EXPLORER_TYPE_ID:
+				type="Explorer";
 				break;
-			case StructureID.FORT_TYPE_ID:
-				type="Fort";
+			case UnitID.MELEE_TYPE_ID:
+				type="Melee";
 				break;
-			case StructureID.MINE_TYPE_ID:
-				type="Mine";
-				break;
-			case StructureID.OBSERVATIONTOWER_TYPE_ID:
-				type="Tower";
-				break;
-			case StructureID.POWERPLANT_TYPE_ID:
-				type="Factory";
-				break;
-			case StructureID.UNIVERSITY_TYPE_ID:
-				type="University";
+			case UnitID.RANGED_TYPE_ID:
+				type="Ranged";
 				break;
 			}
-			
+
 			Location loc=unit.getLocation();
 			int dir=unit.getMapDirection().getAngle();
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
-			
+
 			View view = factory.getView(id, type, loc, dir, isOpponent);
 			viewport.addView(view);
 		}

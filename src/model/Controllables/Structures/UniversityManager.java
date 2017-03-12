@@ -28,7 +28,24 @@ public class UniversityManager extends WorkerManager{
     }
 
     public void assignWorkers(int assignNum){
-        numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+        if((numOfWorkers_HarvestingTechnology + numOfWorkers_Unassigned) < (assignNum + 1)){
+            numOfWorkers_HarvestingTechnology = (numOfWorkers_HarvestingTechnology + numOfWorkers_Unassigned);
+            numOfWorkers_Unassigned = 0;
+        }
+        else if(assignNum < 1){
+            numOfWorkers_Unassigned = numOfWorkers_HarvestingTechnology + numOfWorkers_Unassigned;
+            numOfWorkers_HarvestingTechnology = 0;
+        }
+        else{
+            numOfWorkers_Unassigned = numOfWorkers_HarvestingTechnology + numOfWorkers_Unassigned;
+            numOfWorkers_HarvestingTechnology = assignNum;
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+        }
+
+    }
+
+    public void addUnassignedWorkers(int newWorkers){
+        numOfWorkers_Unassigned = numOfWorkers_Unassigned + newWorkers;
     }
 
     public int getNumOfWorkers_Unassigned() {
