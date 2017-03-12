@@ -211,6 +211,7 @@ public class CapitalManager extends WorkerManager{
         if(assignNum > numOfWorkers_Unassigned){
             assignNum = numOfWorkers_Unassigned;
             numOfWorkers_Breeding = assignNum;
+            numOfWorkers_Unassigned = 0;
         }
         else if(assignNum < 1){
             numOfWorkers_Unassigned += numOfWorkers_Breeding;
@@ -220,13 +221,13 @@ public class CapitalManager extends WorkerManager{
             numOfWorkers_Breeding = assignNum;
             numOfWorkers_Unassigned -= numOfWorkers_Breeding;
         }
-        numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
     }
 
     public void assignWorkersTrainingExplorers(int assignNum){
         if(assignNum > numOfWorkers_Unassigned){
             assignNum = numOfWorkers_Unassigned;
             numOfWorkers_ExplorerTraining = assignNum;
+            numOfWorkers_Unassigned = 0;
         }
         else if(assignNum < 1){
             numOfWorkers_Unassigned += numOfWorkers_ExplorerTraining;
@@ -236,7 +237,6 @@ public class CapitalManager extends WorkerManager{
             numOfWorkers_ExplorerTraining = assignNum;
             numOfWorkers_Unassigned -= numOfWorkers_ExplorerTraining;
         }
-        numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
     }
 
     public ResourceManager getResourceManager() {
