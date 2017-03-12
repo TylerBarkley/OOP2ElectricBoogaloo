@@ -121,6 +121,7 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
 
+		this.currentHealth = myStats.getHealth();
 		this.setActionPoints(myStats.getMovement());
 
 		notifyObservers();

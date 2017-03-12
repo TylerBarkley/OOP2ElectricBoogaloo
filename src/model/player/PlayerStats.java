@@ -42,7 +42,7 @@ public class PlayerStats {
         unitStats.setOffensiveDamage(5);
         unitStats.setInfluenceRadius(1);
         unitStats.setUpkeep(5);
-        unitStats.setMovement(2);
+        unitStats.setMovement(1);
 
         myUnitStats.set(UnitID.COLONIST_TYPE_ID, unitStats);
 
@@ -54,7 +54,7 @@ public class PlayerStats {
         unitStats.setOffensiveDamage(10);
         unitStats.setInfluenceRadius(2);
         unitStats.setUpkeep(5);
-        unitStats.setMovement(3);
+        unitStats.setMovement(2);
 
         myUnitStats.set(UnitID.EXPLORER_TYPE_ID, unitStats);
 
@@ -66,7 +66,7 @@ public class PlayerStats {
         unitStats.setOffensiveDamage(20);
         unitStats.setInfluenceRadius(1);
         unitStats.setUpkeep(5);
-        unitStats.setMovement(2);
+        unitStats.setMovement(1);
 
         myUnitStats.set(UnitID.MELEE_TYPE_ID, unitStats);
 
