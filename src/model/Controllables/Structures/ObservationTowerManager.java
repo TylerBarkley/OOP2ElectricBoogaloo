@@ -36,4 +36,12 @@ public class ObservationTowerManager extends WorkerManager{
     public void setNumOfWorkers_Building(int numOfWorkers_Building) {
         this.numOfWorkers_Building = numOfWorkers_Building;
     }
+
+    public WorkerStats getWorkerStats() {
+        return workerStats;
+    }
+
+    public void setWorkerStats(WorkerStats workerStats) {
+        this.workerStats = workerStats;
+    }
 }
