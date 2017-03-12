@@ -57,7 +57,7 @@ public class PlayerManager {
 		return players.get(id).getArmies();
 	}
 
-	public ArrayList<Worker> getWorkers(PlayerID id) {
+	public Integer getWorkers(PlayerID id) {
 		return players.get(id).getWorkers();
 	}
 	

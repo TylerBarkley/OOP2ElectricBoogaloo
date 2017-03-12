@@ -37,7 +37,7 @@ public class Player {
 
 	private ArrayList<Army> armies;
 	private ArrayList<RallyPoint> rallyPoints;
-	private ArrayList<Worker> workers;
+	private int workers;
 	
 	private Food nutrients;
 	private Energy power;
@@ -56,7 +56,7 @@ public class Player {
 		structureManager=new StructureManager(id);
 
 		armies=new ArrayList<Army>();
-		workers=new ArrayList<Worker>();
+		workers=0;
 		
 		nutrients=new Food(0);
 		power=new Energy(0);
@@ -81,10 +81,6 @@ public class Player {
 
 	public ArrayList<Army> getArmies() {
 		return armies;
-	}
-
-	public ArrayList<Worker> getWorkers() {
-		return workers;
 	}
 
 	public Food getFood(){return nutrients;}
@@ -252,20 +248,15 @@ public class Player {
 		return b;
 	}
 
-	public boolean addWorker(Worker worker) 
+	public boolean addWorker(int newWorkers)
 	{
-		if(workers.size() >= 100)
+		if(this.workers + newWorkers > 100)
 		{
+			workers = 100;
 			return false;
 		}
-		
-		boolean b=workers.add(worker);
-		if(b)
-		{
-			notifyObservers(worker);
-		}
-		
-		return b;
+		this.workers += newWorkers;
+		return true;
 	}
 	
 	public void addNutrients(int food){
@@ -438,4 +429,15 @@ public class Player {
 	}
 
 
+	public int getWorkers(){
+		return this.workers;
+	}
+
+	public int getTechnology() {
+		return technology;
+	}
+
+	public void setTechnology(int technology) {
+		this.technology = technology;
+	}
 }

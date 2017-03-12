@@ -207,10 +207,10 @@ public class ViewHandler implements UnitObserver, StructureObserver, MenuObserve
 			s.notifyObservers();
 		}
 		
-		for(Worker w: pm.getWorkers(id))
+		/*for(Worker w: pm.getWorkers(id))
 		{
 			w.notifyObservers();
-		}
+		}*/
 		
 		for(Army a: pm.getArmies(id))
 		{

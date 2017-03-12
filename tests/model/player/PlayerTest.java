@@ -75,20 +75,20 @@ public class PlayerTest {
 	
 	@Test
 	public void addWorker_OneAdded_ReturnsOne() {
-		player.addWorker(new Worker());
-		assertEquals(1, player.getWorkers().size());
+		player.addWorker(1);
+		assertEquals(1, player.getWorkers());
 	}
 	
 	@Test
 	public void addWorker_101Added_100Added() {
 		for(int i=0; i<100; i++)
 		{
-			assertEquals(i, player.getWorkers().size());
-			assertTrue(player.addWorker(new Worker()));
+			assertEquals(i, player.getWorkers());
+			assertTrue(player.addWorker(1));
 		}
 		
-		assertFalse(player.addWorker(new Worker()));
-		assertEquals(100, player.getWorkers().size());
+		assertFalse(player.addWorker(1));
+		assertEquals(100, player.getWorkers());
 	}
 }
 
