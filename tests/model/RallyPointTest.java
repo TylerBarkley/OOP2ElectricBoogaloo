@@ -3,6 +3,7 @@ package model;
 import model.Controllables.RallyPoint;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
+import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Location;
 import model.Map.AOE.AOEDamage;
@@ -29,7 +30,7 @@ public class RallyPointTest {
     Player p1;
     Player p2;
 
-    Ranged ranged1;
+    Melee ranged1;
     Ranged ranged2;
     Ranged enemyRanged1;
     Ranged enemyRanged2;
@@ -55,53 +56,11 @@ public class RallyPointTest {
         PlayerManager.getInstance().addPlayer(p1);
         PlayerManager.getInstance().addPlayer(p2);
 
-        ranged1 = new Ranged();
+        ranged1 = new Melee();
         ranged2 = new Ranged();
 
         enemyRanged1 = new Ranged();
         enemyRanged2 = new Ranged();
-
-        unitStats1 = new UnitStats();
-        unitStats2 = new UnitStats();
-        unitStats3 = new UnitStats();
-        unitStats4 = new UnitStats();
-
-        unitStats1.setArmor(5);
-        unitStats1.setDefensiveDamage(2);
-        unitStats1.setHealth(100);
-        unitStats1.setOffensiveDamage(2);
-        unitStats1.setInfluenceRadius(2);
-        unitStats1.setUpkeep(2);
-        unitStats1.setMovement(1);
-
-        unitStats2.setArmor(5);
-        unitStats2.setDefensiveDamage(4);
-        unitStats2.setHealth(100);
-        unitStats2.setOffensiveDamage(4);
-        unitStats2.setInfluenceRadius(4);
-        unitStats2.setUpkeep(4);
-        unitStats2.setMovement(2);
-
-        unitStats3.setArmor(5);
-        unitStats3.setDefensiveDamage(8);
-        unitStats3.setHealth(100);
-        unitStats3.setOffensiveDamage(8);
-        unitStats3.setInfluenceRadius(8);
-        unitStats3.setUpkeep(8);
-        unitStats3.setMovement(1);
-
-        unitStats4.setArmor(5);
-        unitStats4.setDefensiveDamage(16);
-        unitStats4.setHealth(100);
-        unitStats4.setOffensiveDamage(16);
-        unitStats4.setInfluenceRadius(16);
-        unitStats4.setUpkeep(16);
-        unitStats4.setMovement(2);
-
-        ranged1.setMyStats(unitStats1);
-        ranged2.setMyStats(unitStats2);
-        enemyRanged1.setMyStats(unitStats3);
-        enemyRanged2.setMyStats(unitStats4);
 
         PlayerManager.getInstance().addUnit(p1.getId(), ranged1);
         PlayerManager.getInstance().addUnit(p1.getId(), ranged2);

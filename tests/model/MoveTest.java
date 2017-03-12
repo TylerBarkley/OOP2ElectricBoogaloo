@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.Assert.*;
 
+import model.Controllables.Units.Melee;
 import org.junit.After;
 
 import model.Controllables.Stats.UnitStats;
@@ -25,9 +26,9 @@ public class MoveTest {
     Player p1;
     Player p2;
 
-    Ranged ranged1;
+    Melee ranged1;
     Ranged ranged2;
-    Ranged enemyRanged1;
+    Melee enemyRanged1;
     Ranged enemyRanged2;
 
     UnitStats unitStats1;
@@ -49,17 +50,17 @@ public class MoveTest {
         PlayerManager.getInstance().addPlayer(p1);
         PlayerManager.getInstance().addPlayer(p2);
 
-        ranged1 = new Ranged();
+        ranged1 = new Melee();
         ranged2 = new Ranged();
 
-        enemyRanged1 = new Ranged();
+        enemyRanged1 = new Melee();
         enemyRanged2 = new Ranged();
 
         unitStats1 = new UnitStats();
         unitStats2 = new UnitStats();
         unitStats3 = new UnitStats();
         unitStats4 = new UnitStats();
-
+/*
         unitStats1.setArmor(5);
         unitStats1.setDefensiveDamage(2);
         unitStats1.setHealth(100);
@@ -96,6 +97,7 @@ public class MoveTest {
         ranged2.setMyStats(unitStats2);
         enemyRanged1.setMyStats(unitStats3);
         enemyRanged2.setMyStats(unitStats4);
+        */
 
         PlayerManager.getInstance().addUnit(p1.getId(), ranged1);
         PlayerManager.getInstance().addUnit(p1.getId(), ranged2);
