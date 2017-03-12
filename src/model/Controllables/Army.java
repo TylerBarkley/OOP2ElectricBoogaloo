@@ -11,6 +11,9 @@ import model.observers.UnitObserver;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -178,6 +181,22 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     public void startTurn(){
         this.canMove = true;
+
+        Queue<Unit> ringOutYourDead = new LinkedList<Unit>();
+
+        Iterator<Unit> unitItr = battleGroup.iterator();
+
+        while(unitItr.hasNext()) {
+            Unit unit = unitItr.next();
+            if(!unit.isAlive()){
+                ringOutYourDead.add(unit);
+            }
+        }
+
+        while (!ringOutYourDead.isEmpty()){
+            this.removeUnitFromBattleGroup(ringOutYourDead.poll());
+        }
+
     }
 
     public void disband(){
