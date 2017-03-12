@@ -8,41 +8,45 @@ import model.player.PlayerManager;
  */
 public class Mine extends Structure implements Mining{
 
-    private WorkerManager workerManager;
+    private MineManager mineManager;
+
+    public Mine(){
+        mineManager = new MineManager();
+    }
     
     @Override
     public void doWork(){
-        if(workerManager.getNumOfWorkers_HarvestingOre() > 0){
+        if(mineManager.getNumOfWorkers_HarvestingOre() > 0){
             harvestOre();
         }
     }
     
     public void assignWorkersToMine(Location loc, int numOfWorkers_AssignToMine){
-        if(workerManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToMine){
-            numOfWorkers_AssignToMine = workerManager.getNumOfWorkers_Unassigned();
-            workerManager.setNumOfWorkers_Unassigned(0);
-            workerManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
+        if(mineManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToMine){
+            numOfWorkers_AssignToMine = mineManager.getNumOfWorkers_Unassigned();
+            mineManager.setNumOfWorkers_Unassigned(0);
+            mineManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
         }
         else{
-            workerManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
-            workerManager.assignWorkers(numOfWorkers_AssignToMine);
+            mineManager.setNumOfWorkers_HarvestingOre(numOfWorkers_AssignToMine);
+            mineManager.assignWorkers(numOfWorkers_AssignToMine);
         }
-        workerManager.setHarvestingOreLocation(loc);
+        mineManager.setHarvestingOreLocation(loc);
     }
     
     @Override
     public void unassign(){
-        workerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        workerManager.setNumOfWorkers_HarvestingOre(0);
+        mineManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
+        mineManager.setNumOfWorkers_HarvestingOre(0);
+        mineManager.setNumOfWorkers_Building(0);
     }
     
     public void harvestOre(){
-        int oreMined = workerManager.produceOre(getMyStats().getProductionRate());
+        int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
         PlayerManager.getInstance().addMetal(getPid(), oreMined);
     }
 
-    @Override
-    public void setWorkerManager(WorkerManager workerManager) {
-        this.workerManager = workerManager;
+    public void setMineManager(MineManager mineManager) {
+        this.mineManager = mineManager;
     }
 }

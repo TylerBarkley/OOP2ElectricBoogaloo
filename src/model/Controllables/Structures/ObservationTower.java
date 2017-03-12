@@ -6,4 +6,16 @@ package model.Controllables.Structures;
 public class ObservationTower extends Structure {
     //TODO nothing, cause this class is useless
     // HK: ^^^LOLOL
+
+    private ObservationTowerManager observationTowerManager;
+
+    public ObservationTower(){
+        observationTowerManager = new ObservationTowerManager();
+    }
+
+    public void unassign(){
+        observationTowerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
+        observationTowerManager.setNumOfWorkers_Building(0);
+    }
+
 }
