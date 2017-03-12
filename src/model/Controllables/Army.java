@@ -305,4 +305,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public void clearQueue() {
         this.myCommands.clear();
     }
+
+	public boolean isDisbanded() {
+		return isDisbanded;
+	}
 }
