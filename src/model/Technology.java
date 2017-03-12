@@ -98,10 +98,10 @@ public void editUnitStats(int unitType,String statToBeModified){
                 structureStats.get(structureType).incrementProductionRate(structureAdvancements.get(structureType).getProductionRateIncrement());
                structureAdvancements.get(structureType).incrementProductionRate();
                 break;
-            case "workerRadius":
+            /*case "workerRadius":
                 structureStats.get(structureType).incrementWorkerRadius(structureAdvancements.get(structureType).getWorkerRadiusIncrement());
                 structureAdvancements.get(structureType).incrementWorkerRadius();
-                break;
+                break;*/
 
             }
 }
