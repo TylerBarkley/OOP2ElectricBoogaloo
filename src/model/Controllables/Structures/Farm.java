@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -44,6 +45,10 @@ public class Farm extends Structure implements Farming{
     public void harvestFood(){
         int foodMined = farmManager.produceFood(getMyStats().getProductionRate());
         PlayerManager.getInstance().addNutrients(getPid(), foodMined);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        farmManager.setWorkerStats(workerStats);
     }
 
     public void setFarmManager(FarmManager farmManager) {

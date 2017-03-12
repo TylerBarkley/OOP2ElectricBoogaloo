@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -44,6 +45,10 @@ public class Mine extends Structure implements Mining{
     public void harvestOre(){
         int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
         PlayerManager.getInstance().addMetal(getPid(), oreMined);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        mineManager.setWorkerStats(workerStats);
     }
 
     public void setMineManager(MineManager mineManager) {

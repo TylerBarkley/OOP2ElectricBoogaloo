@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 
+import model.Controllables.Stats.WorkerStats;
 import model.Location;
 import model.player.PlayerManager;
 
@@ -110,6 +111,10 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
         capitalManager.setNumOfWorkers_ExplorerTraining(0);
         capitalManager.setNumOfWorkers_Breeding(0);
         capitalManager.setNumOfWorkers_Building(0);
+    }
+
+    public void setStats(WorkerStats workerStats){
+        capitalManager.setWorkerStats(workerStats);
     }
 
     public void setCapitalManager(CapitalManager capitalManager) {
