@@ -298,6 +298,8 @@ public class Map {
 		return tiles.keySet();
 	}
 
+	public ResourceManager getResourceManager(){return this.resourceManager;}
+
 	public void accept(MapVisitor visitor) {
 		visitor.visit(this);
 	}

@@ -5,11 +5,13 @@ public class ResourceLevel
 	private Ore ore;
 	private Energy energy;
 	private Food food;
+	private Boolean working;
 
 	public ResourceLevel(int oreLevel, int energyLevel, int foodLevel){
 		ore = new Ore(oreLevel);
 		energy = new Energy(energyLevel);
 		food = new Food(foodLevel);
+		working = false;
 	}
 
 	public int getOreLevel() 
@@ -45,5 +47,13 @@ public class ResourceLevel
 	public void renew()
 	{
 		food.renew();
+	}
+
+	public Boolean getWorking() {
+		return working;
+	}
+
+	public void setWorking(Boolean working) {
+		this.working = working;
 	}
 }

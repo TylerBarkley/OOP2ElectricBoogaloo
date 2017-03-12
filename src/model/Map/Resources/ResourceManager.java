@@ -9,7 +9,6 @@ import model.Map.Manager;
 public class ResourceManager extends Manager<ResourceLevel> {
 
     //Basic resource manager to put in the map
-    private boolean working;
 
     public int mineOre(Location loc, int amount){
         return this.get(loc).mineOreLevel(amount);
@@ -21,11 +20,11 @@ public class ResourceManager extends Manager<ResourceLevel> {
         return this.get(loc).mineFoodLevel(amount);
     }
 
-    public boolean isWorking() {
-        return working;
+    public boolean isWorking(Location loc) {
+        return this.get(loc).getWorking();
     }
 
-    public void setWorking(boolean working) {
-        this.working = working;
+    public void setWorking(Location loc, boolean working) {
+        this.get(loc).setWorking(working);
     }
 }

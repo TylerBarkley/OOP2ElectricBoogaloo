@@ -23,16 +23,7 @@ public class Farm extends Structure implements Farming{
     }
 
     public void assignWorkersToFarm(Location loc, int numOfWorkers_AssignToFarm){
-        if(farmManager.getNumOfWorkers_Unassigned() < numOfWorkers_AssignToFarm){
-            numOfWorkers_AssignToFarm = farmManager.getNumOfWorkers_Unassigned();
-            farmManager.setNumOfWorkers_Unassigned(0);
-            farmManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
-        }
-        else{
-            farmManager.setNumOfWorkers_HarvestingFood(numOfWorkers_AssignToFarm);
-            farmManager.assignWorkers(numOfWorkers_AssignToFarm);
-        }
-        farmManager.setHarvestingFoodLocation(loc);
+        farmManager.assignWorkers(loc, numOfWorkers_AssignToFarm, getLocation());
     }
 
     @Override
@@ -40,6 +31,7 @@ public class Farm extends Structure implements Farming{
         farmManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         farmManager.setNumOfWorkers_HarvestingFood(0);
         farmManager.setNumOfWorkers_Building(0);
+        farmManager.resetWork(getLocation());
     }
 
     public void harvestFood(){
