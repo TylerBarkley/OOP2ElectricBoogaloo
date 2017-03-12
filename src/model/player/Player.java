@@ -42,6 +42,7 @@ public class Player {
 	private Food nutrients;
 	private Energy power;
 	private Ore metal;
+	private int technology;
 	
 	private ArrayList<PlayerObserver> observers;
 	
@@ -279,6 +280,10 @@ public class Player {
 		power.addAmount(energy);
 	}
 
+	public void addTechnology(int technology) {
+		this.technology += technology;
+	}
+
 	public void distributePower(Structure structure,int percentage){
 		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
 		structureManager.getSpecificStructure(structure).incrementEnergyResourceLevel(amountOfPowerGiven);
@@ -431,4 +436,6 @@ public class Player {
 			notifyObserver(ob, object);
 		}
 	}
+
+
 }

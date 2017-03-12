@@ -125,6 +125,10 @@ public class PlayerManager {
 		players.get(id).addPower(energy);
 	}
 
+	public void addTechnology(PlayerID id, int technology){
+		players.get(id).addTechnology(technology);
+	}
+
 	public void distributePower(PlayerID id,Structure structure,int percentage){players.get(id).distributePower(structure,percentage);}
 
 	public void distributeMetal(PlayerID id, Structure structure,int percentage){players.get(id).distributeMetal(structure,percentage);}
