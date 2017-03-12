@@ -120,7 +120,7 @@ public class MovementManager {
     }
 
 
-    public void makeMove(Unit target, Location location){
+    public boolean makeMove(Unit target, Location location){
         //Precondition:  You have already validated the move
 
         unitOccupancyManager.removeUnit(target, target.getLocation());
@@ -139,16 +139,17 @@ public class MovementManager {
 
         map.visitTile(target, location);
 
+        return target.getActionPoints() > 0;
     }
 
-    public void makeMove(Unit target, MapDirection md){
+    public boolean makeMove(Unit target, MapDirection md){
         //Precondition:  You have already validated the move
 
         Location location = target.getLocation().getAdjacent(md);
 
         target.setMapDirection(md);
 
-        this.makeMove(target, location);
+        return this.makeMove(target, location);
     }
 
     public UnitOccupancyManager getUnitOccupancyManager() {
