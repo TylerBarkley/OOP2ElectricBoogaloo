@@ -1,6 +1,14 @@
 package model;
 
 import static org.junit.Assert.*;
+
+import model.Controllables.Army;
+import model.Controllables.RallyPoint;
+import model.Controllables.Stats.WorkerStats;
+import model.Controllables.Structures.Capital;
+import model.Controllables.Structures.CapitalManager;
+import model.Controllables.Units.Melee;
+import model.player.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +18,7 @@ import org.junit.Test;
  */
 public class ResourceManagementTest {
 
-   /*WorkerStats workerStats;
+   WorkerStats workerStats;
    Player player;
    Melee melee;
    Army army;
@@ -18,13 +26,15 @@ public class ResourceManagementTest {
 
 
 
-    @Before
+    /*@Before
     public void testSetup(){
        player=new Player();
        melee =new Melee();
-       army=new Army(melee);
        capital=new Capital();
+
        player.addUnit(melee);
+       army=new RallyPoint(melee).getArmy();
+
        player.addStructure(capital);
        player.addArmy(army);
        player.addMetal(10);
@@ -45,14 +55,14 @@ public class ResourceManagementTest {
         assertEquals(1,capital.getMetalResourceLevel());
         assertEquals(5,player.getPower().getAmount());
         assertEquals(8,player.getNutrients().getAmount());
-         assertEquals(8,player.getMetal().getAmount());
+         assertEquals(9,player.getMetal().getAmount());
     }
-      @Test
+   @Test
     public void resourceConsumptionTest(){
         player.distributePower(capital,50);
         player.distributeNutrients(capital,20);
         player.distributeMetal(capital, 10);
-         player.distributePower(army,30);
+        player.distributePower(army,30);
         player.distributeNutrients(army,20);
         player.distributeMetal(army, 10);
         player.storePower(20);
@@ -60,7 +70,8 @@ public class ResourceManagementTest {
         player.storeMetal(80);
         army.distribute();
         capital.distribute();
-    }
-
-    */
+        assertEquals(melee.getUpkeep(),melee.getEnergyResourceLevel());
+        assertEquals(melee.getUpkeep(),melee.getMetalResourceLevel());
+        assertEquals(melee.getUpkeep(),melee.getNutrientResourceLevel());
+    }*/
 }
