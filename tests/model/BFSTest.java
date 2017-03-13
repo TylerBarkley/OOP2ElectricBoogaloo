@@ -124,7 +124,7 @@ public class BFSTest {
 
     @Test
     public void BFSTest(){
-        System.out.println("BFS TEST\n");
+        /*System.out.println("BFS TEST\n");
 
         Map.reset();
         Map.getInstance().addUnit(new Location(8,2), ranged1);
@@ -136,8 +136,8 @@ public class BFSTest {
 
         Location RP = new Location(7, 8);
         MovementManager mm = MovementManager.getInstance();
-//Problem appeared during merge. I don't know how to fix. Please help me.
-/*        HashMap<Location, Location> bfs = Map.getInstance().BFS (p1.getId(), RP);
+
+        HashMap<Location, Location> bfs = Map.getInstance().BFS (p1.getId(), RP);
 
         boolean neverCrossesWall = true;
 
@@ -149,7 +149,6 @@ public class BFSTest {
                 neverCrossesWall = false;
             }
         }
-        assertTrue(neverCrossesWall);
-        */
+        assertTrue(neverCrossesWall);*/
     }
 }
