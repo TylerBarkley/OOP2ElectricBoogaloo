@@ -15,7 +15,7 @@ public class ArmyPowerDownState extends ArmyMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentArmy.powerDown();
+        currentArmy.powerDown();
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyDecommissionState.getInstance();

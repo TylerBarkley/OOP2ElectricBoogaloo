@@ -6,8 +6,7 @@ import model.Controllables.Command;
 /**
  * Created by zrgam_000 on 3/9/2017.
  */
-public class MoveCommand implements Command{
-
+public class MoveCommand implements Command {
     Army target;
     MapDirection md;
 

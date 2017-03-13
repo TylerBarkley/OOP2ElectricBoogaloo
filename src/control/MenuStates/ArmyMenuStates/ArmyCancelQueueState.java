@@ -15,7 +15,7 @@ public class ArmyCancelQueueState extends ArmyMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentArmy.attack();
+        currentArmy.getCommandQueue().clear();
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyPowerUpState.getInstance();

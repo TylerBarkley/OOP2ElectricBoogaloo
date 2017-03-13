@@ -33,6 +33,8 @@ import utilities.MenuVisitor;
  * Q4D: review good vs. bad casting
  *
  * Structure arrayLists will be variable size
+ *
+ * Menu needs to know the player's focus
  */
 public class Menu implements PlayerObserver, StartTurnObserver{
 
