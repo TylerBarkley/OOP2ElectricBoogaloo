@@ -15,6 +15,7 @@ public class Fort extends Structure implements Attacker{
     public Fort(){
         builtPercentage = 0;
         fortManager = new FortManager();
+        setBeingBuilt(true);
     }
 
     @Override

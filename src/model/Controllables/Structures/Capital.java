@@ -12,6 +12,7 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     private CapitalManager capitalManager;
 
     public Capital(){
+        setBeingBuilt(false);
         capitalManager = new CapitalManager();
     }
 

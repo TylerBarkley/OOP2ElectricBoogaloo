@@ -12,7 +12,9 @@ public class University extends Structure {
     private int builtPercentage;
 
     public University(){
+        builtPercentage = 0;
         universityManager = new UniversityManager();
+        setBeingBuilt(true);
     }
 
     @Override

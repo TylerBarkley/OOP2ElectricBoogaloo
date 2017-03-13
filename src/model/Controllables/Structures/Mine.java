@@ -15,6 +15,7 @@ public class Mine extends Structure implements Mining{
     public Mine(){
         builtPercentage = 0;
         mineManager = new MineManager();
+        setBeingBuilt(true);
     }
     
     @Override
