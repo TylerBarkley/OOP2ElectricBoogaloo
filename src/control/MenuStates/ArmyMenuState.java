@@ -3,7 +3,6 @@ package control.MenuStates;
 import control.Menu;
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
-import model.Controllables.Units.Unit;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -111,7 +110,7 @@ public abstract class ArmyMenuState implements MenuState{
     public void updateControllable(Menu context){
         currentArmy = (Army)context.getControllableCollection().get(currentType, currentInstance);
     }
-    public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
 
     public int getCurrentType() {return currentType;}
@@ -125,5 +124,9 @@ public abstract class ArmyMenuState implements MenuState{
             case ControllableCollection.REINFORCEMENTSTYPE: return "Reinforcements";
         }
         return null;
+    }
+    
+    public Army getCurrentInstance(){
+    	return currentArmy;
     }
 }

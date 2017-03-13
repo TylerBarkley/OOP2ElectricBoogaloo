@@ -153,6 +153,12 @@ public class AreaViewport extends JPanel
 		views.put(view.getID(), view);
 		updateView();
 	}
+	
+	public void addViews(HashMap<ID, View> views)
+	{
+		this.views.putAll(views);
+		updateView();
+	}
 
 	public void displayView()
 	{

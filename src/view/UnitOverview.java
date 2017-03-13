@@ -83,12 +83,12 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 	public void updateMenu(Menu menu) {
 		
 		this.currentMode.setText("CURRENT MODE= " + menu.modeToString());
-		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstance());
+		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstanceNumber());
 		this.currentType.setText("CURRENT TYPE= " + menu.typeToString());
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstance());
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstruction());
 		
 		if(menu.getCurrentMode() == Menu.UNITMODE) {
-			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstance());
+			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstanceNumber());
 		} 
 		else {
 			renderer.deSelectUnit();

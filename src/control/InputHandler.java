@@ -18,11 +18,11 @@ public class InputHandler {
 	}
 
 	public void cycleMode() {
-		menu.cycleInstanceR();
+		menu.cycleModeR();
 	}
 
 	public void cycleModeReverse() {
-		menu.cycleInstanceL();
+		menu.cycleModeL();
 	}
 
 	public void cycleType() {
@@ -50,9 +50,7 @@ public class InputHandler {
 	}
 
 	public void centerFocus() {
-		int mode=menu.getCurrentMode();
-		int instance=menu.getCurrentInstance();
-		Controllable c=menu.getControllableCollection().get(mode,instance);
+		Controllable c=menu.getCurrentInstance();
 		
 		if(c!=null && c.getLocation()!=null)
 		{
@@ -63,5 +61,4 @@ public class InputHandler {
 	public void endTurn() {
 		turn.endTurn();
 	}
-
 }

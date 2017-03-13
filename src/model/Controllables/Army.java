@@ -10,6 +10,7 @@ import model.observers.ArmyObserver;
 import model.observers.UnitObserver;
 import model.player.Player;
 import model.player.PlayerID;
+import model.player.PlayerManager;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
@@ -46,16 +47,14 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	private boolean isDisbanded;
     private RallyPoint myRP;
 
-    private PlayerID playerID;
-
+    private ArmyID id;
+    
     public Army(Unit unit, RallyPoint rallyPoint){
 		observers=new ArrayList<ArmyObserver>();
 
         movementManager = MovementManager.getInstance();
 
         this.myRP = rallyPoint;
-
-        this.playerID = rallyPoint.getPlayerID();
 
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
@@ -67,6 +66,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
         this.addUnitToBattleGroup(unit);
 
 		isDisbanded=false;
+		
+		PlayerManager.getInstance().addArmy(rallyPoint.getPlayerID(), this);
     }
 
     public Army()
@@ -319,7 +320,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	}
 
     public PlayerID getPlayerID() {
-        return playerID;
+        return id.getPlayerID();
     }
 
     public void removeWorkers(int workers) {
@@ -334,4 +335,13 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public void addWorkers(int workers){
         this.workers += workers;
     }
+
+	@Override
+	public ControllableID getID() {
+		return id;
+	}
+	
+	public void setID(ArmyID id){
+		this.id=id;
+	}
 }

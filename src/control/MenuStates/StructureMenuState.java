@@ -104,7 +104,7 @@ public abstract class StructureMenuState implements MenuState {
     public void updateControllable(Menu context){
         currentStructure = (Structure) context.getControllableCollection().get(currentType, currentInstance);
     }
-    public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
 
     public int getCurrentType() {return currentType;}
@@ -122,5 +122,9 @@ public abstract class StructureMenuState implements MenuState {
             case ControllableCollection.UNIVERSITYTYPE: return "University";
         }
         return null;
+    }
+    
+    public Structure getCurrentInstance(){
+    	return currentStructure;
     }
 }

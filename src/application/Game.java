@@ -37,7 +37,7 @@ public class Game {
 		
 		menu=new Menu(players.get(currentPlayer).getId());		
 		
-		TurnManager turn=new TurnManager(players);
+		TurnManager turn=TurnManager.getInstance(players);
 		viewHandler=new ViewHandler(width, height, menu, turn, controls);
 		
 		p1.addObserver(viewHandler);
@@ -45,6 +45,10 @@ public class Game {
 		turn.addEndObserver(viewHandler);
 		turn.addStartObserver(viewHandler);
 		menu.addObserver(viewHandler);
+		
+		turn.addStartObserver(menu);
+		p1.addObserver(menu);
+		p2.addObserver(menu);
 		
 		PlayerManager pm = PlayerManager.getInstance();
 		

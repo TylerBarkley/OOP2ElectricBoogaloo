@@ -289,7 +289,7 @@ public class RallyPoint implements Controllable {
 		visitor.visit(this);
 	}
 
-	public void setRPID(RPID id) {
+	public void setID(RPID id) {
 		this.id=id;
 	}
 	

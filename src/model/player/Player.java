@@ -3,6 +3,7 @@ package model.player;
 import java.util.ArrayList;
 
 import model.Controllables.Army;
+import model.Controllables.ArmyID;
 import model.Controllables.ControllableCollection;
 import model.Controllables.RPID;
 import model.Controllables.RallyPoint;
@@ -57,6 +58,7 @@ public class Player implements ArmyObserver, RPObserver{
 		structureManager=new StructureManager(id);
 
 		armies=new ArrayList<Army>();
+		rallyPoints=new ArrayList<RallyPoint>();
 		workers=0;
 		
 		nutrients=new Food(0);
@@ -233,6 +235,7 @@ public class Player implements ArmyObserver, RPObserver{
 		boolean b=armies.add(army);
 		if(b)
 		{
+			army.setID(new ArmyID(this.id,armies.size()-1));
 			notifyObservers(army);
 		}
 		
@@ -243,7 +246,7 @@ public class Player implements ArmyObserver, RPObserver{
 		boolean b=rallyPoints.add(rp);
 		if(b)
 		{
-			rp.setRPID(new RPID(this.id,rallyPoints.size()-1));
+			rp.setID(new RPID(this.id,rallyPoints.size()-1));
 			notifyObservers(rp);
 		}
 
@@ -438,6 +441,11 @@ public class Player implements ArmyObserver, RPObserver{
 			army.removeObserver(this);
 		}
 		
+		for(int i=army.getID().getInstanceNumber(); i<armies.size(); i++)
+		{
+			armies.get(i).getID().setInstanceNumber(i);
+		}
+		
 		notifyObservers(army);
 	}
 	
@@ -447,6 +455,11 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			armies.remove(rp);
 			rp.removeObserver(this);
+		}
+		
+		for(int i=rp.getID().getInstanceNumber(); i<rallyPoints.size(); i++)
+		{
+			rallyPoints.get(i).getID().setInstanceNumber(i);
 		}
 		
 		notifyObservers(rp);

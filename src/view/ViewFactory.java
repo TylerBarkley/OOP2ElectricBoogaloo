@@ -182,7 +182,7 @@ public class ViewFactory {
 		}
 	}
 
-	public CompositeView getCopositeResourceView(ID id, Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
+	public CompositeView getCompositeResourceView(ID id, Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
 	{
 		CompositeView view=new CompositeView();
 		view.add(new EnergyView(id, energy, loc, oreQuantity));
