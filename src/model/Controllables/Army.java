@@ -63,11 +63,11 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
         this.canMove = true;
 
-        this.addUnitToBattleGroup(unit);
-
 		isDisbanded=false;
 		
-		PlayerManager.getInstance().addArmy(rallyPoint.getPlayerID(), this);
+		PlayerManager.getInstance().addArmy(unit.getPid(), this);
+        
+        this.addUnitToBattleGroup(unit);
     }
 
     public Army()
