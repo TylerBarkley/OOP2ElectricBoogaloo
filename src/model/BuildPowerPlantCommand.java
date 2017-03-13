@@ -9,14 +9,16 @@ import model.Controllables.Command;
 public class BuildPowerPlantCommand implements Command {
     ProductionManager productionManager;
     Army army;
+    int workers;
 
-    public BuildPowerPlantCommand(Army army){
+    public BuildPowerPlantCommand(Army army, int workers){
         this.army = army;
         productionManager = ProductionManager.getInstance();
+        this.workers = workers;
     }
 
     @Override
     public void execute() {
-        productionManager.buildPowerPlant(army);
+        productionManager.buildPowerPlant(army, workers);
     }
 }

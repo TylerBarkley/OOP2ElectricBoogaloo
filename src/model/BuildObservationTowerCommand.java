@@ -9,15 +9,16 @@ import model.Controllables.Command;
 public class BuildObservationTowerCommand implements Command{
     ProductionManager productionManager;
     Army army;
+    int workers;
 
-
-    public BuildObservationTowerCommand(Army army){
+    public BuildObservationTowerCommand(Army army, int workers){
         this.army = army;
         productionManager = ProductionManager.getInstance();
+        this.workers = workers;
     }
 
     @Override
     public void execute() {
-        productionManager.buildObservationTower(army);
+        productionManager.buildObservationTower(army, workers);
     }
 }

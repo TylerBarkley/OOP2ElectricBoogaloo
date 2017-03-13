@@ -10,16 +10,17 @@ public class BuildMineCommand implements Command {
 
     ProductionManager productionManager;
     Army army;
+    int workers;
 
-
-    public BuildMineCommand(Army army){
+    public BuildMineCommand(Army army, int workers){
         this.army = army;
         productionManager = ProductionManager.getInstance();
+        this.workers = workers;
     }
 
     @Override
     public void execute() {
-        productionManager.buildMine(army);
+        productionManager.buildMine(army, workers);
     }
 }
 

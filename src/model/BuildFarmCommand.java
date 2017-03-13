@@ -10,15 +10,18 @@ public class BuildFarmCommand implements Command {
 
     ProductionManager productionManager;
     Army army;
+    int workers;
 
-
-    public BuildFarmCommand(Army army){
+    public BuildFarmCommand(Army army, int workers){
         this.army = army;
         productionManager = ProductionManager.getInstance();
+        this.workers = workers;
     }
 
     @Override
     public void execute() {
-        productionManager.buildFarm(army);
+
+        army.removeWorkers(workers);
+        productionManager.buildFarm(army, workers);
     }
 }

@@ -63,51 +63,63 @@ public class ProductionManager {
         martyr.killMe();
     }
 
-    public void buildUniversity(Army army) {
+    public void buildUniversity(Army army, int workers) {
         University newStruct = new University();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 
-    public void buildObservationTower(Army army) {
+    public void buildObservationTower(Army army, int workers) {
         ObservationTower newStruct = new ObservationTower();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 
-    public void buildMine(Army army) {
+    public void buildMine(Army army, int workers) {
         Mine newStruct = new Mine();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 
-    public void buildPowerPlant(Army army) {
+    public void buildPowerPlant(Army army, int workers) {
         PowerPlant newStruct = new PowerPlant();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 
-    public void buildFarm(Army army) {
+    public void buildFarm(Army army, int workers) {
         Farm newStruct = new Farm();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 
-    public void buildFort(Army army) {
+    public void buildFort(Army army, int workers) {
         Fort newStruct = new Fort();
 
         if(playerManager.addStructure(army.getPlayerID(), newStruct)){
             map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
         }
     }
 }

@@ -10,14 +10,16 @@ public class BuildUniversityCommand implements Command {
 
     ProductionManager productionManager;
     Army army;
+    int workers;
 
-    public BuildUniversityCommand(Army army){
+    public BuildUniversityCommand(Army army, int workers){
         this.army = army;
+        this.workers = workers;
         productionManager = ProductionManager.getInstance();
     }
 
     @Override
     public void execute() {
-        productionManager.buildUniversity(army);
+        productionManager.buildUniversity(army, workers);
     }
 }

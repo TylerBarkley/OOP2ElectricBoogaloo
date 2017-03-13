@@ -319,4 +319,17 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public PlayerID getPlayerID() {
         return playerID;
     }
+
+    public void removeWorkers(int workers) {
+        if(this.workers - workers < 0){
+            this.workers = 0;
+            return;
+        }
+
+        this.workers -= workers;
+    }
+
+    public void addWorkers(int workers){
+        this.workers += workers;
+    }
 }
