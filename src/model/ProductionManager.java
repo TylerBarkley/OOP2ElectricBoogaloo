@@ -3,7 +3,9 @@ package model;
 import model.Controllables.Army;
 import model.Controllables.Structures.*;
 import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
 import model.Map.Map;
 import model.player.Player;
 import model.player.PlayerID;
@@ -120,6 +122,34 @@ public class ProductionManager {
             map.addStructure(army.getLocation(), newStruct);
             newStruct.addWorker(workers);
             army.removeWorkers(workers);
+        }
+    }
+
+
+    public void produceRanged(Fort fort){
+        Ranged ranged = new Ranged();
+
+        if(playerManager.addUnit(fort.getPid(), ranged)){
+            map.addUnit(fort.getLocation(), ranged);
+            ranged.setMapDirection(MapDirection.getNorth());
+        }
+    }
+
+    public void produceMelee(Fort fort){
+        Melee melee = new Melee();
+
+        if(playerManager.addUnit(fort.getPid(), melee)){
+            map.addUnit(fort.getLocation(), melee);
+            melee.setMapDirection(MapDirection.getNorth());
+        }
+    }
+
+    public void produceExplorer(Capital capital){
+        Explorer explorer = new Explorer();
+
+        if(playerManager.addUnit(capital.getPid(), explorer)){
+            map.addUnit(capital.getLocation(), explorer);
+            explorer.setMapDirection(MapDirection.getNorth());
         }
     }
 }
