@@ -11,6 +11,7 @@ import model.Location;
 import model.TurnManager;
 
 import model.Controllables.Army;
+import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
@@ -20,6 +21,7 @@ import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
 import model.observers.MenuObserver;
 import model.observers.PlayerObserver;
+import model.observers.RPObserver;
 import model.observers.StartTurnObserver;
 import model.observers.StructureObserver;
 import model.observers.UnitObserver;
@@ -31,7 +33,7 @@ import model.player.PlayerManager;
 import utilities.ViewVisitor;
 
 public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, PlayerObserver,
-ArmyObserver, EndTurnObserver, StartTurnObserver
+ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 {
 	private int width;
 	private int height;
@@ -148,8 +150,22 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 	}
 
 	@Override
+	public void update(Player player, RallyPoint rp) {
+		update(player);
+
+		if(rp.isActive())
+		{
+			rp.removeObserver(this);
+		}
+		else
+		{
+			rp.addObserver(this);
+		}
+	}
+	
+	@Override
 	public void update(Army army) {
-		//army.accept(unitOverview);
+		army.accept(unitOverview);
 	}
 
 	@Override
@@ -217,18 +233,25 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 			s.notifyObservers();
 		}
 
-		/*for(Worker w: pm.getWorkers(id))
-		{
-			w.notifyObservers();
-		}*/
-
 		for(Army a: pm.getArmies(id))
 		{
 			a.notifyObservers();
+		}
+		
+		for(RallyPoint rp: pm.getRallyPoints(id))
+		{
+			rp.notifyObservers();
 		}
 	}
 
 	public void openWindow() {
 		window.openWindow();
+	}
+
+	@Override
+	public void update(RallyPoint rp) {
+		rp.accept(viewVisitor);
+		
+		updateView();
 	}
 }

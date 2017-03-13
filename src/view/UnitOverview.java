@@ -10,13 +10,15 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 import control.Menu;
+import model.Controllables.Army;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.Unit;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
+import utilities.ArmyVisitor;
 import utilities.UnitVisitor;
 
-public class UnitOverview extends JPanel implements UnitVisitor {
+public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 
 	private int width, height;
 	private JTable unitTable;
@@ -94,5 +96,15 @@ public class UnitOverview extends JPanel implements UnitVisitor {
 		model.update();
 		
 		repaint();
+	}
+
+	@Override
+	public void visit(Army army) {
+		if(!army.isDisbanded()) {
+//			model.addArmy(army);
+		}
+		else {
+//			model.removeArmy(army);
+		}
 	}
 }

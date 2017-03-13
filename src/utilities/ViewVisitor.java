@@ -27,10 +27,11 @@ import java.util.Map.Entry;
 
 import model.ID;
 import model.Location;
+import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -38,6 +39,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	private HashMap<Location, ResourceLevel> resources;
 	private ArrayList<Unit> units;
 	private ArrayList<Structure> structures;
+	private ArrayList<RallyPoint> rallys;
 
 	public ViewVisitor(PlayerID playerID){
 		this.playerID=playerID;
@@ -46,6 +48,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		resources=new HashMap<Location, ResourceLevel>();
 		units=new ArrayList<Unit>();
 		structures=new ArrayList<Structure>();
+		rallys=new ArrayList<RallyPoint>();
 	}
 
 	@Override
@@ -102,6 +105,14 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		}
 	}
 
+	@Override
+	public void visit(RallyPoint rp) {
+		if(rp.getID().getPlayerID().equals(playerID))
+		{
+			rallys.add(rp);
+		}
+	}
+	
 	public void visit(AreaViewport viewport)
 	{
 		ViewFactory factory = ViewFactory.getFactory();
@@ -111,6 +122,14 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		addResourcesToView(viewport,factory);
 		addStructuresToView(viewport, factory);
 		addUnitsToView(viewport, factory);
+		addRallypointsToView(viewport, factory);
+	}
+
+	private void addRallypointsToView(AreaViewport viewport, ViewFactory factory) {
+		for(RallyPoint rp: rallys){
+			View view = factory.getView(rp.getID(), "RallyPoint", rp.getLocation());
+			viewport.addView(view);
+		}
 	}
 
 	private void addTerrainsToView(AreaViewport viewport, ViewFactory factory) {
