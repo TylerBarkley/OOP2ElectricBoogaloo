@@ -250,18 +250,20 @@ public class Army implements Controllable, Attacker//, DeathObserver
     }
 
     public void distribute(){
-        for(int i=0;i<battleGroup.size();i++){
-            if(battleGroup.get(i).getUpkeep()>energyResourceLevel){
-                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
-                energyResourceLevel-=battleGroup.get(i).getUpkeep();
-            }
-            if(battleGroup.get(i).getUpkeep()>metalResourceLevel){
-                battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
-                metalResourceLevel-=battleGroup.get(i).getUpkeep();
-            }
-            if(battleGroup.get(i).getUpkeep()>nutrientResourceLevel){
-                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
-                nutrientResourceLevel-=battleGroup.get(i).getUpkeep();
+        for(int i=0;i<battleGroup.size();i++) {
+            if (battleGroup.get(i) != null) {
+                if (battleGroup.get(i).getUpkeep() > energyResourceLevel) {
+                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                    energyResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
+                if (battleGroup.get(i).getUpkeep() > metalResourceLevel) {
+                    battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
+                    metalResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
+                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel) {
+                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                    nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
             }
         }
     }
