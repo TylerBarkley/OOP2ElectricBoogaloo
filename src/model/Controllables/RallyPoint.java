@@ -182,7 +182,7 @@ public class RallyPoint implements Controllable {
     public void orderArmyMove(){
         if(myArmy == null) return;
 
-        myArmy.clearQueue();
+        //myArmy.clearQueue();
 
         Location moveLocation = this.path.get(myArmy.getLocation());
 
@@ -221,5 +221,9 @@ public class RallyPoint implements Controllable {
 
     public Army getArmy() {
         return myArmy;
+    }
+
+    public PlayerID getPlayerID() {
+        return playerID;
     }
 }

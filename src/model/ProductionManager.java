@@ -1,6 +1,7 @@
 package model;
 
-import model.Controllables.Structures.Capital;
+import model.Controllables.Army;
+import model.Controllables.Structures.*;
 import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Melee;
 import model.Map.Map;
@@ -62,7 +63,51 @@ public class ProductionManager {
         martyr.killMe();
     }
 
-    public void buildBase(){
+    public void buildUniversity(Army army) {
+        University newStruct = new University();
 
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
+    }
+
+    public void buildObservationTower(Army army) {
+        ObservationTower newStruct = new ObservationTower();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
+    }
+
+    public void buildMine(Army army) {
+        Mine newStruct = new Mine();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
+    }
+
+    public void buildPowerPlant(Army army) {
+        PowerPlant newStruct = new PowerPlant();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
+    }
+
+    public void buildFarm(Army army) {
+        Farm newStruct = new Farm();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
+    }
+
+    public void buildFort(Army army) {
+        Fort newStruct = new Fort();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+        }
     }
 }

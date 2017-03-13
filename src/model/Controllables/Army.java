@@ -8,6 +8,8 @@ import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
 import model.observers.UnitObserver;
+import model.player.Player;
+import model.player.PlayerID;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
@@ -44,12 +46,16 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	private boolean isDisbanded;
     private RallyPoint myRP;
 
+    private PlayerID playerID;
+
     public Army(Unit unit, RallyPoint rallyPoint){
 		observers=new ArrayList<ArmyObserver>();
 
         movementManager = MovementManager.getInstance();
 
         this.myRP = rallyPoint;
+
+        this.playerID = rallyPoint.getPlayerID();
 
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
@@ -309,4 +315,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	public boolean isDisbanded() {
 		return isDisbanded;
 	}
+
+    public PlayerID getPlayerID() {
+        return playerID;
+    }
 }
