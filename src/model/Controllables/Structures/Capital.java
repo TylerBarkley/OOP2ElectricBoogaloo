@@ -17,23 +17,20 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     @Override
     public void doWork() {
-        if(capitalManager.getNumOfWorkers_HarvestingOre() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingOre() > 0) {
             harvestOre();
         }
-        if(capitalManager.getNumOfWorkers_HarvestingFood() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingFood() > 0) {
             harvestFood();
         }
-        if(capitalManager.getNumOfWorkers_HarvestingEnergy() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingEnergy() > 0) {
             harvestEnergy();
         }
-        if(capitalManager.getNumOfWorkers_Breeding() > 0){
+        if (capitalManager.getNumOfWorkers_Breeding() > 0) {
             breedWorkers();
         }
-        if(capitalManager.getNumOfWorkers_ExplorerTraining() > 0){
+        if (capitalManager.getNumOfWorkers_ExplorerTraining() > 0) {
             makeExplorer();
-        }
-        if(capitalManager.getNumOfWorkers_Building() > 0){
-            //TODO add build function
         }
     }
 
@@ -94,6 +91,9 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
         capitalManager.setNumOfWorkers_Building(0);
         capitalManager.resetWork(getLocation());
     }
+
+    @Override
+    public void build() {    }
 
     @Override
     public void addWorker(int number) {

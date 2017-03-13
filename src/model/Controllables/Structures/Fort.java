@@ -10,15 +10,30 @@ public class Fort extends Structure implements Attacker{
 
     private FortManager fortManager;
     private int numOfSoldiers;
+    private int builtPercentage;
 
     public Fort(){
+        builtPercentage = 0;
         fortManager = new FortManager();
     }
 
     @Override
     public void doWork(){
-        if(fortManager.getNumOfWorkers_SoldierTraining() > 0){
-            makeSoldiers();
+        if(getBeingBuilt() == true) {
+            if (fortManager.getNumOfWorkers_SoldierTraining() > 0) {
+                makeSoldiers();
+            }
+        }
+        else{
+            build();
+        }
+    }
+
+    public void build() {
+        builtPercentage += fortManager.building();
+        if(builtPercentage > 99){
+            setBeingBuilt(false);
+            unassign();
         }
     }
 
@@ -64,5 +79,13 @@ public class Fort extends Structure implements Attacker{
     @Override
     public void removeWorker(int number) {
         fortManager.removeUnassigned(number);
+    }
+
+    public int getBuiltPercentage() {
+        return builtPercentage;
+    }
+
+    public void setBuiltPercentage(int builtPercentage) {
+        this.builtPercentage = builtPercentage;
     }
 }
