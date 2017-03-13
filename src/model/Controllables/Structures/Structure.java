@@ -57,6 +57,8 @@ public abstract class Structure implements Controllable {
 	public abstract void doWork();
 
 	public abstract void unassign();
+
+	public abstract void build();
     	
     public void accept(StructureVisitor visitor) {
         visitor.visit(this);

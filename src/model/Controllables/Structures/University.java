@@ -9,6 +9,7 @@ import model.Controllables.Stats.WorkerStats;
 public class University extends Structure {
 
     private UniversityManager universityManager;
+    private int builtPercentage;
 
     public University(){
         universityManager = new UniversityManager();
@@ -16,8 +17,13 @@ public class University extends Structure {
 
     @Override
     public void doWork(){
-        if(universityManager.getNumOfWorkers_HarvestingTechnology() > 0){
-            harvestScience();
+        if(getBeingBuilt() == true) {
+            if (universityManager.getNumOfWorkers_HarvestingTechnology() > 0) {
+                harvestScience();
+            }
+        }
+        else{
+            build();
         }
     }
 
@@ -35,6 +41,15 @@ public class University extends Structure {
         universityManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
         universityManager.setNumOfWorkers_HarvestingTechnology(0);
         universityManager.setNumOfWorkers_Building(0);
+    }
+
+    @Override
+    public void build() {
+        builtPercentage += universityManager.building();
+        if(builtPercentage > 99){
+            setBeingBuilt(false);
+            unassign();
+        }
     }
 
     public void addWorkers(int numWorkers){
@@ -56,4 +71,11 @@ public class University extends Structure {
         universityManager.removeUnassigned(number);
     }
 
+    public int getBuiltPercentage() {
+        return builtPercentage;
+    }
+
+    public void setBuiltPercentage(int builtPercentage) {
+        this.builtPercentage = builtPercentage;
+    }
 }
