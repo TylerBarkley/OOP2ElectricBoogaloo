@@ -22,6 +22,8 @@ public class UserControls {
 	private Control cycleInstanceRight;                
 	private Control centerFocus; 
 	private Control endTurn;
+	private Control toggleResources;
+	private Control select;
 
 	public UserControls()
 	{
@@ -47,6 +49,8 @@ public class UserControls {
 		cycleInstanceRight=new Control(new KeyEvent(frame,0,0,0,KeyEvent.VK_RIGHT,' '), "Reverse Cycle Instance");   
 		centerFocus=new Control(new KeyEvent(frame,0,0,0,KeyEvent.VK_NUMPAD5,'5'), "Center Map Focus");
 		endTurn=new Control(new KeyEvent(frame,0,0,0,KeyEvent.VK_L,'l'), "End Turn");
+		toggleResources=new Control(new KeyEvent(frame,0,0,0,KeyEvent.VK_R,'r'), "Toggle Resources");
+		select=new Control(new KeyEvent(frame,0,0,0,KeyEvent.VK_ENTER,'\n'), "Select");
 	}
 
 	public Control getMapUp() {
@@ -113,6 +117,14 @@ public class UserControls {
 		return endTurn;
 	}
 	
+	public Control getToggleResources() {
+		return toggleResources;
+	}
+
+	public Control getSelect() {
+		return select;
+	}
+	
 	public ArrayList<Control> getAllControls() 
 	{
 		ArrayList<Control> list=new ArrayList<Control>();
@@ -133,6 +145,8 @@ public class UserControls {
 		list.add(cycleInstanceRight);
 		list.add(centerFocus);
 		list.add(endTurn);
+		list.add(toggleResources);
+		list.add(select);
 		
 		return list;
 	}

@@ -67,7 +67,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		configurationOverview=new ConfigurationOverview(controls, width, height);
 		techViewport=new TechnologyViewport(width, height);
 
-		InputReader ir=new InputReader(new InputHandler(menu, turn),controls);
+		InputReader ir=new InputReader(new InputHandler(menu, turn, areaViewport),controls);
 
 		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, techViewport, ir);
 		areaMomentos=new HashMap<PlayerID, AreaViewportMomento>();

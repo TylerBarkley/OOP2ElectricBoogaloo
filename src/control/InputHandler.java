@@ -3,14 +3,17 @@ package control;
 import model.MapDirection;
 import model.TurnManager;
 import model.Controllables.Controllable;
+import view.AreaViewport;
 
 public class InputHandler {
 	private Menu menu;
 	private TurnManager turn;
+	private AreaViewport areaView;
 	
-	public InputHandler(Menu menu, TurnManager turn) {
+	public InputHandler(Menu menu, TurnManager turn, AreaViewport areaView) {
 		this.menu = menu;
 		this.turn = turn;
+		this.areaView=areaView;
 	}
 
 	public void moveFocus(MapDirection direction) {
@@ -60,5 +63,13 @@ public class InputHandler {
 
 	public void endTurn() {
 		turn.endTurn();
+	}
+
+	public void toggleResources() {
+		areaView.toggleResourceView();
+	}
+
+	public void select() {
+		menu.select();
 	}
 }

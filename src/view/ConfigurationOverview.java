@@ -21,7 +21,7 @@ public class ConfigurationOverview extends JPanel
 	{
 		this.setSize(width, height);
 		
-		setLayout(new GridLayout(8, 4));
+		setLayout(new GridLayout(10, 4));
 		
 		for(Control c: controls.getAllControls())
 		{
