@@ -15,6 +15,7 @@ public class PowerPlant extends Structure implements Energizing {
     public PowerPlant(){
         builtPercentage = 0;
         powerPlantManager = new PowerPlantManager();
+        setBeingBuilt(true);
     }
 
     @Override
