@@ -20,9 +20,7 @@ public class University extends Structure {
     @Override
     public void doWork(){
         if(getBeingBuilt() == true) {
-            if (universityManager.getNumOfWorkers_HarvestingTechnology() > 0) {
-                harvestScience();
-            }
+            harvestScience();
         }
         else{
             build();

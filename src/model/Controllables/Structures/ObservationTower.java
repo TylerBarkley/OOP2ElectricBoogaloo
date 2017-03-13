@@ -21,9 +21,7 @@ public class ObservationTower extends Structure {
     @Override
     public void doWork() {
         if(getBeingBuilt() == true) {
-            if (observationTowerManager.getNumOfWorkers_Building() > 0) {
-                observationTowerManager.building();
-            }
+
         }
         else{
             build();

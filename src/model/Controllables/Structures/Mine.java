@@ -21,9 +21,7 @@ public class Mine extends Structure implements Mining{
     @Override
     public void doWork(){
         if(getBeingBuilt() == true) {
-            if (mineManager.getNumOfWorkers_Harvesting() > 0) {
-                harvestOre();
-            }
+            harvestOre();
         }
         else{
             build();

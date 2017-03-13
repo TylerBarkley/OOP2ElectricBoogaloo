@@ -21,9 +21,7 @@ public class Farm extends Structure implements Farming{
     @Override
     public void doWork(){
         if(getBeingBuilt() == true) {
-            if (farmManager.getNumOfWorkers_Harvesting() > 0) {
-                harvestFood();
-            }
+            harvestFood();
         }
         else{
             build();
