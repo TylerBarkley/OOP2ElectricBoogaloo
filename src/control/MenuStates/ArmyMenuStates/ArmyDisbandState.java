@@ -15,10 +15,10 @@ public class ArmyDisbandState extends ArmyMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentArmy.disband();
+        currentArmy.disband();
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyWaitState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFarmState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

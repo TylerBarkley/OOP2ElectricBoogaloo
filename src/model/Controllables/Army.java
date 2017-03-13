@@ -149,7 +149,6 @@ public class Army implements Controllable, Attacker//, DeathObserver
         for(Unit unit : battleGroup){
             if(!movementManager.validateMove(unit, md)){
 
-                //TODO MOVING THE RALLYPOINT TO THE ARMY'S CURRENT LOCATION
                 myRP.moveRallyPoint(this.myLocation);
                 myCommands.clear();
 
@@ -344,4 +343,30 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	public void setID(ArmyID id){
 		this.id=id;
 	}
+
+	public void decommission(){
+        ArrayList<Unit> battleGroupCopy = new ArrayList<Unit>();
+	    for(Unit u: battleGroup){
+	        battleGroupCopy.add(u);
+        }
+        for(Unit u: battleGroupCopy){
+            u.killMe();
+        }
+    }
+
+    public void powerUp(){
+        for(Unit u: battleGroup){
+            u.powerUp();
+        }
+    }
+    public void powerDown(){
+        for(Unit u: battleGroup){
+            u.powerDown();
+        }
+    }
+    public void powerActive(){
+        for(Unit u: battleGroup){
+            u.powerActive();
+        }
+    }
 }
