@@ -84,7 +84,7 @@ public class FortManager extends WorkerManager{
     }
 
     public void removeUnassigned(int number){
-        numOfWorkers_Unassigned -= number;
+        numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
     }
 
 }
