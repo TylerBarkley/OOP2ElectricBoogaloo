@@ -54,10 +54,6 @@ public class University extends Structure {
         }
     }
 
-    public void addWorkers(int numWorkers){
-        universityManager.addUnassignedWorkers(numWorkers);
-    }
-
     public void setStats(WorkerStats workerStats){
         universityManager.setWorkerStats(workerStats);
     }
