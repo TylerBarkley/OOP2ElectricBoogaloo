@@ -54,9 +54,11 @@ public abstract class Structure implements Controllable {
 		}
 	}
 
-	public void doWork(){}
+	public abstract void doWork();
 
-	public void unassign(){}
+	public abstract void unassign();
+
+	public abstract void build();
     	
     public void accept(StructureVisitor visitor) {
         visitor.visit(this);
@@ -114,6 +116,8 @@ public abstract class Structure implements Controllable {
         return this.myStats;
     }
 
+    public abstract void addWorker(int number);
+    public abstract void removeWorker(int number);
 
     public PlayerID getPid() {
         return id.getPlayerID();

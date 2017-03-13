@@ -111,7 +111,7 @@ public class ControllableCollection {
     //cycling through modes in the menu
     public boolean controllableExists(int modeType){
         if(modeType == Menu.UNITMODE) {
-            //System.out.println("CHECKING UNITMODE");
+
             for (int i = 0; i < 10 ; i++) {
                 if(colonists.get(i) != null)
                     return true;
@@ -123,8 +123,17 @@ public class ControllableCollection {
                     return true;
             }
         } else if(modeType==Menu.STRUCTUREMODE){
-            //System.out.println("CHECKING STRUCTUREMODE");
-            for (int i = 0; i < 10 ; i++) {
+            //new code for variable sized lists.
+            //assumes the list is empty (size == 0) if none of a particular structure exists
+            if(capitals.size() > 0) return true;
+            if(farms.size() > 0) return true;
+            if(forts.size() > 0) return true;
+            if(mines.size() > 0) return true;
+            if(observationTowers.size() > 0) return true;
+            if(powerPlants.size() > 0) return true;
+            if(universities.size() > 0) return true;
+            //old code
+            /*for (int i = 0; i < 10 ; i++) {
                 if(capitals.get(i) != null)
                     return true;
                 if(farms.get(i) != null)
@@ -139,7 +148,7 @@ public class ControllableCollection {
                     return true;
                 if(universities.get(i) != null)
                     return true;
-            }
+            }*/
         } else if(modeType==Menu.RALLYPOINTMODE){
             //System.out.println("CHECKING RALLYPOINT");
             for (int i = 0; i < armies.size(); i++) {

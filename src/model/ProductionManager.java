@@ -1,8 +1,11 @@
 package model;
 
-import model.Controllables.Structures.Capital;
+import model.Controllables.Army;
+import model.Controllables.Structures.*;
 import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
 import model.Map.Map;
 import model.player.Player;
 import model.player.PlayerID;
@@ -21,7 +24,11 @@ public class ProductionManager {
         playerManager = PlayerManager.getInstance();
     }
 
-    public ProductionManager getInstance(){
+    public static void reset(){
+        productionManager = null;
+    }
+
+    public static ProductionManager getInstance(){
         if(productionManager == null){
             productionManager = new ProductionManager();
         }
@@ -48,9 +55,101 @@ public class ProductionManager {
         }
         if(playerManager.addStructure(playerID, newCap)){
             map.addStructure(location, newCap);
+
             //Need to add Workers
+            playerManager.addWorker(playerID, 5);
+            newCap.setBeingBuilt(false);
+            newCap.addWorker(5);
         }
 
         martyr.killMe();
+    }
+
+    public void buildUniversity(Army army, int workers) {
+        University newStruct = new University();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+    public void buildObservationTower(Army army, int workers) {
+        ObservationTower newStruct = new ObservationTower();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+    public void buildMine(Army army, int workers) {
+        Mine newStruct = new Mine();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+    public void buildPowerPlant(Army army, int workers) {
+        PowerPlant newStruct = new PowerPlant();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+    public void buildFarm(Army army, int workers) {
+        Farm newStruct = new Farm();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+    public void buildFort(Army army, int workers) {
+        Fort newStruct = new Fort();
+
+        if(playerManager.addStructure(army.getPlayerID(), newStruct)){
+            map.addStructure(army.getLocation(), newStruct);
+            newStruct.addWorker(workers);
+            army.removeWorkers(workers);
+        }
+    }
+
+
+    public void produceRanged(Fort fort){
+        Ranged ranged = new Ranged();
+
+        if(playerManager.addUnit(fort.getPid(), ranged)){
+            map.addUnit(fort.getLocation(), ranged);
+            ranged.setMapDirection(MapDirection.getNorth());
+        }
+    }
+
+    public void produceMelee(Fort fort){
+        Melee melee = new Melee();
+
+        if(playerManager.addUnit(fort.getPid(), melee)){
+            map.addUnit(fort.getLocation(), melee);
+            melee.setMapDirection(MapDirection.getNorth());
+        }
+    }
+
+    public void produceExplorer(Capital capital){
+        Explorer explorer = new Explorer();
+
+        if(playerManager.addUnit(capital.getPid(), explorer)){
+            map.addUnit(capital.getLocation(), explorer);
+            explorer.setMapDirection(MapDirection.getNorth());
+        }
     }
 }

@@ -8,6 +8,8 @@ import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
 import model.observers.UnitObserver;
+import model.player.Player;
+import model.player.PlayerID;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
@@ -44,12 +46,16 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	private boolean isDisbanded;
     private RallyPoint myRP;
 
+    private PlayerID playerID;
+
     public Army(Unit unit, RallyPoint rallyPoint){
 		observers=new ArrayList<ArmyObserver>();
 
         movementManager = MovementManager.getInstance();
 
         this.myRP = rallyPoint;
+
+        this.playerID = rallyPoint.getPlayerID();
 
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
@@ -244,18 +250,20 @@ public class Army implements Controllable, Attacker//, DeathObserver
     }
 
     public void distribute(){
-        for(int i=0;i<battleGroup.size();i++){
-            if(battleGroup.get(i).getUpkeep()>energyResourceLevel){
-                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
-                energyResourceLevel-=battleGroup.get(i).getUpkeep();
-            }
-            if(battleGroup.get(i).getUpkeep()>metalResourceLevel){
-                battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
-                metalResourceLevel-=battleGroup.get(i).getUpkeep();
-            }
-            if(battleGroup.get(i).getUpkeep()>nutrientResourceLevel){
-                battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
-                nutrientResourceLevel-=battleGroup.get(i).getUpkeep();
+        for(int i=0;i<battleGroup.size();i++) {
+            if (battleGroup.get(i) != null) {
+                if (battleGroup.get(i).getUpkeep() > energyResourceLevel) {
+                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                    energyResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
+                if (battleGroup.get(i).getUpkeep() > metalResourceLevel) {
+                    battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
+                    metalResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
+                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel) {
+                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                    nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
+                }
             }
         }
     }
@@ -309,4 +317,21 @@ public class Army implements Controllable, Attacker//, DeathObserver
 	public boolean isDisbanded() {
 		return isDisbanded;
 	}
+
+    public PlayerID getPlayerID() {
+        return playerID;
+    }
+
+    public void removeWorkers(int workers) {
+        if(this.workers - workers < 0){
+            this.workers = 0;
+            return;
+        }
+
+        this.workers -= workers;
+    }
+
+    public void addWorkers(int workers){
+        this.workers += workers;
+    }
 }

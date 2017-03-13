@@ -3,6 +3,9 @@ package model.Map.Occupancy;
 import java.util.Collection;
 
 import model.Controllables.Structures.Structure;
+import model.Controllables.Units.Unit;
+import model.observers.StructureObserver;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
 
 /**

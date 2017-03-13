@@ -29,6 +29,14 @@ public class ObservationTowerManager extends WorkerManager{
         this.numOfWorkers_Unassigned = numOfWorkers_Unassigned;
     }
 
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
+    }
+
     public int getNumOfWorkers_Building() {
         return numOfWorkers_Building;
     }
@@ -43,5 +51,10 @@ public class ObservationTowerManager extends WorkerManager{
 
     public void setWorkerStats(WorkerStats workerStats) {
         this.workerStats = workerStats;
+    }
+
+    @Override
+    public void assignBuild(int assignment) {
+        numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
     }
 }

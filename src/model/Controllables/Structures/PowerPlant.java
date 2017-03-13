@@ -10,15 +10,23 @@ import model.player.PlayerManager;
 public class PowerPlant extends Structure implements Energizing {
 
     private PowerPlantManager powerPlantManager;
+    private int builtPercentage;
 
     public PowerPlant(){
+        builtPercentage = 0;
         powerPlantManager = new PowerPlantManager();
+        setBeingBuilt(true);
     }
 
     @Override
     public void doWork(){
-        if(powerPlantManager.getNumOfWorkers_Harvesting() > 0){
-            harvestEnergy();
+        if(getBeingBuilt() == true) {
+            if (powerPlantManager.getNumOfWorkers_Harvesting() > 0) {
+                harvestEnergy();
+            }
+        }
+        else{
+            build();
         }
     }
 
@@ -34,6 +42,15 @@ public class PowerPlant extends Structure implements Energizing {
         powerPlantManager.resetWork(getLocation());
     }
 
+    @Override
+    public void build() {
+        builtPercentage += powerPlantManager.building();
+        if(builtPercentage > 99){
+            setBeingBuilt(false);
+            unassign();
+        }
+    }
+
     public void harvestEnergy(){
         int energyMined = powerPlantManager.produceEnergy(getMyStats().getProductionRate());
         PlayerManager.getInstance().addPower(getPid(), energyMined);
@@ -45,5 +62,14 @@ public class PowerPlant extends Structure implements Energizing {
 
     public void setPowerPlantManager(PowerPlantManager powerPlantManager) {
         this.powerPlantManager = powerPlantManager;
+    }
+
+    public void addWorker(int number) {
+        powerPlantManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        powerPlantManager.removeUnassigned(number);
     }
 }

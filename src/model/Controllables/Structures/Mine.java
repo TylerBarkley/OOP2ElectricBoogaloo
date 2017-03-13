@@ -10,15 +10,23 @@ import model.player.PlayerManager;
 public class Mine extends Structure implements Mining{
 
     private MineManager mineManager;
+    private int builtPercentage;
 
     public Mine(){
+        builtPercentage = 0;
         mineManager = new MineManager();
+        setBeingBuilt(true);
     }
     
     @Override
     public void doWork(){
-        if(mineManager.getNumOfWorkers_Harvesting() > 0){
-            harvestOre();
+        if(getBeingBuilt() == true) {
+            if (mineManager.getNumOfWorkers_Harvesting() > 0) {
+                harvestOre();
+            }
+        }
+        else{
+            build();
         }
     }
     
@@ -33,7 +41,16 @@ public class Mine extends Structure implements Mining{
         mineManager.setNumOfWorkers_Building(0);
         mineManager.resetWork(getLocation());
     }
-    
+
+    @Override
+    public void build() {
+        builtPercentage += mineManager.building();
+        if(builtPercentage > 99){
+            setBeingBuilt(false);
+            unassign();
+        }
+    }
+
     public void harvestOre(){
         int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
         PlayerManager.getInstance().addMetal(getPid(), oreMined);
@@ -45,5 +62,22 @@ public class Mine extends Structure implements Mining{
 
     public void setMineManager(MineManager mineManager) {
         this.mineManager = mineManager;
+    }
+
+    public void addWorker(int number) {
+        mineManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        mineManager.removeUnassigned(number);
+    }
+
+    public int getBuiltPercentage() {
+        return builtPercentage;
+    }
+
+    public void setBuiltPercentage(int builtPercentage) {
+        this.builtPercentage = builtPercentage;
     }
 }

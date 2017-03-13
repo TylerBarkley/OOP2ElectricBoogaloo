@@ -12,7 +12,9 @@ import model.Map.Items.ObstacleManager;
 import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
 
+import model.Map.Occupancy.StructureOccupancy;
 import model.Map.Occupancy.StructureOccupancyManager;
+import model.Map.Occupancy.UnitOccupancy;
 import model.Map.Occupancy.UnitOccupancyManager;
 
 import model.Map.Resources.ResourceLevel;
@@ -287,6 +289,7 @@ public class Map {
 		map=null;
 		MovementManager.reset();
 		AttackManager.reset();
+		ProductionManager.reset();
 		resetDebug();
 	}
 
@@ -315,5 +318,13 @@ public class Map {
 	public static void resetDebug(){
 		MoveDebug = false;
 		BFSDebug = false;
+	}
+
+	public UnitOccupancy getUnitOccupancyAt(Location location) {
+		return unitOccupancyManager.get(location);
+	}
+
+	public StructureOccupancy getStructureOccupancyAt(Location location) {
+		return structureOccupancyManager.get(location);
 	}
 }

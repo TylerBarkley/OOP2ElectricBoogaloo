@@ -75,4 +75,17 @@ public class UniversityManager extends WorkerManager{
     public void setNumOfWorkers_Building(int numOfWorkers_Building) {
         this.numOfWorkers_Building = numOfWorkers_Building;
     }
+
+    public void addUnassigned(int number){
+        numOfWorkers_Unassigned += number;
+    }
+
+    public void removeUnassigned(int number){
+        numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
+    }
+
+    @Override
+    public void assignBuild(int assignment) {
+        numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
 }

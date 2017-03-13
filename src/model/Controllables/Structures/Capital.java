@@ -12,28 +12,26 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     private CapitalManager capitalManager;
 
     public Capital(){
+        setBeingBuilt(false);
         capitalManager = new CapitalManager();
     }
 
     @Override
     public void doWork() {
-        if(capitalManager.getNumOfWorkers_HarvestingOre() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingOre() > 0) {
             harvestOre();
         }
-        if(capitalManager.getNumOfWorkers_HarvestingFood() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingFood() > 0) {
             harvestFood();
         }
-        if(capitalManager.getNumOfWorkers_HarvestingEnergy() > 0){
+        if (capitalManager.getNumOfWorkers_HarvestingEnergy() > 0) {
             harvestEnergy();
         }
-        if(capitalManager.getNumOfWorkers_Breeding() > 0){
+        if (capitalManager.getNumOfWorkers_Breeding() > 0) {
             breedWorkers();
         }
-        if(capitalManager.getNumOfWorkers_ExplorerTraining() > 0){
+        if (capitalManager.getNumOfWorkers_ExplorerTraining() > 0) {
             makeExplorer();
-        }
-        if(capitalManager.getNumOfWorkers_Building() > 0){
-            //TODO add build function
         }
     }
 
@@ -95,11 +93,28 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
         capitalManager.resetWork(getLocation());
     }
 
+    @Override
+    public void build() {    }
+
+    @Override
+    public void addWorker(int number) {
+        capitalManager.addUnassigned(number);
+    }
+
+    @Override
+    public void removeWorker(int number) {
+        capitalManager.removeUnassigned(number);
+    }
+
     public void setStats(WorkerStats workerStats){
         capitalManager.setWorkerStats(workerStats);
     }
 
     public void setCapitalManager(CapitalManager capitalManager) {
         this.capitalManager = capitalManager;
+    }
+
+    public CapitalManager getCapitalManager(){
+        return this.capitalManager;
     }
 }

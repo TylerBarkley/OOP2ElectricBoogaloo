@@ -319,10 +319,10 @@ public class Player implements ArmyObserver, RPObserver{
 		}
 	}
 	public void storeMetal(int percentage){
-		power.setAmount((int)((double) (power.getAmount())*(percentage)/100));
+		metal.setAmount((int)((double) (metal.getAmount())*(percentage)/100));
 	}
 	public void storeNutrients(int percentage){
-		power.setAmount((int)((double) (nutrients.getAmount())*(percentage)/100));
+		nutrients.setAmount((int)((double) (nutrients.getAmount())*(percentage)/100));
 	}
 	public void storePower(int percentage){
 		power.setAmount((int)((double) (power.getAmount())*(percentage)/100));

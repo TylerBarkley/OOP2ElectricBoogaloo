@@ -104,6 +104,10 @@ public class PlayerManager {
 		return players.get(id).addStructure(structure);
 	}
 
+	public boolean addWorker(PlayerID id, int workers){
+		return players.get(id).addWorker(workers);
+	}
+
 	public boolean addArmy(PlayerID id, Army army) {
 		return players.get(id).addArmy(army);
 	}
