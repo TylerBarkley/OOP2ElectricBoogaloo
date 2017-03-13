@@ -5,4 +5,5 @@ package model.Controllables.Structures;
  */
 public abstract class WorkerManager {
     //LMAO Decal
+    public abstract void assignBuild(int assignment);
 }

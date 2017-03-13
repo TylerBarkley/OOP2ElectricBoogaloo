@@ -13,4 +13,5 @@ public class PowerPlantManager extends HarvestManager{
         return getResourceManager().mineEnergy(getHarvestingLocation(), amount);
     }
 
+
 }

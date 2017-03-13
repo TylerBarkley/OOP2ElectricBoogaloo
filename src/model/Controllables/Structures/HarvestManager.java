@@ -132,4 +132,9 @@ public abstract class HarvestManager extends WorkerManager{
     public void removeUnassigned(int number){
         numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
     }
+
+    @Override
+    public void assignBuild(int assignment) {
+        numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
 }
