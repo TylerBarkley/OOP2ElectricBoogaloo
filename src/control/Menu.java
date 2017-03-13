@@ -24,7 +24,6 @@ import utilities.MenuVisitor;
  * Q4D: are States allowed to access a context's field like a context itself?
  * Q4D: review good vs. bad casting
  *
- * PlayerManager.getControllableCollection() to get new collection
  * Structure arrayLists will be variable size
  */
 public class Menu {
@@ -161,7 +160,6 @@ public class Menu {
     public int getCurrentMode() {return currentMode;}
     
 	//Call reset() at beginning of turn or when a Controllable ceases to exist
-
 	public void reset(){
 		cycleModeL();
 		cycleModeR();
