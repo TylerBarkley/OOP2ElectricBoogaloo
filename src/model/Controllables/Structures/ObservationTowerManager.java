@@ -52,4 +52,9 @@ public class ObservationTowerManager extends WorkerManager{
     public void setWorkerStats(WorkerStats workerStats) {
         this.workerStats = workerStats;
     }
+
+    @Override
+    public void assignBuild(int assignment) {
+        numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
 }

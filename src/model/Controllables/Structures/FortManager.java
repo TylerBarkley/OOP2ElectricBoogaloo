@@ -87,4 +87,9 @@ public class FortManager extends WorkerManager{
         numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
     }
 
+    @Override
+    public void assignBuild(int assignment) {
+        numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
+
 }
