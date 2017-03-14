@@ -30,14 +30,25 @@ public class AssignWorkersFarmState extends StructureMenuState {
         }
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceExplorerState.getInstance();
+        StructureMenuState nextState = ResearchTechnologyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = AssignWorkersMineState.getInstance();
+        StructureMenuState nextState;
+        if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID ||
+                currentStructure.getID().getType() == StructureID.MINE_TYPE_ID ){
+            nextState = AssignWorkersMineState.getInstance();
+        }
+        else if (currentStructure.getID().getType() == StructureID.POWERPLANT_TYPE_ID){
+            nextState = AssignWorkersPowerHarvestState.getInstance();
+        }
+        else if(currentStructure.getID().getType() == StructureID.FORT_TYPE_ID){
+            nextState = ProduceMeleeState.getInstance();
+        }
+        else nextState = ResearchTechnologyState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

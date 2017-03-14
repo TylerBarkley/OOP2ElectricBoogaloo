@@ -29,12 +29,9 @@ import utilities.MenuVisitor;
 /**
  * Created by hankerins on 3/5/17.
  *
- * Q4D: are States allowed to access a context's field like a context itself?
- * Q4D: review good vs. bad casting
  *
- * Structure arrayLists will be variable size
  *
- * Menu needs to know the player's focus
+ *
  */
 public class Menu implements PlayerObserver, StartTurnObserver{
 
