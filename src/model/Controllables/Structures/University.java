@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 import model.Controllables.Stats.WorkerStats;
+import model.ResearchCommand;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.
@@ -10,6 +11,7 @@ public class University extends Structure {
     private int builtPercentage;
     private int techPercentage;
     private String assignedTech;
+    private ResearchCommand myResearch;
 
     public University(){
         builtPercentage = 0;
@@ -68,6 +70,13 @@ public class University extends Structure {
     public void removeWorker(int number) {
         removeOldWorkers(number);
         universityManager.removeUnassigned(number);
+    }
+
+    public void assignResearch(ResearchCommand rc){
+        myResearch = rc;
+
+        //TODO DO SOMETHING WITH THE RESEARCH COST
+        rc.getCost();
     }
 
     public int getBuiltPercentage() {

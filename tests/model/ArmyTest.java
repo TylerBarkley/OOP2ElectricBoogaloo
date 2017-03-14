@@ -282,7 +282,7 @@ public class ArmyTest {
 
 
         army.doTurn();
-        
+
         assertEquals(new Location(1, 0), melee.getLocation());
         assertEquals(new Location(1, 0), explorer.getLocation());
         assertEquals(new Location(1, 0), army.getLocation());
@@ -324,6 +324,16 @@ public class ArmyTest {
         assertFalse(army.canMove());
         assertEquals(0, melee.getActionPoints());
         assertEquals(0, explorer.getActionPoints());
+    }
+
+    @Test
+    public void DisbandTest(){
+
+    }
+
+    @Test
+    public void DeathDisbandTest(){
+
     }
 
 }
