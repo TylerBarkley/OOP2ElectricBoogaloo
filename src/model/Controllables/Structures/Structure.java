@@ -4,12 +4,14 @@ import model.Location;
 import model.MapDirection;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
+import model.TurnManager;
+import model.observers.EndTurnObserver;
 import model.observers.StructureObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
 import java.lang.Math;
 
-public abstract class Structure implements Controllable {
+public abstract class Structure implements Controllable, EndTurnObserver {
     private int currentHealth;
     private StructureStats myStats;
     private StructureID id;
@@ -226,5 +228,10 @@ public abstract class Structure implements Controllable {
         this.currentHealth = currentHealth;
 
         this.notifyObservers();
+    }
+
+    @Override
+    public void endUpdate(TurnManager turn) {
+        doWork();
     }
 }
