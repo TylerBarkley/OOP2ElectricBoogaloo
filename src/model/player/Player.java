@@ -334,7 +334,7 @@ public class Player implements ArmyObserver, RPObserver{
 	public ControllableCollection getControllableCollection()
 	{
 		return new ControllableCollection(unitManager.getColonists(), unitManager.getExplorers(), 
-				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
+				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, rallyPoints, structureManager.getCapitals(), structureManager.getFarms(),
 				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
 				structureManager.getPlants(), structureManager.getUniversities(), workers);
 	}
