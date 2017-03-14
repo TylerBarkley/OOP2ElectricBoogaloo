@@ -285,34 +285,54 @@ public class Player implements ArmyObserver, RPObserver{
 	}
 
 	public void distributePower(Structure structure,int amountOfPowerGiven){
-		structure.incrementEnergyResourceLevel(amountOfPowerGiven);
+		if(amountOfPowerGiven<=power.getAmount()) {
+			structure.incrementEnergyResourceLevel(amountOfPowerGiven);
+			power.setAmount(power.getAmount() - amountOfPowerGiven);
+		} else {
+			structure.incrementEnergyResourceLevel(power.getAmount());
+			power.setAmount(0);
+		}
 	}
 
 	public void distributeMetal(Structure structure,int amountOfMetalGiven){
-		structure.incrementMetalResourceLevel(amountOfMetalGiven);
+		if(amountOfMetalGiven<=metal.getAmount()) {
+			structure.incrementMetalResourceLevel(amountOfMetalGiven);
+			metal.setAmount(metal.getAmount()-amountOfMetalGiven);
+		} else {
+			structure.incrementMetalResourceLevel(metal.getAmount());
+			metal.setAmount(0);
+		}
 	}
 
 	public void distributeNutrients(Structure structure,int amountOfNutrientsGiven){
-		structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			structure.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
 
 	}
 
 	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
-		unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			unit.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
 
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
-		army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
-	}
-	public void storeMetal(int amountOfMetalGiven){
-		metal.setAmount(amountOfMetalGiven);
-	}
-
-	public void storeNutrients(int amountOfNutrientsGiven){
-		nutrients.setAmount(amountOfNutrientsGiven);
-	}
-	public void storePower(int amountOfPowerGiven){
-		power.setAmount(amountOfPowerGiven);
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			army.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
 	}
 
 	public void chargeResources()
