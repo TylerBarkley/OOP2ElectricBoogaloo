@@ -20,6 +20,7 @@ public class StandbyState extends UnitMenuState {
         //TODO: currentUnit.standby();
     }
     public void cycleInstructionL(Menu context){
+        updateControllable(context);
         if(currentUnit.getID().getType() == UnitID.COLONIST_TYPE_ID){
             UnitMenuState nextState = BuildCapitalState.getInstance();
             nextState.setCurrentInstance(currentInstance);

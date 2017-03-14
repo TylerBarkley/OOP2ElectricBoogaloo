@@ -181,10 +181,11 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		
 		cycleInstanceL();
 		cycleInstanceR();
-		
-		cycleInstructionL();
-		cycleInstructionR();
-		
+
+		if(controllableCollection.controllableExists(currentMode)){
+			cycleInstructionL();
+			cycleInstructionR();
+		}
 		notifyObservers();
 	}
     
@@ -217,13 +218,13 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 	}
 
 	public void cycleInstructionL()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionL(this);
 		notifyObservers();
 	}
 
 	public void cycleInstructionR()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionR(this);
 		notifyObservers();
 	}
