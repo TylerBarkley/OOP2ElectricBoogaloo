@@ -25,6 +25,7 @@ import model.Controllables.Units.UnitManager;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
+import model.Technology;
 import model.observers.ArmyObserver;
 import model.observers.PlayerObserver;
 import model.observers.RPObserver;
@@ -39,6 +40,7 @@ public class Player implements ArmyObserver, RPObserver{
 
 	private ArrayList<Army> armies;
 	private ArrayList<RallyPoint> rallyPoints;
+	private Technology tech;
 	private int workers;
 	
 	private Food nutrients;
@@ -60,7 +62,7 @@ public class Player implements ArmyObserver, RPObserver{
 		armies=new ArrayList<Army>();
 		rallyPoints=new ArrayList<RallyPoint>();
 		workers=0;
-		
+		tech=new Technology(PStats.myUnitStats,PStats.myStructureStats,PStats.workerStats);
 		nutrients=new Food(0);
 		power=new Energy(0);
 		metal=new Ore(0);
@@ -479,5 +481,13 @@ public class Player implements ArmyObserver, RPObserver{
 
 	public ArrayList<RallyPoint> getRallyPoints() {
 		return rallyPoints;
+	}
+
+	public Technology getTech() {
+		return tech;
+	}
+
+	public void setTech(Technology tech) {
+		this.tech = tech;
 	}
 }
