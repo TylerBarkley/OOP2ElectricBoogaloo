@@ -28,6 +28,8 @@ public abstract class HarvestManager extends WorkerManager{
 
     public int building() {
         numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_Harvesting;
+        numOfWorkers_Harvesting = 0;
+        numOfWorkers_Unassigned = 0;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }

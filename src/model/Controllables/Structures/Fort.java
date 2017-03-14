@@ -1,10 +1,10 @@
 package model.Controllables.Structures;
-import model.AttackManager;
 import model.Attacker;
 import model.Controllables.Stats.WorkerStats;
-import model.Location;
+import model.Controllables.Units.Melee;
+import model.Controllables.Units.Ranged;
 import java.util.ArrayList;
-import model.player.PlayerID;
+import model.ProductionManager;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.
@@ -12,11 +12,16 @@ import model.player.PlayerID;
 public class Fort extends Structure implements Attacker{
 
     private FortManager fortManager;
-    private int numOfSoldiers;
+    private ArrayList<Melee> numOfMelee;
+    private ArrayList<Ranged> numOfRanged;
     private int builtPercentage;
+    private int meleeBuildPercentage;
+    private int rangedBuildPercentage;
 
     public Fort(){
         builtPercentage = 0;
+        rangedBuildPercentage = 0;
+        meleeBuildPercentage = 0;
         fortManager = new FortManager();
         setBeingBuilt(true);
     }
@@ -44,32 +49,50 @@ public class Fort extends Structure implements Attacker{
         }
     }
 
-    public void assignWorkersToTrainSoldiers(int numOfWorkers_AssignToTrain){
-        fortManager.assignWorkers(numOfWorkers_AssignToTrain);
+    public void assignWorkersToTrainMeleeSoldiers(int numOfWorkers_AssignToTrain){
+        fortManager.assignWorkersMelee(numOfWorkers_AssignToTrain);
+    }
+
+    public void assignWorkersToTrainRangedSoldiers(int numOfWorkers_AssignToTrain){
+        fortManager.assignWorkersRanged(numOfWorkers_AssignToTrain);
     }
 
     public void makeSoldiers(){
         //TODO actually make workers in PM
-        fortManager.trainSoldier(numOfSoldiers);
+        if(numOfMelee == null){
+            meleeBuildPercentage += fortManager.trainMeleeSoldier(0);
+        }
+        else{
+            meleeBuildPercentage += fortManager.trainMeleeSoldier(numOfMelee.size());
+        }
+        if(numOfRanged == null){
+            rangedBuildPercentage += fortManager.trainRangedSoldier(0);
+        }
+        else{
+            rangedBuildPercentage += fortManager.trainMeleeSoldier(numOfMelee.size());
+        }
+        if(meleeBuildPercentage > 99){
+            ProductionManager.getInstance().produceMelee(this);
+            meleeBuildPercentage -= 100;
+        }
+        if(rangedBuildPercentage > 99){
+            ProductionManager.getInstance().produceRanged(this);
+            rangedBuildPercentage -= 100;
+        }
     }
+
 
     @Override
     public void unassign(){
         fortManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        fortManager.setNumOfWorkers_SoldierTraining(0);
+        fortManager.setNumOfWorkers_MeleeTraining(0);
+        fortManager.setNumOfWorkers_RangedTraining(0);
         fortManager.setNumOfWorkers_Building(0);
     }
 
     public void setStats(WorkerStats workerStats){
         fortManager.setWorkerStats(workerStats);
     }
-
-
-    public void setNumOfSoldiers(int numOfSoldiers) {
-        this.numOfSoldiers = numOfSoldiers;
-    }
-
-    public int getNumOfSoldiers(){return this.numOfSoldiers; }
 
     public int getAttackDamage(){
         return this.getMyStats().getOffensiveDamage();
@@ -96,4 +119,36 @@ public class Fort extends Structure implements Attacker{
         this.builtPercentage = builtPercentage;
     }
 
+    public ArrayList<Melee> getNumOfMelee() {
+        return numOfMelee;
+    }
+
+    public void setNumOfMelee(ArrayList<Melee> numOfMelee) {
+        this.numOfMelee = numOfMelee;
+    }
+
+    public ArrayList<Ranged> getNumOfRanged() {
+        return numOfRanged;
+    }
+
+    public void setNumOfRanged(ArrayList<Ranged> numOfRanged) {
+        this.numOfRanged = numOfRanged;
+    }
+
+
+    public int getRangedBuildPercentage() {
+        return rangedBuildPercentage;
+    }
+
+    public void setRangedBuildPercentage(int rangedBuildPercentage) {
+        this.rangedBuildPercentage = rangedBuildPercentage;
+    }
+
+    public int getMeleeBuildPercentage() {
+        return meleeBuildPercentage;
+    }
+
+    public void setMeleeBuildPercentage(int meleeBuildPercentage) {
+        this.meleeBuildPercentage = meleeBuildPercentage;
+    }
 }

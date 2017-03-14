@@ -167,16 +167,16 @@ public class CapitalManagerTest {
         assertEquals(10, capitalManager.getNumOfWorkers_Unassigned());
         assertEquals(0, capitalManager.getNumOfWorkers_HarvestingEnergy());
         assertEquals(100, r1.getEnergyLevel());
-        capital.assignWorkersToPowerPlant(loc1, 6);
+        capital.assignWorkersToPowerHarvest(loc1, 6);
         assertEquals(5, capitalManager.getNumOfWorkers_HarvestingEnergy());
         assertEquals(5, capitalManager.getNumOfWorkers_Unassigned());
         capital.doWork();
         assertEquals(30, p1.getEnergy().getAmount());
         capital.unassign();
-        capital.assignWorkersToPowerPlant(loc2, 5);
+        capital.assignWorkersToPowerHarvest(loc2, 5);
         assertEquals(0, capitalManager.getNumOfWorkers_HarvestingEnergy());
         capitalManager.getWorkerStats().setWorkerRadius(1);
-        capital.assignWorkersToPowerPlant(loc2, 5);
+        capital.assignWorkersToPowerHarvest(loc2, 5);
         assertEquals(5, capitalManager.getNumOfWorkers_HarvestingEnergy());
         assertEquals(false, resourceManager.isWorking(loc1));
         assertEquals(true, resourceManager.isWorking(loc2));
@@ -254,7 +254,7 @@ public class CapitalManagerTest {
         assertEquals(true, resourceManager.get(loc1).getWorking());
         assertEquals(true, resourceManager.get(loc2).getWorking());
         assertEquals(false, resourceManager.get(loc3).getWorking());
-        capital.assignWorkersToPowerPlant(loc3, 2);
+        capital.assignWorkersToPowerHarvest(loc3, 2);
         assertEquals(1, capitalManager.getNumOfWorkers_Unassigned());
         assertEquals(2, capitalManager.getNumOfWorkers_HarvestingEnergy());
         assertEquals(4, capitalManager.getNumOfWorkers_HarvestingOre());

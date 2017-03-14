@@ -37,6 +37,8 @@ public class StructureOccupancyManager extends Manager<StructureOccupancy> imple
 
         this.add(loc, so);
 
+        target.setLocation(loc);
+
         target.addObserver(this);
 
         return target;
