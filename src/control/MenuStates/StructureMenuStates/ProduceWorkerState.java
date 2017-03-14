@@ -24,7 +24,8 @@ public class ProduceWorkerState extends StructureMenuState{
             //TODO get number of workers to breed
             Object[] possibilities = new Object[100];
             for(int i = 0; i < 100; i++){
-                possibilities[i] = ("" + i+1) ;
+                int x = i+1;
+                possibilities[i] = ("" + x) ;
             }
             String result = (String)JOptionPane.showInputDialog(null, "Choose how many workers: ",
                     "Worker Menu", JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
@@ -49,6 +50,6 @@ public class ProduceWorkerState extends StructureMenuState{
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Assign Workers Farm";
+        return "Produce Workers";
     }
 }
