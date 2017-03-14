@@ -238,6 +238,7 @@ public class Player implements ArmyObserver, RPObserver{
 		if(b)
 		{
 			army.setID(new ArmyID(this.id,armies.size()-1));
+			army.addObserver(this);
 			notifyObservers(army);
 		}
 
@@ -249,6 +250,7 @@ public class Player implements ArmyObserver, RPObserver{
 		if(b)
 		{
 			rp.setID(new RPID(this.id,rallyPoints.size()-1));
+			rp.addObserver(this);
 			notifyObservers(rp);
 		}
 
@@ -420,7 +422,7 @@ public class Player implements ArmyObserver, RPObserver{
 		if(army.isDisbanded())
 		{
 			armies.remove(army);
-			army.removeObserver(this);
+			//army.removeObserver(this);
 
 			for(int i=army.getID().getInstanceNumber(); i<armies.size(); i++)
 			{
@@ -435,8 +437,8 @@ public class Player implements ArmyObserver, RPObserver{
 	public void update(RallyPoint rp) {
 		if(!rp.isActive())
 		{
-			armies.remove(rp);
-			rp.removeObserver(this);
+			rallyPoints.remove(rp);
+			//rp.removeObserver(this);
 
 			for(int i=rp.getID().getInstanceNumber(); i<rallyPoints.size(); i++)
 			{

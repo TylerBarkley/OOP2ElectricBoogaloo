@@ -9,11 +9,8 @@ import model.observers.UnitObserver;
 import model.player.PlayerID;
 import model.player.PlayerManager;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -21,8 +18,6 @@ import model.Location;
 import model.observers.RPObserver;
 import model.MoveCommand;
 import model.MovementManager;
-import model.player.PlayerID;
-import model.player.PlayerManager;
 import utilities.RPVisitor;
 
 
@@ -64,7 +59,7 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
         
         isActive=true;
         
-        PlayerManager.getInstance().addRallyPoint(myUnit.getPid(), this);
+        PlayerManager.getInstance().addRallyPoint(myUnit.getPlayerID(), this);
         
         this.getPath();
     }
@@ -85,7 +80,7 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
         
         isActive=true;
         
-        PlayerManager.getInstance().addRallyPoint(myUnit.getPid(), this);
+        PlayerManager.getInstance().addRallyPoint(myUnit.getPlayerID(), this);
         
         this.getPath();
     }
