@@ -32,7 +32,7 @@ public class CapitalProduceExplorerState extends CapitalMenuState{
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Produce Explorer";
+        return "Train Explorers";
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPSetState;
+import control.MenuStates.StructureMenuState;
 import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersMineState;
 import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;

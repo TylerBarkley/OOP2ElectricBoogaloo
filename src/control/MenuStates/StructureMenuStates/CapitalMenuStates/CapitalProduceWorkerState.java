@@ -32,6 +32,6 @@ public class CapitalProduceWorkerState extends CapitalMenuState{
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Produce Workers";
+        return "Breed Workers";
     }
 }

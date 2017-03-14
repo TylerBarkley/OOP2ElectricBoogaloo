@@ -43,6 +43,8 @@ public abstract class StructureMenuState implements MenuState {
             }
         }
         setDefaultState(context);
+        System.out.println("type after cycle L: " + currentType);
+        System.out.println(context.getMenuState().toString());
         //updateControllable(context);
     }
     public void cycleTypeR(Menu context){
@@ -107,8 +109,9 @@ public abstract class StructureMenuState implements MenuState {
     public void reset(Menu context){
         currentType = ControllableCollection.FARMTYPE;
         cycleTypeL(context);
-        currentInstance = 1;
-        cycleInstanceL(context);
+        context.getMenuState().setCurrentInstance(1);
+        context.getMenuState().cycleInstanceL(context);
+        //cycleInstanceL(context);
         //updateControllable(context);
     }
     //abstract void updateControllable(Menu context);
