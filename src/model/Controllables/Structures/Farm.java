@@ -51,7 +51,7 @@ public class Farm extends Structure implements Farming{
 
     public void harvestFood(){
         int foodMined = farmManager.produceFood(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addNutrients(getPid(), foodMined);
+        PlayerManager.getInstance().addNutrients(getPlayerID(), foodMined);
     }
 
     public void setStats(WorkerStats workerStats){

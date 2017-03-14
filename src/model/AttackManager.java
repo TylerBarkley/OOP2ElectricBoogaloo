@@ -34,7 +34,12 @@ public class AttackManager {
 
 
     public void attack(Attacker attacker, Location loc) {
-        structureOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
-        unitOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
+        if(!structureOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)){
+            structureOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
+        }
+
+        if(!unitOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)) {
+            unitOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
+        }
     }
 }
