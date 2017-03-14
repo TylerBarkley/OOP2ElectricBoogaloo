@@ -3,6 +3,7 @@ package control.MenuStates.UnitMenuStates;
 import control.Menu;
 import control.MenuStates.UnitMenuState;
 import model.Controllables.Units.Colonist;
+import model.Controllables.Units.UnitID;
 import model.ProductionManager;
 
 /**
@@ -19,11 +20,9 @@ public class BuildCapitalState extends UnitMenuState {
 
         updateControllable(context);
         ProductionManager productionManager = ProductionManager.getInstance();
-        if(currentUnit instanceof Colonist){
+        if(currentUnit.getID().getType() == UnitID.COLONIST_TYPE_ID){
             productionManager.martyrdom((Colonist)(currentUnit));
         }
-
-        //TODO: currentUnit.buildCapital();
     }
     public void cycleInstructionL(Menu context){
         UnitMenuState nextState = JoinArmyState.getInstance();
