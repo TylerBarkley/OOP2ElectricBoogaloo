@@ -239,6 +239,6 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     @Override
     public void endUpdate(TurnManager turn) {
-        doWork();
+        doWork(); distribute(); malnourish();
     }
 }
