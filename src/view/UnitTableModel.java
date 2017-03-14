@@ -79,7 +79,7 @@ public class UnitTableModel extends AbstractTableModel {
 	
 	public void removeUnit(Unit unit) {
 		
-		int row = unit.getID().getType()-1;
+		int row = unit.getID().getType	()-1;
 		int column = unit.getID().getInstanceNumber()+1;
 		
 		data[row][column] = new String("");

@@ -28,9 +28,9 @@ public class TableRenderer extends DefaultTableCellRenderer {
 			label.setBorder(BorderFactory.createEmptyBorder());
 		}
 		
-		if(value.toString() != "") {
-			label.setText("");
+		if(!label.getText().equals("")) {
 			label.setBackground(Color.GREEN);
+			label.setForeground(Color.GREEN);
 		} else label.setBackground(Color.white);
 		
 		return label;
