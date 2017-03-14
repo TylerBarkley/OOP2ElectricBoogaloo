@@ -32,7 +32,7 @@ import model.observers.RPObserver;
 
 public class Player implements ArmyObserver, RPObserver{
 	private PlayerID id;
-	
+
 	private UnitManager unitManager;
 	private StructureManager structureManager;
 
@@ -42,14 +42,14 @@ public class Player implements ArmyObserver, RPObserver{
 	private ArrayList<RallyPoint> rallyPoints;
 	private Technology tech;
 	private int workers;
-	
+
 	private Food nutrients;
 	private Energy power;
 	private Ore metal;
 	private int technology;
-	
+
 	private ArrayList<PlayerObserver> observers;
-	
+
 	public Player()
 	{
 		id = new PlayerID();
@@ -68,7 +68,7 @@ public class Player implements ArmyObserver, RPObserver{
 		metal=new Ore(0);
 
 		observers=new ArrayList<PlayerObserver>();
-		
+
 		PlayerManager.getInstance().addPlayer(this);
 	}
 
@@ -102,7 +102,7 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(unit);
 		}
-		
+
 		return b;
 	}
 
@@ -114,7 +114,7 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(unit);
 		}
-		
+
 		return b;
 	}
 
@@ -126,7 +126,7 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(unit);
 		}
-		
+
 		return b;
 	}
 
@@ -138,10 +138,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(unit);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(Capital structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -151,7 +151,7 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
 
@@ -164,10 +164,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(Fort structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -177,10 +177,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(Mine structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -190,10 +190,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(ObservationTower structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -203,10 +203,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(PowerPlant structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -216,10 +216,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addStructure(University structure) {
 		boolean b=structureManager.add(structure);
 		if(b)
@@ -229,10 +229,10 @@ public class Player implements ArmyObserver, RPObserver{
 
 			notifyObservers(structure);
 		}
-		
+
 		return b;
 	}
-	
+
 	public boolean addArmy(Army army) {
 		boolean b=armies.add(army);
 		if(b)
@@ -240,7 +240,7 @@ public class Player implements ArmyObserver, RPObserver{
 			army.setID(new ArmyID(this.id,armies.size()-1));
 			notifyObservers(army);
 		}
-		
+
 		return b;
 	}
 
@@ -265,15 +265,15 @@ public class Player implements ArmyObserver, RPObserver{
 		this.workers += newWorkers;
 		return true;
 	}
-	
+
 	public void addNutrients(int food){
 		nutrients.addAmount(food);
 	}
-	
+
 	public void addMetal(int ore){
 		metal.addAmount(ore);
 	}
-	
+
 	public void addPower(int energy){
 		power.addAmount(energy);
 	}
@@ -307,13 +307,13 @@ public class Player implements ArmyObserver, RPObserver{
 
 	}
 	public void distributePower(Army army,int amountOfPowerGiven){
-				army.incrementEnergyResourceLevel(amountOfPowerGiven);
+		army.incrementEnergyResourceLevel(amountOfPowerGiven);
 	}
 	public void distributeMetal(Army army,int amountOfMetalGiven){
-				army.incrementMetalResourceLevel(amountOfMetalGiven);
+		army.incrementMetalResourceLevel(amountOfMetalGiven);
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
-				army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 	}
 	public void storeMetal(int amountOfMetalGiven){
 		metal.setAmount(amountOfMetalGiven);
@@ -330,7 +330,7 @@ public class Player implements ArmyObserver, RPObserver{
 		unitManager.chargeResources(nutrients);
 		structureManager.chargeResources(metal, power);
 	}
-	
+
 	public ControllableCollection getControllableCollection()
 	{
 		return new ControllableCollection(unitManager.getColonists(), unitManager.getExplorers(), 
@@ -366,7 +366,7 @@ public class Player implements ArmyObserver, RPObserver{
 	{
 		observer.update(this);
 	}
-	
+
 	public void notifyObservers()
 	{
 		for(PlayerObserver ob: observers)
@@ -379,7 +379,7 @@ public class Player implements ArmyObserver, RPObserver{
 	{
 		observer.update(this, object);
 	}
-	
+
 	public void notifyObservers(Unit unit)
 	{
 		for(PlayerObserver ob: observers)
@@ -392,7 +392,7 @@ public class Player implements ArmyObserver, RPObserver{
 	{
 		observer.update(this, object);
 	}
-	
+
 	public void notifyObservers(Structure object)
 	{
 		for(PlayerObserver ob: observers)
@@ -405,7 +405,7 @@ public class Player implements ArmyObserver, RPObserver{
 	{
 		observer.update(this, object);
 	}
-	
+
 	public void notifyObservers(Army object)
 	{
 		for(PlayerObserver ob: observers)
@@ -418,7 +418,7 @@ public class Player implements ArmyObserver, RPObserver{
 	{
 		observer.update(this, object);
 	}
-	
+
 	public void notifyObservers(RallyPoint object)
 	{
 		for(PlayerObserver ob: observers)
@@ -426,39 +426,39 @@ public class Player implements ArmyObserver, RPObserver{
 			notifyObserver(ob, object);
 		}
 	}
-	
+
 	@Override
 	public void update(Army army) {
 		if(army.isDisbanded())
 		{
 			armies.remove(army);
 			army.removeObserver(this);
+
+			for(int i=army.getID().getInstanceNumber(); i<armies.size(); i++)
+			{
+				armies.get(i).getID().setInstanceNumber(i);
+			}
+
+			notifyObservers(army);
 		}
-		
-		for(int i=army.getID().getInstanceNumber(); i<armies.size(); i++)
-		{
-			armies.get(i).getID().setInstanceNumber(i);
-		}
-		
-		notifyObservers(army);
 	}
-	
+
 	@Override
 	public void update(RallyPoint rp) {
 		if(!rp.isActive())
 		{
 			armies.remove(rp);
 			rp.removeObserver(this);
+
+			for(int i=rp.getID().getInstanceNumber(); i<rallyPoints.size(); i++)
+			{
+				rallyPoints.get(i).getID().setInstanceNumber(i);
+			}
+
+			notifyObservers(rp);
 		}
-		
-		for(int i=rp.getID().getInstanceNumber(); i<rallyPoints.size(); i++)
-		{
-			rallyPoints.get(i).getID().setInstanceNumber(i);
-		}
-		
-		notifyObservers(rp);
 	}
-	
+
 	public int getWorkers(){
 		return this.workers;
 	}

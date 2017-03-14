@@ -54,6 +54,10 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 
 	@Override
 	public void visit(Unit unit) {
+		if(unit.getLocation()==null){
+			return;
+		}
+		
 		if(unit.getID().getPlayerID().equals(playerID)){
 			Location loc=unit.getLocation();
 			int sight = unit.getMyStats().getInfluenceRadius();
@@ -98,6 +102,10 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 
 	@Override
 	public void visit(Structure structure) {
+		if(structure.getLocation()==null){
+			return;
+		}
+		
 		if(structure.getID().getPlayerID().equals(playerID)){
 			Location loc=structure.getLocation();
 			int sight = structure.getMyStats().getInfluenceRadius();
@@ -110,6 +118,10 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 
 	@Override
 	public void visit(RallyPoint rp) {
+		if(rp.getLocation()==null){
+			return;
+		}
+		
 		if(rp.getID().getPlayerID().equals(playerID))
 		{
 			rallys.add(rp);
@@ -211,6 +223,9 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			}
 
 			Location loc=structure.getLocation();
+			if(loc==null){
+				continue;
+			}
 			int dir=structure.getMapDirection().getAngle();
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
 
@@ -246,6 +261,9 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			}
 
 			Location loc=unit.getLocation();
+			if(loc==null){
+				continue;
+			}
 			int dir=unit.getMapDirection().getAngle();
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
 
@@ -260,6 +278,9 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	
 	private void addRallypointsToView(AreaViewport viewport, ViewFactory factory) {
 		for(RallyPoint rp: rallys){
+			if(rp.getLocation()==null){
+				continue;
+			}
 			View view = factory.getView(rp.getID(), "RallyPoint", rp.getLocation());
 			viewport.addView(view);
 		}

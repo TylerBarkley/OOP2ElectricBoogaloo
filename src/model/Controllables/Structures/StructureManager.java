@@ -256,7 +256,5 @@ public class StructureManager implements StructureObserver{
 
 		metal.setAmount(metalQuantity);
 		power.setAmount(powerQuantity);
-
 	}
-
 }

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import model.ID;
 import model.Location;
 import model.MapDirection;
+import model.Controllables.Structures.StructureID;
 import utilities.AreaViewportVisitor;
 import utilities.ViewVisitor;
 
@@ -359,5 +360,12 @@ public class AreaViewport extends JPanel
 	
 	public void accept(AreaViewportVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	public void removeView(ID id) {
+		boolean b=views.containsKey(id);
+		views.remove(id);
+		b=views.containsKey(id);
+		updateView();
 	}
 }
