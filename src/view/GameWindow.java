@@ -129,6 +129,7 @@ public class GameWindow extends JFrame implements MenuVisitor{
 				JFrame frame=new JFrame();
 				frame.setSize(600, 550);
 				frame.add(configurationOverview);
+				frame.pack();
 				frame.setVisible(true);
 				frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			}
