@@ -2,6 +2,7 @@ package model.Controllables.Structures;
 
 import model.Attacker;
 import model.Controllables.Stats.WorkerStats;
+import model.player.PlayerID;
 
 /**
  * Created by Tyler Barkley on 3/1/2017.
