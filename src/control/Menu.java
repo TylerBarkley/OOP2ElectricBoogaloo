@@ -93,7 +93,10 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 		menuState.select(this);
 		updateControllableCollection();
+		//TODO delete this test output
+		
 		reset();
+		System.out.println("you updated controllable collection, current instance is " + getCurrentInstance().toString());
 	}
 
 	//check if a given instance exists in the ControllableCollection
