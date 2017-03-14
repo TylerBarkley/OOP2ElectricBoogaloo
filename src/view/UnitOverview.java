@@ -92,8 +92,8 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstruction());
 		
 		if(menu.getCurrentMode() == Menu.UNITMODE) {
-			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstanceNumber());
 			Unit unit = (Unit) menu.getCurrentInstance();
+			if(unit != null)renderer.selectUnit(unit.getID().getType(), menu.getCurrentInstanceNumber());
 			if(unit != null) displayStats(unit);
 			
 		} 
