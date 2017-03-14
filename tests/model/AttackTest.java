@@ -149,11 +149,11 @@ public class AttackTest {
 
         AttackManager.getInstance().attack(army, new Location(5, 5));
 
-        assertEquals(75, f2.getCurrentHealth());
+        assertEquals(100, f2.getCurrentHealth());
 
         army2.attack(new Location(5,5));
 
-        assertEquals(65, f2.getCurrentHealth());
+        assertEquals(90, f2.getCurrentHealth());
 
     }
 }
