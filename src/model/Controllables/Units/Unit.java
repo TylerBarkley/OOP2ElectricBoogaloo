@@ -58,7 +58,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	public void addObserver(UnitObserver observer)
 	{
 		observers.add(observer);
-		notifyObserver(observer);
+		//notifyObserver(observer);
 	}
 
 	public void removeObserver(UnitObserver observer)
