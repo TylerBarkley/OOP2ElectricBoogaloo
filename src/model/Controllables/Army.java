@@ -203,7 +203,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
     public void startTurn(){
         this.canMove = true;
-
         //Queue<Unit> ringOutYourDead = new LinkedList<Unit>();
 
         /*
@@ -336,6 +335,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     @Override
     public void endUpdate(TurnManager turn) {
         this.doTurn();
+        distribute();
     }
 
     @Override

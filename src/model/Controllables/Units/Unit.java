@@ -241,7 +241,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	}
 	@Override
 	public void endUpdate(TurnManager turn) {
-
+		distribute();
+		malnourish();
 	}
 
 	@Override
