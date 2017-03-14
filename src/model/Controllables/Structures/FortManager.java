@@ -129,6 +129,14 @@ public class FortManager extends WorkerManager{
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
     }
 
+    @Override
+    public void unassignAll() {
+        numOfWorkers_Unassigned += numOfWorkers_Building + numOfWorkers_RangedTraining + numOfWorkers_MeleeTraining;
+        numOfWorkers_RangedTraining = 0;
+        numOfWorkers_MeleeTraining = 0;
+        numOfWorkers_Building = 0;
+    }
+
     public ArrayList<Location> getAttackLocations() {
         return attackLocations;
     }

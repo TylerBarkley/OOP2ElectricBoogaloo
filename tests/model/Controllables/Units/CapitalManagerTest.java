@@ -230,8 +230,7 @@ public class CapitalManagerTest {
         Map.reset();
         Map.setMoveDebug();
         capital.setLocation(loc1);
-        capital.setNumTotalOfWorkers(10);
-        capitalManager.setNumOfWorkers_Unassigned(10);
+        capital.addWorker(10);
         capital.unassign();
         capital.assignWorkersToFarm(loc2, 5);
         assertEquals(false, resourceManager.get(loc2).getWorking());

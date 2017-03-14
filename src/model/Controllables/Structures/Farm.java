@@ -34,10 +34,7 @@ public class Farm extends Structure implements Farming{
 
     @Override
     public void unassign(){
-        farmManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        farmManager.setNumOfWorkers_Harvesting(0);
-        farmManager.setNumOfWorkers_Building(0);
-        farmManager.resetWork(getLocation());
+        farmManager.unassignAll();
     }
 
     @Override

@@ -136,6 +136,15 @@ public abstract class HarvestManager extends WorkerManager{
         numOfWorkers_Unassigned -= Math.min(number, numOfWorkers_Unassigned);
     }
 
+    public void unassignAll(){
+        numOfWorkers_Unassigned += numOfWorkers_Building + numOfWorkers_Harvesting;
+        numOfWorkers_Harvesting = 0;
+        numOfWorkers_Building = 0;
+        if(harvestingLocation != null){
+            resourceManager.setWorking(harvestingLocation, false);
+        }
+    }
+
     @Override
     public void assignBuild(int assignment) {
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);

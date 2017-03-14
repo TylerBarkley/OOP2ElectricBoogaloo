@@ -83,13 +83,7 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     @Override
     public void unassign(){
-        capitalManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        capitalManager.setNumOfWorkers_HarvestingFood(0);
-        capitalManager.setNumOfWorkers_HarvestingOre(0);
-        capitalManager.setNumOfWorkers_HarvestingEnergy(0);
-        capitalManager.setNumOfWorkers_ExplorerTraining(0);
-        capitalManager.setNumOfWorkers_Breeding(0);
-        capitalManager.setNumOfWorkers_Building(0);
+        capitalManager.unassignAll();
         capitalManager.resetWork(getLocation());
     }
 

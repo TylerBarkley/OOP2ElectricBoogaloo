@@ -1,6 +1,4 @@
 package model.Controllables.Structures;
-
-
 import model.Controllables.Stats.WorkerStats;
 
 /**
@@ -38,9 +36,7 @@ public class University extends Structure {
 
     @Override
     public void unassign(){
-        universityManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        universityManager.setNumOfWorkers_HarvestingTechnology(0);
-        universityManager.setNumOfWorkers_Building(0);
+        universityManager.unassignAll();
     }
 
     @Override
