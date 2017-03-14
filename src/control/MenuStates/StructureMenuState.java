@@ -1,6 +1,14 @@
 package control.MenuStates;
 
 import control.Menu;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersFarmState;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalProduceExplorerState;
+import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
+import control.MenuStates.StructureMenuStates.FortMenuStates.ProduceMeleeState;
+import control.MenuStates.StructureMenuStates.MineMenuStates.MineAssignWorkersMineState;
+import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
+import control.MenuStates.StructureMenuStates.PowerPlantMenuStates.PPAssignWorkersPowerHarvestState;
+import control.MenuStates.StructureMenuStates.UniversityMenuStates.ResearchTechnologyState;
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
 import model.Controllables.Structures.Structure;
@@ -12,11 +20,6 @@ public abstract class StructureMenuState implements MenuState {
 
     protected int currentInstance = 0, currentType = ControllableCollection.CAPITALTYPE ;
     //protected Structure currentStructure;
-
-    //TODO: implement this and make the cycleType() methods call it at the end
-    public void setDefaultInstruction(Menu context){
-
-    }
 
     //can probably eliminate for() loops here because if an instance exists, it will always be in index 0
     public void cycleTypeL (Menu context){
@@ -39,7 +42,8 @@ public abstract class StructureMenuState implements MenuState {
                 else currentType--;
             }
         }
-        updateControllable(context);
+        setDefaultState(context);
+        //updateControllable(context);
     }
     public void cycleTypeR(Menu context){
         int startCurrentType = currentType;
@@ -61,7 +65,8 @@ public abstract class StructureMenuState implements MenuState {
                 else currentType++;
             }
         }
-        updateControllable(context);
+        setDefaultState(context);
+        //updateControllable(context);
     }
 
     //TODO: set lastInstance to the appropriate value for cycleInstance() methods
@@ -104,7 +109,7 @@ public abstract class StructureMenuState implements MenuState {
         cycleTypeL(context);
         currentInstance = 1;
         cycleInstanceL(context);
-        updateControllable(context);
+        //updateControllable(context);
     }
     //abstract void updateControllable(Menu context);
         //currentStructure = (Structure) context.getControllableCollection().get(currentType, currentInstance);
@@ -129,6 +134,31 @@ public abstract class StructureMenuState implements MenuState {
         return null;
     }
 
+    public void setDefaultState(Menu context){
+        //this is called after the instance/type ints are set, before the current Instance
+        //object is updated, to avoid null pointers (hopefully)
+        StructureMenuState nextState = this;
+        switch (currentType){
+            case ControllableCollection.CAPITALTYPE:
+                nextState = CapitalAssignWorkersFarmState.getInstance(); break;
+            case ControllableCollection.FARMTYPE:
+                nextState = FarmAssignWorkersFarmState.getInstance(); break;
+            case ControllableCollection.FORTTYPE:
+                nextState = ProduceMeleeState.getInstance(); break;
+            case ControllableCollection.MINETYPE:
+                nextState = MineAssignWorkersMineState.getInstance(); break;
+            case ControllableCollection.OBSERVATIONTOWERTYPE:
+                nextState = OTDecommissionState.getInstance(); break;
+            case ControllableCollection.POWERPLANTTYPE:
+                nextState = PPAssignWorkersPowerHarvestState.getInstance(); break;
+            case ControllableCollection.UNIVERSITYTYPE:
+                nextState = ResearchTechnologyState.getInstance(); break;
+        }
+        nextState.setCurrentInstance(currentInstance);
+        nextState.setCurrentType(currentType);
+        nextState.updateControllable(context);
+        context.setMenuState(nextState);
+    }
 
 
 }

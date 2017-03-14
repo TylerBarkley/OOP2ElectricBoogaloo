@@ -14,7 +14,7 @@ public abstract class PowerPlantMenuState extends StructureMenuState {
     public void updateControllable(Menu context){
         currentStructure = (PowerPlant) context.getControllableCollection().get(currentType, currentInstance);
     }
-    public PowerPlant getCurrentStructure(){
+    public PowerPlant getCurrentInstance(){
         return currentStructure;
     }
 }

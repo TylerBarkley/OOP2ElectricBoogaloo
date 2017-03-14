@@ -129,6 +129,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
+				//TODO fix this!!
 				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}

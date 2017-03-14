@@ -1,43 +1,37 @@
-package control.MenuStates.StructureMenuStates.CapitalMenuStates;
+package control.MenuStates.StructureMenuStates.ObservationTowerMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.PopUpMenuWindow;
+import control.MenuStates.StructureMenuStates.UniversityMenuStates.ResearchTechnologyState;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class CapitalAssignWorkersFarmState extends CapitalMenuState {
-    private static CapitalAssignWorkersFarmState instance = new CapitalAssignWorkersFarmState();
-    public static CapitalAssignWorkersFarmState getInstance(){return instance;}
-    private CapitalAssignWorkersFarmState(){}
+public class OTDecommissionState extends ObservationTowerMenuState {
+    private static OTDecommissionState instance = new OTDecommissionState();
+    public static OTDecommissionState getInstance(){return instance;}
+    private OTDecommissionState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        currentStructure.assignWorkersToFarm(context.getFocus(), PopUpMenuWindow.WorkerMenu());
-
+        //TODO: decommission
     }
-
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
+        StructureMenuState nextState = OTDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-
-        StructureMenuState nextState = CapitalAssignWorkersMineState.getInstance();
+        StructureMenuState nextState = OTDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Assign Workers Farm";
+        return "Decommission";
     }
-
-
 }

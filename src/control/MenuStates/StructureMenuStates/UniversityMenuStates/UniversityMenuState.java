@@ -14,7 +14,7 @@ public abstract class UniversityMenuState extends StructureMenuState {
     public void updateControllable(Menu context){
         currentStructure = (University) context.getControllableCollection().get(currentType, currentInstance);
     }
-    public University getCurrentStructure(){
+    public University getCurrentInstance(){
         return currentStructure;
     }
 }

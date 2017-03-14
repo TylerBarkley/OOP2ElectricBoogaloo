@@ -1,33 +1,24 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.FortMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalProduceExplorerState;
 import control.PopUpMenuWindow;
-import model.Controllables.Structures.Fort;
-import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ProduceMeleeState extends StructureMenuState {
+public class ProduceMeleeState extends FortMenuState {
     private static ProduceMeleeState instance = new ProduceMeleeState();
     public static ProduceMeleeState getInstance(){return instance;}
     private ProduceMeleeState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.FORT_TYPE_ID){
-            Fort producer = (Fort) currentStructure;
-            producer.assignWorkersToTrainMeleeSoldiers(PopUpMenuWindow.WorkerMenu());
-        }
-
-
+        currentStructure.assignWorkersToTrainMeleeSoldiers(PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
+        StructureMenuState nextState = ProduceRangedState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

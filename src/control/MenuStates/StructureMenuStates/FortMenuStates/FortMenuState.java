@@ -14,7 +14,7 @@ public abstract class FortMenuState extends StructureMenuState {
     public void updateControllable(Menu context){
         currentStructure = (Fort) context.getControllableCollection().get(currentType, currentInstance);
     }
-    public Fort getCurrentStructure(){
+    public Fort getCurrentInstance(){
         return currentStructure;
     }
 }

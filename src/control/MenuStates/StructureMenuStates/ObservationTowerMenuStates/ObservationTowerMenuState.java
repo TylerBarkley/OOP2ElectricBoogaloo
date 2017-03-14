@@ -14,7 +14,7 @@ public abstract class ObservationTowerMenuState extends StructureMenuState {
     public void updateControllable(Menu context){
         currentStructure = (ObservationTower) context.getControllableCollection().get(currentType, currentInstance);
     }
-    public ObservationTower getCurrentStructure(){
+    public ObservationTower getCurrentInstance(){
         return currentStructure;
     }
 }

@@ -2,10 +2,7 @@ package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ProduceMeleeState;
-import control.MenuStates.StructureMenuStates.ResearchTechnologyState;
 import control.PopUpMenuWindow;
-import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/8/17.
