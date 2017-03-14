@@ -1,17 +1,13 @@
 package model.Controllables.Structures;
-
 import java.util.ArrayList;
-
 import model.Location;
 import model.MapDirection;
-import model.Controllables.BasicStats;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.StructureStats;
-import model.Controllables.Stats.UnitStats;
 import model.observers.StructureObserver;
-import model.observers.UnitObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
+import java.lang.Math;
 
 public abstract class Structure implements Controllable {
     private int currentHealth;
@@ -82,6 +78,9 @@ public abstract class Structure implements Controllable {
     }
 
     public void damageMe(int intensity) {
+        if(intensity - myStats.getArmor() < 0){
+            return;
+        }
         currentHealth -= (intensity - myStats.getArmor());
         if (currentHealth <= 0) {
             this.killMe();
