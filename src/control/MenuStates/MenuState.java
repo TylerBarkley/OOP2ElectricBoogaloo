@@ -24,6 +24,7 @@ import model.Controllables.Controllable;
  * Structure order: farm, mine, powerharvest, produce worker, produce explorer, produce melee, produce ranged, research
  * Are Unit:joinArmy and Unit:reinforceRP different things?
  *
+ * update cycleModeL() and R() in Menu to only cycle to instuctions that all structures have
  *
  *
  */

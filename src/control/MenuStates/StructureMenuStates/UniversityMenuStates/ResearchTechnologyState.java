@@ -1,45 +1,39 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.UniversityMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.PopUpMenuWindow;
-import model.Controllables.Structures.Fort;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersFarmState;
+import control.MenuStates.StructureMenuStates.FortMenuStates.ProduceRangedState;
 import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ProduceMeleeState extends StructureMenuState {
-    private static ProduceMeleeState instance = new ProduceMeleeState();
-    public static ProduceMeleeState getInstance(){return instance;}
-    private ProduceMeleeState(){}
+public class ResearchTechnologyState extends UniversityMenuState {
+    private static ResearchTechnologyState instance = new ResearchTechnologyState();
+    public static ResearchTechnologyState getInstance(){return instance;}
+    private ResearchTechnologyState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.FORT_TYPE_ID){
-            Fort producer = (Fort) currentStructure;
-            producer.assignWorkersToTrainMeleeSoldiers(PopUpMenuWindow.WorkerMenu());
-        }
-
-
+            //TODO: research
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceExplorerState.getInstance();
+        StructureMenuState nextState = UniversityDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = ProduceRangedState.getInstance();
+        StructureMenuState nextState = UniversityDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Produce Melee";
+        return "Research Technology";
     }
 }

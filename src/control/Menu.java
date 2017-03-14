@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPSetState;
-import control.MenuStates.StructureMenuStates.AssignWorkersMineState;
+import control.MenuStates.StructureMenuState;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersMineState;
+import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
@@ -29,12 +31,9 @@ import utilities.MenuVisitor;
 /**
  * Created by hankerins on 3/5/17.
  *
- * Q4D: are States allowed to access a context's field like a context itself?
- * Q4D: review good vs. bad casting
  *
- * Structure arrayLists will be variable size
  *
- * Menu needs to know the player's focus
+ *
  */
 public class Menu implements PlayerObserver, StartTurnObserver{
 
@@ -132,7 +131,8 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(AssignWorkersMineState.getInstance());
+				//does this need to be changed?
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);
@@ -161,7 +161,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(AssignWorkersMineState.getInstance());
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);

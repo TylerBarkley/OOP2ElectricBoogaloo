@@ -2,9 +2,7 @@ package control;
 
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
-import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.Farm;
-import model.Controllables.Structures.Fort;
+import model.Controllables.Structures.*;
 import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
@@ -16,7 +14,7 @@ import java.util.*;
 /**
  * Created by hankerins on 3/5/17.
  */
-public class RunTest {
+public class ControlTerminal {
 
     public static void main(String args[]){
     	Player p=new Player();
@@ -24,12 +22,17 @@ public class RunTest {
     	p.addArmy(new Army());
     	p.addArmy(new Army());
     	
-    	p.addStructure(new Capital());
+    	//p.addStructure(new Capital());
+        p.addStructure(new ObservationTower());
+        p.addStructure(new Mine());
+        p.addStructure(new PowerPlant());
     	p.addStructure(new Farm());
     	p.addStructure(new Farm());
     	p.addStructure(new Farm());
     	p.addStructure(new Farm());
-    	p.addStructure(new Farm());
+    	p.addStructure(new Fort());
+        p.addStructure(new Fort());
+        p.addStructure(new University());
     	
     	p.addUnit(new Colonist());
     	p.addUnit(new Melee());

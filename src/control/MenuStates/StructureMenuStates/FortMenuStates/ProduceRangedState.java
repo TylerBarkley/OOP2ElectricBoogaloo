@@ -1,28 +1,21 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.FortMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
 import control.PopUpMenuWindow;
-import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.Fort;
-import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ProduceRangedState extends StructureMenuState {
+public class ProduceRangedState extends FortMenuState {
     private static ProduceRangedState instance = new ProduceRangedState();
     public static ProduceRangedState getInstance(){return instance;}
     private ProduceRangedState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.FORT_TYPE_ID){
-            Fort producer = (Fort) currentStructure;
-            producer.assignWorkersToTrainRangedSoldiers(PopUpMenuWindow.WorkerMenu());
-        }
+            currentStructure.assignWorkersToTrainRangedSoldiers(PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
         StructureMenuState nextState = ProduceMeleeState.getInstance();
@@ -32,7 +25,7 @@ public class ProduceRangedState extends StructureMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = AssignWorkersFarmState.getInstance();
+        StructureMenuState nextState = FortDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
