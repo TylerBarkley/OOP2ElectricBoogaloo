@@ -14,7 +14,7 @@ import model.Controllables.Stats.*;
  */
 public class TechnologyTest {
 
-   WorkerStats workerStats;
+   /*WorkerStats workerStats;
     ArrayList<UnitStats> unitStats;
     ArrayList<StructureStats> structureStats;
     Technology technology;
@@ -139,5 +139,5 @@ public class TechnologyTest {
         assertEquals(technology.getWorkerStatsIncrements("buildingRate")+buildingRate,workerStats.getBuildingRate());
         assertEquals(technology.getWorkerStatsIncrements("workerDensity")+workerDensity,workerStats.getWorkerDensity());
         assertEquals(technology.getWorkerStatsIncrements("workerRadius")+workerRadius,workerStats.getWorkerRadius());
-    }
+    }*/
 }
