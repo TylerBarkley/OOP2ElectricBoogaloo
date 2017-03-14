@@ -121,6 +121,11 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
         unit.resetAP();
 
+        if(battleGroup.isEmpty()) {
+            this.disband();
+            return;
+        }
+
         updateAP();
         updateEscort();
         
@@ -198,7 +203,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
     public void startTurn(){
         this.canMove = true;
-
         //Queue<Unit> ringOutYourDead = new LinkedList<Unit>();
 
         /*
@@ -224,6 +228,8 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
             unit.resetAP();
         }
         battleGroup.clear();
+
+        myRP.deletThis();
 
         notifyObservers();
     }
@@ -266,7 +272,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public void distribute() {
         for (int i = 0; i < battleGroup.size(); i++) {
             if (battleGroup.get(i) != null) {
-                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel) {
+                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel && battleGroup.get(i).getNutrientResourceLevel()<=battleGroup.get(i).getUpkeep()) {
                     battleGroup.get(i).incrementNutrientResourceLevel(battleGroup.get(i).getUpkeep());
                     nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
                 }
@@ -283,6 +289,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
+        distribute();
     }
 
     @Override
