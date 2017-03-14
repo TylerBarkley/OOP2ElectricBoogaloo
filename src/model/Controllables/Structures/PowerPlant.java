@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class PowerPlant extends Structure implements Energizing {
+public class PowerPlant extends HarvestStructure implements Energizing {
 
     private PowerPlantManager powerPlantManager;
     private int builtPercentage;
