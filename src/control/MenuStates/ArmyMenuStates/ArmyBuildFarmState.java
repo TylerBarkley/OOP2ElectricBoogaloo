@@ -18,7 +18,7 @@ public class ArmyBuildFarmState extends ArmyMenuState {
         updateControllable(context);
         //TODO: menu to select number of workers
         int numOfWorkers = 1;
-        currentArmy.getCommandQueue().add(new BuildFarmCommand(currentArmy, numOfWorkers));
+        currentArmy.giveOrder(new BuildFarmCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyDefendState.getInstance();
