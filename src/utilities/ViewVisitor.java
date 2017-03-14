@@ -21,7 +21,6 @@ import view.TileView;
 import view.View;
 import view.ViewFactory;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -41,6 +40,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	private ArrayList<Unit> units;
 	private ArrayList<Structure> structures;
 	private ArrayList<RallyPoint> rallys;
+	private ArrayList<Location> locationsToReset;
 
 	public ViewVisitor(PlayerID playerID){
 		this.playerID=playerID;
@@ -50,6 +50,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		units=new ArrayList<Unit>();
 		structures=new ArrayList<Structure>();
 		rallys=new ArrayList<RallyPoint>();
+		locationsToReset=new ArrayList<Location>();
 	}
 
 	@Override
@@ -97,6 +98,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			}
 		}
 		
+		locationsToReset.addAll(visibleLocations);
 		visibleLocations.clear();
 	}
 
@@ -136,11 +138,17 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	{
 		ViewFactory factory = ViewFactory.getFactory();
 
+		clearVisibleLocations(viewport);
 		addTerrainsToView(viewport,factory);
 		addResourcesToView(viewport,factory);
 		addStructuresToView(viewport, factory);
 		addUnitsToView(viewport, factory);
 		addRallypointsToView(viewport, factory);
+	}
+
+	private void clearVisibleLocations(AreaViewport viewport) {
+		viewport.resetLocations(locationsToReset);
+		locationsToReset.clear();
 	}
 
 	private void addTerrainsToView(AreaViewport viewport, ViewFactory factory) {
@@ -261,7 +269,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			}
 
 			Location loc=unit.getLocation();
-			if(loc==null){
+			if(loc==null || !unit.isAlive()){
 				continue;
 			}
 			int dir=unit.getMapDirection().getAngle();

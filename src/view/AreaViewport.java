@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.JPanel;
@@ -26,22 +27,22 @@ public class AreaViewport extends JPanel
 	private HashMap<Location, TileView> mapView;
 	private HashMap<Location, CompositeView> resources;
 	private HashMap<Location, View> shades;
-	
+
 	private Location focus;
 	private FocusView focusView;
 	private ID focusID;
-	
+
 	private BufferedImage image;
 	private Graphics2D g2d;
 
 	private boolean resourceViewVisible;
-	
+
 	public AreaViewport(int width, int height)
 	{
 		setSize(width, height);
 
 		initializeFields();
-		
+
 		displayView();
 	}
 
@@ -50,13 +51,13 @@ public class AreaViewport extends JPanel
 
 		resources=new HashMap<Location, CompositeView>();
 		shades=new HashMap<Location, View>();
-		
+
 		focus=new Location(0,0);
 		focusID=new ID();
 		focusView=new FocusView(focusID, focus);
 
 		views.put(focusID, focusView);
-		
+
 		image=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d=image.createGraphics();
 
@@ -89,12 +90,12 @@ public class AreaViewport extends JPanel
 	public void updateMapView(HashMap<Location, TileView> views)
 	{
 		mapView.putAll(views);
-		
+
 		for(Location loc: views.keySet())
 		{
 			shades.remove(loc);
 		}
-		
+
 		updateView();
 	}
 
@@ -115,7 +116,7 @@ public class AreaViewport extends JPanel
 		resourceViewVisible=!resourceViewVisible;
 		updateView();
 	}
-	
+
 	public void enableResourceView()
 	{
 		resourceViewVisible=true;
@@ -127,7 +128,7 @@ public class AreaViewport extends JPanel
 		resourceViewVisible=false;
 		updateView();
 	}
-	
+
 	public void focusOn(Location loc)
 	{
 		focus = loc;
@@ -140,11 +141,11 @@ public class AreaViewport extends JPanel
 		super.paintComponent(g);
 		g.drawImage(image,0,0,null);
 	}
-	
+
 	public void setViews(HashMap<ID, View> views)
 	{
 		this.views=views;
-		
+
 		views.put(focusID, focusView);
 		updateView();
 	}
@@ -154,7 +155,7 @@ public class AreaViewport extends JPanel
 		views.put(view.getID(), view);
 		updateView();
 	}
-	
+
 	public void addViews(HashMap<ID, View> views)
 	{
 		this.views.putAll(views);
@@ -190,7 +191,7 @@ public class AreaViewport extends JPanel
 		initializeFields();
 		return momento;
 	}
-	
+
 	public void restoreFromMomento(AreaViewportMomento momento)
 	{
 		views=momento.getViews();
@@ -200,17 +201,17 @@ public class AreaViewport extends JPanel
 		focus=momento.getFocus();
 		focusID=momento.getFocusID();
 		focusView=momento.getFocusView();
-		
+
 		image=momento.getImage();
 		g2d=momento.getG2d();
 
 		resourceViewVisible=momento.isResourceViewVisible();
-		
+
 		mapView=momento.getMapView();
-		
+
 		addShades();
 	}
-	
+
 	private Location getTopLeftCornerOfDisplay() 
 	{
 		int mapDisplayWidth=getMapDisplayWidth();
@@ -319,13 +320,13 @@ public class AreaViewport extends JPanel
 		{
 			view.draw(g2d, pixelX, pixelY);
 		}
-		
+
 		CompositeView resourcesView=resources.get(loc);
 		if(resourceViewVisible && resourcesView != null)
 		{
 			resourcesView.draw(g2d, pixelX, pixelY);
 		}
-		
+
 		View view = shades.get(loc);
 		if(view!=null)
 		{
@@ -357,15 +358,35 @@ public class AreaViewport extends JPanel
 			shades.put(loc, shade);
 		}
 	}
-	
+
 	public void accept(AreaViewportVisitor visitor) {
 		visitor.visit(this);
 	}
 
 	public void removeView(ID id) {
 		boolean b=views.containsKey(id);
-		views.remove(id);
+		System.out.println(b);
+		System.out.println(views.remove(id));
 		b=views.containsKey(id);
+		System.out.println(b);
 		updateView();
+	}
+
+	public void resetLocations(ArrayList<Location> locs) {
+		ArrayList<ID> idsToRemove=new ArrayList<ID>();
+		for(Entry<ID, View> e : views.entrySet()){
+			if(locs.contains(e.getValue().getLocation()))
+			{
+				idsToRemove.add(e.getKey());
+			}
+		}
+
+		for(ID id: idsToRemove)
+		{
+			if(!id.equals(focusID))
+			{
+				views.remove(id);
+			}
+		}
 	}
 }

@@ -90,16 +90,20 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 			structure.accept(statusViewport);
 		}
 
-		structure.accept(viewVisitor);
-		updateView();
+		if(!structure.isAlive())
+		{
+			areaViewport.removeView(structure.getID());
+			return;
+		}
+		else
+		{
+			structure.accept(viewVisitor);
+			updateView();
+		}
 	}
 
 	@Override
 	public void update(Unit unit) {
-		if(!unit.isAlive())
-		{
-			areaViewport.removeView(unit.getID());
-		}
 		if(unit.getLocation() ==null)
 		{
 			return;
@@ -111,8 +115,16 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 			unit.accept(statusViewport);
 		}
 
-		unit.accept(viewVisitor);
-		updateView();
+		if(!unit.isAlive())
+		{
+			areaViewport.removeView(unit.getID());
+			return;
+		}
+		else
+		{
+			unit.accept(viewVisitor);
+			updateView();
+		}
 	}
 
 	@Override
