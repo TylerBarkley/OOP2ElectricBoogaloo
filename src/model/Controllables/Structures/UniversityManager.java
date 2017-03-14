@@ -91,4 +91,11 @@ public class UniversityManager extends WorkerManager{
     public void assignBuild(int assignment) {
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
     }
+
+    @Override
+    public void unassignAll() {
+        numOfWorkers_Unassigned += numOfWorkers_HarvestingTechnology + numOfWorkers_Building;
+        numOfWorkers_HarvestingTechnology = 0;
+        numOfWorkers_Building = 0;
+    }
 }

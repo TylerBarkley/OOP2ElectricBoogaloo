@@ -34,10 +34,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     @Override
     public void unassign(){
-        powerPlantManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        powerPlantManager.setNumOfWorkers_Harvesting(0);
-        powerPlantManager.setNumOfWorkers_Building(0);
-        powerPlantManager.resetWork(getLocation());
+        powerPlantManager.unassignAll();
     }
 
     @Override

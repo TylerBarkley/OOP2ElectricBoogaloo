@@ -84,10 +84,7 @@ public class Fort extends Structure implements Attacker{
 
     @Override
     public void unassign(){
-        fortManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        fortManager.setNumOfWorkers_MeleeTraining(0);
-        fortManager.setNumOfWorkers_RangedTraining(0);
-        fortManager.setNumOfWorkers_Building(0);
+        fortManager.unassignAll();
     }
 
     public void setStats(WorkerStats workerStats){

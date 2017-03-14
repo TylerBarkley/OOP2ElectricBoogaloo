@@ -9,7 +9,6 @@ import model.observers.EndTurnObserver;
 import model.observers.StructureObserver;
 import model.player.PlayerID;
 import utilities.StructureVisitor;
-import java.lang.Math;
 
 public abstract class Structure implements Controllable, EndTurnObserver {
     private int currentHealth;

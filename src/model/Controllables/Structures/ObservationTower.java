@@ -29,8 +29,7 @@ public class ObservationTower extends Structure {
     }
 
     public void unassign(){
-        observationTowerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        observationTowerManager.setNumOfWorkers_Building(0);
+        observationTowerManager.unassignAll();
     }
 
     @Override

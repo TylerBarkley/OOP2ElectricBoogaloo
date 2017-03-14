@@ -34,10 +34,7 @@ public class Mine extends Structure implements Mining{
     
     @Override
     public void unassign(){
-        mineManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        mineManager.setNumOfWorkers_Harvesting(0);
-        mineManager.setNumOfWorkers_Building(0);
-        mineManager.resetWork(getLocation());
+        mineManager.unassignAll();
     }
 
     @Override
