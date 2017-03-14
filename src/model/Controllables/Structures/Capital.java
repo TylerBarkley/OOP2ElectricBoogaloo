@@ -52,7 +52,6 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     }
 
     public void makeExplorer(){
-        //TODO add to PM
         exBuildPercentage += capitalManager.trainExplorer();
         if(exBuildPercentage > 99){
             ProductionManager.getInstance().produceExplorer(this);
