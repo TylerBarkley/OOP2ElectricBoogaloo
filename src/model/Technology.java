@@ -407,7 +407,7 @@ public void editWorkerStats(int statToBeModified) {
             case OffensiveDamage:
                 return unitAdvancements.get(unitType).getOffensiveDamage()/unitAdvancements.get(unitType).getOffensiveDamageIncrement()+1;
             case Movement:
-                return unitAdvancements.get(unitType).getMovement()/unitAdvancements.get(unitType).getMovement();
+                return unitAdvancements.get(unitType).getMovement()/unitAdvancements.get(unitType).getMovement()+1;
         }
         return -1;
     }
@@ -426,7 +426,7 @@ public void editWorkerStats(int statToBeModified) {
             case OffensiveDamage:
                 return structureAdvancements.get(structureType).getOffensiveDamage()/structureAdvancements.get(structureType).getOffensiveDamageIncrement()+1;
             case ProductionRate:
-                return structureAdvancements.get(structureType).getProductionRate()/structureAdvancements.get(structureType).getProductionRate();
+                return structureAdvancements.get(structureType).getProductionRate()/structureAdvancements.get(structureType).getProductionRate()+1;
         }
         return -1;
     }
