@@ -17,7 +17,7 @@ public class StructureResearchCommand implements ResearchCommand {
 
     @Override
     public int getCost() {
-        return 10;
+        return 10*technology.getCurrentStructureAdvancements(type,stat);
     }
 
     @Override

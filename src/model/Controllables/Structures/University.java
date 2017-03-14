@@ -30,10 +30,14 @@ public class University extends Structure {
         }
     }
 
-    public void harvestScience(){
-        techPercentage += universityManager.produceTechnology(getMyStats().getProductionRate());
-        if(techPercentage > 50){
-            //TODO some science/tech stuff (It's just math) (probably with tech string)
+    public void harvestScience() {
+        if (myResearch != null) {
+            techPercentage += universityManager.produceTechnology(getMyStats().getProductionRate());
+            if (techPercentage >= myResearch.getCost()) {
+                techPercentage = 0;
+                myResearch.execute();
+                myResearch = null;
+            }
         }
     }
 
@@ -74,10 +78,8 @@ public class University extends Structure {
 
     public void assignResearch(ResearchCommand rc){
         myResearch = rc;
-
-        //TODO DO SOMETHING WITH THE RESEARCH COST
-        rc.getCost();
     }
+    public void unassignResearch(){myResearch=null;}
 
     public int getBuiltPercentage() {
         return builtPercentage;

@@ -15,7 +15,7 @@ public class WorkerResearchCommand implements ResearchCommand {
 
     @Override
     public int getCost() {
-        return 10;
+        return 10*technology.getCurrentWorkerAdvancements(stat);
     }
 
     @Override

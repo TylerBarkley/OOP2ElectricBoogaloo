@@ -7,4 +7,5 @@ import model.Controllables.Command;
  */
 public interface ResearchCommand extends Command {
     public int getCost();
+    public void execute();
 }
