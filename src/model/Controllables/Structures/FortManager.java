@@ -1,9 +1,7 @@
 package model.Controllables.Structures;
-
 import model.AttackManager;
 import model.Controllables.Stats.WorkerStats;
 import model.Location;
-
 import java.util.ArrayList;
 
 /**
@@ -15,7 +13,8 @@ public class FortManager extends WorkerManager{
 
     private int numOfWorkers_Unassigned;
     private int numOfWorkers_Building;
-    private int numOfWorkers_SoldierTraining;
+    private int numOfWorkers_MeleeTraining;
+    private int numOfWorkers_RangedTraining;
     private ArrayList<Location> attackLocations;
     private AttackManager attackManager;
 
@@ -26,7 +25,10 @@ public class FortManager extends WorkerManager{
     }
 
     public int building() {
-        numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+        numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_MeleeTraining + numOfWorkers_RangedTraining;
+        numOfWorkers_Unassigned = 0;
+        numOfWorkers_MeleeTraining = 0;
+        numOfWorkers_RangedTraining = 0;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }
@@ -40,28 +42,53 @@ public class FortManager extends WorkerManager{
         }
     }
 
-    public int trainSoldier(int numOfSoldiers){
-        if(numOfWorkers_SoldierTraining < 1){
+    public int trainMeleeSoldier(int numOfSoldiers){
+        if(numOfWorkers_MeleeTraining < 1){
             return 0;
         }
-
-        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_SoldierTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining());
+        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_MeleeTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining());
         return percentageTrained;
     }
 
-    public void assignWorkers(int assignNum){
-        if((numOfWorkers_Unassigned + numOfWorkers_SoldierTraining) < (assignNum + 1)){
-            numOfWorkers_SoldierTraining = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+    public int trainRangedSoldier(int numOfSoldiers){
+        if(numOfWorkers_RangedTraining < 1){
+            return 0;
+        }
+
+        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_RangedTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining());
+        return percentageTrained;
+    }
+
+
+    public void assignWorkersMelee(int assignNum){
+        if((numOfWorkers_Unassigned + numOfWorkers_MeleeTraining) < (assignNum + 1)){
+            numOfWorkers_MeleeTraining = numOfWorkers_Unassigned + numOfWorkers_MeleeTraining;
             numOfWorkers_Unassigned = 0;
         }
         else if(assignNum < 1){
-            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
-            numOfWorkers_SoldierTraining = 0;
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_MeleeTraining;
+            numOfWorkers_MeleeTraining = 0;
         }
         else{
-            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_MeleeTraining;
             numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
-            numOfWorkers_SoldierTraining = assignNum;
+            numOfWorkers_MeleeTraining = assignNum;
+        }
+    }
+
+    public void assignWorkersRanged(int assignNum){
+        if((numOfWorkers_Unassigned + numOfWorkers_RangedTraining) < (assignNum + 1)){
+            numOfWorkers_RangedTraining = numOfWorkers_Unassigned + numOfWorkers_RangedTraining;
+            numOfWorkers_Unassigned = 0;
+        }
+        else if(assignNum < 1){
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_RangedTraining;
+            numOfWorkers_RangedTraining = Math.min(0,0);
+        }
+        else{
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned + numOfWorkers_MeleeTraining;
+            numOfWorkers_Unassigned = numOfWorkers_Unassigned - assignNum;
+            numOfWorkers_MeleeTraining = assignNum;
         }
     }
 
@@ -87,14 +114,6 @@ public class FortManager extends WorkerManager{
 
     public void setNumOfWorkers_Building(int numOfWorkers_Building) {
         this.numOfWorkers_Building = numOfWorkers_Building;
-    }
-
-    public int getNumOfWorkers_SoldierTraining() {
-        return numOfWorkers_SoldierTraining;
-    }
-
-    public void setNumOfWorkers_SoldierTraining(int numOfWorkers_SoldierTraining) {
-        this.numOfWorkers_SoldierTraining = numOfWorkers_SoldierTraining;
     }
 
     public void addUnassigned(int number){
@@ -124,5 +143,21 @@ public class FortManager extends WorkerManager{
 
     public void setAttackManager(AttackManager attackManager) {
         this.attackManager = attackManager;
+    }
+
+    public int getNumOfWorkers_MeleeTraining() {
+        return numOfWorkers_MeleeTraining;
+    }
+
+    public void setNumOfWorkers_MeleeTraining(int numOfWorkers_MeleeTraining) {
+        this.numOfWorkers_MeleeTraining = numOfWorkers_MeleeTraining;
+    }
+
+    public int getNumOfWorkers_RangedTraining() {
+        return numOfWorkers_RangedTraining;
+    }
+
+    public void setNumOfWorkers_RangedTraining(int numOfWorkers_RangedTraining) {
+        this.numOfWorkers_RangedTraining = numOfWorkers_RangedTraining;
     }
 }

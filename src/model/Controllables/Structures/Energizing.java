@@ -7,6 +7,6 @@ import model.Location;
  */
 public interface Energizing {
 
-    void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant);
+    void assignWorkersToPowerHarvest(Location loc, int numOfWorkers_AssignToPowerPlant);
 
 }

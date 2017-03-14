@@ -20,7 +20,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestEnergy();
         }
         else{
@@ -28,7 +28,7 @@ public class PowerPlant extends Structure implements Energizing {
         }
     }
 
-    public void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant){
+    public void assignWorkersToPowerHarvest(Location loc, int numOfWorkers_AssignToPowerPlant){
         powerPlantManager.assignWorkers(loc, numOfWorkers_AssignToPowerPlant, getLocation());
     }
 

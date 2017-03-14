@@ -20,7 +20,7 @@ public class Farm extends Structure implements Farming{
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestFood();
         }
         else{
