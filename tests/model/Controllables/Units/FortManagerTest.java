@@ -90,7 +90,7 @@ public class FortManagerTest {
         assertEquals(0, fortManager.getNumOfWorkers_SoldierTraining());
         melee.setCurrentHealth(100);
         fort.doWork();
-        assertEquals(10, melee.getCurrentHealth());
+        assertEquals(95, melee.getCurrentHealth());
         assertEquals(0, fortManager.trainSoldier(fort.getNumOfSoldiers()));
         fort.assignWorkersToTrainSoldiers(20);
         assertEquals(10, fortManager.getNumOfWorkers_SoldierTraining());
