@@ -13,6 +13,7 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
+import model.Technology;
 import model.player.PlayerID;
 import view.AreaViewport;
 import view.CompositeView;
@@ -31,7 +32,7 @@ import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor, TechnologyVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -113,6 +114,10 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		{
 			rallys.add(rp);
 		}
+	}
+	@Override
+	public void visit(Technology technology){
+
 	}
 	
 	public void visit(AreaViewport viewport)

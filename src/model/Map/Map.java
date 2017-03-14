@@ -105,7 +105,6 @@ public class Map {
 		resourceManager = new ResourceManager();
 		structureOccupancyManager = new StructureOccupancyManager();
 		unitOccupancyManager = new UnitOccupancyManager();
-
 		Terrain[] terrains={Water.getWaterTerrain(),
 				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
 

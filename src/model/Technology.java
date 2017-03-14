@@ -3,6 +3,7 @@ import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Units.Unit;
+import utilities.TechnologyVisitor;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -412,6 +413,9 @@ public void editWorkerStats(String statToBeModified) {
                 return structureAdvancements.get(structureType).getWorkerRadius()/structureAdvancements.get(structureType).getWorkerRadiusIncrement();
         }
         return -1;
+    }
+    public void accept(TechnologyVisitor vistor){
+        vistor.visit(this);
     }
 
 }
