@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.table.AbstractTableModel;
 
+import model.Controllables.Army;
 import model.Controllables.Units.Unit;
 
 
@@ -85,6 +86,24 @@ public class UnitTableModel extends AbstractTableModel {
 		data[row][column] = new String("");
 		this.fireTableCellUpdated(row, column);
 		
+	}
+	
+	public void addArmy(Army army) {
+		
+		int row = UNITNAMES.length - 1;
+		int column = army.getID().getInstanceNumber() + 1;
+		
+		data[row][column] = army;
+		this.fireTableCellUpdated(row, column);
+	}
+	
+	public void removeArmy(Army army) {
+		
+		int row = UNITNAMES.length - 1;
+		int column = army.getID().getInstanceNumber() + 1;
+		
+		data[row][column] = new String("");
+		this.fireTableCellUpdated(row, column);
 	}
 
 	public void update() {
