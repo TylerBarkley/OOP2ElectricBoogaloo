@@ -1,20 +1,23 @@
 package model.Controllables;
 
+import model.*;
 import model.Controllables.Units.Unit;
-import model.Location;
 import model.Map.Map;
-import model.MapDirection;
-import model.MoveCommand;
-import model.MovementManager;
+import model.observers.EndTurnObserver;
+import model.observers.StartTurnObserver;
+import model.observers.UnitObserver;
 import model.player.PlayerID;
+import model.player.PlayerManager;
 
 import java.util.*;
 
 /**
  * Created by zrgam_000 on 3/9/2017.
  */
-public class RallyPoint implements Controllable {
+public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver, EndTurnObserver {
     private Location location;
+
+    Map map;
 
     private PlayerID playerID;
 
@@ -27,6 +30,9 @@ public class RallyPoint implements Controllable {
     private HashMap<Location, Location> path;
 
     public RallyPoint(Unit myUnit){
+
+        this.map = Map.getInstance();
+
         this.movementManager = MovementManager.getInstance();
 
         this.location = myUnit.getLocation();
@@ -38,6 +44,8 @@ public class RallyPoint implements Controllable {
     }
 
     public RallyPoint(Unit myUnit, Location location){
+        this.map = Map.getInstance();
+
         this.movementManager = MovementManager.getInstance();
 
         this.location = location;
@@ -51,116 +59,42 @@ public class RallyPoint implements Controllable {
     }
 
     public void moveRallyPoint(Location location){
+
+        if(!movementManager.validateMove(this.getPlayerID(), location)){
+            location = map.getNearestValid(this.getPlayerID(), location);
+        }
+
         this.location = location;
         this.getPath();
         this.orderArmyMove();
     }
 
     private void getPath(){
-        path = BFS();
-    }
-
-    private Location getNearestValid(){
-        Location RPlocation = this.location;
-        PlayerID PID = this.playerID;
-
-        HashSet<Location> visited2 = new HashSet<Location>();
-        ArrayDeque<Location> q2 = new ArrayDeque<Location>();
-
-        q2.add(RPlocation);
-        visited2.add(RPlocation);
-
-        while(!q2.isEmpty()){
-            Location current = q2.poll();
-            //if current is the goal, return current
-
-            ArrayList<Location> adjacents = current.getAllLocationsWithinRadius(1);
-            for(Location l: adjacents){
-                if(!visited2.contains(l)){
-                    visited2.add(l);
-
-                    if(movementManager.validateMove(PID, l)) {
-                        return l;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public HashMap<Location, Location> BFS(){
-
-        PlayerID PID = this.playerID;
-        Location RPlocation = this.location;
-
-        //HashMap<Location, MapDirection> paths = new HashMap<Location, MapDirection>();
-        HashMap<Location, Location> parents = new HashMap<Location, Location>();
-
-        HashSet<Location> visited = new HashSet<Location>();
-
-        ArrayDeque<Location> q = new ArrayDeque<Location>();
-
-        if(!movementManager.validateMove(PID, RPlocation)){
-            RPlocation = getNearestValid();
-            this.location = RPlocation;
-        }
-
-        parents.put(RPlocation, null);
-        visited.add(RPlocation);
-        q.add(RPlocation);
-
-        while(!q.isEmpty()){
-            Location current = q.poll();
-            //if current is the goal, return current
-
-            ArrayList<Location> adjacents = current.getAllLocationsWithinRadius(1);
-            for(Location l: adjacents){
-                if(!visited.contains(l)){
-                    visited.add(l);
-
-                        if(movementManager.validateMove(PID, l)) {
-                            q.add(l);
-                            parents.put(l, current);
-                        }
-
-                }
-            }
-        }
-        return parents;
+        path = map.BFS(this.getPlayerID(), this.location);
     }
 
     public void doTurn(){
-        boolean goodMove;
 
-        Iterator<Unit> unitItr = reinforcements.iterator();
+        ArrayList<Unit> tempUnits = new ArrayList<Unit>();
+        for(Unit unit : reinforcements){
+            tempUnits.add(unit);
+        }
 
-
-        while(unitItr.hasNext()){
-            Unit unit = unitItr.next();
-
+        for(Unit unit : tempUnits){
             while(unit.canMove()){
 
-                if(path.get(unit.getLocation()) == null){
-                    unitItr.remove();
+                if(this.path.get(unit.getLocation()) == null){
+                    reinforcements.remove(unit);
                     waitingForArmy.add(unit);
                     break;
                 }
 
-                goodMove = movementManager.validateMove(unit, path.get(unit.getLocation()));
-
-                if(!goodMove){
+                if(!movementManager.validateMove(unit, this.path.get(unit.getLocation()))){
                     this.getPath();
                     continue;
                 }
 
-                movementManager.makeMove(unit, path.get(unit.getLocation()));
-
-                if(path.get(unit.getLocation()) == null){
-                    unitItr.remove();
-                    waitingForArmy.add(unit);
-                    break;
-                }
+                movementManager.makeMove(unit, this.path.get(unit.getLocation()));
             }
         }
     }
@@ -194,13 +128,18 @@ public class RallyPoint implements Controllable {
     }
 
     public void reinforce(Unit unit){
-        reinforcements.add(unit);
+        if(path.get(unit.getLocation()) == null){
+            waitingForArmy.add(unit);
+        }
+        else {
+            reinforcements.add(unit);
+        }
+        unit.addObserver(this);
     }
 
     public void deletThis() {
         reinforcements.clear();
         waitingForArmy.clear();
-        //TODO REMOVE FROM PLAYER
     }
 
     public Location getLocation() {
@@ -225,5 +164,24 @@ public class RallyPoint implements Controllable {
 
     public PlayerID getPlayerID() {
         return playerID;
+    }
+
+    @Override
+    public void update(Unit unit) {
+        if(!unit.isAlive()){
+            if(!reinforcements.remove(unit)){
+                waitingForArmy.remove(unit);
+            }
+        }
+    }
+
+    @Override
+    public void endUpdate(TurnManager turn) {
+        this.doTurn();
+    }
+
+    @Override
+    public void startUpdate(TurnManager turn) {
+        this.startTurn();
     }
 }

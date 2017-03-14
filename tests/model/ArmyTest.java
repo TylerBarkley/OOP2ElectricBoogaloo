@@ -7,6 +7,7 @@ import model.Controllables.Units.Colonist;
 import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
+import model.Map.AOE.AOEKill;
 import model.Map.Map;
 import model.player.Player;
 import model.player.PlayerManager;
@@ -53,12 +54,13 @@ public class ArmyTest {
         PlayerManager.getInstance().addUnit(p1.getId(), melee);
         PlayerManager.getInstance().addUnit(p1.getId(), ranged);
 
-        Map.getInstance().addUnit(new Location(0, 0), explorer);
 
     }
 
     @Test
     public void JoinArmyTest(){
+
+        Map.getInstance().addUnit(new Location(0, 0), explorer);
 
         rallyPoint = new RallyPoint(explorer);
 
@@ -77,6 +79,8 @@ public class ArmyTest {
 
     @Test
     public void DeadUnitTest(){
+        Map.getInstance().addUnit(new Location(0, 0), explorer);
+
         rallyPoint = new RallyPoint(explorer);
 
         army = rallyPoint.getArmy();
@@ -102,7 +106,54 @@ public class ArmyTest {
     }
 
     @Test
+    public void ArmyDeadOnPathTest(){
+        Map.reset();
+        Map.setMoveDebug();
+        Map.getInstance().addUnit(new Location(0,1), ranged);
+        Map.getInstance().addUnit(new Location(0,1), explorer);
+        Map.getInstance().addAOE(new Location(-1, 1), new AOEKill());
+
+        RallyPoint rp = new RallyPoint(ranged);
+        rp.reinforce(explorer);
+
+        assertEquals(0, rp.getReinforcementSize());
+
+        rp.startTurn();
+
+        assertEquals(0, rp.getReinforcementSize());
+
+        rp.doTurn();
+
+        assertEquals(new Location(0, 1), rp.getLocation());
+        assertEquals(new Location(0, 1), ranged.getLocation());
+        assertEquals(new Location(0, 1), explorer.getLocation());
+
+        rp.moveRallyPoint(new Location(-2, 1));
+
+        rp.getArmy().startTurn();
+
+        assertEquals(2, rp.getArmy().getCommandQueue().size());
+        assertEquals(2, rp.getArmy().getBattleGroup().size());
+
+        assertTrue(Map.getInstance().getAoEAt(new Location(-1, 1)) instanceof AOEKill);
+
+        rp.getArmy().doTurn();
+
+        assertTrue(Map.getInstance().getAoEAt(new Location(-1, 1)) instanceof AOEKill);
+
+        assertEquals(new Location(-2, 1), rp.getLocation());
+        assertEquals(new Location(-1, 1), ranged.getLocation());
+        assertEquals(new Location(-1, 1), explorer.getLocation());
+
+        assertEquals(0, rp.getArmy().getCommandQueue().size());
+        assertEquals(0, rp.getArmy().getBattleGroup().size());
+    }
+
+    @Test
     public void EscortTest(){
+
+        Map.getInstance().addUnit(new Location(0, 0), explorer);
+
         rallyPoint = new RallyPoint(explorer);
 
         army = rallyPoint.getArmy();
@@ -132,6 +183,8 @@ public class ArmyTest {
 
     @Test
     public void MoveSpeedTest(){
+        Map.getInstance().addUnit(new Location(0, 0), explorer);
+
         rallyPoint = new RallyPoint(explorer);
 
         army = rallyPoint.getArmy();

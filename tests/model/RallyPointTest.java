@@ -7,6 +7,7 @@ import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Location;
 import model.Map.AOE.AOEDamage;
+import model.Map.AOE.AOEKill;
 import model.Map.Items.HealOneShot;
 import model.Map.Items.RealObstacle;
 import model.Map.Map;
@@ -20,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -184,9 +186,12 @@ public class RallyPointTest {
         assertEquals(ranged2.getLocation(), new Location(-1,1));
         assertEquals(rp.getLocation(), new Location(-1,1));
         assertNotNull(rp.getArmy());
-        assertEquals(rp.getReinforcementSize(), 0);
-        assertEquals(rp.getWaitingSize(), 1);
+        assertEquals(rp.getReinforcementSize(), 1);
+        assertEquals(rp.getWaitingSize(), 0);
         assertEquals(rp.getArmy().getCommandQueue().size(), 1);
+
+        ranged1.refreshAP();
+        ranged2.refreshAP();
 
         rp.doTurn();
         rp.startTurn();
@@ -235,7 +240,32 @@ public class RallyPointTest {
         assertEquals(rp.getArmy().getCommandQueue().size(), 2);
         assertEquals(rp.getArmy().getBattleGroup().size(), 2);
 
+        assertEquals(ranged1.getActionPoints(), 0);
+        assertEquals(ranged2.getActionPoints(), 1);
+
         rp.getArmy().doTurn();
+
+        rp.getArmy().doTurn();
+        ranged1.refreshAP();
+        ranged2.refreshAP();
+        rp.getArmy().startTurn();
+
+        assertEquals(ranged1.getActionPoints(), 1);
+        assertEquals(ranged2.getActionPoints(), 1);
+
+        assertEquals(ranged1.getLocation(), new Location(-1,1));
+        assertEquals(ranged2.getLocation(), new Location(-1,1));
+        assertEquals(rp.getLocation(), new Location(1,-1));
+        assertNotNull(rp.getArmy());
+        assertEquals(rp.getReinforcementSize(), 0);
+        assertEquals(rp.getWaitingSize(), 0);
+        assertEquals(rp.getArmy().getCommandQueue().size(), 2);
+        assertEquals(rp.getArmy().getBattleGroup().size(), 2);
+
+        rp.getArmy().doTurn();
+
+        assertEquals(ranged1.getActionPoints(), 0);
+        assertEquals(ranged2.getActionPoints(), 0);
 
         assertEquals(ranged1.getLocation(), new Location(0,0));
         assertEquals(ranged2.getLocation(), new Location(0,0));
@@ -245,6 +275,7 @@ public class RallyPointTest {
         assertEquals(rp.getWaitingSize(), 0);
         assertEquals(rp.getArmy().getCommandQueue().size(), 1);
         assertEquals(rp.getArmy().getBattleGroup().size(), 2);
+
     }
 
     @Test
@@ -285,7 +316,7 @@ public class RallyPointTest {
         RallyPoint myRP = new RallyPoint(ranged1, RP);
         MovementManager mm = MovementManager.getInstance();
 
-        HashMap<Location, Location> bfs = myRP.BFS();
+        HashMap<Location, Location> bfs = Map.getInstance().BFS(ranged1.getPid(), RP);
 
         boolean neverCrossesWall = true;
 
@@ -298,5 +329,31 @@ public class RallyPointTest {
             }
         }
         assertTrue(neverCrossesWall);
+    }
+
+    @Test
+    public void DeadOnPathTest(){
+        Map.reset();
+        Map.setMoveDebug();
+        Map.getInstance().addUnit(new Location(0,-1), ranged1);
+        Map.getInstance().addUnit(new Location(0,1), ranged2);
+        Map.getInstance().addAOE(new Location(-1, 1), new AOEKill());
+
+        RallyPoint rp = new RallyPoint(ranged1, new Location(-2, 1));
+        rp.reinforce(ranged2);
+
+        assertEquals(new Location(-2, 1), rp.getLocation());
+        assertEquals(new Location(0, 1), ranged2.getLocation());
+        assertEquals(new Location(0, -1), ranged1.getLocation());
+
+        assertEquals(2, rp.getReinforcementSize());
+
+        rp.doTurn();
+
+        assertEquals(new Location(-2, 1), rp.getLocation());
+        assertEquals(new Location(-1, 1), ranged2.getLocation());
+        assertEquals(new Location(-1, 0), ranged1.getLocation());
+
+        assertEquals(1, rp.getReinforcementSize());
     }
 }

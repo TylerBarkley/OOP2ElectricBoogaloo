@@ -309,6 +309,8 @@ public class MoveTest {
         Map.getInstance().addUnit(new Location(0,0), ranged1);
         Map.getInstance().addUnit(new Location(0,1), ranged2);
 
+        assertEquals(ranged1.getMaxActionPoints(), 1);
+
         assertEquals(ranged1.getActionPoints(), 1);
         assertEquals(ranged2.getActionPoints(), 2);
 
@@ -320,6 +322,8 @@ public class MoveTest {
 
         ranged1.refreshAP();
         ranged2.refreshAP();
+
+        assertEquals(ranged1.getMaxActionPoints(), 1);
 
         assertEquals(ranged1.getActionPoints(), 0);
         assertEquals(ranged2.getActionPoints(), 2);

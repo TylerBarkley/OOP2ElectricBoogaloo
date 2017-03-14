@@ -7,6 +7,8 @@ import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
+import model.observers.EndTurnObserver;
+import model.observers.StartTurnObserver;
 import model.observers.UnitObserver;
 import model.player.Player;
 import model.player.PlayerID;
@@ -20,7 +22,7 @@ import java.util.Queue;
 /**
  * Created by hankerins on 3/5/17.
  */
-public class Army implements Controllable, Attacker//, DeathObserver
+public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserver, StartTurnObserver
 {
     //TODO LMAO DECAL
 
@@ -105,6 +107,8 @@ public class Army implements Controllable, Attacker//, DeathObserver
         battleGroup.add(unit);
         armyStats.addStats(unit.getMyStats());
 
+        unit.addObserver(this);
+
         updateAP();
         updateEscort();
         //No Mike
@@ -139,7 +143,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     public void updateAP(){
         for(Unit unit : battleGroup){
-            unit.setActionPoints(armyStats.getMovement());
+            unit.setMaxActionPoints(armyStats.getMovement());
         }
     }
 
@@ -156,7 +160,13 @@ public class Army implements Controllable, Attacker//, DeathObserver
             }
         }
 
-        for(Unit unit : battleGroup){
+        ArrayList<Unit> tempGroup = new ArrayList<Unit>();
+
+        for (Unit unit : battleGroup){
+            tempGroup.add(unit);
+        }
+
+        for(Unit unit : tempGroup){
             movementManager.makeMove(unit, md);
         }
 
@@ -168,14 +178,18 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public void doTurn(){
 
         for(Unit unit : battleGroup){
-            canMove = unit.canMove();
+            if(!unit.canMove()) {
+                canMove = false;
+            }
         }
 
         while(canMove && !myCommands.isEmpty()){
             myCommands.carryOut();
 
             for(Unit unit : battleGroup){
-                canMove = unit.canMove();
+                if(!unit.canMove()) {
+                    canMove = false;
+                }
             }
         }
     }
@@ -187,8 +201,9 @@ public class Army implements Controllable, Attacker//, DeathObserver
     public void startTurn(){
         this.canMove = true;
 
-        Queue<Unit> ringOutYourDead = new LinkedList<Unit>();
+        //Queue<Unit> ringOutYourDead = new LinkedList<Unit>();
 
+        /*
         Iterator<Unit> unitItr = battleGroup.iterator();
 
         while(unitItr.hasNext()) {
@@ -201,6 +216,7 @@ public class Army implements Controllable, Attacker//, DeathObserver
         while (!ringOutYourDead.isEmpty()){
             this.removeUnitFromBattleGroup(ringOutYourDead.poll());
         }
+        */
 
     }
 
@@ -333,5 +349,22 @@ public class Army implements Controllable, Attacker//, DeathObserver
 
     public void addWorkers(int workers){
         this.workers += workers;
+    }
+
+    @Override
+    public void update(Unit unit) {
+        if(!unit.isAlive()){
+            this.removeUnitFromBattleGroup(unit);
+        }
+    }
+
+    @Override
+    public void endUpdate(TurnManager turn) {
+        this.doTurn();
+    }
+
+    @Override
+    public void startUpdate(TurnManager turn) {
+        this.startTurn();
     }
 }

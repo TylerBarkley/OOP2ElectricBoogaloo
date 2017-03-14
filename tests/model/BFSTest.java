@@ -127,6 +127,7 @@ public class BFSTest {
         System.out.println("BFS TEST\n");
 
         Map.reset();
+        Map.setBFSDebug();
         Map.getInstance().addUnit(new Location(8,2), ranged1);
         Map.getInstance().addUnit(new Location(8,3), ranged2);
         Map.getInstance().addUnit(new Location(1,5), enemyRanged1); //in the way

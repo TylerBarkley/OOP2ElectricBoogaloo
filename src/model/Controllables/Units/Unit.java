@@ -2,6 +2,9 @@ package model.Controllables.Units;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
 import model.TerrainVisitor;
+import model.TurnManager;
+import model.observers.EndTurnObserver;
+import model.observers.StartTurnObserver;
 import model.observers.UnitObserver;
 
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import model.MapDirection;
 import model.player.PlayerID;
 import utilities.UnitVisitor;
 
-public abstract class Unit implements Controllable, TerrainVisitor //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObserver, EndTurnObserver //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private int maxActionPoints;
@@ -122,7 +125,8 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		this.myStats = myStats;
 
 		this.currentHealth = myStats.getHealth();
-		this.setActionPoints(myStats.getMovement());
+		maxActionPoints = myStats.getMovement();
+		currentActionPoints = maxActionPoints;
 
 		notifyObservers();
 	}
@@ -196,13 +200,18 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 	}
 
 	public void setActionPoints(int AP) {
-		this.maxActionPoints = AP;
 		this.currentActionPoints = AP;
+	}
+
+	public void setMaxActionPoints(int AP){
+		this.maxActionPoints = AP;
+		if(currentActionPoints > AP){
+			currentActionPoints = AP;
+		}
 	}
 
 	public void resetAP() {
 		maxActionPoints = myStats.getMovement();
-		currentActionPoints = maxActionPoints;
 	}
 
 	public void reduceAP(int amount){
@@ -221,7 +230,7 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 		return isAlive;
 	}
 
-	public boolean canMove(){ return this.currentActionPoints > 0; }
+	public boolean canMove(){ return this.currentActionPoints > 0 && isAlive; }
 
 	public int getEnergyResourceLevel() {
 		return energyResourceLevel;
@@ -254,6 +263,16 @@ public abstract class Unit implements Controllable, TerrainVisitor //implements 
 	}
 	public void incrementMetalResourceLevel(int increment){
 		metalResourceLevel+=increment;
+	}
+
+	@Override
+	public void endUpdate(TurnManager turn) {
+
+	}
+
+	@Override
+	public void startUpdate(TurnManager turn) {
+		this.refreshAP();
 	}
 }
 

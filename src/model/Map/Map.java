@@ -118,8 +118,8 @@ public class Map {
 		tiles.put(new Location(-1, 0), new Tile(terrains[0]));
 		tiles.put(new Location(-1, 1), new Tile(terrains[0]));
 		tiles.put(new Location(-2, 1), new Tile(terrains[0]));
-		tiles.put(new Location(2, 0), new Tile(terrains[0]));
-		tiles.put(new Location(2, -1), new Tile(terrains[0]));
+		tiles.put(new Location(2, 0), new Tile(terrains[1]));
+		tiles.put(new Location(2, -1), new Tile(terrains[1]));
 		tiles.put(new Location(3, -1), new Tile(terrains[2]));
 		tiles.put(new Location(5, 5), new Tile(terrains[1]));
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
@@ -326,5 +326,70 @@ public class Map {
 
 	public StructureOccupancy getStructureOccupancyAt(Location location) {
 		return structureOccupancyManager.get(location);
+	}
+
+
+	public Location getNearestValid(PlayerID PID, Location RPlocation){
+
+		MovementManager movementManager = MovementManager.getInstance();
+
+		HashSet<Location> visited2 = new HashSet<Location>();
+		ArrayDeque<Location> q2 = new ArrayDeque<Location>();
+
+		q2.add(RPlocation);
+		visited2.add(RPlocation);
+
+		while(!q2.isEmpty()){
+			Location current = q2.poll();
+			//if current is the goal, return current
+
+			ArrayList<Location> adjacents = current.getAllLocationsWithinRadius(1);
+			for(Location l: adjacents){
+				if(!visited2.contains(l)){
+					visited2.add(l);
+
+					if(movementManager.validateMove(PID, l)) {
+						return l;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public HashMap<Location, Location> BFS(PlayerID PID, Location RPlocation){
+
+		MovementManager movementManager = MovementManager.getInstance();
+
+		//HashMap<Location, MapDirection> paths = new HashMap<Location, MapDirection>();
+		HashMap<Location, Location> parents = new HashMap<Location, Location>();
+
+		HashSet<Location> visited = new HashSet<Location>();
+
+		ArrayDeque<Location> q = new ArrayDeque<Location>();
+
+		parents.put(RPlocation, null);
+		visited.add(RPlocation);
+		q.add(RPlocation);
+
+		while(!q.isEmpty()){
+			Location current = q.poll();
+			//if current is the goal, return current
+
+			ArrayList<Location> adjacents = current.getAllLocationsWithinRadius(1);
+			for(Location l: adjacents){
+				if(!visited.contains(l)){
+					visited.add(l);
+
+					if(movementManager.validateMove(PID, l)) {
+						q.add(l);
+						parents.put(l, current);
+					}
+
+				}
+			}
+		}
+		return parents;
 	}
 }
