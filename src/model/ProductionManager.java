@@ -36,7 +36,7 @@ public class ProductionManager {
     }
 
     public void martyrdom(Colonist martyr){
-        PlayerID playerID = martyr.getPid();
+        PlayerID playerID = martyr.getPlayerID();
         Location location = martyr.getLocation();
 
         Capital newCap = new Capital();
