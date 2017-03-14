@@ -17,8 +17,9 @@ public class MakeArmyState extends UnitMenuState{
     public void select(Menu context) {
         //TODO: delete print statement
 
-        System.out.println("you tried to make an army with: " + currentUnit.toString() );
+
         updateControllable(context);
+        System.out.println("you tried to make an army with: " + currentUnit.toString() );
         new RallyPoint(currentUnit);
     }
     public void cycleInstructionL(Menu context){
