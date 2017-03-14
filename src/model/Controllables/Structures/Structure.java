@@ -54,6 +54,14 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
 	public abstract void doWork();
 
+    public void addNewWorkers(int n){
+        numTotalWorkers += n;
+    }
+
+    public void removeOldWorkers(int n){
+        numTotalWorkers -= n;
+    }
+
 	public abstract void unassign();
 
 	public abstract void build();

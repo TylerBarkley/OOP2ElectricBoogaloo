@@ -98,11 +98,13 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     @Override
     public void addWorker(int number) {
+        addNewWorkers(number);
         capitalManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         capitalManager.removeUnassigned(number);
     }
 

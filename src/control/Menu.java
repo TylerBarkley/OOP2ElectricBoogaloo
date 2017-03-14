@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPSetState;
-import control.MenuStates.StructureMenuStates.StructureAttackState;
+import control.MenuStates.StructureMenuStates.AssignWorkersMineState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
@@ -93,10 +93,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 		menuState.select(this);
 		updateControllableCollection();
-		//TODO delete this test output
-		
-		reset();
-		System.out.println("you updated controllable collection, current instance is " + getCurrentInstance().toString());
+		//reset();
 	}
 
 	//check if a given instance exists in the ControllableCollection
@@ -135,7 +132,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(StructureAttackState.getInstance());
+				setMenuState(AssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);
@@ -164,7 +161,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(StructureAttackState.getInstance());
+				setMenuState(AssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);

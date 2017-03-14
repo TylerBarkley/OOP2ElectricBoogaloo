@@ -63,11 +63,13 @@ public class PowerPlant extends Structure implements Energizing {
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         powerPlantManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         powerPlantManager.removeUnassigned(number);
     }
 }
