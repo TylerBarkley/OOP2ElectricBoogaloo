@@ -282,55 +282,47 @@ public class Player implements ArmyObserver, RPObserver{
 		this.technology += technology;
 	}
 
-	public void distributePower(Structure structure,int percentage){
-		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
-		structureManager.getSpecificStructure(structure).incrementEnergyResourceLevel(amountOfPowerGiven);
+	public void distributePower(Structure structure,int amountOfPowerGiven){
+		structure.incrementEnergyResourceLevel(amountOfPowerGiven);
 	}
 
-	public void distributeMetal(Structure structure,int percentage){
-		int amountOfMetalGiven=(int)((double) (percentage)/100*metal.getAmount());
-		structureManager.getSpecificStructure(structure).incrementMetalResourceLevel(amountOfMetalGiven);
+	public void distributeMetal(Structure structure,int amountOfMetalGiven){
+		structure.incrementMetalResourceLevel(amountOfMetalGiven);
 	}
 
-	public void distributeNutrients(Structure structure,int percentage){
-		int amountOfNutrientsGiven=(int)((double) (percentage)/100*nutrients.getAmount());
-		structureManager.getSpecificStructure(structure).incrementNutrientResourceLevel(amountOfNutrientsGiven);
+	public void distributeNutrients(Structure structure,int amountOfNutrientsGiven){
+		structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 
 	}
+	public void distributePower(Unit unit,int amountOfPowerGiven){
+		unit.incrementEnergyResourceLevel(amountOfPowerGiven);
+	}
 
-	public void distributePower(Army army,int percentage){
-		int amountOfPowerGiven=(int)((double) (percentage)/100*power.getAmount());
-		for(int i=0;i<armies.size();i++){
-			if(armies.get(i)==army){
-				armies.get(i).incrementEnergyResourceLevel(amountOfPowerGiven);
-			}
-		}
+	public void distributeMetal(Unit unit,int amountOfMetalGiven){
+		unit.incrementMetalResourceLevel(amountOfMetalGiven);
 	}
-	public void distributeMetal(Army army,int percentage){
-		int amountOfMetalGiven=(int)((double) (percentage)/100*metal.getAmount());
-		for(int i=0;i<armies.size();i++){
-			if(armies.get(i)==army){
-				armies.get(i).incrementMetalResourceLevel(amountOfMetalGiven);
-			}
 
-		}
+	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
+		unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+
 	}
-	public void distributeNutrients(Army army,int percentage){
-		int amountOfNutrientsGiven=(int)((double) (percentage)/100*nutrients.getAmount());
-		for(int i=0;i<armies.size();i++){
-			if(armies.get(i)==army){
-				armies.get(i).incrementNutrientResourceLevel(amountOfNutrientsGiven);
-			}
-		}
+	public void distributePower(Army army,int amountOfPowerGiven){
+				army.incrementEnergyResourceLevel(amountOfPowerGiven);
 	}
-	public void storeMetal(int percentage){
-		metal.setAmount((int)((double) (metal.getAmount())*(percentage)/100));
+	public void distributeMetal(Army army,int amountOfMetalGiven){
+				army.incrementMetalResourceLevel(amountOfMetalGiven);
 	}
-	public void storeNutrients(int percentage){
-		nutrients.setAmount((int)((double) (nutrients.getAmount())*(percentage)/100));
+	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
+				army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 	}
-	public void storePower(int percentage){
-		power.setAmount((int)((double) (power.getAmount())*(percentage)/100));
+	public void storeMetal(int amountOfMetalGiven){
+		metal.setAmount(amountOfMetalGiven);
+	}
+	public void storeNutrients(int amountOfNutrientsGiven){
+		nutrients.setAmount(amountOfNutrientsGiven);
+	}
+	public void storePower(int amountOfPowerGiven){
+		power.setAmount(amountOfPowerGiven);
 	}
 
 	public void chargeResources()
