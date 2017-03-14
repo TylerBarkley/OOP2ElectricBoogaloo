@@ -31,13 +31,14 @@ public class University extends Structure {
     }
 
     public void harvestScience() {
+        if (myResearch != null) {
             techPercentage += universityManager.produceTechnology(getMyStats().getProductionRate());
             if (techPercentage >= myResearch.getCost()) {
                 techPercentage = 0;
                 myResearch.execute();
                 myResearch = null;
             }
-
+        }
     }
 
     public void assignWorkersToHarvestTechnology(int numOfWorkers_HarvestingTech){
