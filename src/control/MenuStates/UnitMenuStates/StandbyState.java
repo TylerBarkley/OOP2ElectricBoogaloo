@@ -2,6 +2,7 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
+import model.Controllables.Units.Colonist;
 
 /**
  * Created by hankerins on 3/8/17.
@@ -18,11 +19,21 @@ public class StandbyState extends UnitMenuState {
         //TODO: currentUnit.standby();
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = BuildCapitalState.getInstance();
-        nextState.setCurrentInstance(currentInstance);
-        nextState.setCurrentType(currentType);
-        nextState.updateControllable(context);
-        context.setMenuState(nextState);
+        if(currentUnit instanceof Colonist){
+            UnitMenuState nextState = BuildCapitalState.getInstance();
+            nextState.setCurrentInstance(currentInstance);
+            nextState.setCurrentType(currentType);
+            nextState.updateControllable(context);
+            context.setMenuState(nextState);
+        }
+        else{
+            UnitMenuState nextState = JoinArmyState.getInstance();
+            nextState.setCurrentInstance(currentInstance);
+            nextState.setCurrentType(currentType);
+            nextState.updateControllable(context);
+            context.setMenuState(nextState);
+        }
+
     }
     public void cycleInstructionR(Menu context){
         UnitMenuState nextState = PowerDownState.getInstance();

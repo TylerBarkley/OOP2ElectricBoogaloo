@@ -2,6 +2,8 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
+import model.Controllables.Units.Colonist;
+import model.ProductionManager;
 
 /**
  * Created by hankerins on 3/8/17.
@@ -16,6 +18,11 @@ public class BuildCapitalState extends UnitMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
+        ProductionManager productionManager = ProductionManager.getInstance();
+        if(currentUnit instanceof Colonist){
+            productionManager.martyrdom((Colonist)(currentUnit));
+        }
+
         //TODO: currentUnit.buildCapital();
     }
     public void cycleInstructionL(Menu context){
