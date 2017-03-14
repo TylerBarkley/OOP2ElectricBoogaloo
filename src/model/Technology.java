@@ -319,9 +319,9 @@ public void editWorkerStats(int statToBeModified) {
                 return workerAdvancements.getMaxBreedingLevel();
             case BuildingRate:
                 return workerAdvancements.getMaxBuildingRateLevel();
-            case workerRadius:
+            case WorkerRadius:
                 return workerAdvancements.getMaxWorkerRadiusLevel();
-            case workerDensity:
+            case WorkerDensity:
                 return workerAdvancements.getMaxWorkerDensityLevel();
         }
         return -1;
