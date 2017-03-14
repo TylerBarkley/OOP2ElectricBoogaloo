@@ -120,9 +120,6 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	}
 
 
-	public void makeArmy(){
-		//TODO just copy Iteration 1 code for this
-	}
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;

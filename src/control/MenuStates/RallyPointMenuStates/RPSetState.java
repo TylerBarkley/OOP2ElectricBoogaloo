@@ -16,7 +16,7 @@ public class RPSetState extends RallyPointMenuState{
 
         updateControllable(context);
         currentRallyPoint.setLocation(context.getFocus());
-        
+
     }
     public void cycleInstructionL(Menu context){
         RallyPointMenuState nextState = RPSetState.getInstance();
