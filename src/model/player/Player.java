@@ -3,7 +3,9 @@ package model.player;
 import java.util.ArrayList;
 
 import model.Controllables.Army;
+import model.Controllables.ArmyID;
 import model.Controllables.ControllableCollection;
+import model.Controllables.RPID;
 import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
@@ -25,10 +27,9 @@ import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
 import model.observers.ArmyObserver;
 import model.observers.PlayerObserver;
-import model.observers.StructureObserver;
-import model.observers.UnitObserver;
+import model.observers.RPObserver;
 
-public class Player implements ArmyObserver{
+public class Player implements ArmyObserver, RPObserver{
 	private PlayerID id;
 	
 	private UnitManager unitManager;
@@ -57,6 +58,7 @@ public class Player implements ArmyObserver{
 		structureManager=new StructureManager(id);
 
 		armies=new ArrayList<Army>();
+		rallyPoints=new ArrayList<RallyPoint>();
 		workers=0;
 		
 		nutrients=new Food(0);
@@ -233,6 +235,7 @@ public class Player implements ArmyObserver{
 		boolean b=armies.add(army);
 		if(b)
 		{
+			army.setID(new ArmyID(this.id,armies.size()-1));
 			notifyObservers(army);
 		}
 		
@@ -243,7 +246,8 @@ public class Player implements ArmyObserver{
 		boolean b=rallyPoints.add(rp);
 		if(b)
 		{
-			notifyObservers();
+			rp.setID(new RPID(this.id,rallyPoints.size()-1));
+			notifyObservers(rp);
 		}
 
 		return b;
@@ -416,6 +420,19 @@ public class Player implements ArmyObserver{
 		}
 	}
 
+	public void notifyObserver(PlayerObserver observer, RallyPoint object)
+	{
+		observer.update(this, object);
+	}
+	
+	public void notifyObservers(RallyPoint object)
+	{
+		for(PlayerObserver ob: observers)
+		{
+			notifyObserver(ob, object);
+		}
+	}
+	
 	@Override
 	public void update(Army army) {
 		if(army.isDisbanded())
@@ -424,7 +441,28 @@ public class Player implements ArmyObserver{
 			army.removeObserver(this);
 		}
 		
+		for(int i=army.getID().getInstanceNumber(); i<armies.size(); i++)
+		{
+			armies.get(i).getID().setInstanceNumber(i);
+		}
+		
 		notifyObservers(army);
+	}
+	
+	@Override
+	public void update(RallyPoint rp) {
+		if(!rp.isActive())
+		{
+			armies.remove(rp);
+			rp.removeObserver(this);
+		}
+		
+		for(int i=rp.getID().getInstanceNumber(); i<rallyPoints.size(); i++)
+		{
+			rallyPoints.get(i).getID().setInstanceNumber(i);
+		}
+		
+		notifyObservers(rp);
 	}
 	
 	public int getWorkers(){
@@ -437,5 +475,9 @@ public class Player implements ArmyObserver{
 
 	public void setTechnology(int technology) {
 		this.technology = technology;
+	}
+
+	public ArrayList<RallyPoint> getRallyPoints() {
+		return rallyPoints;
 	}
 }

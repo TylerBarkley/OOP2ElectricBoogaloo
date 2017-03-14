@@ -12,6 +12,7 @@ import model.observers.StartTurnObserver;
 import model.observers.UnitObserver;
 import model.player.Player;
 import model.player.PlayerID;
+import model.player.PlayerManager;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
@@ -48,16 +49,14 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 	private boolean isDisbanded;
     private RallyPoint myRP;
 
-    private PlayerID playerID;
-
+    private ArmyID id;
+    
     public Army(Unit unit, RallyPoint rallyPoint){
 		observers=new ArrayList<ArmyObserver>();
 
         movementManager = MovementManager.getInstance();
 
         this.myRP = rallyPoint;
-
-        this.playerID = rallyPoint.getPlayerID();
 
         this.myLocation = unit.getLocation();
         this.myCommands = new CommandQueue();
@@ -66,9 +65,11 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
         this.canMove = true;
 
-        this.addUnitToBattleGroup(unit);
-
 		isDisbanded=false;
+		
+		PlayerManager.getInstance().addArmy(unit.getPid(), this);
+        
+        this.addUnitToBattleGroup(unit);
     }
 
     public Army()
@@ -152,7 +153,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         for(Unit unit : battleGroup){
             if(!movementManager.validateMove(unit, md)){
 
-                //TODO MOVING THE RALLYPOINT TO THE ARMY'S CURRENT LOCATION
                 myRP.moveRallyPoint(this.myLocation);
                 myCommands.clear();
 
@@ -335,7 +335,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 	}
 
     public PlayerID getPlayerID() {
-        return playerID;
+        return id.getPlayerID();
     }
 
     public void removeWorkers(int workers) {
@@ -366,5 +366,40 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     @Override
     public void startUpdate(TurnManager turn) {
         this.startTurn();
+    }
+
+	@Override
+	public ArmyID getID() {
+		return id;
+	}
+	
+	public void setID(ArmyID id){
+		this.id=id;
+	}
+
+	public void decommission(){
+        ArrayList<Unit> battleGroupCopy = new ArrayList<Unit>();
+	    for(Unit u: battleGroup){
+	        battleGroupCopy.add(u);
+        }
+        for(Unit u: battleGroupCopy){
+            u.killMe();
+        }
+    }
+
+    public void powerUp(){
+        for(Unit u: battleGroup){
+            u.powerUp();
+        }
+    }
+    public void powerDown(){
+        for(Unit u: battleGroup){
+            u.powerDown();
+        }
+    }
+    public void powerActive(){
+        for(Unit u: battleGroup){
+            u.powerActive();
+        }
     }
 }

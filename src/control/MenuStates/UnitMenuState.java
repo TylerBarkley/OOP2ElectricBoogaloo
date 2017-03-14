@@ -2,6 +2,7 @@ package control.MenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuStates.*;
+import model.Controllables.Army;
 import model.Controllables.Controllable;
 import model.Controllables.ControllableCollection;
 import model.Controllables.Units.Unit;
@@ -116,7 +117,7 @@ public abstract class UnitMenuState implements MenuState{
     public void updateControllable(Menu context){
         currentUnit = (Unit)context.getControllableCollection().get(currentType, currentInstance);
     }
-    public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
 
     public int getCurrentType() {return currentType;}
@@ -132,4 +133,7 @@ public abstract class UnitMenuState implements MenuState{
         return null;
     }
 
+    public Unit getCurrentInstance(){
+    	return currentUnit;
+    }
 }

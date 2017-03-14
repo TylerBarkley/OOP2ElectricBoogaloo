@@ -147,4 +147,8 @@ public class PlayerManager {
 	public ControllableCollection getControllableCollection(PlayerID id){
 		return players.get(id).getControllableCollection();
 	}
+
+	public ArrayList<RallyPoint> getRallyPoints(PlayerID id) {
+		return players.get(id).getRallyPoints();
+	}
 }

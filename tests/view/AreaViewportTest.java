@@ -60,9 +60,13 @@ public class AreaViewportTest {
 		viewport.addView(f.getView(new ID(), "Fort", new Location(9,8), 120));
 		viewport.addView(f.getView(new ID(), "EnemyTower", new Location(9,9), 120));
 		
-		viewport.updateResourceView(new Location(8,8), f.getCopositeResourceView(new ID(), new Location(8,8), 8, 46, 765));
-		viewport.updateResourceView(new Location(8,9), f.getCopositeResourceView(new ID(), new Location(8,9), 845, 79, 5));
-		viewport.updateResourceView(new Location(7,8), f.getCopositeResourceView(new ID(), new Location(7,8), 123, 1234, 12));
+		viewport.addView(f.getView(new ID(), "Skull", new Location(9,9)));
+		viewport.addView(f.getView(new ID(), "RedCross", new Location(8,8)));
+		viewport.addView(f.getView(new ID(), "RallyPoint", new Location(8,9)));
+		
+		viewport.updateResourceView(new Location(8,8), f.getCompositeResourceView(new ID(), new Location(8,8), 8, 46, 765));
+		viewport.updateResourceView(new Location(8,9), f.getCompositeResourceView(new ID(), new Location(8,9), 845, 79, 5));
+		viewport.updateResourceView(new Location(7,8), f.getCompositeResourceView(new ID(), new Location(7,8), 123, 1234, 12));
 
 		frame.add(viewport);
 		frame.setVisible(true);

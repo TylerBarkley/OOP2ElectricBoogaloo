@@ -3,14 +3,17 @@ package control;
 import model.MapDirection;
 import model.TurnManager;
 import model.Controllables.Controllable;
+import view.AreaViewport;
 
 public class InputHandler {
 	private Menu menu;
 	private TurnManager turn;
+	private AreaViewport areaView;
 	
-	public InputHandler(Menu menu, TurnManager turn) {
+	public InputHandler(Menu menu, TurnManager turn, AreaViewport areaView) {
 		this.menu = menu;
 		this.turn = turn;
+		this.areaView=areaView;
 	}
 
 	public void moveFocus(MapDirection direction) {
@@ -18,11 +21,11 @@ public class InputHandler {
 	}
 
 	public void cycleMode() {
-		menu.cycleInstanceR();
+		menu.cycleModeR();
 	}
 
 	public void cycleModeReverse() {
-		menu.cycleInstanceL();
+		menu.cycleModeL();
 	}
 
 	public void cycleType() {
@@ -50,9 +53,7 @@ public class InputHandler {
 	}
 
 	public void centerFocus() {
-		int mode=menu.getCurrentMode();
-		int instance=menu.getCurrentInstance();
-		Controllable c=menu.getControllableCollection().get(mode,instance);
+		Controllable c=menu.getCurrentInstance();
 		
 		if(c!=null && c.getLocation()!=null)
 		{
@@ -64,4 +65,11 @@ public class InputHandler {
 		turn.endTurn();
 	}
 
+	public void toggleResources() {
+		areaView.toggleResourceView();
+	}
+
+	public void select() {
+		menu.select();
+	}
 }

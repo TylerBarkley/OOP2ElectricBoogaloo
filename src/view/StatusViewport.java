@@ -222,9 +222,9 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 	public void updateMenu(Menu menu) {
 		
 		this.currentMode.setText("CURRENT MODE= " + menu.modeToString());
-		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstance());
+		this.currentInstance.setText("CURRENT INSTANCE= " + menu.getCurrentInstanceNumber());
 		this.currentType.setText("CURRENT TYPE= " + menu.typeToString());
-		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstance());
+		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstruction());
 		
 		repaint();
 	}

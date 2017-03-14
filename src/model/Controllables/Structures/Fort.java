@@ -21,9 +21,7 @@ public class Fort extends Structure implements Attacker{
     @Override
     public void doWork(){
         if(getBeingBuilt() == true) {
-            if (fortManager.getNumOfWorkers_SoldierTraining() > 0) {
-                makeSoldiers();
-            }
+            makeSoldiers();
         }
         else{
             build();

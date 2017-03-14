@@ -22,6 +22,11 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	private int energyResourceLevel;
 	private int metalResourceLevel;
 	private int nutrientResourceLevel;
+	private double powerState;
+
+	private static final double POWERUP  = 1;
+	private static final double POWERDOWN  = .25;
+	private static final double POWERACTIVE  = 1.25;
 
 	private UnitStats myStats;
 	private UnitID id;
@@ -37,6 +42,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 		currentActionPoints = maxActionPoints;
 		md = MapDirection.getNorth();
 		isAlive=true;
+		powerState = POWERUP;
 	}
 
 	protected Unit(Location loc){
@@ -48,6 +54,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 		md = MapDirection.getNorth();
 		isAlive=true;
 		observers=new ArrayList<UnitObserver>();
+		powerState = POWERUP;
 	}
 
 	public void addObserver(UnitObserver observer)
@@ -79,12 +86,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	public void killMe() {
 		isAlive=false;
 		notifyObservers();
-		//TODO KILLING SELF
-		//REMOVING SELF FROM PLAYER REGISTRY AND OCCUPANCY MANAGER
-		//POSSIBLY USING PLAYER MANAGER
-		//Possibly a death observer/visitor
 
-		//FOR TESTING PURPOSES
 		System.out.println("KILLING");
 	}
 
@@ -186,7 +188,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	}
 
 	public int getUpkeep() {
-		return myStats.getUpkeep();
+		return (int)(myStats.getUpkeep() * powerState);
 	}
 
 	public abstract boolean canEscort();
@@ -274,5 +276,9 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	public void startUpdate(TurnManager turn) {
 		this.refreshAP();
 	}
+
+	public void powerUp(){powerState = POWERUP;}
+	public void powerDown(){powerState = POWERDOWN;}
+	public void powerActive(){powerState = POWERACTIVE;}
 }
 

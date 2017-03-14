@@ -70,7 +70,7 @@ public class ControllableCollection {
 
 	
     
-    public ControllableCollection(){
+    /*public ControllableCollection(){
         colonists = new ArrayList<Colonist>(10);
         explorers = new ArrayList<Explorer>(10);
         melees = new ArrayList<Melee>(10);
@@ -104,7 +104,7 @@ public class ControllableCollection {
             powerPlants.add(null);
             universities.add(null);
         }
-    }
+    }*/
 
     //controllableExists is used to check if any controllables exist
     //for a given mode, determines which mode to switch to when
@@ -208,7 +208,7 @@ public class ControllableCollection {
         else return null;
     }
 
-    public ArrayList<Explorer> getExpolorers() {
+    public ArrayList<Explorer> getExplorers() {
         return explorers;
     }
     public void setExplorers(ArrayList<Explorer> explorers) {

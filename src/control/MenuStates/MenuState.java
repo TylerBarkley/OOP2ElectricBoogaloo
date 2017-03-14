@@ -1,6 +1,7 @@
 package control.MenuStates;
 
 import control.Menu;
+import model.Controllables.Controllable;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -34,11 +35,13 @@ public interface MenuState {
     void reset(Menu context);
     void updateControllable(Menu context);
 
-    int getCurrentInstance();
+    int getCurrentInstanceNumber();
     void setCurrentInstance(int currentInstance);
     int getCurrentType();
     void setCurrentType(int currentType);
     String typeToString();
+
+	Controllable getCurrentInstance();
 
 
 

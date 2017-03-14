@@ -59,7 +59,7 @@ public abstract class RallyPointMenuState implements MenuState {
     public void updateControllable(Menu context){
         currentArmy = (Army)context.getControllableCollection().get(currentType, currentInstance);
     }
-    public int getCurrentInstance() {return currentInstance;}
+    public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
 
     public int getCurrentType() {return currentType;}
@@ -73,5 +73,9 @@ public abstract class RallyPointMenuState implements MenuState {
             case ControllableCollection.REINFORCEMENTSTYPE: return "Reinforcements";
         }
         return null;
+    }
+    
+    public Army getCurrentInstance(){
+    	return currentArmy;
     }
 }

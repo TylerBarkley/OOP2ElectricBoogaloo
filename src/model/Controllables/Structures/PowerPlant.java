@@ -21,9 +21,7 @@ public class PowerPlant extends Structure implements Energizing {
     @Override
     public void doWork(){
         if(getBeingBuilt() == true) {
-            if (powerPlantManager.getNumOfWorkers_Harvesting() > 0) {
-                harvestEnergy();
-            }
+            harvestEnergy();
         }
         else{
             build();

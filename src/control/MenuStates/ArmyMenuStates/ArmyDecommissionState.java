@@ -15,7 +15,7 @@ public class ArmyDecommissionState extends ArmyMenuState{
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentArmy.decommission();
+        currentArmy.decommission();
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyDisbandState.getInstance();

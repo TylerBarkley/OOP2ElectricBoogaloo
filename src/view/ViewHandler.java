@@ -11,6 +11,7 @@ import model.Location;
 import model.TurnManager;
 
 import model.Controllables.Army;
+import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
@@ -20,6 +21,7 @@ import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
 import model.observers.MenuObserver;
 import model.observers.PlayerObserver;
+import model.observers.RPObserver;
 import model.observers.StartTurnObserver;
 import model.observers.StructureObserver;
 import model.observers.UnitObserver;
@@ -31,11 +33,12 @@ import model.player.PlayerManager;
 import utilities.ViewVisitor;
 
 public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, PlayerObserver,
-ArmyObserver, EndTurnObserver, StartTurnObserver
+ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 {
 	private int width;
 	private int height;
 	private Menu menu;
+	private TurnManager turn;
 	private UserControls controls;
 	private StatusViewport statusViewport;
 	private AreaViewport areaViewport;
@@ -53,6 +56,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 		this.width=width;
 		this.height=height;
 		this.menu=menu;
+		this.turn=turn;
 		this.controls=controls;
 		statusViewport=new StatusViewport(width/3,height);
 		areaViewport=new AreaViewport(width*2/3, height);
@@ -63,30 +67,36 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 		configurationOverview=new ConfigurationOverview(controls, width, height);
 		techViewport=new TechnologyViewport(width, height);
 
-		InputReader ir=new InputReader(new InputHandler(menu, turn),controls);
+		InputReader ir=new InputReader(new InputHandler(menu, turn, areaViewport),controls);
 
 		window=new GameWindow(width, height, mainScreen, unitOverview, structureOverview, configurationOverview, techViewport, ir);
 		areaMomentos=new HashMap<PlayerID, AreaViewportMomento>();
 
 		focusLocations=new HashMap<PlayerID, Location>();
 
-		viewVisitor=new ViewVisitor(turn.getCurrentPlayer().getId());
+		viewVisitor=new ViewVisitor(turn.getCurrentPlayerID());
 	}
 
 	@Override
 	public void update(Structure structure) {
-		structure.accept(structureOverview);
-		structure.accept(statusViewport);
-
+		if(structure.getID().getPlayerID().equals(turn.getCurrentPlayerID()))
+		{
+			structure.accept(structureOverview);
+			structure.accept(statusViewport);
+		}
+		
 		structure.accept(viewVisitor);
 		updateView();
 	}
 
 	@Override
 	public void update(Unit unit) {
-		unit.accept(unitOverview);
-		unit.accept(statusViewport);
-
+		if(unit.getID().getPlayerID().equals(turn.getCurrentPlayerID()))
+		{
+			unit.accept(unitOverview);
+			unit.accept(statusViewport);
+		}
+		
 		unit.accept(viewVisitor);
 		updateView();
 	}
@@ -148,13 +158,34 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 	}
 
 	@Override
+	public void update(Player player, RallyPoint rp) {
+		update(player);
+
+		if(rp.isActive())
+		{
+			rp.removeObserver(this);
+		}
+		else
+		{
+			rp.addObserver(this);
+		}
+	}
+	
+	@Override
 	public void update(Army army) {
-		//army.accept(unitOverview);
+		army.accept(unitOverview);
 	}
 
 	@Override
+	public void update(RallyPoint rp) {
+		rp.accept(viewVisitor);
+		
+		updateView();
+	}
+	
+	@Override
 	public void endUpdate(TurnManager turn) {
-		PlayerID id=turn.getCurrentPlayer().getId();
+		PlayerID id=turn.getCurrentPlayerID();
 		areaMomentos.put(id, areaViewport.saveToMomento());
 
 		focusLocations.put(id, menu.getFocus());
@@ -162,7 +193,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 
 	@Override
 	public void startUpdate(TurnManager turn) {
-		PlayerID id=turn.getCurrentPlayer().getId();
+		PlayerID id=turn.getCurrentPlayerID();
 
 		AreaViewportMomento momento = areaMomentos.get(id);
 
@@ -184,6 +215,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 		{
 			menu.setFocus(new Location(0,0));
 		}
+		
 		structureOverview=new StructureOverview(width, height);
 		unitOverview=new UnitOverview(width, height);
 		statusViewport=new StatusViewport(width/3, height);
@@ -207,25 +239,31 @@ ArmyObserver, EndTurnObserver, StartTurnObserver
 	private void currentPlayerRefresh(PlayerID id)
 	{
 		PlayerManager pm =PlayerManager.getInstance();
-		for(Unit u: pm.getUnits(id))
+		for(Unit unit: pm.getUnits(id))
 		{
-			u.notifyObservers();
+			unit.accept(unitOverview);
+			unit.accept(statusViewport);
+			unit.accept(viewVisitor);
 		}
 
-		for(Structure s: pm.getStructures(id))
+		for(Structure structure: pm.getStructures(id))
 		{
-			s.notifyObservers();
+			structure.accept(structureOverview);
+			structure.accept(statusViewport);
+			structure.accept(viewVisitor);
 		}
 
-		/*for(Worker w: pm.getWorkers(id))
+		for(Army army: pm.getArmies(id))
 		{
-			w.notifyObservers();
-		}*/
-
-		for(Army a: pm.getArmies(id))
-		{
-			a.notifyObservers();
+			army.accept(unitOverview);
 		}
+		
+		for(RallyPoint rp: pm.getRallyPoints(id))
+		{
+			rp.accept(viewVisitor);
+		}
+		
+		updateView();
 	}
 
 	public void openWindow() {

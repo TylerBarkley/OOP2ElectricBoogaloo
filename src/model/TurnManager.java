@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import model.observers.EndTurnObserver;
 import model.observers.StartTurnObserver;
 import model.player.Player;
+import model.player.PlayerID;
 
 public class TurnManager {
 
-	//4 commits
+	private static TurnManager instance;
 
 	private ArrayList<EndTurnObserver> endObservers;
 	private ArrayList<StartTurnObserver> startObservers;
@@ -16,7 +17,7 @@ public class TurnManager {
 	private ArrayList<Player> players;
 	private int index;
 	
-	public TurnManager(ArrayList<Player> players){
+	private TurnManager(ArrayList<Player> players){
 		this.players=players;
 		index=0;
 		
@@ -34,8 +35,8 @@ public class TurnManager {
 		return players;
 	}
 	
-	public Player getCurrentPlayer() {
-		return players.get(index);
+	public PlayerID getCurrentPlayerID() {
+		return players.get(index).getId();
 	}
 	
 	public void addEndObserver(EndTurnObserver observer)
@@ -82,5 +83,28 @@ public class TurnManager {
 	public void notifyStartObserver(StartTurnObserver observer)
 	{
 		observer.startUpdate(this);
+	}
+
+	public static TurnManager getInstance(ArrayList<Player> players) {
+		if(instance == null)
+		{
+			instance = new TurnManager(players);
+		}
+		else if(!instance.players.equals(players))
+		{
+			for(Player player:players)
+			{
+				if(!instance.players.contains(player))
+				{
+					instance.players.add(player);
+				}
+			}
+		}
+		
+		return instance;
+	}
+	
+	public static TurnManager getInstance() {
+		return getInstance(new ArrayList<Player>());
 	}
 }

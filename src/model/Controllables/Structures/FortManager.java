@@ -18,6 +18,7 @@ public class FortManager extends WorkerManager{
     }
 
     public int building() {
+        numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }

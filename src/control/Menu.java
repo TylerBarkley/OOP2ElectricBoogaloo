@@ -11,9 +11,17 @@ import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
 import model.MapDirection;
+import model.TurnManager;
+import model.Controllables.Army;
+import model.Controllables.Controllable;
 import model.Controllables.ControllableCollection;
+import model.Controllables.RallyPoint;
+import model.Controllables.Structures.Structure;
+import model.Controllables.Units.Unit;
 import model.observers.MenuObserver;
-import model.observers.UnitObserver;
+import model.observers.PlayerObserver;
+import model.observers.StartTurnObserver;
+import model.player.Player;
 import model.player.PlayerID;
 import model.player.PlayerManager;
 import utilities.MenuVisitor;
@@ -25,8 +33,10 @@ import utilities.MenuVisitor;
  * Q4D: review good vs. bad casting
  *
  * Structure arrayLists will be variable size
+ *
+ * Menu needs to know the player's focus
  */
-public class Menu {
+public class Menu implements PlayerObserver, StartTurnObserver{
 
 	public final static int RALLYPOINTMODE      = 0;
 	public final static int ARMYMODE       	    = 1;
@@ -163,6 +173,16 @@ public class Menu {
 	public void reset(){
 		cycleModeL();
 		cycleModeR();
+		
+		cycleTypeL();
+		cycleTypeR();
+		
+		cycleInstanceL();
+		cycleInstanceR();
+		
+		cycleInstructionL();
+		cycleInstructionR();
+		
 		notifyObservers();
 	}
     
@@ -226,10 +246,14 @@ public class Menu {
 		return menuState.getCurrentType();
 	}
 
-	public int getCurrentInstance() {
-		return menuState.getCurrentInstance();
+	public int getCurrentInstanceNumber() {
+		return menuState.getCurrentInstanceNumber();
 	}
 
+	public Controllable getCurrentInstance() {
+		return menuState.getCurrentInstance();
+	}
+	
 	public String getCurrentInstruction() { 
 		return menuState.toString();
 	}
@@ -247,7 +271,7 @@ public class Menu {
 	public void printState(){
 		System.out.println("Mode: " + modeToString());
 		System.out.println("Type: " + menuState.typeToString());
-		System.out.println("Instance: " + menuState.getCurrentInstance());
+		System.out.println("Instance: " + menuState.getCurrentInstanceNumber());
 		System.out.println("Instruction: " + menuState.toString());
 	}
 
@@ -275,5 +299,36 @@ public class Menu {
 	public void setFocus(MapDirection direction) {
 		this.focus = focus.getAdjacent(direction);
 		notifyObservers();
+	}
+
+	@Override
+	public void startUpdate(TurnManager turn) {
+		id=turn.getCurrentPlayerID();
+		updateControllableCollection();
+	}
+
+	@Override
+	public void update(Player player) {
+		updateControllableCollection();
+	}
+
+	@Override
+	public void update(Player player, Unit unit) {
+		update(player);
+	}
+
+	@Override
+	public void update(Player player, Structure structure) {
+		update(player);
+	}
+
+	@Override
+	public void update(Player player, Army army) {
+		update(player);
+	}
+
+	@Override
+	public void update(Player player, RallyPoint rp) {
+		update(player);
 	}
 }

@@ -13,6 +13,7 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
+import model.Technology;
 import model.player.PlayerID;
 import view.AreaViewport;
 import view.CompositeView;
@@ -27,10 +28,11 @@ import java.util.Map.Entry;
 
 import model.ID;
 import model.Location;
+import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor, TechnologyVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -38,6 +40,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	private HashMap<Location, ResourceLevel> resources;
 	private ArrayList<Unit> units;
 	private ArrayList<Structure> structures;
+	private ArrayList<RallyPoint> rallys;
 
 	public ViewVisitor(PlayerID playerID){
 		this.playerID=playerID;
@@ -46,6 +49,7 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		resources=new HashMap<Location, ResourceLevel>();
 		units=new ArrayList<Unit>();
 		structures=new ArrayList<Structure>();
+		rallys=new ArrayList<RallyPoint>();
 	}
 
 	@Override
@@ -88,6 +92,8 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 				structures.add(sOcc.getOccupant());
 			}
 		}
+		
+		visibleLocations.clear();
 	}
 
 	@Override
@@ -102,18 +108,32 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		}
 	}
 
+	@Override
+	public void visit(RallyPoint rp) {
+		if(rp.getID().getPlayerID().equals(playerID))
+		{
+			rallys.add(rp);
+		}
+	}
+	@Override
+	public void visit(Technology technology){
+
+	}
+	
 	public void visit(AreaViewport viewport)
 	{
 		ViewFactory factory = ViewFactory.getFactory();
-
 
 		addTerrainsToView(viewport,factory);
 		addResourcesToView(viewport,factory);
 		addStructuresToView(viewport, factory);
 		addUnitsToView(viewport, factory);
+		addRallypointsToView(viewport, factory);
 	}
 
 	private void addTerrainsToView(AreaViewport viewport, ViewFactory factory) {
+		HashMap<Location, TileView> views=new HashMap<Location, TileView>();
+		
 		for(Entry<Location, Terrain> entry: terrains.entrySet())
 		{
 			String type="";
@@ -132,25 +152,35 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			}
 
 			TileView view = (TileView)factory.getView(new ID(), type, entry.getKey());
-			viewport.updateMapView(entry.getKey(), view);
+			views.put(view.getLocation(),view);
 		}
+		
+		viewport.updateMapView(views);
+		terrains.clear();
 	}
 
 	private void addResourcesToView(AreaViewport viewport, ViewFactory factory) {
+		HashMap<Location, CompositeView> views=new HashMap<Location, CompositeView>();
+		
 		for(Entry<Location, ResourceLevel> entry: resources.entrySet())
 		{
 			int oreQuantity=entry.getValue().getOreLevel();
 			int energyQuantity=entry.getValue().getEnergyLevel();
 			int foodQuantity=entry.getValue().getFoodLevel();
 
-			CompositeView view = factory.getCopositeResourceView(new ID(), 
+			CompositeView view = factory.getCompositeResourceView(new ID(), 
 					entry.getKey(), oreQuantity, energyQuantity, foodQuantity);
 
-			viewport.updateResourceView(entry.getKey(), view);
+			views.put(view.getLocation(),view);
 		}
+		
+		viewport.updateResourceView(views);
+		resources.clear();
 	}
 
 	private void addStructuresToView(AreaViewport viewport, ViewFactory factory) {
+		HashMap<ID, View> views=new HashMap<ID, View>();
+		
 		for(Structure structure: structures)
 		{
 			String type="";
@@ -185,11 +215,16 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
 
 			View view = factory.getView(id, type, loc, dir, isOpponent);
-			viewport.addView(view);
+			views.put(id, view);
 		}
+		
+		viewport.addViews(views);
+		structures.clear();
 	}
 
 	private void addUnitsToView(AreaViewport viewport, ViewFactory factory) {
+		HashMap<ID, View> views=new HashMap<ID, View>();
+		
 		for(Unit unit: units)
 		{
 			String type="";
@@ -215,7 +250,20 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			boolean isOpponent=!id.getPlayerID().equals(playerID);
 
 			View view = factory.getView(id, type, loc, dir, isOpponent);
+			views.put(id, view);
+		}
+		
+		viewport.addViews(views);
+		
+		units.clear();
+	}
+	
+	private void addRallypointsToView(AreaViewport viewport, ViewFactory factory) {
+		for(RallyPoint rp: rallys){
+			View view = factory.getView(rp.getID(), "RallyPoint", rp.getLocation());
 			viewport.addView(view);
 		}
+		
+		rallys.clear();
 	}
 }

@@ -45,7 +45,9 @@ public class ViewFactory {
 	private BufferedImage energy;
 	private BufferedImage food;
 	private BufferedImage ore;
-
+	
+	private BufferedImage rallyPoint;
+	
 	private BufferedImage unknown;
 	private BufferedImage invisible;
 	
@@ -86,7 +88,9 @@ public class ViewFactory {
 			energy=ImageIO.read(getClass().getResource("/Energy.png"));
 			food=ImageIO.read(getClass().getResource("/Food.png"));
 			ore=ImageIO.read(getClass().getResource("/Ore.png"));
-
+			
+			rallyPoint=ImageIO.read(getClass().getResource("/Rallypoint.png"));
+			
 			unknown=ImageIO.read(getClass().getResource("/Unknown.png"));
 			invisible=ImageIO.read(getClass().getResource("/Invisible.png"));
 		} catch (IOException e) {
@@ -161,7 +165,15 @@ public class ViewFactory {
 			return new StructureView(id, enemyTower, loc, rotation);
 		case "EnemyFort":
 			return new StructureView(id, enemyFort, loc, rotation);
-		
+
+		case "Skull":
+			return new SkullCrossbones(id, loc);
+		case "RedCross":
+			return new RedCross(id, loc);
+			
+		case "RallyPoint":
+			return new RPView(id, rallyPoint, loc);
+			
 		case "Invisible":
 			return new ImageView(id, invisible, loc, rotation);
 			
@@ -170,7 +182,7 @@ public class ViewFactory {
 		}
 	}
 
-	public CompositeView getCopositeResourceView(ID id, Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
+	public CompositeView getCompositeResourceView(ID id, Location loc, int oreQuantity, int energyQuantity, int foodQuantity)
 	{
 		CompositeView view=new CompositeView();
 		view.add(new EnergyView(id, energy, loc, oreQuantity));

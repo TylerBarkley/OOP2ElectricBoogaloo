@@ -81,5 +81,13 @@ public class InputReader extends KeyAdapter {
         	handler.endTurn();
         	System.out.println("End Turn");
         }
+        else if (userControls.getToggleResources().equals(input)) {
+        	handler.toggleResources();
+        	System.out.println("Toggle Resources");
+        }
+        else if (userControls.getSelect().equals(input)) {
+        	handler.select();
+        	System.out.println("Select");
+        }
     }
 }

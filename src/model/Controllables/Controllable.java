@@ -7,4 +7,5 @@ import model.Location;
  */
 public interface Controllable {
 	public Location getLocation();
+	public ControllableID getID();
 }

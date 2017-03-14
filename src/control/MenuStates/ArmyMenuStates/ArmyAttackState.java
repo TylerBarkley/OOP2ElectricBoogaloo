@@ -4,6 +4,7 @@ import control.Menu;
 import control.MenuStates.ArmyMenuState;
 import control.MenuStates.StructureMenuState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
+import model.AttackCommand;
 import model.Controllables.Army;
 
 /**
@@ -18,7 +19,7 @@ public class ArmyAttackState extends ArmyMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentArmy.attack();
+        currentArmy.getCommandQueue().add(new AttackCommand(currentArmy, context.getFocus()));
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
