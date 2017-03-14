@@ -19,7 +19,7 @@ public class UnitResearchCommand implements ResearchCommand {
 
     @Override
     public int getCost() {
-        return 10;
+        return 10*technology.getCurrentUnitAdvancements(type,stat);
     }
 
     @Override
