@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.*;
 
 import control.Menu;
+import model.Controllables.Stats.StructureStats;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Farm;
 import model.Controllables.Structures.Fort;
@@ -90,13 +91,29 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstruction());
 		
 		if(menu.getCurrentMode() == Menu.STRUCTUREMODE) {
-			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstanceNumber());
-			model.update();
+			Structure structure = (Structure)menu.getCurrentInstance();
+			if(structure != null) {
+				renderer.selectUnit(structure.getID().getType(), menu.getCurrentInstanceNumber());
+				displayStructureStats(structure);
+			}
 		}
 		else {
 			renderer.deSelectUnit();
+			removeStats();
 		}
 		
 		model.update();
+	}
+	
+	public void displayStructureStats(Structure structure) {
+		StructureStats stats = structure.getMyStats();
+		structureStatsArea.setText("Health: " + structure.getCurrentHealth() + "\nProduction Rate: " + stats.getProductionRate() 
+				+ "\nUpkeep: " + structure.getUpkeep() + "\nAssigned Workers: " + structure.getNumTotalOfWorkers() 
+				+ "\nAttack Power: " + stats.getOffensiveDamage() + "\nDefense Power: " + stats.getDefensiveDamage() 
+				+ "\nArmor: " + stats.getArmor());
+	}
+	
+	public void removeStats() {
+		structureStatsArea.setText("");
 	}
 }

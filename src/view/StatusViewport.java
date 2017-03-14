@@ -121,12 +121,11 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 
 		String areaText = unitArea.getText();
 		int index = areaText.indexOf(unitName + " " + instance);
-		String unspacedUnitStats = areaText.substring(index, areaText.indexOf("\n\n",index));
-		String spacedUnitStats = "\n\n" + unspacedUnitStats;
+		String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
 		
-		String updatedText = areaText.replace(spacedUnitStats, "");
-		if(updatedText.equals(areaText)) updatedText = updatedText.replace(unspacedUnitStats, "");
-		unitArea.setText(updatedText);
+		
+		areaText = areaText.replace(unitStats, "");
+		unitArea.setText(areaText);
 
 	}
 
@@ -180,13 +179,10 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 	private void removeStructureStats(String type, int instance) {
 		String areaText = structureArea.getText();
 		int index = areaText.indexOf(type + " " + instance);
-		String unspacedUnitStats = areaText.substring(index, areaText.indexOf("\n\n",index));
-		String spacedUnitStats = "\n\n" + unspacedUnitStats;
-		
+		String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
 
-		String updatedText = areaText.replace(spacedUnitStats, "");
-		if(updatedText.equals(areaText)) updatedText = updatedText.replace(unspacedUnitStats, "");
-		structureArea.setText(updatedText);
+		areaText = areaText.replace(unitStats, "");
+		structureArea.setText(areaText);
 	}
 	
 	@Override
