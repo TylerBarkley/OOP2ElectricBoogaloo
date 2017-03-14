@@ -138,14 +138,7 @@ public class PlayerManager {
 
 	public void distributeNutrients(PlayerID id, Structure structure,int amount){players.get(id).distributeNutrients(structure,amount);}
 
-	public void distributePower(PlayerID id,Army army,int amount){players.get(id).distributePower(army,amount);}
-
-	public void distributeMetal(PlayerID id, Army army,int amount){players.get(id).distributeMetal(army,amount);}
-
 	public void distributeNutrients(PlayerID id, Army army,int amount){players.get(id).distributeNutrients(army,amount);}
-	public void distributePower(PlayerID id,Unit unit,int amount){players.get(id).distributePower(unit,amount);}
-
-	public void distributeMetal(PlayerID id,Unit unit,int amount){players.get(id).distributeMetal(unit,amount);}
 
 	public void distributeNutrients(PlayerID id,Unit unit,int amount){players.get(id).distributeNutrients(unit,amount);}
 

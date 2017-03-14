@@ -5,7 +5,7 @@ import control.MenuStates.ArmyMenuStates.ArmyAttackState;
 import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
-import control.MenuStates.RallyPointMenuStates.RPBuildState;
+import control.MenuStates.RallyPointMenuStates.RPSetState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
@@ -93,6 +93,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 		menuState.select(this);
 		updateControllableCollection();
+		//reset();
 	}
 
 	//check if a given instance exists in the ControllableCollection
@@ -122,7 +123,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());
@@ -151,7 +152,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());

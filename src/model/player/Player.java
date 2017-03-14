@@ -294,23 +294,10 @@ public class Player implements ArmyObserver, RPObserver{
 		structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 
 	}
-	public void distributePower(Unit unit,int amountOfPowerGiven){
-		unit.incrementEnergyResourceLevel(amountOfPowerGiven);
-	}
-
-	public void distributeMetal(Unit unit,int amountOfMetalGiven){
-		unit.incrementMetalResourceLevel(amountOfMetalGiven);
-	}
 
 	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
 		unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 
-	}
-	public void distributePower(Army army,int amountOfPowerGiven){
-				army.incrementEnergyResourceLevel(amountOfPowerGiven);
-	}
-	public void distributeMetal(Army army,int amountOfMetalGiven){
-				army.incrementMetalResourceLevel(amountOfMetalGiven);
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
 				army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
@@ -318,6 +305,7 @@ public class Player implements ArmyObserver, RPObserver{
 	public void storeMetal(int amountOfMetalGiven){
 		metal.setAmount(amountOfMetalGiven);
 	}
+
 	public void storeNutrients(int amountOfNutrientsGiven){
 		nutrients.setAmount(amountOfNutrientsGiven);
 	}
@@ -334,7 +322,7 @@ public class Player implements ArmyObserver, RPObserver{
 	public ControllableCollection getControllableCollection()
 	{
 		return new ControllableCollection(unitManager.getColonists(), unitManager.getExplorers(), 
-				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, structureManager.getCapitals(), structureManager.getFarms(),
+				unitManager.getSoldiers(), unitManager.getRangedSoldiers(), armies, rallyPoints, structureManager.getCapitals(), structureManager.getFarms(),
 				structureManager.getForts(), structureManager.getMines(), structureManager.getTowers(),
 				structureManager.getPlants(), structureManager.getUniversities(), workers);
 	}

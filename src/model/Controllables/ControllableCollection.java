@@ -29,12 +29,15 @@ public class ControllableCollection {
     public final static int BATTLEGROUPTYPE    	= 12;
     public final static int REINFORCEMENTSTYPE 	= 13;
 
+    public final static int RPTYPE = 14;
+
     private ArrayList<Colonist> colonists;
     private ArrayList<Explorer> explorers;
     private ArrayList<Melee> melees;
     private ArrayList<Ranged> rangeds;
 
     private ArrayList<Army> armies;
+    private ArrayList<RallyPoint> rallyPoints;
 
     private ArrayList<Capital> capitals;
     private ArrayList<Farm> farms;
@@ -50,7 +53,7 @@ public class ControllableCollection {
 
     
     public ControllableCollection(ArrayList<Colonist> colonists, ArrayList<Explorer> explorers, ArrayList<Melee> melees,
-			ArrayList<Ranged> rangeds, ArrayList<Army> armies, ArrayList<Capital> capitals, ArrayList<Farm> farms,
+			ArrayList<Ranged> rangeds, ArrayList<Army> armies, ArrayList<RallyPoint> rallyPoints, ArrayList<Capital> capitals, ArrayList<Farm> farms,
 			ArrayList<Fort> forts, ArrayList<Mine> mines, ArrayList<ObservationTower> observationTowers,
 			ArrayList<PowerPlant> powerPlants, ArrayList<University> universities, int workers) {
 		this.colonists = colonists;
@@ -58,6 +61,7 @@ public class ControllableCollection {
 		this.melees = melees;
 		this.rangeds = rangeds;
 		this.armies = armies;
+        this.rallyPoints = rallyPoints;
 		this.capitals = capitals;
 		this.farms = farms;
 		this.forts = forts;
@@ -66,6 +70,7 @@ public class ControllableCollection {
 		this.powerPlants = powerPlants;
 		this.universities = universities;
 		this.workers = workers;
+
 	}
 
 	
@@ -151,8 +156,8 @@ public class ControllableCollection {
             }*/
         } else if(modeType==Menu.RALLYPOINTMODE){
             //System.out.println("CHECKING RALLYPOINT");
-            for (int i = 0; i < armies.size(); i++) {
-                if (armies.get(i) != null){
+            for (int i = 0; i < rallyPoints.size(); i++) {
+                if (rallyPoints.get(i) != null){
                     return true;
                 }
             }
@@ -204,6 +209,9 @@ public class ControllableCollection {
             return armies.get(y);
         if(x==REINFORCEMENTSTYPE)
             return armies.get(y);
+        if(x==RPTYPE)
+            return rallyPoints.get(y);
+
 
         else return null;
     }
@@ -237,6 +245,12 @@ public class ControllableCollection {
     }
     public void setArmies(ArrayList<Army> armies) {
         this.armies = armies;
+    }
+    public ArrayList<RallyPoint> getRallyPoints() {
+        return rallyPoints;
+    }
+    public void setRallyPoints(ArrayList<RallyPoint> rallyPoints) {
+        this.rallyPoints = rallyPoints;
     }
     public ArrayList<Capital> getCapitals() {
         return capitals;
