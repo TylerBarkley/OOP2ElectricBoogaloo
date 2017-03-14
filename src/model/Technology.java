@@ -19,7 +19,7 @@ ArrayList<UnitAdvancements> unitAdvancements;
 ArrayList<StructureAdvancements> structureAdvancements;
 WorkerAdvancements workerAdvancements;
 
-Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats, WorkerStats workerStats){
+public Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats, WorkerStats workerStats){
     this.unitStats=unitStats;
     this.structureStats=structureStats;
     this.workerStats=workerStats;
