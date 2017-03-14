@@ -2,6 +2,7 @@ package control.MenuStates.StructureMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalProduceExplorerState;
 import control.PopUpMenuWindow;
 import model.Controllables.Structures.Fort;
 import model.Controllables.Structures.StructureID;
@@ -26,7 +27,7 @@ public class ProduceMeleeState extends StructureMenuState {
 
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceExplorerState.getInstance();
+        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

@@ -1,41 +1,31 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
 import control.PopUpMenuWindow;
-import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.StructureID;
-
-import javax.swing.*;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ProduceWorkerState extends StructureMenuState{
-    private static ProduceWorkerState instance = new ProduceWorkerState();
-    public static ProduceWorkerState getInstance(){return instance;}
-    private ProduceWorkerState(){}
+public class CapitalProduceWorkerState extends CapitalMenuState{
+    private static CapitalProduceWorkerState instance = new CapitalProduceWorkerState();
+    public static CapitalProduceWorkerState getInstance(){return instance;}
+    private CapitalProduceWorkerState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID){
-            Capital producer = (Capital)currentStructure;
-            producer.assignWorkersToBreed(PopUpMenuWindow.WorkerMenu());
-        }
-
-
+            currentStructure.assignWorkersToBreed(PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = AssignWorkersPowerHarvestState.getInstance();
+        StructureMenuState nextState = CapitalAssignWorkersPowerHarvestState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = ProduceExplorerState.getInstance();
+        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

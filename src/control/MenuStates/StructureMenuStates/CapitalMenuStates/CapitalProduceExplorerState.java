@@ -1,28 +1,24 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersFarmState;
-import model.Controllables.Structures.StructureID;
+import control.PopUpMenuWindow;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ResearchTechnologyState extends StructureMenuState {
-    private static ResearchTechnologyState instance = new ResearchTechnologyState();
-    public static ResearchTechnologyState getInstance(){return instance;}
-    private ResearchTechnologyState(){}
+public class CapitalProduceExplorerState extends CapitalMenuState{
+    private static CapitalProduceExplorerState instance = new CapitalProduceExplorerState();
+    public static CapitalProduceExplorerState getInstance(){return instance;}
+    private CapitalProduceExplorerState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID){
-            //TODO: research
-        }
+        currentStructure.assignWorkersToTrainExplorers(PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceRangedState.getInstance();
+        StructureMenuState nextState = CapitalProduceWorkerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
@@ -36,6 +32,7 @@ public class ResearchTechnologyState extends StructureMenuState {
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Research Technology";
+        return "Produce Explorer";
     }
+
 }

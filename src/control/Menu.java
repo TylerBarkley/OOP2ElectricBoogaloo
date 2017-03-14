@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPSetState;
-import control.MenuStates.StructureMenuStates.AssignWorkersMineState;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersMineState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
@@ -129,7 +129,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(AssignWorkersMineState.getInstance());
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);
@@ -158,7 +158,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(AssignWorkersMineState.getInstance());
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);

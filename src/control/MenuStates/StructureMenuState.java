@@ -11,7 +11,12 @@ import model.Controllables.Structures.Structure;
 public abstract class StructureMenuState implements MenuState {
 
     protected int currentInstance = 0, currentType = ControllableCollection.CAPITALTYPE ;
-    protected Structure currentStructure;
+    //protected Structure currentStructure;
+
+    //TODO: implement this and make the cycleType() methods call it at the end
+    public void setDefaultInstruction(Menu context){
+
+    }
 
     //can probably eliminate for() loops here because if an instance exists, it will always be in index 0
     public void cycleTypeL (Menu context){
@@ -101,9 +106,9 @@ public abstract class StructureMenuState implements MenuState {
         cycleInstanceL(context);
         updateControllable(context);
     }
-    public void updateControllable(Menu context){
-        currentStructure = (Structure) context.getControllableCollection().get(currentType, currentInstance);
-    }
+    //abstract void updateControllable(Menu context);
+        //currentStructure = (Structure) context.getControllableCollection().get(currentType, currentInstance);
+
     public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
 
@@ -123,8 +128,7 @@ public abstract class StructureMenuState implements MenuState {
         }
         return null;
     }
-    
-    public Structure getCurrentInstance(){
-    	return currentStructure;
-    }
+
+
+
 }
