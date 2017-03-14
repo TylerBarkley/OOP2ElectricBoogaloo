@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class Farm extends Structure implements Farming{
+public class Farm extends HarvestStructure implements Farming{
 
     private FarmManager farmManager;
     private int builtPercentage;

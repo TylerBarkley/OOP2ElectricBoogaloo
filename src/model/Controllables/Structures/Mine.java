@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class Mine extends Structure implements Mining{
+public class Mine extends HarvestStructure implements Mining{
 
     private MineManager mineManager;
     private int builtPercentage;
