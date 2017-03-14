@@ -12,12 +12,12 @@ import java.util.ArrayList;
  * Created by Trevor on 3/8/2017.
  */
 public class Technology {
-WorkerStats workerStats;
-ArrayList<UnitStats> unitStats;
-ArrayList<StructureStats> structureStats;
-ArrayList<UnitAdvancements> unitAdvancements;
-ArrayList<StructureAdvancements> structureAdvancements;
-WorkerAdvancements workerAdvancements;
+private WorkerStats workerStats;
+private ArrayList<UnitStats> unitStats;
+private ArrayList<StructureStats> structureStats;
+private ArrayList<UnitAdvancements> unitAdvancements;
+private ArrayList<StructureAdvancements> structureAdvancements;
+private WorkerAdvancements workerAdvancements;
 
     static final int OffensiveDamage=0;
     static final int DefensiveDamage=1;
@@ -316,7 +316,7 @@ public void editWorkerStats(int statToBeModified) {
             case Breeding:
                 return workerAdvancements.getMaxBreedingLevel();
             case ExplorerTraining:
-                return workerAdvancements.getMaxBreedingLevel();
+                return workerAdvancements.getMaxExplorerTrainingLevel();
             case BuildingRate:
                 return workerAdvancements.getMaxBuildingRateLevel();
             case WorkerRadius:
@@ -366,6 +366,71 @@ public void editWorkerStats(int statToBeModified) {
         }
         return -1;
     }
+    public int getWorkerStatsCurrentLevel(int statToBeSearched){
+        //TODO: Implement This Shit
+        switch (statToBeSearched) {
+            case FoodProduction:
+                return workerAdvancements.getFoodProduction()/workerAdvancements.getFoodProductionIncrement()+1;
+            case OreProduction:
+                return workerAdvancements.getOreProduction()/workerAdvancements.getOreProductionIncrement()+1;
+            case EnergyProduction:
+                return workerAdvancements.getEnergyProduction()/workerAdvancements.getOreProductionIncrement()+1;
+            case TechnologyProduction:
+                return workerAdvancements.getTechnologyProduction()/workerAdvancements.getTechnologyProductionIncrement()+1;
+            case SoldierTraining:
+                return workerAdvancements.getSoldierTraining()/workerAdvancements.getSoldierTrainingIncrement()+1;
+            case Breeding:
+                return workerAdvancements.getBreeding()/workerAdvancements.getBreedingIncrement()+1;
+            case ExplorerTraining:
+                return workerAdvancements.getExplorerTraining()/workerAdvancements.getExplorerTrainingIncrement()+1;
+            case BuildingRate:
+                return workerAdvancements.getBuildingRate()/workerAdvancements.getBuildingRateIncrement()+1;
+            case WorkerRadius:
+                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement()+1;
+            case WorkerDensity:
+                return workerAdvancements.getWorkerDensity()/workerAdvancements.getWorkerDensityIncrement()+1;
+        }
+        return -1;
+    }
+    public int getUnitStatCurrentLevel(int unitType, int statToBeSearched){
+        switch(statToBeSearched){
+            case Health:
+                return unitAdvancements.get(unitType).getHealth()/unitAdvancements.get(unitType).getHealthIncrement()+1;
+            case Armor:
+                return unitAdvancements.get(unitType).getArmor()/unitAdvancements.get(unitType).getArmorIncrement()+1;
+            case Upkeep:
+                return unitAdvancements.get(unitType).getUpkeep()/unitAdvancements.get(unitType).getUpkeep()+1;
+            case DefensiveDamage:
+                return unitAdvancements.get(unitType).getDefensiveDamage()/unitAdvancements.get(unitType).getDefensiveDamage()+1;
+            case InfluenceRadius:
+                return unitAdvancements.get(unitType).getInfluenceRadius()/unitAdvancements.get(unitType).getInfluenceRadiusIncrement()+1;
+            case OffensiveDamage:
+                return unitAdvancements.get(unitType).getOffensiveDamage()/unitAdvancements.get(unitType).getOffensiveDamageIncrement()+1;
+            case Movement:
+                return unitAdvancements.get(unitType).getMovement()/unitAdvancements.get(unitType).getMovement();
+        }
+        return -1;
+    }
+    public int getStructureStatsCurrentLevel(int structureType, int statToBeSearched){
+        switch(statToBeSearched){
+            case Health:
+                return structureAdvancements.get(structureType).getHealth()/structureAdvancements.get(structureType).getHealthIncrement()+1;
+            case Armor:
+                return structureAdvancements.get(structureType).getArmor()/structureAdvancements.get(structureType).getArmorIncrement()+1;
+            case Upkeep:
+                return structureAdvancements.get(structureType).getUpkeep()/structureAdvancements.get(structureType).getUpkeep()+1;
+            case DefensiveDamage:
+                return structureAdvancements.get(structureType).getDefensiveDamage()/structureAdvancements.get(structureType).getDefensiveDamage()+1;
+            case InfluenceRadius:
+                return structureAdvancements.get(structureType).getInfluenceRadius()/structureAdvancements.get(structureType).getInfluenceRadiusIncrement()+1;
+            case OffensiveDamage:
+                return structureAdvancements.get(structureType).getOffensiveDamage()/structureAdvancements.get(structureType).getOffensiveDamageIncrement()+1;
+            case ProductionRate:
+                return structureAdvancements.get(structureType).getProductionRate()/structureAdvancements.get(structureType).getProductionRate();
+        }
+        return -1;
+    }
+
     
     public void accept(TechnologyVisitor vistor){
         vistor.visit(this);
