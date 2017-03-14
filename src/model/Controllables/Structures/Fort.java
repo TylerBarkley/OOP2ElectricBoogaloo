@@ -103,11 +103,13 @@ public class Fort extends Structure implements Attacker{
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         fortManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         fortManager.removeUnassigned(number);
     }
 

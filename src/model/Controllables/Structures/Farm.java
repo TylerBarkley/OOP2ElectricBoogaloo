@@ -63,11 +63,13 @@ public class Farm extends Structure implements Farming{
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         farmManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         farmManager.removeUnassigned(number);
     }
 

@@ -59,11 +59,13 @@ public class University extends Structure {
     public void setUniversityManager(UniversityManager universityManager){this.universityManager = universityManager; }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         universityManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         universityManager.removeUnassigned(number);
     }
 

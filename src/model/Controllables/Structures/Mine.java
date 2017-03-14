@@ -63,11 +63,13 @@ public class Mine extends Structure implements Mining{
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         mineManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         mineManager.removeUnassigned(number);
     }
 
