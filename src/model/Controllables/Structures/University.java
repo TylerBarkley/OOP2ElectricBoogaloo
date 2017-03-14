@@ -8,11 +8,14 @@ public class University extends Structure {
 
     private UniversityManager universityManager;
     private int builtPercentage;
+    private int techPercentage;
+    private String assignedTech;
 
     public University(){
         builtPercentage = 0;
         universityManager = new UniversityManager();
         setBeingBuilt(true);
+        techPercentage = 0;
     }
 
     @Override
@@ -26,8 +29,10 @@ public class University extends Structure {
     }
 
     public void harvestScience(){
-        universityManager.produceTechnology(getMyStats().getProductionRate());
-        //TODO wat
+        techPercentage += universityManager.produceTechnology(getMyStats().getProductionRate());
+        if(techPercentage > 50){
+            //TODO some science/tech stuff (It's just math) (probably with tech string)
+        }
     }
 
     public void assignWorkersToHarvestTechnology(int numOfWorkers_HarvestingTech){
@@ -71,5 +76,21 @@ public class University extends Structure {
 
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
+    }
+
+    public int getTechPercentage() {
+        return techPercentage;
+    }
+
+    public void setTechPercentage(int techPercentage) {
+        this.techPercentage = techPercentage;
+    }
+
+    public String getAssignedTech() {
+        return assignedTech;
+    }
+
+    public void setAssignedTech(String assignedTech) {
+        this.assignedTech = assignedTech;
     }
 }
