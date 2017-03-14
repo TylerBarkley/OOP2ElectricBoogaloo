@@ -5,6 +5,8 @@ import control.MenuStates.StructureMenuState;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.StructureID;
 
+import javax.swing.*;
+
 /**
  * Created by hankerins on 3/14/17.
  */
@@ -20,7 +22,14 @@ public class ProduceWorkerState extends StructureMenuState{
         if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID){
             Capital producer = (Capital)currentStructure;
             //TODO get number of workers to breed
-            producer.assignWorkersToBreed(2);
+            Object[] possibilities = new Object[100];
+            for(int i = 0; i < 100; i++){
+                possibilities[i] = ("" + i+1) ;
+            }
+            String result = (String)JOptionPane.showInputDialog(null, "Choose how many workers: ",
+                    "Worker Menu", JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+            int count = Integer.parseInt(result);
+            producer.assignWorkersToBreed(count);
         }
 
 
