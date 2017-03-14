@@ -93,6 +93,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 		menuState.select(this);
 		updateControllableCollection();
+		reset();
 	}
 
 	//check if a given instance exists in the ControllableCollection
