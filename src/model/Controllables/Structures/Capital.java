@@ -27,17 +27,17 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     public void harvestOre(){
         int oreMined = capitalManager.produceOre(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addMetal(getPid(), oreMined);
+        PlayerManager.getInstance().addMetal(getPlayerID(), oreMined);
     }
 
     public void harvestFood(){
         int foodMined = capitalManager.produceFood(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addNutrients(getPid(), foodMined);
+        PlayerManager.getInstance().addNutrients(getPlayerID(), foodMined);
     }
 
     public void harvestEnergy(){
         int energyMined = capitalManager.produceEnergy(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addPower(getPid(), energyMined);
+        PlayerManager.getInstance().addPower(getPlayerID(), energyMined);
     }
 
     public void breedWorkers(){

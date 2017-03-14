@@ -120,7 +120,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
     public abstract void addWorker(int number);
     public abstract void removeWorker(int number);
 
-    public PlayerID getPid() {
+    public PlayerID getPlayerID() {
         return id.getPlayerID();
     }
 

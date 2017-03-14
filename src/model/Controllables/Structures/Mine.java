@@ -51,7 +51,7 @@ public class Mine extends Structure implements Mining{
 
     public void harvestOre(){
         int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addMetal(getPid(), oreMined);
+        PlayerManager.getInstance().addMetal(getPlayerID(), oreMined);
     }
 
     public void setStats(WorkerStats workerStats){
