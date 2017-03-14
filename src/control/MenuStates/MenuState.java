@@ -21,6 +21,9 @@ import model.Controllables.Controllable;
  * Structure: heal - select tile to heal
  * University: select research
  *
+ * Structure order: farm, mine, powerharvest, produce worker, produce explorer, produce melee, produce ranged, research
+ * Are Unit:joinArmy and Unit:reinforceRP different things?
+ *
  *
  *
  */
