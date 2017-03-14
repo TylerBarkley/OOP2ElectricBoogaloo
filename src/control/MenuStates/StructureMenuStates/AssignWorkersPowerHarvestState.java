@@ -18,7 +18,8 @@ public class AssignWorkersPowerHarvestState extends StructureMenuState {
 
     @Override
     public void select(Menu context) {
-    //TODO: this is bad type casting, violates OCP. We can do better
+    //this is bad type casting, violates OCP. We can do better.
+        // Ideally each Structure has its own SubMenuState class because the lists are so different.
         updateControllable(context);
         if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID){
             Capital producer = (Capital)currentStructure;

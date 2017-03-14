@@ -3,44 +3,43 @@ package control.MenuStates.StructureMenuStates;
 import control.Menu;
 import control.MenuStates.StructureMenuState;
 import control.PopUpMenuWindow;
-import model.Controllables.Structures.Capital;
+import model.Controllables.Structures.Fort;
 import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/14/17.
  */
-public class ProduceExplorerState extends StructureMenuState{
-    private static ProduceExplorerState instance = new ProduceExplorerState();
-    public static ProduceExplorerState getInstance(){return instance;}
-    private ProduceExplorerState(){}
+public class ProduceMeleeState extends StructureMenuState {
+    private static ProduceMeleeState instance = new ProduceMeleeState();
+    public static ProduceMeleeState getInstance(){return instance;}
+    private ProduceMeleeState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID){
-            Capital producer = (Capital)currentStructure;
-            producer.assignWorkersToTrainExplorers(PopUpMenuWindow.WorkerMenu());
+        if(currentStructure.getID().getType() == StructureID.FORT_TYPE_ID){
+            Fort producer = (Fort) currentStructure;
+            producer.assignWorkersToTrainMeleeSoldiers(PopUpMenuWindow.WorkerMenu());
         }
 
 
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceWorkerState.getInstance();
+        StructureMenuState nextState = ProduceExplorerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = ProduceMeleeState.getInstance();
+        StructureMenuState nextState = ProduceRangedState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Produce Explorer";
+        return "Produce Melee";
     }
-
 }
