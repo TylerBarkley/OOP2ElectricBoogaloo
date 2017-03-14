@@ -39,7 +39,12 @@ public class UnitOccupancy {
 	}
 
 	public void damageAll(int intensity){
+        ArrayList<Unit> tempUnits = new ArrayList<Unit>();
         for(Unit unit : occupyingUnits){
+            tempUnits.add(unit);
+        }
+
+        for(Unit unit : tempUnits){
             unit.damageMe(intensity);
         }
     }

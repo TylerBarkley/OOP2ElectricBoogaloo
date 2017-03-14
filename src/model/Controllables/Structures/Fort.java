@@ -1,7 +1,9 @@
 package model.Controllables.Structures;
-
+import model.AttackManager;
 import model.Attacker;
 import model.Controllables.Stats.WorkerStats;
+import model.Location;
+import java.util.ArrayList;
 import model.player.PlayerID;
 
 /**
@@ -21,12 +23,17 @@ public class Fort extends Structure implements Attacker{
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             makeSoldiers();
+            attack();
         }
         else{
             build();
         }
+    }
+
+    public void attack(){
+        fortManager.attack(getLocation(), getMyStats().getInfluenceRadius(), this);
     }
 
     public void build() {
@@ -88,4 +95,5 @@ public class Fort extends Structure implements Attacker{
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
     }
+
 }

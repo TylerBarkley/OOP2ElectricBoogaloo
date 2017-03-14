@@ -42,8 +42,11 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     public void breedWorkers(){
         int amountAdded = capitalManager.breeding();
-        PlayerManager.getInstance().addWorker(getPlayerID(), amountAdded);
-        capitalManager.addUnassigned(amountAdded);
+        boolean added = false;
+        added = PlayerManager.getInstance().addWorker(getPid(), amountAdded);
+        if(added == true){
+            addWorker(amountAdded);
+        }
     }
 
     public void makeExplorer(){

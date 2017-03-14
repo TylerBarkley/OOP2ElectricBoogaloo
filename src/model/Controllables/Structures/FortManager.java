@@ -1,6 +1,10 @@
 package model.Controllables.Structures;
 
+import model.AttackManager;
 import model.Controllables.Stats.WorkerStats;
+import model.Location;
+
+import java.util.ArrayList;
 
 /**
  * Created by Tyler Barkley on 3/11/2017.
@@ -12,8 +16,12 @@ public class FortManager extends WorkerManager{
     private int numOfWorkers_Unassigned;
     private int numOfWorkers_Building;
     private int numOfWorkers_SoldierTraining;
+    private ArrayList<Location> attackLocations;
+    private AttackManager attackManager;
+
 
     public FortManager(){
+        //attackManager = AttackManager.getInstance();
         workerStats = new WorkerStats();
     }
 
@@ -21,6 +29,15 @@ public class FortManager extends WorkerManager{
         numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_SoldierTraining;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
+    }
+
+    public void attack(Location loc, int radius, Fort fort){
+       for(int i = 0; i < radius; i++){
+            attackLocations = loc.getLocationsAtRadius(i+1);
+            for(int j = 0; j < attackLocations.size(); j++){
+                AttackManager.getInstance().attack(fort, attackLocations.get(j));
+            }
+        }
     }
 
     public int trainSoldier(int numOfSoldiers){
@@ -93,4 +110,19 @@ public class FortManager extends WorkerManager{
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
     }
 
+    public ArrayList<Location> getAttackLocations() {
+        return attackLocations;
+    }
+
+    public void setAttackLocations(ArrayList<Location> attackLocations) {
+        this.attackLocations = attackLocations;
+    }
+
+    public AttackManager getAttackManager() {
+        return attackManager;
+    }
+
+    public void setAttackManager(AttackManager attackManager) {
+        this.attackManager = attackManager;
+    }
 }
