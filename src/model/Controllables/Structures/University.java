@@ -19,7 +19,7 @@ public class University extends Structure {
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestScience();
         }
         else{

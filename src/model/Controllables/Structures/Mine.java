@@ -20,7 +20,7 @@ public class Mine extends Structure implements Mining{
     
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestOre();
         }
         else{

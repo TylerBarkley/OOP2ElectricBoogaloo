@@ -103,6 +103,7 @@ public class FarmManagerTest {
         farm.assignWorkersToFarm(loc1, 6);
         assertEquals(5, farmManager.getNumOfWorkers_Harvesting());
         assertEquals(5, farmManager.getNumOfWorkers_Unassigned());
+        farm.setBeingBuilt(false);
         farm.doWork();
         assertEquals(30, p1.getFood().getAmount());
         farm.unassign();
