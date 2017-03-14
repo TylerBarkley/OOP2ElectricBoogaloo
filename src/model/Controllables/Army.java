@@ -121,6 +121,11 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
         unit.resetAP();
 
+        if(battleGroup.isEmpty()) {
+            this.disband();
+            return;
+        }
+
         updateAP();
         updateEscort();
         
@@ -224,6 +229,8 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
             unit.resetAP();
         }
         battleGroup.clear();
+
+        myRP.deletThis();
 
         notifyObservers();
     }
