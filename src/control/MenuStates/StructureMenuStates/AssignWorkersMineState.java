@@ -2,6 +2,11 @@ package control.MenuStates.StructureMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
+import control.PopUpMenuWindow;
+import model.Controllables.Structures.Capital;
+import model.Controllables.Structures.Mine;
+import model.Controllables.Structures.PowerPlant;
+import model.Controllables.Structures.StructureID;
 
 /**
  * Created by hankerins on 3/8/17.
@@ -13,10 +18,16 @@ public class AssignWorkersMineState extends StructureMenuState {
 
     @Override
     public void select(Menu context) {
-
+        //TODO: this is bad type casting, violates OCP. We can do better
         updateControllable(context);
-
-        //TODO: currentStructure.attack();
+        if(currentStructure.getID().getType() == StructureID.CAPITAL_TYPE_ID){
+            Capital producer = (Capital)currentStructure;
+            producer.assignWorkersToMine(context.getFocus(), PopUpMenuWindow.WorkerMenu());
+        }
+        if(currentStructure.getID().getType() == StructureID.POWERPLANT_TYPE_ID){
+            Mine producer = (Mine) currentStructure;
+            producer.assignWorkersToMine(context.getFocus(), PopUpMenuWindow.WorkerMenu());
+        }
     }
     public void cycleInstructionL(Menu context){
         StructureMenuState nextState = AssignWorkersFarmState.getInstance();
