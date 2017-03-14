@@ -20,7 +20,7 @@ public class Mine extends Structure implements Mining{
     
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestOre();
         }
         else{
@@ -51,7 +51,7 @@ public class Mine extends Structure implements Mining{
 
     public void harvestOre(){
         int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addMetal(getPid(), oreMined);
+        PlayerManager.getInstance().addMetal(getPlayerID(), oreMined);
     }
 
     public void setStats(WorkerStats workerStats){

@@ -1,26 +1,49 @@
 package model.Controllables.Units;
-import static org.junit.Assert.*;
-import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Structures.Fort;
 import model.Controllables.Structures.FortManager;
+import model.Location;
+import model.Map.Map;
+import model.Map.Occupancy.StructureOccupancy;
+import model.Map.Occupancy.StructureOccupancyManager;
+import model.Map.Occupancy.UnitOccupancy;
+import model.Map.Occupancy.UnitOccupancyManager;
+import model.player.Player;
+import model.player.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Created by Tyler Barkley on 3/12/2017.
  */
 public class FortManagerTest {
 
-    StructureStats structureStats;
     Fort fort;
     WorkerStats workerStats;
     FortManager fortManager;
+    Location loc1;
+    Location loc2;
+    Melee melee;
+
+    Player p1;
+    Player p2;
+
+    PlayerManager playerManager;
+
+    StructureOccupancyManager som;
+
+    UnitOccupancyManager uom;
+    UnitOccupancy meleeOcc;
+    StructureOccupancy fortOcc;
 
     @Before
     public void setUp(){
         workerStats = new WorkerStats();
-        structureStats = new StructureStats();
+        p1 = new Player();
+        p2 = new Player();
+
+        playerManager = PlayerManager.getInstance();
 
         workerStats.setBreeding(1);
         workerStats.setOreProduction(1);
@@ -33,51 +56,81 @@ public class FortManagerTest {
         workerStats.setWorkerRadius(0);
         workerStats.setWorkerDensity(5);
 
-        structureStats.setArmor(1);
-        structureStats.setDefensiveDamage(1);
-        structureStats.setHealth(1);
-        structureStats.setInfluenceRadius(1);
-        structureStats.setOffensiveDamage(1);
-        structureStats.setProductionRate(1);
-        structureStats.setUpkeep(1);
-
         fort = new Fort();
+        playerManager.addStructure(p1.getId(), fort);
+        loc1 = new Location(0,0);
+        loc2 = new Location(0, 1);
+        fortOcc = new StructureOccupancy();
+        meleeOcc = new UnitOccupancy();
+        som = new StructureOccupancyManager();
+        uom = new UnitOccupancyManager();
 
         fortManager = new FortManager();
         fort.setFortManager(fortManager);
-        fort.setMyStats(structureStats);
         fort.setStats(workerStats);
+        fort.setLocation(loc1);
+        melee = new Melee();
+        playerManager.addUnit(p2.getId(), melee);
+        melee.setLocation(loc2);
     }
 
     @Test
-    public void FortManager_Test(){
+    public void FortManager_Test() {
+        Map.reset();
+        Map.setMoveDebug();
+        Map.getInstance().addStructure(loc1, fort);
+        Map.getInstance().addUnit(loc2, melee);
         fort.setNumTotalOfWorkers(10);
-        fort.setNumOfSoldiers(2);
         fortManager.setNumOfWorkers_Unassigned(10);
         fort.unassign();
         assertEquals(10, fortManager.getNumOfWorkers_Unassigned());
-        assertEquals(0, fortManager.getNumOfWorkers_SoldierTraining());
+        assertEquals(0, fortManager.getNumOfWorkers_MeleeTraining());
+        melee.setCurrentHealth(100);
+        assertEquals(0, fort.getBuiltPercentage());
         fort.doWork();
-        assertEquals(0, fortManager.trainSoldier(fort.getNumOfSoldiers()));
-        fort.assignWorkersToTrainSoldiers(20);
-        assertEquals(10, fortManager.getNumOfWorkers_SoldierTraining());
-        assertEquals(0, fortManager.getNumOfWorkers_Unassigned());
-        assertEquals(14, fortManager.trainSoldier(fort.getNumOfSoldiers()));
-        fort.setNumOfSoldiers(0);
-        assertEquals(10, fortManager.trainSoldier(fort.getNumOfSoldiers()));
-        fort.assignWorkersToTrainSoldiers(1);
-        assertEquals(1, fortManager.getNumOfWorkers_SoldierTraining());
-        assertEquals(9, fortManager.getNumOfWorkers_Unassigned());
-        assertEquals(1, fortManager.trainSoldier(fort.getNumOfSoldiers()));
-        fort.assignWorkersToTrainSoldiers(-20);
-        assertEquals(10, fortManager.getNumOfWorkers_Unassigned());
-        assertEquals(0, fortManager.getNumOfWorkers_SoldierTraining());
-        fort.assignWorkersToTrainSoldiers(5);
-        assertEquals(5, fortManager.getNumOfWorkers_SoldierTraining());
-        assertEquals(5, fortManager.getNumOfWorkers_Unassigned());
+        assertEquals(20, fort.getBuiltPercentage());
+        fort.doWork();
+        assertEquals(40, fort.getBuiltPercentage());
+        fort.doWork();
+        assertEquals(60, fort.getBuiltPercentage());
+        fort.assignWorkersToTrainMeleeSoldiers(5);
+        fort.doWork();
+        assertEquals(0, fortManager.getNumOfWorkers_MeleeTraining());
+        assertEquals(80, fort.getBuiltPercentage());
+        fort.doWork();
+        assertEquals(false, fort.getBeingBuilt());
+        fort.doWork();
+        assertEquals(95, melee.getCurrentHealth());
+        fort.assignWorkersToTrainMeleeSoldiers(10);
+        fort.doWork();
+        assertEquals(10, fort.getMeleeBuildPercentage());
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
+        fort.doWork();
         fort.unassign();
-        assertEquals(0, fortManager.getNumOfWorkers_SoldierTraining());
-        assertEquals(10, fortManager.getNumOfWorkers_Unassigned());
+        fortManager.assignWorkersMelee(9);
+        fort.doWork();
+        assertEquals(99, fort.getMeleeBuildPercentage());
+        fort.doWork();
+        assertEquals(8, fort.getMeleeBuildPercentage());
+        assertEquals(1, PlayerManager.getInstance().getUnits(p1.getId()).size());
+        fort.unassign();
+        fort.setNumTotalOfWorkers(40);
+        fortManager.setNumOfWorkers_Unassigned(40);
+        fort.assignWorkersToTrainRangedSoldiers(50);
+        assertEquals(40, fortManager.getNumOfWorkers_RangedTraining());
+        fort.doWork();
+        fort.doWork();
+        assertEquals(80, fort.getRangedBuildPercentage());
+        fort.doWork();
+        assertEquals(2, PlayerManager.getInstance().getUnits(p1.getId()).size());
+        System.out.println(PlayerManager.getInstance().getUnits(p1.getId()).toString());
+        assertEquals(20, fort.getRangedBuildPercentage());
     }
 
 

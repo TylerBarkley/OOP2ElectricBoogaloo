@@ -5,7 +5,7 @@ import control.MenuStates.ArmyMenuStates.ArmyAttackState;
 import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
-import control.MenuStates.RallyPointMenuStates.RPBuildState;
+import control.MenuStates.RallyPointMenuStates.RPSetState;
 import control.MenuStates.StructureMenuStates.StructureAttackState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
@@ -90,7 +90,13 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 	//State Design Pattern
 	public void select(){
+
 		menuState.select(this);
+		updateControllableCollection();
+		//TODO delete this test output
+		
+		reset();
+		System.out.println("you updated controllable collection, current instance is " + getCurrentInstance().toString());
 	}
 
 	//check if a given instance exists in the ControllableCollection
@@ -120,7 +126,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());
@@ -149,7 +155,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());
@@ -179,10 +185,11 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		
 		cycleInstanceL();
 		cycleInstanceR();
-		
-		cycleInstructionL();
-		cycleInstructionR();
-		
+
+		if(controllableCollection.controllableExists(currentMode)){
+			cycleInstructionL();
+			cycleInstructionR();
+		}
 		notifyObservers();
 	}
     
@@ -215,13 +222,13 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 	}
 
 	public void cycleInstructionL()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionL(this);
 		notifyObservers();
 	}
 
 	public void cycleInstructionR()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionR(this);
 		notifyObservers();
 	}

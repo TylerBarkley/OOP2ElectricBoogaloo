@@ -340,6 +340,9 @@ public class RallyPointTest {
         Map.getInstance().addAOE(new Location(-1, 1), new AOEKill());
 
         RallyPoint rp = new RallyPoint(ranged1, new Location(-2, 1));
+
+        PlayerManager.getInstance();
+
         rp.reinforce(ranged2);
 
         assertEquals(new Location(-2, 1), rp.getLocation());

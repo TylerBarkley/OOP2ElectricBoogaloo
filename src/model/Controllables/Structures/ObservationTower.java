@@ -20,7 +20,7 @@ public class ObservationTower extends Structure {
 
     @Override
     public void doWork() {
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
 
         }
         else{

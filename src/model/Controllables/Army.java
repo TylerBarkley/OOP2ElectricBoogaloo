@@ -34,8 +34,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     private boolean canMove;
     private boolean canEscort;
 
-    private int energyResourceLevel;
-    private int metalResourceLevel;
     private int nutrientResourceLevel;
 
     private int workers;
@@ -265,39 +263,15 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return myCommands;
     }
 
-    public void distribute(){
-        for(int i=0;i<battleGroup.size();i++) {
+    public void distribute() {
+        for (int i = 0; i < battleGroup.size(); i++) {
             if (battleGroup.get(i) != null) {
-                if (battleGroup.get(i).getUpkeep() > energyResourceLevel) {
-                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
-                    energyResourceLevel -= battleGroup.get(i).getUpkeep();
-                }
-                if (battleGroup.get(i).getUpkeep() > metalResourceLevel) {
-                    battleGroup.get(i).incrementMetalResourceLevel(battleGroup.get(i).getUpkeep());
-                    metalResourceLevel -= battleGroup.get(i).getUpkeep();
-                }
                 if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel) {
-                    battleGroup.get(i).incrementEnergyResourceLevel(battleGroup.get(i).getUpkeep());
+                    battleGroup.get(i).incrementNutrientResourceLevel(battleGroup.get(i).getUpkeep());
                     nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
                 }
             }
         }
-    }
-
-    public int getEnergyResourceLevel() {
-        return energyResourceLevel;
-    }
-
-    public void setEnergyResourceLevel(int energyResourceLevel) {
-        this.energyResourceLevel = energyResourceLevel;
-    }
-
-    public int getMetalResourceLevel() {
-        return metalResourceLevel;
-    }
-
-    public void setMetalResourceLevel(int metalResourceLevel) {
-        this.metalResourceLevel = metalResourceLevel;
     }
 
     public int getNutrientResourceLevel() {
@@ -309,12 +283,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
-    }
-    public void incrementEnergyResourceLevel(int increment){
-        energyResourceLevel+=increment;
-    }
-    public void incrementMetalResourceLevel(int increment){
-        metalResourceLevel+=increment;
     }
 
     @Override

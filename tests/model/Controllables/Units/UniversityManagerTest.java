@@ -59,6 +59,7 @@ public class UniversityManagerTest {
         assertEquals(0, university.getNumTotalOfWorkers());
         university.setNumTotalOfWorkers(10);
         university.addWorker(10);
+        university.setBeingBuilt(false);
         assertEquals(10, university.getNumTotalOfWorkers());
         assertEquals(10, universityManager.getNumOfWorkers_Unassigned());
         university.assignWorkersToHarvestTechnology(5);

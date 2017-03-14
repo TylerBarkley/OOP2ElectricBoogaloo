@@ -24,6 +24,8 @@ public class UniversityManager extends WorkerManager{
 
     public int building() {
         numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_HarvestingTechnology;
+        numOfWorkers_HarvestingTechnology = Math.max(0,0);
+        numOfWorkers_Unassigned = 0;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }

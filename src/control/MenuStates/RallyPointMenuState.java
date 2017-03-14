@@ -3,13 +3,14 @@ package control.MenuStates;
 import control.Menu;
 import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
+import model.Controllables.RallyPoint;
 
 /**
  * Created by hankerins on 3/5/17.
  */
 public abstract class RallyPointMenuState implements MenuState {
-    protected int currentInstance = 0, currentType = ControllableCollection.ARMYTYPE;
-    protected Army currentArmy;
+    protected int currentInstance = 0, currentType = ControllableCollection.RPTYPE;
+    protected RallyPoint currentRallyPoint;
 
     public void cycleTypeL (Menu context){
     }
@@ -57,7 +58,7 @@ public abstract class RallyPointMenuState implements MenuState {
 
     }
     public void updateControllable(Menu context){
-        currentArmy = (Army)context.getControllableCollection().get(currentType, currentInstance);
+        currentRallyPoint = (RallyPoint) context.getControllableCollection().get(currentType, currentInstance);
     }
     public int getCurrentInstanceNumber() {return currentInstance;}
     public void setCurrentInstance(int currentInstance) {this.currentInstance = currentInstance;}
@@ -68,14 +69,12 @@ public abstract class RallyPointMenuState implements MenuState {
 
     public String typeToString(){
         switch (currentType){
-            case ControllableCollection.ARMYTYPE: return "Army";
-            case ControllableCollection.BATTLEGROUPTYPE: return "Battle Group";
-            case ControllableCollection.REINFORCEMENTSTYPE: return "Reinforcements";
+            case ControllableCollection.RPTYPE: return "Rally Point";
         }
         return null;
     }
     
-    public Army getCurrentInstance(){
-    	return currentArmy;
+    public RallyPoint getCurrentInstance(){
+    	return currentRallyPoint;
     }
 }

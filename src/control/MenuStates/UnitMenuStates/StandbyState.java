@@ -3,6 +3,7 @@ package control.MenuStates.UnitMenuStates;
 import control.Menu;
 import control.MenuStates.UnitMenuState;
 import model.Controllables.Units.Colonist;
+import model.Controllables.Units.UnitID;
 
 /**
  * Created by hankerins on 3/8/17.
@@ -19,7 +20,8 @@ public class StandbyState extends UnitMenuState {
         //TODO: currentUnit.standby();
     }
     public void cycleInstructionL(Menu context){
-        if(currentUnit instanceof Colonist){
+        updateControllable(context);
+        if(currentUnit.getID().getType() == UnitID.COLONIST_TYPE_ID){
             UnitMenuState nextState = BuildCapitalState.getInstance();
             nextState.setCurrentInstance(currentInstance);
             nextState.setCurrentType(currentType);
