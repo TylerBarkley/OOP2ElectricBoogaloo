@@ -22,7 +22,7 @@ import utilities.StructureVisitor;
 public class StructureOverview  extends JPanel implements StructureVisitor {
 
 	private int width, height;
-	private JTable structureTable;
+	private CustomTable structureTable;
 	private StructureTableModel model;
 	private TableRenderer renderer;
 	private JTextArea structureStatsArea;
@@ -35,7 +35,8 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		this.height = height;
 		
 		model = new StructureTableModel();
-		structureTable = new JTable(model); 
+		renderer = new TableRenderer();
+		structureTable = new CustomTable(model,renderer); 
 		structureTable.setEnabled(false);
 		
 		structureStatsArea = new JTextArea();
@@ -49,9 +50,6 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		renderer = new TableRenderer();
-		structureTable.setDefaultRenderer(Structure.class, renderer);
 		
 		displayView();
 	}
@@ -100,7 +98,5 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		}
 		
 		model.update();
-		
-		repaint();
 	}
 }

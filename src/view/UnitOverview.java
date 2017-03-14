@@ -21,7 +21,7 @@ import utilities.UnitVisitor;
 public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 
 	private int width, height;
-	private JTable unitTable;
+	private CustomTable unitTable;
 	private UnitTableModel model;
 	private TableRenderer renderer;
 	private JTextArea unitStatsArea;
@@ -34,7 +34,8 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		this.height = height;
 		
 		model = new UnitTableModel();
-		unitTable = new JTable(model); 
+		renderer = new TableRenderer();
+		unitTable = new CustomTable(model,renderer); 
 		unitTable.setEnabled(false);
 		
 		unitStatsArea = new JTextArea();
@@ -48,9 +49,6 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		renderer = new TableRenderer();
-		unitTable.setDefaultRenderer(Unit.class, renderer);
 		
 		displayView();
 	}
@@ -95,7 +93,6 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		}
 		model.update();
 		
-		repaint();
 	}
 
 	@Override

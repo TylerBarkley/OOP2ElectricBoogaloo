@@ -246,6 +246,7 @@ public class TechnologyViewport extends JPanel {
 		treePanel.add(Box.createHorizontalStrut(20));
 		treePanel.add(workerPanel);
 		this.add(treePanel);
+		this.setBackground(Color.orange);
 		
 		
 	}
@@ -469,6 +470,7 @@ public class TechnologyViewport extends JPanel {
 				else unitArmorButton.setEnabled(false);
 			}
 		});
+		
 		
 		structureComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
