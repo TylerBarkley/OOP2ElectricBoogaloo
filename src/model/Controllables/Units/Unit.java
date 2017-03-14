@@ -147,7 +147,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 		return this.myStats;
 	}
 
-	public PlayerID getPid(){
+	public PlayerID getPlayerID(){
 		return id.getPlayerID();
 	}
 
