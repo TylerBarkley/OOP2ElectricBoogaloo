@@ -1,38 +1,37 @@
-package control.MenuStates.ArmyMenuStates;
+package control.MenuStates.StructureMenuStates;
 
 import control.Menu;
-import control.MenuStates.ArmyMenuState;
-import model.AttackCommand;
+import control.MenuStates.StructureMenuState;
 
 /**
- * Created by hankerins on 3/8/17.
+ * Created by hankerins on 3/14/17.
  */
-public class ArmyAttackState extends ArmyMenuState {
-    private static ArmyAttackState instance = new ArmyAttackState();
-    public static ArmyAttackState getInstance(){return instance;}
-    private ArmyAttackState(){}
+public class AssignWorkersFarmState extends StructureMenuState {
+    private static AssignWorkersFarmState instance = new AssignWorkersFarmState();
+    public static AssignWorkersFarmState getInstance(){return instance;}
+    private AssignWorkersFarmState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        currentArmy.giveOrder(new AttackCommand(currentArmy, context.getFocus()));
+        //TODO: currentStructure.attack();
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
+        StructureMenuState nextState = AssignWorkersMineState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyDefendState.getInstance();
+        StructureMenuState nextState = AssignWorkersMineState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Attack";
+        return "Assign Workers Farm";
     }
 }
