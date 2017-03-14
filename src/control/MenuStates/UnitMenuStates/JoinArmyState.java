@@ -29,6 +29,7 @@ public class JoinArmyState extends UnitMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context) {
+        updateControllable(context);
         if(currentUnit.getID().getType() == UnitID.COLONIST_TYPE_ID){
             UnitMenuState nextState = BuildCapitalState.getInstance();
             nextState.setCurrentInstance(currentInstance);
