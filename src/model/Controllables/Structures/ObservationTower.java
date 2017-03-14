@@ -51,11 +51,13 @@ public class ObservationTower extends Structure {
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         observationTowerManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         observationTowerManager.removeUnassigned(number);
     }
 
