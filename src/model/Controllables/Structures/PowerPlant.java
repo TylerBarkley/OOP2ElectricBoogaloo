@@ -51,7 +51,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     public void harvestEnergy(){
         int energyMined = powerPlantManager.produceEnergy(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addPower(getPid(), energyMined);
+        PlayerManager.getInstance().addPower(getPlayerID(), energyMined);
     }
 
     public void setStats(WorkerStats workerStats){

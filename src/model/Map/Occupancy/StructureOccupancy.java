@@ -1,11 +1,6 @@
 package model.Map.Occupancy;
 
-import java.util.Collection;
-
 import model.Controllables.Structures.Structure;
-import model.Controllables.Units.Unit;
-import model.observers.StructureObserver;
-import model.observers.UnitObserver;
 import model.player.PlayerID;
 
 /**
@@ -17,7 +12,7 @@ public class StructureOccupancy {
 
     public void setStructure(Structure struct){
         occupyingStructure = struct;
-        pid = struct.getPid();
+        pid = struct.getPlayerID();
     }
 
 

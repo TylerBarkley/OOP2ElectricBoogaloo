@@ -90,7 +90,9 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 	//State Design Pattern
 	public void select(){
+
 		menuState.select(this);
+		updateControllableCollection();
 	}
 
 	//check if a given instance exists in the ControllableCollection

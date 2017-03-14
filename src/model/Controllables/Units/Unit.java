@@ -89,6 +89,9 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	}
 
 	public void damageMe(int intensity) {
+		if(intensity - myStats.getArmor() < 0){
+			return;
+		}
 		currentHealth -= (intensity - myStats.getArmor());
 		if(currentHealth <= 0){
 			this.killMe();
