@@ -23,8 +23,6 @@ public class ProduceRangedState extends StructureMenuState {
             Fort producer = (Fort) currentStructure;
             producer.assignWorkersToTrainRangedSoldiers(PopUpMenuWindow.WorkerMenu());
         }
-
-
     }
     public void cycleInstructionL(Menu context){
         StructureMenuState nextState = ProduceMeleeState.getInstance();
@@ -34,7 +32,7 @@ public class ProduceRangedState extends StructureMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = AssignWorkersMineState.getInstance();
+        StructureMenuState nextState = AssignWorkersFarmState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
