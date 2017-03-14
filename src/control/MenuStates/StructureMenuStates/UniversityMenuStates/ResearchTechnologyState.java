@@ -20,14 +20,14 @@ public class ResearchTechnologyState extends UniversityMenuState {
             //TODO: research
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ResearchTechnologyState.getInstance();
+        StructureMenuState nextState = UniversityDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = ResearchTechnologyState.getInstance();
+        StructureMenuState nextState = UniversityDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

@@ -18,7 +18,7 @@ public class ProduceMeleeState extends FortMenuState {
         currentStructure.assignWorkersToTrainMeleeSoldiers(PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = ProduceRangedState.getInstance();
+        StructureMenuState nextState = FortDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

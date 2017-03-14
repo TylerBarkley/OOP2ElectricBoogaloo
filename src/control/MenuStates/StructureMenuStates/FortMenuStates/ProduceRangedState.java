@@ -25,7 +25,7 @@ public class ProduceRangedState extends FortMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = ProduceMeleeState.getInstance();
+        StructureMenuState nextState = FortDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

@@ -25,7 +25,7 @@ public class CapitalProduceExplorerState extends CapitalMenuState{
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = CapitalAssignWorkersFarmState.getInstance();
+        StructureMenuState nextState = CapitalDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

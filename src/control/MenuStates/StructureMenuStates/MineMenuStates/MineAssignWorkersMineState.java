@@ -18,14 +18,14 @@ public class MineAssignWorkersMineState extends MineMenuState {
         currentStructure.assignWorkersToMine(context.getFocus(), PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = MineAssignWorkersMineState.getInstance();
+        StructureMenuState nextState = MineDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = MineAssignWorkersMineState.getInstance();
+        StructureMenuState nextState = MineDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
