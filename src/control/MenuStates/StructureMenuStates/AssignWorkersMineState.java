@@ -26,7 +26,7 @@ public class AssignWorkersMineState extends StructureMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = AssignWorkersFarmState.getInstance();
+        StructureMenuState nextState = ProduceWorkerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
