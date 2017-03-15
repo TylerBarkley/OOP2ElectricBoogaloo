@@ -21,7 +21,7 @@ public class FarmDecommissionState extends FarmMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = FarmAssignWorkersFarmState.getInstance();
+        StructureMenuState nextState = FarmUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

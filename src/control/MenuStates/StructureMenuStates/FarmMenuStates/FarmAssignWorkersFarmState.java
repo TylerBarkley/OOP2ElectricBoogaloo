@@ -21,7 +21,7 @@ public class FarmAssignWorkersFarmState extends FarmMenuState{
     }
 
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = FarmDecommissionState.getInstance();
+        StructureMenuState nextState = FarmUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
@@ -38,6 +38,4 @@ public class FarmAssignWorkersFarmState extends FarmMenuState{
     public String toString(){
         return "Assign Workers Farm";
     }
-
-
 }

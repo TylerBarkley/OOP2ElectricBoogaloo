@@ -21,7 +21,7 @@ public class MineDecommissionState extends MineMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = MineAssignWorkersMineState.getInstance();
+        StructureMenuState nextState = MineUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
