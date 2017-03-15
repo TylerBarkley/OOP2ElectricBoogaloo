@@ -17,11 +17,11 @@ public class ArmyBuildFortState extends ArmyMenuState {
 
         updateControllable(context);
         //TODO: menu to select number of workers
-        int numOfWorkers = 1;
+        int numOfWorkers = currentArmy.getWorkers();
         currentArmy.giveOrder(new BuildFortCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyBuildUniversityState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFarmState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
