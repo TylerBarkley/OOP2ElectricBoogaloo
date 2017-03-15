@@ -135,7 +135,6 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 	public void update(Player player) {
 		if(player.getId().equals(turn.getCurrentPlayerID())){
 			unitOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
-			System.out.println("Player's resources updated :>");
 		}
 	}
 
