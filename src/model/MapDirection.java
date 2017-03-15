@@ -124,24 +124,25 @@ public class MapDirection
 	}
 	
 	public String toString(){
-		if(equals(getNorth())){
+		if(dx==0 && dy ==-1){
 			return "North";
 		}
-		if(equals(getNorthEast())){
+		if(dx==1 && dy ==-1){
 			return "Northeast";
 		}
-		if(equals(getNorthWest())){
+		if(dx==-1 && dy ==0){
 			return "Northwest";
 		}
-		if(equals(getSouth())){
+		if(dx==0 && dy ==1){
 			return "South";
 		}
-		if(equals(getSouthEast())){
+		if(dx==1 && dy ==0){
 			return "Southeast";
 		}
-		if(equals(getSouthWest())){
+		if(dx==-1 && dy ==1){
 			return "Southwest";
 		}
+		
 		return "Unknown Direction";
 	}
 }
