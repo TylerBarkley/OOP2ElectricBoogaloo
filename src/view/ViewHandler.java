@@ -135,6 +135,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 	public void update(Player player) {
 		if(player.getId().equals(turn.getCurrentPlayerID())){
 			unitOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
+			structureOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
 		}
 	}
 
@@ -294,6 +295,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		}
 		
 		unitOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
+		structureOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
 		updateView();
 	}
 
@@ -325,7 +327,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		PlayerManager pm = PlayerManager.getInstance();
 		Structure structure = (Structure) menu.getCurrentInstance();
 
-		pm.distributeNutrients(structure.getPlayerID(), structure, power);
+		pm.distributePower(structure.getPlayerID(), structure, power);
 	}
 
 	@Override
