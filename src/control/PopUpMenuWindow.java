@@ -34,7 +34,7 @@ public class PopUpMenuWindow {
                     "Which Rally Point? ", "Rally Point Menu",
                     JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
 
-            int count = Integer.parseInt(result);
+            int count = Character.getNumericValue(result.charAt(0));
             return rallyPoints.get(count - 1);
         } catch (Exception e){
             return null;
@@ -51,8 +51,10 @@ public class PopUpMenuWindow {
             String result = (String)JOptionPane.showInputDialog(null,
                     "Which Unit? ", "Unit Menu",
                     JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+            System.out.println("unit is " + result);
 
-            int count = Integer.parseInt(result);
+            int count = Character.getNumericValue(result.charAt(0));
+            System.out.println("count is" + count);
             System.out.println("Unit menu selects: " + battleGroup.get((count-1)).toString());
             return battleGroup.get(count - 1);
         } catch (Exception e){
@@ -72,7 +74,7 @@ public class PopUpMenuWindow {
                     "Which Structure? ", "Structure Menu",
                     JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
 
-            int count = Integer.parseInt(result);
+            int count = Character.getNumericValue(result.charAt(0));
             return structures.get(count - 1);
         } catch (Exception e){
             return null;
