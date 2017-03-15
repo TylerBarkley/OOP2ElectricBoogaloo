@@ -38,6 +38,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		md = MapDirection.getNorth();
 		isAlive=true;
 		powerState = POWERUP;
+		
+		nutrientResourceLevel = 3 * this.getUpkeep();
 	}
 
 	protected Unit(Location loc){
