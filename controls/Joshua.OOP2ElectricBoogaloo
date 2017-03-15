@@ -1,0 +1,18 @@
+0 101 Move Focus North
+0 98 Move Focus South
+0 102 Move Focus Northeast
+0 100 Move Focus Northwest
+0 99 Move Focus Southeast
+0 97 Move Focus Southwest
+1 38 Cycle Mode
+1 40 Reverse Cycle Mode
+0 38 Cycle Type
+0 40 Reverse Cycle Type
+1 39 Cycle Command
+1 37 Reverse Cycle Command
+0 39 Cycle Instance
+0 37 Reverse Cycle Instance
+0 32 Center Map Focus
+0 76 End Turn
+0 82 Toggle Resources
+0 10 Select

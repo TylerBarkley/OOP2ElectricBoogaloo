@@ -27,11 +27,8 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
-import model.player.Player;
 import model.player.PlayerID;
-import model.player.PlayerManager;
 import utilities.MapVisitor;
-import utilities.ViewVisitor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
