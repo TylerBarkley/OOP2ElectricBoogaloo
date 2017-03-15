@@ -24,4 +24,7 @@ public class BuildFarmCommand implements Command {
         army.removeWorkers(workers);
         productionManager.buildFarm(army, workers);
     }
+    public String toString(){
+        return "Build Farm - ";
+    }
 }
