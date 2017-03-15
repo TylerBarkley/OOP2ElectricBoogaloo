@@ -3,6 +3,7 @@ package control;
 import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
+import model.Technology;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -80,6 +81,54 @@ public class PopUpMenuWindow {
             return null;
         }
 
+    }
+    public static int ResearchMainMenu(){
+        Object[] possibilities = {"1. Worker", "2. Unit", "3. Structure"};
+
+        try{
+            String result = (String)JOptionPane.showInputDialog(null,
+                    "Which Research Category? ", "Research Main Menu",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            int count = Character.getNumericValue(result.charAt(0));
+            return count - 1;
+        } catch (Exception e){
+            return -1;
+        }
+    }
+
+    public static int WorkerResearchMainMenu(){
+        Object[] possibilities = {"1. Food Production", "2. Ore Production", "3. Energy Production",
+            "4. Technology Production", "5. Soldier Training", "6. Breeding", "7. Explorer Training",
+        "8. Building Rate", "9. Worker Density"};
+
+        try{
+            String result = (String)JOptionPane.showInputDialog(null,
+                    "Which Worker Research Category? ", "Worker Research Main Menu",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            int count = Character.getNumericValue(result.charAt(0));
+            return count +7;
+        } catch (Exception e){
+            return -1;
+        }
+    }
+
+    public static int TypeMainMenu(){
+        Object[] possibilities = {"1. Food Production", "2. Ore Production", "3. Energy Production",
+                "4. Technology Production", "5. Soldier Training", "6. Breeding", "7. Explorer Training",
+                "8. Building Rate", "9. Worker Density"};
+
+        try{
+            String result = (String)JOptionPane.showInputDialog(null,
+                    "Which Worker Research Category? ", "Worker Research Main Menu",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            int count = Character.getNumericValue(result.charAt(0));
+            return count - 1;
+        } catch (Exception e){
+            return -1;
+        }
     }
 
 }

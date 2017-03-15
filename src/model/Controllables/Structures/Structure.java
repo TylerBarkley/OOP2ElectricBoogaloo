@@ -19,6 +19,9 @@ public abstract class Structure implements Controllable, EndTurnObserver {
     private MapDirection md;
     private Location location;
     private int numTotalWorkers;
+
+
+
     private Boolean beingBuilt;
 
     private int energyResourceLevel;
@@ -262,6 +265,10 @@ public abstract class Structure implements Controllable, EndTurnObserver {
         }
 
         doWork(); distribute(); malnourish();
+    }
+
+    public int getNumTotalWorkers() {
+        return numTotalWorkers;
     }
 
 	public void cheatResources() {

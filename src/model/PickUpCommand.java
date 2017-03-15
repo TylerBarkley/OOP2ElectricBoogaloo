@@ -21,9 +21,11 @@ public class PickUpCommand implements Command
 
     @Override
     public void execute() {
-        if(!army.canEscort()) {
-            target.removeWorker(workers);
-            army.addWorkers(workers);
+        if(army.canEscort()) {
+            //TODO: should only pick up not-busy workers
+            int numToRemove = Math.min(workers, target.getNumTotalWorkers());
+            target.removeWorker(numToRemove);
+            army.addWorkers(numToRemove);
         }
     }
     public String toString(){
