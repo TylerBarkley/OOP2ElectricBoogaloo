@@ -116,4 +116,10 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 	public void removeStats() {
 		structureStatsArea.setText("");
 	}
+	
+	public void reset() {
+		removeStats();
+		model.clearData();
+		model.update();
+	}
 }

@@ -284,26 +284,32 @@ public class Player implements ArmyObserver, RPObserver{
 
 	public void distributePower(Structure structure,int amountOfPowerGiven){
 		structure.incrementEnergyResourceLevel(amountOfPowerGiven);
+		notifyObservers();
 	}
 
 	public void distributeMetal(Structure structure,int amountOfMetalGiven){
 		structure.incrementMetalResourceLevel(amountOfMetalGiven);
+		notifyObservers();
 	}
 
 	public void distributeNutrients(Structure structure,int amountOfNutrientsGiven){
 		structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		notifyObservers();
 
 	}
 
 	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
 		unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		notifyObservers();
 
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
 		army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		notifyObservers();
 	}
 	public void storeMetal(int amountOfMetalGiven){
 		metal.setAmount(amountOfMetalGiven);
+		
 	}
 
 	public void storeNutrients(int amountOfNutrientsGiven){

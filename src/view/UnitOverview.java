@@ -2,10 +2,14 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -29,9 +33,11 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 	private UnitTableModel model;
 	private TableRenderer renderer;
 	private JTextArea unitStatsArea;
-	private JLabel currentMode, currentInstance,currentType,currentInstruction;
+	private JLabel currentMode, currentInstance,currentType,currentInstruction, playerFood,playerOre,playerPower;
+	private JButton resourceButton;
 	
 	private ArrayList<UnitResourceObserver> observers; 
+	
 	
 	public UnitOverview(int width, int height) {
 		
@@ -55,7 +61,21 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerFood = new JLabel("Total Food: ");
+		playerFood.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerOre = new JLabel("\nTotal Metal: ");
+		playerOre.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerPower = new JLabel("Total Power: ");
+		playerPower.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
+		resourceButton = new JButton("Allocate Food");  
+		resourceButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		resourceButton.setFocusable(false);
+		
+		observers = new ArrayList<UnitResourceObserver>();
+		
+		setButtonListener();
 		displayView();
 	}
 	
@@ -66,13 +86,43 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.add(title);
-		this.add(new FixedScrollPane(unitTable,width,height/3));
+		this.add(new FixedScrollPane(unitTable,width,unitTable.getMaximumSize().height + 23));
+		this.add(playerPower);
+		this.add(playerOre);
+		this.add(playerFood);
+		this.add(resourceButton);
 		this.add(new FixedScrollPane(unitStatsArea,width,height/3));
 		this.add(currentMode);
 		this.add(currentType);
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.ORANGE);
+	}
+	
+	private void setButtonListener() {
+		resourceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				String input = JOptionPane.showInputDialog(null, "Enter the amount of food you wish to allocate");
+				boolean validInput = true;
+				int food = 0;
+				
+				try{
+					food = Integer.parseInt(input);
+				} catch(Exception e) {
+					JOptionPane.showMessageDialog(null,"You must enter a Integer", "Error!", JOptionPane.ERROR_MESSAGE);
+					validInput = false;
+				}
+				
+				if(validInput) {
+					if(food < 0) {
+						JOptionPane.showMessageDialog(null, "The integer must be greater than zero", "You thought!", JOptionPane.ERROR_MESSAGE);
+						validInput = false;
+					}
+					
+					if(validInput) notifyObservers(food);
+				}
+			}
+		});
 	}
 	
 	public void visit(Unit unit) {	
@@ -95,14 +145,16 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 			Unit unit = (Unit) menu.getCurrentInstance();
 			if(unit != null)renderer.selectUnit(unit.getID().getType(), menu.getCurrentInstanceNumber());
 			if(unit != null) displayStats(unit);
-			
+			resourceButton.setEnabled(true);
 		} 
 		else if(menu.getCurrentMode() == Menu.ARMYMODE) {
 			renderer.selectUnit(ArmyID.ARMY_TYPE_ID, menu.getCurrentInstanceNumber());
+			resourceButton.setEnabled(true);
 		}
 		else {
 			renderer.deSelectUnit();
 			removeStats();
+			resourceButton.setEnabled(false);
 		}
 		model.update();
 		
@@ -139,5 +191,21 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		observers.remove(obs);
 	}
 	
-	 
+	public void notifyObservers(int food) {
+		for(UnitResourceObserver obs: observers ) {
+			obs.updateUnitFood(food);
+		}
+	}
+	
+	public void updatePlayerResources(int power, int ore, int food) {
+		playerPower.setText("Power: " + power);
+		playerOre.setText("Metal: " + ore);
+		playerFood.setText("Food: " + food);
+	}
+	
+	public void reset() {
+		model.clearData();
+		removeStats();
+		model.update();
+	}
 }

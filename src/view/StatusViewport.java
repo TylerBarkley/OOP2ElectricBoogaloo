@@ -229,5 +229,8 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 		
 	}
 	
-	
+	public void reset() {
+		unitArea.setText("");
+		structureArea.setText("");
+	}
 }
