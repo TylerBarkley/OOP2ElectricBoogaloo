@@ -29,6 +29,9 @@ public class JoinArmyState extends UnitMenuState {
             if(rp.getReinforcements().contains(currentUnit)){
                 alreadyInArmy = true;
             }
+            if(rp.getWaitingForArmy().contains(currentUnit)){
+                alreadyInArmy = true;
+            }
             if(rp.getArmy().getBattleGroup().contains(currentUnit)){
                 alreadyInArmy = true;
             }
