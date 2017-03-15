@@ -11,7 +11,7 @@ public class FortDecommissionState extends FortMenuState{
     @Override
     public void select(Menu context) {
         updateControllable(context);
-        //TODO: decommission
+        currentStructure.killMe();
     }
     public void cycleInstructionL(Menu context){
         StructureMenuState nextState = ProduceRangedState.getInstance();
