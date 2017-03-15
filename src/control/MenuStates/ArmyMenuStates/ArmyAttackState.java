@@ -19,7 +19,7 @@ public class ArmyAttackState extends ArmyMenuState {
         currentArmy.giveOrder(new AttackCommand(currentArmy, context.getFocus()));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
+        ArmyMenuState nextState = ArmyRemoveUnitState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

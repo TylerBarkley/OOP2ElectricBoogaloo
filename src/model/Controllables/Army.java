@@ -388,4 +388,5 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public int getAttackRange(){
         return armyStats.getMovement();
     }
+    public RallyPoint getRallyPoint(){return myRP;}
 }

@@ -150,4 +150,5 @@ public class Fort extends Structure implements Attacker{
     public int getAttackRange(){
         return this.getMyStats().getInfluenceRadius();
     }
+    public String toString(){return "Fort";}
 }

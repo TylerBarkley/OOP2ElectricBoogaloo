@@ -120,4 +120,5 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     public int getExBuildPercentage(){
         return this.exBuildPercentage;
     }
+    public String toString(){return "Capital";}
 }
