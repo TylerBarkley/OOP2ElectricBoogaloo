@@ -104,4 +104,5 @@ public class University extends Structure {
     public void setAssignedTech(String assignedTech) {
         this.assignedTech = assignedTech;
     }
+    public String toString(){return "University";}
 }

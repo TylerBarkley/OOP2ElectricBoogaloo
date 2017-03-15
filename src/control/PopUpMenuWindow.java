@@ -1,6 +1,7 @@
 package control;
 
 import model.Controllables.RallyPoint;
+import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
 import javax.swing.*;
@@ -53,6 +54,24 @@ public class PopUpMenuWindow {
 
             int count = Integer.parseInt(result);
             return battleGroup.get(count - 1);
+        } catch (Exception e){
+            return null;
+        }
+
+    }
+    public static Structure StructureMenu(ArrayList<Structure> structures){
+        Object[] possibilities = new Object[structures.size()];
+        for(int i = 0; i < structures.size(); i++){
+            int x = i + 1;
+            possibilities[i] = (x + ". " + structures.get(i).toString()) ;
+        }
+        try{
+            String result = (String)JOptionPane.showInputDialog(null,
+                    "Which Structure? ", "Structure Menu",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            int count = Integer.parseInt(result);
+            return structures.get(count - 1);
         } catch (Exception e){
             return null;
         }

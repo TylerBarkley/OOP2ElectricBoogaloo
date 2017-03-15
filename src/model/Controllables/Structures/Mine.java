@@ -77,4 +77,5 @@ public class Mine extends HarvestStructure implements Mining{
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
     }
+    public String toString(){return "Mine";}
 }

@@ -59,5 +59,6 @@ public class ObservationTower extends Structure {
         removeOldWorkers(number);
         observationTowerManager.removeUnassigned(number);
     }
+    public String toString(){return "Observation Tower";}
 
 }

@@ -333,4 +333,8 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 	public void update(Player player, RallyPoint rp) {
 		update(player);
 	}
+
+	public PlayerID getPlayerId() {
+		return id;
+	}
 }
