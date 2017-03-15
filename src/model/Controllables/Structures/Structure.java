@@ -31,6 +31,10 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 		md = MapDirection.getNorth();
     	isAlive=true;
 		observers=new ArrayList<StructureObserver>();
+		
+		energyResourceLevel = 3 * this.getUpkeep();
+		metalResourceLevel = 3 * this.getUpkeep();
+		nutrientResourceLevel = 3 * this.getUpkeep();
 	}
 
 	public void addObserver(StructureObserver observer)
