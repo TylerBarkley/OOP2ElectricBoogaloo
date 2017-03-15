@@ -19,7 +19,7 @@ public class UniversityManager extends WorkerManager{
     }
 
     public int produceTechnology(int structureProductionRate){
-        int amount = (structureProductionRate + workerStats.getTechnologyProduction()) * numOfWorkers_HarvestingTechnology;
+        int amount = ((structureProductionRate + workerStats.getTechnologyProduction()) * numOfWorkers_HarvestingTechnology)*12;
         return amount;
     }
 

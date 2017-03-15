@@ -31,7 +31,7 @@ public abstract class HarvestManager extends WorkerManager{
         numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_Harvesting;
         numOfWorkers_Harvesting = 0;
         numOfWorkers_Unassigned = 0;
-        int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
+        int percentageBuilt = (workerStats.getBuildingRate() * 2 * numOfWorkers_Building)*8;
         return percentageBuilt;
     }
 
@@ -68,6 +68,10 @@ public abstract class HarvestManager extends WorkerManager{
             numOfWorkers_Unassigned = numOfWorkers_Harvesting + numOfWorkers_Unassigned;
             numOfWorkers_Harvesting = Math.min(assignNum, workerStats.getWorkerDensity());
             numOfWorkers_Unassigned = numOfWorkers_Unassigned - numOfWorkers_Harvesting;
+            if(harvestingLocation == null){
+                harvestingLocation = loc;
+                resourceManager.setWorking(harvestingLocation, true);
+            }
             resourceManager.setWorking(harvestingLocation, false);
             harvestingLocation = loc;
             resourceManager.setWorking(harvestingLocation, true);

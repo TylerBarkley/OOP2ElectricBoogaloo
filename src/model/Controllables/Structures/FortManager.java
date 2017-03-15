@@ -29,7 +29,7 @@ public class FortManager extends WorkerManager{
         numOfWorkers_Unassigned = 0;
         numOfWorkers_MeleeTraining = 0;
         numOfWorkers_RangedTraining = 0;
-        int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
+        int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building*8;
         return percentageBuilt;
     }
 
@@ -46,7 +46,7 @@ public class FortManager extends WorkerManager{
         if(numOfWorkers_MeleeTraining < 1){
             return 0;
         }
-        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_MeleeTraining * 5 + (2 * numOfSoldiers * workerStats.getSoldierTraining());
+        int percentageTrained = (workerStats.getSoldierTraining() * numOfWorkers_MeleeTraining * 5 + (2 * numOfSoldiers * workerStats.getSoldierTraining()))*8;
         return percentageTrained;
     }
 
@@ -55,7 +55,7 @@ public class FortManager extends WorkerManager{
             return 0;
         }
 
-        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_RangedTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining());
+        int percentageTrained = (workerStats.getSoldierTraining() * numOfWorkers_RangedTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining()))*8;
         return percentageTrained;
     }
 

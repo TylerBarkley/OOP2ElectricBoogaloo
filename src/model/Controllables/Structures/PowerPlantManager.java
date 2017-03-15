@@ -9,7 +9,7 @@ public class PowerPlantManager extends HarvestManager{
     public PowerPlantManager(){    }
 
     public int produceEnergy(int structureProductionRate){
-        int amount = (structureProductionRate + getWorkerStats().getEnergyProduction()) * getNumOfWorkers_Harvesting();
+        int amount = ((structureProductionRate + getWorkerStats().getEnergyProduction()) * getNumOfWorkers_Harvesting())*8;
         return getResourceManager().mineEnergy(getHarvestingLocation(), amount);
     }
 

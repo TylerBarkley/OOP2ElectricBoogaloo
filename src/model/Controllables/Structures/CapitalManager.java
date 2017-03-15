@@ -193,32 +193,32 @@ public class CapitalManager extends WorkerManager{
     }
 
     public int produceOre(int structureProductionRate){
-        int amount = (structureProductionRate + workerStats.getOreProduction()) * numOfWorkers_HarvestingOre;
+        int amount = ((structureProductionRate + workerStats.getOreProduction()) * numOfWorkers_HarvestingOre)*8;
         return resourceManager.mineOre(harvestingOreLocation, amount);
     }
 
     public int produceEnergy(int structureProductionRate){
-        int amount = (structureProductionRate + workerStats.getEnergyProduction()) * numOfWorkers_HarvestingEnergy;
+        int amount = ((structureProductionRate + workerStats.getEnergyProduction()) * numOfWorkers_HarvestingEnergy)*8;
         return resourceManager.mineEnergy(harvestingEnergyLocation, amount);
     }
 
     public int produceFood(int structureProductionRate){
-        int amount = (structureProductionRate + workerStats.getFoodProduction()) * numOfWorkers_HarvestingFood;
+        int amount = ((structureProductionRate + workerStats.getFoodProduction()) * numOfWorkers_HarvestingFood)*8;
         return resourceManager.mineFood(harvestingFoodLocation, amount);
     }
 
     public int breeding(){
-        int newWorkers = ((workerStats.getBreeding() * numOfWorkers_Breeding)/2);
+        int newWorkers = ((workerStats.getBreeding() * numOfWorkers_Breeding));
         return newWorkers;
     }
 
     public int building() {
-        int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
+        int percentageBuilt = (workerStats.getBuildingRate() * 2 * numOfWorkers_Building)*8;
         return percentageBuilt;
     }
 
     public int trainExplorer(){
-        int percentageTrained = workerStats.getExplorerTraining() * numOfWorkers_ExplorerTraining * 10;
+        int percentageTrained = (workerStats.getExplorerTraining() * numOfWorkers_ExplorerTraining * 10)*5;
         return percentageTrained;
     }
 
