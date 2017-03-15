@@ -190,7 +190,7 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 				+ "Offensive Damge: " + army.getAttackDamage() + "\n"
 				+ "Defensive Damage: " + stats.getDefensiveDamage() + "\n" 
 				+ "Armor: " + stats.getArmor() + "\n"
-				+ "Total Units: " + stats.getNumOfUnits() + "\n"
+				+ "BattleGroup Size: " + stats.getNumOfUnits() + "\n"
 				+"Queued Commands: ";
 		
 		Queue<Command> armyCommands = army.getCommandQueue().getCommandQueue();
