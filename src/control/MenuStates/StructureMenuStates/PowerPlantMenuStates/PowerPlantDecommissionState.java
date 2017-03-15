@@ -21,7 +21,7 @@ public class PowerPlantDecommissionState extends PowerPlantMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = PPAssignWorkersPowerHarvestState.getInstance();
+        StructureMenuState nextState = PowerPlantUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

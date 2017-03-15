@@ -18,7 +18,7 @@ public class PPAssignWorkersPowerHarvestState extends PowerPlantMenuState{
         currentStructure.assignWorkersToPowerHarvest(context.getFocus(), PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = PowerPlantDecommissionState.getInstance();
+        StructureMenuState nextState = PowerPlantUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
