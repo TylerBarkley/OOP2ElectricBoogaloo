@@ -14,7 +14,7 @@ public class CapitalDecommissionState extends CapitalMenuState {
         //TODO: decommission
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
+        StructureMenuState nextState = CapitalUnassignAllState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
