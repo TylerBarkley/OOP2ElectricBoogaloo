@@ -5,13 +5,16 @@ import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
 import model.Map.AOE.AOE;
+import model.Map.AOE.AOEDamage;
+import model.Map.AOE.AOEHeal;
+import model.Map.AOE.AOEKill;
 import model.Map.AOE.AreaOfEffectManager;
-
+import model.Map.Items.HealOneShot;
 import model.Map.Items.ObstacleItem;
 import model.Map.Items.ObstacleManager;
 import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
-
+import model.Map.Items.RealObstacle;
 import model.Map.Occupancy.StructureOccupancy;
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancy;
@@ -24,10 +27,8 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
-import model.player.Player;
 import model.player.PlayerID;
 import utilities.MapVisitor;
-import utilities.ViewVisitor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -122,12 +123,11 @@ public class Map {
 		tiles.put(new Location(3, -1), new Tile(terrains[2]));
 		tiles.put(new Location(5, 5), new Tile(terrains[1]));
 		tiles.put(new Location(6, 6), new Tile(terrains[2]));
-
 	}
 
 
 	
-	private Map(String fileName) //Generates test map
+	private Map(String name) //Generates test map
 	{
 		tiles = new HashMap<Location, Tile>();
 		aoeManager = new AreaOfEffectManager();
@@ -137,7 +137,7 @@ public class Map {
 		structureOccupancyManager = new StructureOccupancyManager();
 		unitOccupancyManager = new UnitOccupancyManager();
 
-		readMap(fileName);
+		readMap(name);
 	}
 
 	//TODO: delete this post-test
@@ -167,8 +167,6 @@ public class Map {
 
 
 	private void readMap(String fileName) {
-		Terrain[] terrains={Water.getWaterTerrain(),
-				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
 		File file=new File(fileName);
 
 		Scanner scanner=null;
@@ -179,9 +177,24 @@ public class Map {
 			return;
 		}
 		
+		readTiles(scanner);
+		readAOEs(scanner);
+		readItems(scanner);
+		readResources(scanner);
+		
+		scanner.close();
+	}
+
+	private void readTiles(Scanner scanner) {
+		Terrain[] terrains={Water.getWaterTerrain(),
+				Ground.getGroundTerrain(), Mountain.getMountainTerrain()};
+		
 		Location loc=new Location(0,0);
 		while (scanner.hasNext()){
-			String line=scanner.nextLine();			
+			String line=scanner.nextLine();
+			if(line.equals("END")){
+				return;
+			}
 			char[] chars=line.toCharArray();
 
 			Location loc2=loc;
@@ -216,10 +229,117 @@ public class Map {
 			
 			loc=loc.getAdjacent(MapDirection.getSouth());		
 		}
-		
-		scanner.close();
+	}
+
+	private void readAOEs(Scanner scanner) {
+		Location loc=new Location(0,0);
+		while (scanner.hasNext()){
+			String line=scanner.nextLine();
+			if(line.equals("END")){
+				return;
+			}
+			char[] chars=line.toCharArray();
+
+			Location loc2=loc;
+
+			for(int i=0; i<chars.length; i++)
+			{
+				switch(chars[i])
+				{
+				case 'k':
+					aoeManager.add(loc2, new AOEKill());
+					break;
+				case 'd':
+					aoeManager.add(loc2, new AOEDamage());
+					break;
+				case 'h':
+					aoeManager.add(loc2, new AOEHeal());
+					break;
+				}
+
+				if(i%2==0)
+				{
+					loc2=loc2.getAdjacent(MapDirection.getSouthEast());
+				}
+				else
+				{
+					loc2=loc2.getAdjacent(MapDirection.getNorthEast());
+				}
+			}
+			
+			loc=loc.getAdjacent(MapDirection.getSouth());		
+		}
+	}
+
+	private void readItems(Scanner scanner) {
+		Location loc=new Location(0,0);
+		while (scanner.hasNext()){
+			String line=scanner.nextLine();
+			if(line.equals("END")){
+				return;
+			}
+			char[] chars=line.toCharArray();
+
+			Location loc2=loc;
+
+			for(int i=0; i<chars.length; i++)
+			{
+				switch(chars[i])
+				{
+				case 'o':
+					obstacleManager.add(loc2, new RealObstacle());
+					break;
+				case 'h':
+					oneShotManager.add(loc2, new HealOneShot());
+					break;
+				}
+
+				if(i%2==0)
+				{
+					loc2=loc2.getAdjacent(MapDirection.getSouthEast());
+				}
+				else
+				{
+					loc2=loc2.getAdjacent(MapDirection.getNorthEast());
+				}
+			}
+			
+			loc=loc.getAdjacent(MapDirection.getSouth());		
+		}
 	}
 	
+	private void readResources(Scanner scanner) {
+		Location loc=new Location(0,0);
+		while (scanner.hasNext()){
+			String line=scanner.nextLine();
+			if(line.equals("END")){
+				return;
+			}
+			String[] tokens=line.split("\\s+");
+
+			Location loc2=loc;
+
+			for(int i=0; i<tokens.length; i+=3)
+			{
+				ResourceLevel level=new ResourceLevel(Integer.parseInt(tokens[i]), 
+						Integer.parseInt(tokens[i+1]), Integer.parseInt(tokens[i+2]));
+				
+				resourceManager.add(loc2, level);
+
+				if(i%2==0)
+				{
+					loc2=loc2.getAdjacent(MapDirection.getSouthEast());
+				}
+				else
+				{
+					loc2=loc2.getAdjacent(MapDirection.getNorthEast());
+				}
+			}
+			
+			loc=loc.getAdjacent(MapDirection.getSouth());		
+		}
+	}
+
 	public Tile getTileAt(Location loc)
 	{
 		return tiles.get(loc);

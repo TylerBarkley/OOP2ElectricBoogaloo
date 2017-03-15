@@ -168,4 +168,8 @@ public class PlayerManager {
 	public ArrayList<RallyPoint> getRallyPoints(PlayerID id) {
 		return players.get(id).getRallyPoints();
 	}
+
+	public static void reset() {
+		pm=null;
+	}
 }
