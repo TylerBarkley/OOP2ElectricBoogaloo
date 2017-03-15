@@ -3,6 +3,8 @@ package model;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Units.Colonist;
 import model.Map.Map;
+import model.Map.Resources.ResourceLevel;
+import model.Map.Resources.ResourceManager;
 import model.player.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,9 @@ import static org.junit.Assert.*;
  */
 public class ProductionManagerTest {
     ProductionManager productionManager;
+    ResourceManager resourceManager;
+    ResourceLevel r1;
+    Location loc;
 
     Player p1;
 
@@ -26,6 +31,9 @@ public class ProductionManagerTest {
         p1 = new Player();
         map = Map.getInstance();
         productionManager = ProductionManager.getInstance();
+        r1 = new ResourceLevel(100, 100, 100);
+        resourceManager = Map.getInstance().getResourceManager();
+        resourceManager.add(new Location(0,0), r1);
 
         colonist  = new Colonist();
 
@@ -41,7 +49,10 @@ public class ProductionManagerTest {
 
         assertNotNull(map.getUnitOccupancyAt(new Location(0, 0)));
         assertNull(map.getStructureOccupancyAt(new Location(0, 0)));
+        colonist.setLocation(new Location(0, 0));
 
+        resourceManager.add(new Location(0,0), r1);
+        System.out.println(resourceManager.get(new Location(0, 0)).getWorking().toString());
         productionManager.martyrdom(colonist);
 
         assertNotNull(map.getStructureOccupancyAt(new Location(0, 0)));

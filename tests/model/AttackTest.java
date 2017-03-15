@@ -113,8 +113,8 @@ public class AttackTest {
 
         AttackManager.getInstance().attack(f2, new Location(1, 0));
 
-        assertEquals(20, enemyRanged1.getCurrentHealth());
-        assertEquals(70, enemyRanged2.getCurrentHealth());
+        assertEquals(25, enemyRanged1.getCurrentHealth());
+        assertEquals(75, enemyRanged2.getCurrentHealth());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class AttackTest {
 
         army2.attack(new Location(5,5));
 
-        assertEquals(90, f2.getCurrentHealth());
+        assertEquals(100, f2.getCurrentHealth());
 
     }
 }
