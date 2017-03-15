@@ -29,6 +29,7 @@ public class ViewFactory {
 	private BufferedImage farm;
 	private BufferedImage tower;
 	private BufferedImage fort;
+	private BufferedImage construction;
 	
 	private BufferedImage enemyCapital;
 	private BufferedImage enemyUniversity;
@@ -37,6 +38,7 @@ public class ViewFactory {
 	private BufferedImage enemyFarm;
 	private BufferedImage enemyTower;
 	private BufferedImage enemyFort;
+	private BufferedImage enemyConstruction;
 	
 	private BufferedImage water;
 	private BufferedImage ground;
@@ -75,6 +77,7 @@ public class ViewFactory {
 			farm=ImageIO.read(getClass().getResource("/Farm.png"));
 			tower=ImageIO.read(getClass().getResource("/ObservationTower.png"));
 			fort=ImageIO.read(getClass().getResource("/Fort.png"));
+			construction=ImageIO.read(getClass().getResource("/Construction.png"));
 			
 			enemyCapital=ImageIO.read(getClass().getResource("/EnemyCapital.png"));
 			enemyUniversity=ImageIO.read(getClass().getResource("/EnemyUniversity.png"));
@@ -83,6 +86,7 @@ public class ViewFactory {
 			enemyFarm=ImageIO.read(getClass().getResource("/EnemyFarm.png"));
 			enemyTower=ImageIO.read(getClass().getResource("/EnemyObservationTower.png"));
 			enemyFort=ImageIO.read(getClass().getResource("/EnemyFort.png"));
+			enemyConstruction=ImageIO.read(getClass().getResource("/EnemyConstruction.png"));
 			
 			water=ImageIO.read(getClass().getResource("/Water.png"));
 			ground=ImageIO.read(getClass().getResource("/Ground.png"));
@@ -156,6 +160,8 @@ public class ViewFactory {
 			return new StructureView(id, tower, loc, rotation);
 		case "Fort":
 			return new StructureView(id, fort, loc, rotation);
+		case "Construction":
+			return new StructureView(id, construction, loc, rotation);
 			
 		case "EnemyCapital":
 			return new StructureView(id, enemyCapital, loc, rotation);
@@ -171,7 +177,9 @@ public class ViewFactory {
 			return new StructureView(id, enemyTower, loc, rotation);
 		case "EnemyFort":
 			return new StructureView(id, enemyFort, loc, rotation);
-
+		case "EnemyConstruction":
+			return new StructureView(id, enemyConstruction, loc, rotation);
+			
 		case "Skull":
 			return new SkullCrossbones(id, loc);
 		case "RedCross":
