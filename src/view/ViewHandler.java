@@ -188,7 +188,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 	public void update(Player player, RallyPoint rp) {
 		update(player);
 
-		if(rp.isActive())
+		if(!rp.isActive())
 		{
 			rp.removeObserver(this);
 		}

@@ -137,23 +137,7 @@ public class ControllableCollection {
             if(observationTowers.size() > 0) return true;
             if(powerPlants.size() > 0) return true;
             if(universities.size() > 0) return true;
-            //old code
-            /*for (int i = 0; i < 10 ; i++) {
-                if(capitals.get(i) != null)
-                    return true;
-                if(farms.get(i) != null)
-                    return true;
-                if(forts.get(i) != null)
-                    return true;
-                if(mines.get(i) != null)
-                    return true;
-                if(observationTowers.get(i) != null)
-                    return true;
-                if(powerPlants.get(i) != null)
-                    return true;
-                if(universities.get(i) != null)
-                    return true;
-            }*/
+
         } else if(modeType==Menu.RALLYPOINTMODE){
             //System.out.println("CHECKING RALLYPOINT");
             for (int i = 0; i < rallyPoints.size(); i++) {
