@@ -60,6 +60,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void removeOldWorkers(int n){
         numTotalWorkers -= n;
+        notifyObservers();
     }
 
 	public abstract void unassign();
@@ -155,13 +156,16 @@ public abstract class Structure implements Controllable, EndTurnObserver {
     public void malnourish() {
         // TODO This is called if there aren't enough resources for upkeep
         if(energyResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            energyResourceLevel=0;
         }
         if(metalResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            metalResourceLevel=0;
         }
         if(nutrientResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            nutrientResourceLevel=0;
         }
 
     }

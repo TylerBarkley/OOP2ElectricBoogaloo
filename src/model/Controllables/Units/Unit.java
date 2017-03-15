@@ -171,7 +171,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
 		if(nutrientResourceLevel<0){
-			damageMe(1);
+			damageMe(15);
+			nutrientResourceLevel = 0;
 		}
 
 	}
