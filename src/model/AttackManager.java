@@ -5,6 +5,8 @@ import model.Map.Map;
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancyManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by zrgam_000 on 3/10/2017.
  */
@@ -19,7 +21,6 @@ public class AttackManager {
         if(am == null){
             am = new AttackManager();
         }
-
         return am;
     }
 
@@ -34,6 +35,10 @@ public class AttackManager {
 
 
     public void attack(Attacker attacker, Location loc) {
+        ArrayList<Location> locations = loc.getAllLocationsWithinRadius(attacker.getAttackRange());
+        if(!locations.contains(loc)){
+            return;
+        }
         if(!structureOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)){
             structureOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
         }

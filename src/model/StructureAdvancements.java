@@ -54,40 +54,34 @@ public class StructureAdvancements {
         return offensiveDamage;
     }
 
-    public void incrementOffensiveDamage(int offensiveDamage) {
-        this.offensiveDamage += offensiveDamageIncrement;
+    public void incrementOffensiveDamage() {
+        this.offensiveDamage=Math.min(maxOffensiveDamageLevel,this.offensiveDamage += offensiveDamageIncrement);
     }
 
     public void incrementInfluenceRadius() {
-        this.influenceRadius += influenceRadiusIncrement;
+        this.influenceRadius=Math.min(maxInfluenceRadius,this.influenceRadius += influenceRadiusIncrement);
     }
 
     public void incrementDefensiveDamage() {
-        this.defensiveDamage += defensiveDamageIncrement;
+        this.defensiveDamage=Math.min(maxDefensiveDamageLevel,this.defensiveDamage += defensiveDamageIncrement);
     }
 
     public void decrementUpkeep() {
-        this.upkeep += upKeepDecrement;
+        this.upkeep=Math.max(maxUpKeepLevel,this.upkeep += upKeepDecrement);
     }
 
     public void incrementArmor() {
-        this.armor += armorIncrement;
+        this.armor=Math.min(maxArmorLevel,this.armor += armorIncrement);
     }
 
     public void incrementHealth() {
-        this.health += healthIncrement;
+        this.health= Math.min(maxHealthLevel,this.health += healthIncrement);
     }
 
     public void incrementProductionRate() {
-        this.productionRate += productionRateIncrement;
+       this.productionRate=Math.min(maxProductionRateLevel,this.productionRate += productionRateIncrement);
     }
 
-    public void incrementWorkerRadius() {
-        this.workerRadius += workerRadiusIncrement;
-    }
-    public void incrementOffensiveDamage(){
-        this.offensiveDamage+= offensiveDamageIncrement;
-    }
     public int getProductionRate() {
         return productionRate;
     }

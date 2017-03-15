@@ -21,6 +21,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 {
     //TODO LMAO DECAL
 
+
     private Location myLocation;
 
     private MovementManager movementManager;
@@ -371,5 +372,8 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         for(Unit u: battleGroup){
             u.powerActive();
         }
+    }
+    public int getAttackRange(){
+        return armyStats.getMovement();
     }
 }

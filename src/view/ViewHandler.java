@@ -6,17 +6,13 @@ import control.InputHandler;
 import control.InputReader;
 import control.Menu;
 import control.UserControls;
-
 import model.Location;
 import model.TurnManager;
-
 import model.Controllables.Army;
 import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
-
 import model.Map.Map;
-
 import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
 import model.observers.MenuObserver;
@@ -24,16 +20,16 @@ import model.observers.PlayerObserver;
 import model.observers.RPObserver;
 import model.observers.StartTurnObserver;
 import model.observers.StructureObserver;
+import model.observers.StructureResourceObserver;
 import model.observers.UnitObserver;
-
+import model.observers.UnitResourceObserver;
 import model.player.Player;
 import model.player.PlayerID;
 import model.player.PlayerManager;
-
 import utilities.ViewVisitor;
 
 public class ViewHandler implements UnitObserver, StructureObserver, MenuObserver, PlayerObserver,
-ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
+ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserver, StructureResourceObserver
 {
 	private int width;
 	private int height;
@@ -63,6 +59,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		areaViewport.setBlankMap(Map.getInstance().getLocations());
 		mainScreen=new MainScreen(width, height, statusViewport, areaViewport);
 		unitOverview=new UnitOverview(width, height);
+		unitOverview.addObserver(this);
 		structureOverview=new StructureOverview(width, height);
 		configurationOverview=new ConfigurationOverview(controls, width, height);
 		techViewport=new TechnologyViewport(width, height);
@@ -136,7 +133,10 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 
 	@Override
 	public void update(Player player) {
-		//TODO If necessary;
+		if(player.getId().equals(turn.getCurrentPlayerID())){
+			unitOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
+			System.out.println("Player's resources updated :>");
+		}
 	}
 
 	@Override
@@ -252,14 +252,9 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 			menu.setFocus(new Location(0,0));
 		}
 
-		structureOverview=new StructureOverview(width, height);
-		unitOverview=new UnitOverview(width, height);
-		statusViewport=new StatusViewport(width/3, height);
-
-		window.setUnitOverview(unitOverview);
-		window.setStructureOverview(structureOverview);
-
-		mainScreen.setStatusViewport(statusViewport);
+		structureOverview.reset();
+		unitOverview.reset();
+		statusViewport.reset();
 
 		viewVisitor=new ViewVisitor(id);
 
@@ -298,11 +293,56 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		{
 			rp.accept(viewVisitor);
 		}
-
+		
+		unitOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
 		updateView();
 	}
 
 	public void openWindow() {
 		window.openWindow();
 	}
+
+	@Override
+	public void updateStructureFood(int food) {
+		// TODO Auto-generated method stub
+		PlayerManager pm = PlayerManager.getInstance();
+		Structure structure = (Structure) menu.getCurrentInstance();
+
+		pm.distributeNutrients(structure.getPlayerID(), structure, food);
+	}
+
+	@Override
+	public void updateStructureOre(int ore) {
+		// TODO Auto-generated method stub
+		PlayerManager pm = PlayerManager.getInstance();
+		Structure structure = (Structure) menu.getCurrentInstance();
+
+		pm.distributeMetal(structure.getPlayerID(), structure, ore);
+	}
+
+	@Override
+	public void updateStructurePower(int power) {
+		// TODO Auto-generated method stub
+		PlayerManager pm = PlayerManager.getInstance();
+		Structure structure = (Structure) menu.getCurrentInstance();
+
+		pm.distributeNutrients(structure.getPlayerID(), structure, power);
+	}
+
+	@Override
+	public void updateUnitFood(int food) {
+
+		PlayerManager pm = PlayerManager.getInstance();
+
+		if(menu.getCurrentMode() == Menu.UNITMODE) {
+			Unit unit = (Unit) menu.getCurrentInstance();
+			pm.distributeNutrients(unit.getPlayerID(), unit, food);
+		}
+		else {
+			Army army = (Army) menu.getCurrentInstance();
+			pm.distributeNutrients(army.getPlayerID(), army, food);
+		}
+	}
+
+
 }

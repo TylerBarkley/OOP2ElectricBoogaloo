@@ -52,4 +52,5 @@ public class Ranged extends Unit {
 	public void visit(Tile tile) {
 		tile.getTerrain().visitTerrain(this);
 	}
+	public String toString(){return "Ranged";}
 }
