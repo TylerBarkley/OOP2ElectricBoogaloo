@@ -19,7 +19,6 @@ public class AttackManager {
         if(am == null){
             am = new AttackManager();
         }
-
         return am;
     }
 
@@ -34,6 +33,7 @@ public class AttackManager {
 
 
     public void attack(Attacker attacker, Location loc) {
+
         if(!structureOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)){
             structureOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
         }
