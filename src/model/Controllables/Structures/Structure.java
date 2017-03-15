@@ -79,7 +79,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void killMe() {
         isAlive = false;
-
+        notifyObservers();
     }
 
     public StructureID getID() {
