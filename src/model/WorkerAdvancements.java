@@ -43,7 +43,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementFoodProduction() {
-        this.foodProduction += foodProductionIncrement;
+        this.foodProduction=Math.min(maxFoodProductionLevel, this.foodProduction += foodProductionIncrement);
     }
 
     public int getOreProduction() {
@@ -51,7 +51,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementOreProduction() {
-        this.oreProduction += foodProductionIncrement;
+        this.oreProduction=Math.min(maxOreProductionLevel,this.oreProduction += foodProductionIncrement);
     }
 
     public int getEnergyProduction() {
@@ -59,7 +59,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementEnergyProduction() {
-        this.energyProduction += energyProductionIncrement;
+        this.energyProduction=energyProduction=Math.min(maxEnergyProductionLevel,this.energyProduction += energyProductionIncrement);
     }
 
     public int getTechnologyProduction() {
@@ -67,7 +67,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementTechnologyProduction() {
-        this.technologyProduction += technologyProductionIncrement;
+        this.technologyProduction=Math.min(maxTechnologyProductionLevel,this.technologyProduction += technologyProductionIncrement);
     }
 
     public int getSoldierTraining() {
@@ -75,7 +75,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementSoldierTraining() {
-        this.soldierTraining += soldierTrainingIncrement;
+        this.soldierTraining=Math.min(maxSoldierTrainingLevel,this.soldierTraining += soldierTrainingIncrement);
     }
 
     public int getBreeding() {
@@ -83,7 +83,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementBreeding() {
-        this.breeding += breedingIncrement;
+        this.breeding=Math.min(maxBreedingLevel,this.breeding += breedingIncrement);
     }
 
     public int getExplorerTraining() {
@@ -91,7 +91,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementExplorerTraining() {
-        this.explorerTraining += explorerTrainingIncrement;
+        this.explorerTraining=Math.min(maxExplorerTrainingLevel,this.explorerTraining += explorerTrainingIncrement);
     }
 
     public int getBuildingRate() {
@@ -99,7 +99,14 @@ public class WorkerAdvancements {
     }
 
     public void incrementBuildingRate() {
-        this.buildingRate += buildingRateIncrement;
+        this.buildingRate=Math.min(maxBuildingRateLevel,this.buildingRate += buildingRateIncrement);
+    }
+
+    public void incrementWorkerDensity() {
+        this.workerDensity=Math.min(maxWorkerDensityLevel,this.workerDensity += workerDensityIncrement);
+    }
+    public void incrementWorkerRadius() {
+        this.workerRadius=Math.min(maxWorkerRadiusLevel,this.workerRadius += workerRadiusIncrement);
     }
 
     public int getFoodProductionIncrement() {
