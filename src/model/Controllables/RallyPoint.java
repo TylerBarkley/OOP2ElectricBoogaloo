@@ -37,6 +37,7 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
 
 
     private ArrayList<Unit> reinforcements;
+
     private Queue<Unit> waitingForArmy;
 
     private HashMap<Location, Location> path;
@@ -249,6 +250,9 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
 
     public ArrayList<Unit> getReinforcements() {
         return reinforcements;
+    }
+    public Queue<Unit> getWaitingForArmy() {
+        return waitingForArmy;
     }
 
     @Override
