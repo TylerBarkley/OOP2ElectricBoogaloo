@@ -55,6 +55,7 @@ public Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> stru
 }
 
 public void editUnitStats(int unitType,int statToBeModified){
+        if(getUnitStatCurrentLevel(unitType,statToBeModified)>=getUnitStatsMaxLevel(unitType,statToBeModified)){return;}
         switch(statToBeModified){
             case Health:
                 unitStats.get(unitType).incrementHealth(unitAdvancements.get(unitType).getHealthIncrement());
@@ -89,6 +90,7 @@ public void editUnitStats(int unitType,int statToBeModified){
     }
 
     public void editStructureStats(int structureType,int statToBeModified){
+        if(getStructureStatsCurrentLevel(structureType,statToBeModified)>=getStructureStatsMaxLevel(structureType,statToBeModified)){return;}
         switch(statToBeModified){
             case Health:
                 structureStats.get(structureType).incrementHealth(structureAdvancements.get(structureType).getHealthIncrement());
@@ -118,14 +120,11 @@ public void editUnitStats(int unitType,int statToBeModified){
                 structureStats.get(structureType).incrementProductionRate(structureAdvancements.get(structureType).getProductionRateIncrement());
                structureAdvancements.get(structureType).incrementProductionRate();
                 break;
-            /*case "workerRadius":
-                structureStats.get(structureType).incrementWorkerRadius(structureAdvancements.get(structureType).getWorkerRadiusIncrement());
-                structureAdvancements.get(structureType).incrementWorkerRadius();
-                break;*/
-
             }
 }
 public void editWorkerStats(int statToBeModified) {
+    if(getWorkerStatsCurrentLevel(statToBeModified)>=getWorkerStatsMaxLevel(statToBeModified)){return;}
+    System.out.println("Current "+getWorkerStatsCurrentLevel(statToBeModified)+"Max  "+getWorkerStatsMaxLevel(statToBeModified));
     switch (statToBeModified) {
         case FoodProduction:
             workerStats.incrementFoodProduction(workerAdvancements.getFoodProductionIncrement());
@@ -161,11 +160,11 @@ public void editWorkerStats(int statToBeModified) {
             break;
         case WorkerRadius:
             workerStats.incrementWorkerRadius(workerAdvancements.getWorkerRadiusIncrement());
-            workerAdvancements.incrementBuildingRate();
+            workerAdvancements.incrementWorkerRadius();
             break;
         case WorkerDensity:
             workerStats.incrementWorkerDensity(workerAdvancements.getWorkerDensityIncrement());
-            workerAdvancements.incrementBuildingRate();
+            workerAdvancements.incrementWorkerDensity();
             break;
     }
 }
@@ -304,65 +303,65 @@ public void editWorkerStats(int statToBeModified) {
         //TODO: Implement This Shit
         switch (statToBeSearched) {
             case FoodProduction:
-                return workerAdvancements.getMaxFoodProductionLevel();
+                return workerAdvancements.getMaxFoodProductionLevel()/workerAdvancements.getFoodProductionIncrement()+1;
             case OreProduction:
-                return workerAdvancements.getMaxOreProductionLevel();
+                return workerAdvancements.getMaxOreProductionLevel()/workerAdvancements.getMaxOreProductionLevel()+1;
             case EnergyProduction:
-                return workerAdvancements.getMaxEnergyProductionLevel();
+                return workerAdvancements.getMaxEnergyProductionLevel()/workerAdvancements.getEnergyProductionIncrement()+1;
             case TechnologyProduction:
-                return workerAdvancements.getMaxTechnologyProductionLevel();
+                return workerAdvancements.getMaxTechnologyProductionLevel()/workerAdvancements.getTechnologyProduction()+1;
             case SoldierTraining:
-                return workerAdvancements.getMaxSoldierTrainingLevel();
+                return workerAdvancements.getMaxSoldierTrainingLevel()/workerAdvancements.getSoldierTraining()+1;
             case Breeding:
-                return workerAdvancements.getMaxBreedingLevel();
+                return workerAdvancements.getMaxBreedingLevel()/workerAdvancements.getBreedingIncrement()+1;
             case ExplorerTraining:
-                return workerAdvancements.getMaxExplorerTrainingLevel();
+                return workerAdvancements.getMaxExplorerTrainingLevel()/workerAdvancements.getExplorerTrainingIncrement()+1;
             case BuildingRate:
-                return workerAdvancements.getMaxBuildingRateLevel();
+                return workerAdvancements.getMaxBuildingRateLevel()/workerAdvancements.getBuildingRateIncrement()+1;
             case WorkerRadius:
-                return workerAdvancements.getMaxWorkerRadiusLevel();
+                return workerAdvancements.getMaxWorkerRadiusLevel()/workerAdvancements.getMaxWorkerRadiusLevel()+1;
             case WorkerDensity:
-                return workerAdvancements.getMaxWorkerDensityLevel();
+                return workerAdvancements.getMaxWorkerDensityLevel()/workerAdvancements.getWorkerDensityIncrement()+1;
         }
         return -1;
     }
     public int getUnitStatsMaxLevel(int unitType, int statToBeSearched){
         switch(statToBeSearched){
             case Health:
-                return unitAdvancements.get(unitType).getMaxHealthLevel();
+                return unitAdvancements.get(unitType).getMaxHealthLevel()/unitAdvancements.get(unitType).getHealthIncrement()+1;
             case Armor:
-                return unitAdvancements.get(unitType).getMaxArmorLevel();
+                return unitAdvancements.get(unitType).getMaxArmorLevel()/unitAdvancements.get(unitType).getArmorIncrement()+1;
             case Upkeep:
-                return unitAdvancements.get(unitType).getMaxUpKeepLevel();
+                return unitAdvancements.get(unitType).getMaxUpKeepLevel()/unitAdvancements.get(unitType).getUpKeepDecrement()+1;
             case DefensiveDamage:
-                return unitAdvancements.get(unitType).getMaxDefensiveDamageLevel();
+                return unitAdvancements.get(unitType).getMaxDefensiveDamageLevel()/unitAdvancements.get(unitType).getDefensiveDamageIncrement()+1;
             case InfluenceRadius:
-                return unitAdvancements.get(unitType).getMaxInfluenceRadiusLevel();
+                return unitAdvancements.get(unitType).getMaxInfluenceRadiusLevel()/unitAdvancements.get(unitType).getInfluenceRadiusIncrement()+1;
             case OffensiveDamage:
-                return unitAdvancements.get(unitType).getMaxOffensiveDamageLevel();
+                return unitAdvancements.get(unitType).getMaxOffensiveDamageLevel()/unitAdvancements.get(unitType).getOffensiveDamageIncrement()+1;
             case Movement:
-                return unitAdvancements.get(unitType).getMaxMovementLevel();
+                return unitAdvancements.get(unitType).getMaxMovementLevel()/unitAdvancements.get(unitType).getMovementIncrement()+1;
         }
         return -1;
     }
     public int getStructureStatsMaxLevel(int structureType, int statToBeSearched){
         switch(statToBeSearched){
             case Health:
-                return structureAdvancements.get(structureType).getMaxHealthLevel();
+                return structureAdvancements.get(structureType).getMaxHealthLevel()/structureAdvancements.get(structureType).getHealthIncrement()+1;
             case Armor:
-                return structureAdvancements.get(structureType).getMaxArmorLevel();
+                return structureAdvancements.get(structureType).getMaxArmorLevel()/structureAdvancements.get(structureType).getArmorIncrement()+1;
             case Upkeep:
-                return structureAdvancements.get(structureType).getMaxUpKeepLevel();
+                return structureAdvancements.get(structureType).getMaxUpKeepLevel()/structureAdvancements.get(structureType).getUpKeepDecrement()+1;
             case DefensiveDamage:
-                return structureAdvancements.get(structureType).getMaxDefensiveDamageLevel();
+                return structureAdvancements.get(structureType).getMaxDefensiveDamageLevel()/structureAdvancements.get(structureType).getDefensiveDamageIncrement()+1;
             case InfluenceRadius:
-                return structureAdvancements.get(structureType).getMaxInfluenceRadiusLevel();
+                return structureAdvancements.get(structureType).getMaxInfluenceRadiusLevel()/structureAdvancements.get(structureType).getMaxInfluenceRadiusLevel()+1;
             case OffensiveDamage:
-                return structureAdvancements.get(structureType).getMaxOffensiveDamageLevel();
+                return structureAdvancements.get(structureType).getMaxOffensiveDamageLevel()/structureAdvancements.get(structureType).getOffensiveDamageIncrement()+1;
             case ProductionRate:
-                return structureAdvancements.get(structureType).getMaxProductionRateLevel();
+                return structureAdvancements.get(structureType).getMaxProductionRateLevel()/structureAdvancements.get(structureType).getProductionRateIncrement()+1;
             case WorkerRadius:
-                return structureAdvancements.get(structureType).getMaxWorkerRadiusLevel();
+                return structureAdvancements.get(structureType).getMaxWorkerRadiusLevel()/structureAdvancements.get(structureType).getWorkerRadiusIncrement()+1;
         }
         return -1;
     }

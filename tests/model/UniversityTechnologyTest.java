@@ -44,18 +44,34 @@ public class UniversityTechnologyTest {
 
         university=new University();
         technology=new Technology(new ArrayList<UnitStats>(),new ArrayList<StructureStats>(),workerStats);
-        researchCommand=new WorkerResearchCommand(technology,0,technology.ExplorerTraining);
+        researchCommand=new WorkerResearchCommand(technology,0,technology.WorkerDensity);
     }
     @Test
     public void UniversityResearchTest(){
         university.addWorker(5);
         university.assignWorkersToHarvestTechnology(5);
+        assertEquals(5, workerStats.getWorkerDensity());
         university.assignResearch(researchCommand);
         university.harvestScience();
-        university.harvestScience();
-        university.harvestScience();
-        assertEquals(2, workerStats.getExplorerTraining());
-
-
+        assertEquals(10, workerStats.getWorkerDensity());
+        university.assignResearch(researchCommand);
+        for(int i = 0; i < 10; i++){
+            university.harvestScience();
+        }
+        assertEquals(15, workerStats.getWorkerDensity());
+        university.assignResearch(researchCommand);
+        for(int i = 0; i < 20; i++){
+            university.harvestScience();
+        }
+        assertEquals(20, workerStats.getWorkerDensity());
+        university.assignResearch(researchCommand);
+        for(int i = 0; i < 50; i++){
+            university.harvestScience();
+        }
+        assertEquals(25, workerStats.getWorkerDensity());
+        for(int i = 0; i < 1000; i++){
+            university.harvestScience();
+        }
+        assertEquals(25, workerStats.getWorkerDensity());
     }
 }
