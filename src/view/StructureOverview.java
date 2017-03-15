@@ -2,6 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -18,6 +21,7 @@ import model.Controllables.Structures.StructureID;
 import model.Controllables.Structures.University;
 import model.observers.MenuObserver;
 import model.observers.StructureObserver;
+import model.observers.StructureResourceObserver;
 import utilities.StructureVisitor;
 
 public class StructureOverview  extends JPanel implements StructureVisitor {
@@ -28,6 +32,9 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 	private TableRenderer renderer;
 	private JTextArea structureStatsArea;
 	private JLabel currentMode, currentInstance,currentType,currentInstruction, playerFood,playerOre,playerPower;
+	private JButton foodButton, powerButton, oreButton;
+	
+	private ArrayList<StructureResourceObserver> observers; 
 	
 	public StructureOverview(int width, int height) {
 		
@@ -58,6 +65,20 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		playerPower = new JLabel("Total Power: ");
 		playerPower.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		foodButton = new JButton("Allocate Food");
+		foodButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		oreButton = new JButton("Allocate Metal");
+		oreButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		powerButton = new JButton("Allocate Power");
+		powerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		foodButton.setFocusable(false);
+		powerButton.setFocusable(false);
+		oreButton.setFocusable(false);
+		
+		observers = new ArrayList<StructureResourceObserver>();
+		
+		setButtonListeners();
 		displayView();
 	}
 	
@@ -68,13 +89,102 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.add(title);
-		this.add(new FixedScrollPane(structureTable,width,height/3));
+		this.add(new FixedScrollPane(structureTable,width,structureTable.getMaximumSize().height + 23));
+		this.add(playerPower);
+		this.add(playerOre);
+		this.add(playerFood);
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.X_AXIS));
+		buttonPanel.add(powerButton);
+		buttonPanel.add(oreButton);
+		buttonPanel.add(foodButton);
+		
+		this.add(buttonPanel);
 		this.add(new FixedScrollPane(structureStatsArea,width,height/3));
 		this.add(currentMode);
 		this.add(currentType);
 		this.add(currentInstance);
 		this.add(currentInstruction);
 		this.setBackground(Color.orange);
+	}
+	
+	public void setButtonListeners() {
+		
+		foodButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event) {
+				
+				String input = JOptionPane.showInputDialog("Enter the amount of food you wish to allocate");
+				boolean validInput = true;
+				int food = 0;
+				
+				try{
+					food = Integer.parseInt(input);
+				} catch(Exception e) {
+					JOptionPane.showMessageDialog(null,"You must enter a Integer", "Error!", JOptionPane.ERROR_MESSAGE);
+					validInput = false;
+				}
+				
+				if(validInput) {
+					if(food < 0) {
+						JOptionPane.showMessageDialog(null, "The integer must be greater than zero", "You thought!", JOptionPane.ERROR_MESSAGE);
+						validInput = false;
+					}
+					
+					if(validInput) updateObserversFood(food);
+				}
+			}
+		});
+		
+		oreButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event) {
+				
+				String input = JOptionPane.showInputDialog("Enter the amount of metal you wish to allocate");
+				boolean validInput = true;
+				int metal = 0;
+				
+				try{
+					metal = Integer.parseInt(input);
+				} catch(Exception e) {
+					JOptionPane.showMessageDialog(null,"You must enter a Integer", "Error!", JOptionPane.ERROR_MESSAGE);
+					validInput = false;
+				}
+				
+				if(validInput) {
+					if(metal < 0) {
+						JOptionPane.showMessageDialog(null, "The integer must be greater than zero", "You thought!", JOptionPane.ERROR_MESSAGE);
+						validInput = false;
+					}
+					
+					if(validInput) updateObserversOre(metal);
+				}
+			}
+		});
+		
+		powerButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event) {
+				
+				String input = JOptionPane.showInputDialog("Enter the amount of power you wish to allocate");
+				boolean validInput = true;
+				int power = 0;
+				
+				try{
+					power = Integer.parseInt(input);
+				} catch(Exception e) {
+					JOptionPane.showMessageDialog(null,"You must enter a Integer", "Error!", JOptionPane.ERROR_MESSAGE);
+					validInput = false;
+				}
+				
+				if(validInput) {
+					if(power < 0) {
+						JOptionPane.showMessageDialog(null, "The integer must be greater than zero", "You thought!", JOptionPane.ERROR_MESSAGE);
+						validInput = false;
+					}
+					
+					if(validInput) updateObserversPower(power);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -102,10 +212,16 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 				renderer.selectUnit(structure.getID().getType(), menu.getCurrentInstanceNumber());
 				displayStructureStats(structure);
 			}
+			powerButton.setEnabled(true);
+			oreButton.setEnabled(true);
+			foodButton.setEnabled(true);
 		}
 		else {
 			renderer.deSelectUnit();
 			removeStats();
+			powerButton.setEnabled(false);
+			oreButton.setEnabled(false);
+			foodButton.setEnabled(false);
 		}
 		
 		model.update();
@@ -129,5 +245,37 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		removeStats();
 		model.clearData();
 		model.update();
+	}
+	
+	public void updatePlayerResources(int power, int ore, int food) {
+		playerPower.setText("Power: " + power);
+		playerOre.setText("Metal: " + ore);
+		playerFood.setText("Food: " + food);
+	}
+	
+	public void addObserver(StructureResourceObserver obs) {
+		observers.add(obs);
+	}
+	
+	public void removeObserver(StructureResourceObserver obs) {
+		observers.remove(obs);
+	}
+	
+	private void updateObserversFood(int food) {
+		for(StructureResourceObserver obs: observers) {
+			obs.updateStructureFood(food);
+		}
+	}
+	
+	private void updateObserversOre(int ore) {
+		for(StructureResourceObserver obs: observers) {
+			obs.updateStructureOre(ore);
+		}
+	}
+	
+	public void updateObserversPower(int power) {
+		for(StructureResourceObserver obs: observers) {
+			obs.updateStructurePower(power);
+		}
 	}
 }
