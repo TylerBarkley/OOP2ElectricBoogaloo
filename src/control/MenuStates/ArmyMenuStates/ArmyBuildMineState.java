@@ -2,36 +2,39 @@ package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
+import model.BuildMineCommand;
 
 /**
- * Created by hankerins on 3/8/17.
+ * Created by hankerins on 3/15/17.
  */
-public class ArmyDisbandState extends ArmyMenuState {
-    private static ArmyDisbandState instance = new ArmyDisbandState();
-    public static ArmyDisbandState getInstance(){return instance;}
-    private ArmyDisbandState(){}
+public class ArmyBuildMineState extends ArmyMenuState {
+    private static ArmyBuildMineState instance = new ArmyBuildMineState();
+    public static ArmyBuildMineState getInstance(){return instance;}
+    private ArmyBuildMineState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        currentArmy.disband();
+        //TODO: menu to select number of workers
+        int numOfWorkers = 1;
+        currentArmy.giveOrder(new BuildMineCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyBuildMineState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFortState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyDecommissionState.getInstance();
+        ArmyMenuState nextState = ArmyDisbandState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Disband";
+        return "Build Mine";
     }
 }
