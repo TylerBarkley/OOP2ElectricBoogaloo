@@ -1,7 +1,5 @@
 package model.observers;
 
-import model.Controllables.Structures.Structure;
-
 public interface StructureResourceObserver {
 
 	public void updateStructureFood(int food);

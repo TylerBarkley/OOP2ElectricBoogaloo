@@ -2,15 +2,11 @@ package model;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Stats.WorkerStats;
-import model.Controllables.Units.Unit;
+
 import utilities.TechnologyVisitor;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * Created by Trevor on 3/8/2017.
- */
 public class Technology {
 private WorkerStats workerStats;
 private ArrayList<UnitStats> unitStats;

@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 import model.ID;
 import model.Location;
 import model.MapDirection;
-import model.Controllables.Structures.StructureID;
 import utilities.AreaViewportVisitor;
-import utilities.ViewVisitor;
 
 public class AreaViewport extends JPanel
 {

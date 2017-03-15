@@ -11,14 +11,8 @@ import utilities.StructureVisitor;
 import utilities.UnitVisitor;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
-import model.Controllables.Units.Colonist;
-import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
-import model.observers.MenuObserver;
-import model.observers.UnitObserver;
 
 public class StatusViewport extends JPanel implements UnitVisitor, StructureVisitor{
 

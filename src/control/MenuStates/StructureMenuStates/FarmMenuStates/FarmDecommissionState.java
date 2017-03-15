@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.FarmMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class FarmDecommissionState extends FarmMenuState {
     private static FarmDecommissionState instance = new FarmDecommissionState();
     public static FarmDecommissionState getInstance(){return instance;}

@@ -3,28 +3,13 @@ package model;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Units.Ranged;
-import model.Location;
-import model.Map.AOE.AOEDamage;
-import model.Map.Items.HealOneShot;
-import model.Map.Items.RealObstacle;
 import model.Map.Map;
-import model.Map.Tile;
-import model.MovementManager;
 import model.player.Player;
 import model.player.PlayerManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Created by hankerins on 3/10/17.
- */
 public class BFSTest {
     Player p1;
     Player p2;

@@ -1,15 +1,11 @@
 package control;
 
 import model.Controllables.RallyPoint;
-import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class PopUpMenuWindow {
     public static int WorkerMenu(){
         Object[] possibilities = new Object[100];

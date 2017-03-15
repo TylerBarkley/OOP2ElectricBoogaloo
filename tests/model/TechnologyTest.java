@@ -8,10 +8,6 @@ import model.Controllables.Units.*;
 import model.Technology;
 import model.Controllables.Stats.*;
 
-
-/**
- * Created by zrgam_000 on 3/5/2017.
- */
 public class TechnologyTest {
 
    /*WorkerStats workerStats;

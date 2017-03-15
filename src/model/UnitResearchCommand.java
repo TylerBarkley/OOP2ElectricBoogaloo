@@ -1,11 +1,7 @@
 package model;
 
-import model.Controllables.Command;
 import model.Controllables.Units.UnitID;
 
-/**
- * Created by zrgam_000 on 3/14/2017.
- */
 public class UnitResearchCommand implements ResearchCommand {
 
     Technology technology;

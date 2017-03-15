@@ -1,10 +1,6 @@
 package model.Controllables.Stats;
 import java.util.ArrayList;
-import java.lang.Math;
 
-/**
- * Created by Tyler Barkley on 3/9/2017.
- */
 public class ArmyStats {
 
     private int offensiveDamage;

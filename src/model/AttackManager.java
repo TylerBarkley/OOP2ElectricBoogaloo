@@ -1,15 +1,11 @@
 package model;
 
-import model.Controllables.Army;
 import model.Map.Map;
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancyManager;
 
 import java.util.ArrayList;
 
-/**
- * Created by zrgam_000 on 3/10/2017.
- */
 public class AttackManager {
 
     private static AttackManager am;
