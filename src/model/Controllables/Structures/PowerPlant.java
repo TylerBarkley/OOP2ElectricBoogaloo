@@ -39,9 +39,12 @@ public class PowerPlant extends HarvestStructure implements Energizing {
 
     @Override
     public void build() {
-        builtPercentage += powerPlantManager.building();
+        int buildAmount = powerPlantManager.building();
+        builtPercentage += buildAmount;
+        healMe(buildAmount);
         if(builtPercentage > 99){
             setBeingBuilt(false);
+            setCurrentHealth(100);
             unassign();
         }
     }
