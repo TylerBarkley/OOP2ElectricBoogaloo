@@ -267,7 +267,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public void distribute() {
         for (int i = 0; i < battleGroup.size(); i++) {
             if (battleGroup.get(i) != null) {
-                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel && battleGroup.get(i).getNutrientResourceLevel()<=battleGroup.get(i).getUpkeep()) {
+                if (battleGroup.get(i).getUpkeep() < nutrientResourceLevel && battleGroup.get(i).getNutrientResourceLevel()<=battleGroup.get(i).getUpkeep()) {
                     battleGroup.get(i).incrementNutrientResourceLevel(battleGroup.get(i).getUpkeep());
                     nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
                 }
@@ -279,9 +279,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return nutrientResourceLevel;
     }
 
-    public void setNutrientResourceLevel(int nutrientResourceLevel) {
-        this.nutrientResourceLevel = nutrientResourceLevel;
-    }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
         distribute();
