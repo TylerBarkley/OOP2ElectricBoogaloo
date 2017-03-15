@@ -304,6 +304,10 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return id.getPlayerID();
     }
 
+    public int getWorkers(){
+        return this.workers;
+    }
+
     public int removeWorkers(int workers) {
         if(this.workers - workers < 0){
             int prev = this.workers;
