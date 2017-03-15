@@ -15,7 +15,7 @@ public class RPSetState extends RallyPointMenuState{
     public void select(Menu context) {
 
         updateControllable(context);
-        currentRallyPoint.setLocation(context.getFocus());
+        currentRallyPoint.moveRallyPoint(context.getFocus());
 
     }
     public void cycleInstructionL(Menu context){

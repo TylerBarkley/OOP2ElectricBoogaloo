@@ -51,7 +51,13 @@ public class TurnManager {
 
 	public void notifyEndObservers()
 	{
-		for(EndTurnObserver ob: endObservers)
+		ArrayList<EndTurnObserver> tempList = new ArrayList<EndTurnObserver>();
+
+		for(EndTurnObserver end : endObservers){
+			tempList.add(end);
+		}
+
+		for(EndTurnObserver ob: tempList)
 		{
 			ob.endUpdate(this);
 		}
@@ -74,7 +80,13 @@ public class TurnManager {
 
 	public void notifyStartObservers()
 	{
-		for(StartTurnObserver ob: startObservers)
+		ArrayList<StartTurnObserver> tempList = new ArrayList<StartTurnObserver>();
+
+		for(StartTurnObserver end : startObservers){
+			tempList.add(end);
+		}
+
+		for(StartTurnObserver ob: tempList)
 		{
 			ob.startUpdate(this);
 		}

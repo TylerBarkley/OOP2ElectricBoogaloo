@@ -29,9 +29,9 @@ public class Game {
 		Player p2=new Player();
 		
 		
-		p1.addMetal(100);
-		p1.addNutrients(100);
-		p1.addPower(100);
+		p1.addMetal(500);
+		p1.addNutrients(500);
+		p1.addPower(500);
 		p2.addMetal(500);
 		p2.addNutrients(500);
 		p2.addPower(500);
@@ -65,10 +65,10 @@ public class Game {
 		pm.addUnit(p1.getId(), c);
 		map.addUnit(new Location(3,3), c);	
 		
-		Explorer e=new Explorer(new Location(3,0));
+		Colonist c2 =new Colonist(new Location(3,0));
 
-		pm.addUnit(p2.getId(), e);
-		map.addUnit(new Location(3,1), e);
+		pm.addUnit(p2.getId(), c2);
+		map.addUnit(new Location(3,1), c2);
 		
 		
 	}
