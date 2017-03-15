@@ -2,7 +2,6 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
-import model.Controllables.Army;
 import model.Controllables.RallyPoint;
 import model.Controllables.Units.UnitID;
 
