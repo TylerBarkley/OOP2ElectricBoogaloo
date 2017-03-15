@@ -21,4 +21,5 @@ public class AttackCommand implements Command{
     public void execute() {
         attackManager.attack(attacker, location);
     }
+    public String toString() {return "Attack";}
 }
