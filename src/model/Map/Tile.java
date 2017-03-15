@@ -26,7 +26,6 @@ public class Tile {
 	}
 
 	public void accept(TileVisitor tileVisitor){
-		System.out.println("Visiting location");
 		tileVisitor.visit(this);
 	}
 }

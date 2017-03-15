@@ -56,8 +56,8 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		this.menu=menu;
 		this.turn=turn;
 		this.controls=controls;
-		statusViewport=new StatusViewport(width/3,height);
-		areaViewport=new AreaViewport(width*2/3, height);
+		statusViewport=new StatusViewport(350,height);
+		areaViewport=new AreaViewport(width-350, height);
 		areaViewport.setBlankMap(Map.getInstance().getLocations());
 		mainScreen=new MainScreen(width, height, statusViewport, areaViewport);
 		unitOverview=new UnitOverview(width, height);
@@ -252,6 +252,8 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 
 	@Override
 	public void startUpdate(TurnManager turn) {
+		areaViewport.saveToMomento();
+		
 		PlayerID id=turn.getCurrentPlayerID();
 
 		AreaViewportMomento momento = areaMomentos.get(id);
