@@ -21,6 +21,7 @@ public class Fort extends Structure implements Attacker{
         meleeBuildPercentage = 0;
         fortManager = new FortManager();
         setBeingBuilt(true);
+        setCurrentHealth(0);
     }
 
     @Override
@@ -39,9 +40,12 @@ public class Fort extends Structure implements Attacker{
     }
 
     public void build() {
-        builtPercentage += fortManager.building();
+        int builtAmount = fortManager.building();
+        builtPercentage += builtAmount;
+        healMe(builtAmount);
         if(builtPercentage > 99){
             setBeingBuilt(false);
+            setCurrentHealth(100);
             unassign();
         }
     }

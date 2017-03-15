@@ -58,6 +58,7 @@ public class ProductionManager {
             //Need to add Workers
             playerManager.addWorker(playerID, 5);
             newCap.setBeingBuilt(false);
+            newCap.setCurrentHealth(100);
             newCap.addWorker(5);
             newCap.unassign();
         }
