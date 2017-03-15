@@ -11,6 +11,7 @@ public class ResourceManager extends Manager<ResourceLevel> {
     //Basic resource manager to put in the map
 
     public int mineOre(Location loc, int amount){
+        System.out.println(loc.toString());
         return this.get(loc).mineOreLevel(amount);
     }
     public int mineEnergy(Location loc, int amount){

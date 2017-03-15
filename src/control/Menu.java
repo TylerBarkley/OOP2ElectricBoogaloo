@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
 import control.MenuStates.RallyPointMenuStates.RPSetState;
-import control.MenuStates.StructureMenuState;
 import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersMineState;
-import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
@@ -334,5 +332,9 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 	@Override
 	public void update(Player player, RallyPoint rp) {
 		update(player);
+	}
+
+	public PlayerID getPlayerId() {
+		return id;
 	}
 }

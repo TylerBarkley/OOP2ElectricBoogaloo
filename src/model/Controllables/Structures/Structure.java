@@ -31,6 +31,10 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 		md = MapDirection.getNorth();
     	isAlive=true;
 		observers=new ArrayList<StructureObserver>();
+		
+		energyResourceLevel = 3 * this.getUpkeep();
+		metalResourceLevel = 3 * this.getUpkeep();
+		nutrientResourceLevel = 3 * this.getUpkeep();
 	}
 
 	public void addObserver(StructureObserver observer)
@@ -55,10 +59,12 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void addNewWorkers(int n){
         numTotalWorkers += n;
+        notifyObservers();
     }
 
     public void removeOldWorkers(int n){
         numTotalWorkers -= n;
+        notifyObservers();
     }
 
 	public abstract void unassign();
@@ -79,7 +85,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void killMe() {
         isAlive = false;
-
+        notifyObservers();
     }
 
     public StructureID getID() {
@@ -154,13 +160,16 @@ public abstract class Structure implements Controllable, EndTurnObserver {
     public void malnourish() {
         // TODO This is called if there aren't enough resources for upkeep
         if(energyResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            energyResourceLevel=0;
         }
         if(metalResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            metalResourceLevel=0;
         }
         if(nutrientResourceLevel<0){
-            damageMe(1);
+            damageMe(15);
+            nutrientResourceLevel=0;
         }
 
     }
@@ -183,6 +192,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setNumTotalOfWorkers(int numTotalOfWorkers) {
         this.numTotalWorkers = numTotalOfWorkers;
+        notifyObservers();
     }
 
     public Boolean getBeingBuilt() {
@@ -191,6 +201,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setBeingBuilt(Boolean beingBuilt) {
         this.beingBuilt = beingBuilt;
+        notifyObservers();
     }
 
     public void distribute(){
@@ -204,6 +215,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setEnergyResourceLevel(int energyResourceLevel) {
         this.energyResourceLevel = energyResourceLevel;
+        notifyObservers();
     }
 
     public int getMetalResourceLevel() {
@@ -212,6 +224,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setMetalResourceLevel(int metalResourceLevel) {
         this.metalResourceLevel = metalResourceLevel;
+        notifyObservers();
     }
 
     public int getNutrientResourceLevel() {
@@ -220,15 +233,19 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setNutrientResourceLevel(int nutrientResourceLevel) {
         this.nutrientResourceLevel = nutrientResourceLevel;
+        notifyObservers();
     }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
+        notifyObservers();
     }
     public void incrementEnergyResourceLevel(int increment){
         energyResourceLevel+=increment;
+        notifyObservers();
     }
     public void incrementMetalResourceLevel(int increment){
         metalResourceLevel+=increment;
+        notifyObservers();
     }
 
     public void setCurrentHealth(int currentHealth) {
@@ -239,6 +256,11 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     @Override
     public void endUpdate(TurnManager turn) {
+
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         doWork(); distribute(); malnourish();
     }
 }

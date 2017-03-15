@@ -61,6 +61,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		unitOverview=new UnitOverview(width, height);
 		unitOverview.addObserver(this);
 		structureOverview=new StructureOverview(width, height);
+		structureOverview.addObserver(this);
 		configurationOverview=new ConfigurationOverview(controls, width, height);
 		techViewport=new TechnologyViewport(width, height);
 
@@ -135,7 +136,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 	public void update(Player player) {
 		if(player.getId().equals(turn.getCurrentPlayerID())){
 			unitOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
-			System.out.println("Player's resources updated :>");
+			structureOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
 		}
 	}
 
@@ -188,7 +189,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 	public void update(Player player, RallyPoint rp) {
 		update(player);
 
-		if(rp.isActive())
+		if(!rp.isActive())
 		{
 			rp.removeObserver(this);
 		}
@@ -295,6 +296,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		}
 		
 		unitOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
+		structureOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
 		updateView();
 	}
 
@@ -326,7 +328,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		PlayerManager pm = PlayerManager.getInstance();
 		Structure structure = (Structure) menu.getCurrentInstance();
 
-		pm.distributeNutrients(structure.getPlayerID(), structure, power);
+		pm.distributePower(structure.getPlayerID(), structure, power);
 	}
 
 	@Override

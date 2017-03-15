@@ -38,6 +38,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		md = MapDirection.getNorth();
 		isAlive=true;
 		powerState = POWERUP;
+		
+		nutrientResourceLevel = 3 * this.getUpkeep();
 	}
 
 	protected Unit(Location loc){
@@ -171,7 +173,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
 		if(nutrientResourceLevel<0){
-			damageMe(1);
+			damageMe(15);
+			nutrientResourceLevel = 0;
 		}
 
 	}
@@ -241,11 +244,17 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	}
 	@Override
 	public void endUpdate(TurnManager turn) {
-
+		if(turn.getCurrentPlayerID() != this.getPlayerID()){
+			return;
+		}
 	}
 
 	@Override
 	public void startUpdate(TurnManager turn) {
+
+		if(turn.getCurrentPlayerID() != this.getPlayerID()){
+			return;
+		}
 
 		distribute();
 		malnourish();

@@ -1,18 +1,13 @@
 package model.player;
 
-import com.sun.org.glassfish.external.statistics.Stats;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Structures.StructureID;
-import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
 
 import java.util.ArrayList;
 
-/**
- * Created by zrgam_000 on 3/11/2017.
- */
 public class PlayerStats {
 
     ArrayList<UnitStats> myUnitStats;

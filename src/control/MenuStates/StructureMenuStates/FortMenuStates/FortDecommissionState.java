@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.FortMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class FortDecommissionState extends FortMenuState{
     private static FortDecommissionState instance = new FortDecommissionState();
     public static FortDecommissionState getInstance(){return instance;}

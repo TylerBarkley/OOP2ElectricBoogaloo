@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.PowerPlantMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class PowerPlantDecommissionState extends PowerPlantMenuState {
     private static PowerPlantDecommissionState instance = new PowerPlantDecommissionState();
     public static PowerPlantDecommissionState getInstance(){return instance;}

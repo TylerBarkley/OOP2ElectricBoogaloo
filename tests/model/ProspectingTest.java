@@ -2,7 +2,6 @@ package model;
 
 import model.Controllables.RallyPoint;
 import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
 import model.Map.Map;
 import model.player.Player;
 import model.player.PlayerManager;
@@ -11,9 +10,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by zrgam_000 on 3/14/2017.
- */
 public class ProspectingTest {
 
     Player p1;

@@ -59,6 +59,7 @@ public class ProductionManager {
             playerManager.addWorker(playerID, 5);
             newCap.setBeingBuilt(false);
             newCap.addWorker(5);
+            newCap.unassign();
         }
 
         martyr.killMe();

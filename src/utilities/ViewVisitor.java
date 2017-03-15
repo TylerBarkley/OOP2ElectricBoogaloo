@@ -4,6 +4,8 @@ import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
 import model.Map.Map;
 import model.Map.Tile;
+import model.Map.Items.ObstacleItem;
+import model.Map.Items.OneShotItem;
 import model.Map.Occupancy.StructureOccupancy;
 import model.Map.Occupancy.StructureOccupancyManager;
 import model.Map.Occupancy.UnitOccupancy;
@@ -13,7 +15,6 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
-import model.Technology;
 import model.player.PlayerID;
 import view.AreaViewport;
 import view.CompositeView;
@@ -31,7 +32,7 @@ import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
 
-public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor, TechnologyVisitor {
+public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, AreaViewportVisitor, RPVisitor {
 
 	private PlayerID playerID;
 	private ArrayList<Location> visibleLocations;
@@ -41,7 +42,9 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 	private ArrayList<Structure> structures;
 	private ArrayList<RallyPoint> rallys;
 	private ArrayList<Location> locationsToReset;
-
+	private HashMap<Location, ObstacleItem> obstacles;
+	private HashMap<Location, OneShotItem> oneShots;
+	
 	public ViewVisitor(PlayerID playerID){
 		this.playerID=playerID;
 		visibleLocations=new ArrayList<Location>();
@@ -51,6 +54,8 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		structures=new ArrayList<Structure>();
 		rallys=new ArrayList<RallyPoint>();
 		locationsToReset=new ArrayList<Location>();
+		obstacles=new HashMap<Location, ObstacleItem>();
+		oneShots=new HashMap<Location, OneShotItem>();
 	}
 
 	@Override
@@ -96,6 +101,16 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			{
 				structures.add(sOcc.getOccupant());
 			}
+			
+			ObstacleItem obstacle=map.getObstacleAt(loc);
+			if(obstacle!=null){
+				obstacles.put(loc, obstacle);
+			}
+			
+			OneShotItem oneShot=map.getOneShotAt(loc);
+			if(oneShot!=null){
+				oneShots.put(loc, oneShot);
+			}
 		}
 		
 		locationsToReset.addAll(visibleLocations);
@@ -129,21 +144,19 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 			rallys.add(rp);
 		}
 	}
-	@Override
-	public void visit(Technology technology){
-
-	}
 	
 	public void visit(AreaViewport viewport)
 	{
 		ViewFactory factory = ViewFactory.getFactory();
 
 		clearVisibleLocations(viewport);
+		
 		addTerrainsToView(viewport,factory);
 		addResourcesToView(viewport,factory);
 		addStructuresToView(viewport, factory);
 		addUnitsToView(viewport, factory);
 		addRallypointsToView(viewport, factory);
+		addItemsToView(viewport, factory);
 	}
 
 	private void clearVisibleLocations(AreaViewport viewport) {
@@ -294,5 +307,17 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 		}
 		
 		rallys.clear();
+	}
+	
+	private void addItemsToView(AreaViewport viewport, ViewFactory factory) {
+		for(Entry<Location, ObstacleItem> o: obstacles.entrySet()){
+			View view = factory.getView(o.getValue().getID(), "Obstacle", o.getKey());
+			viewport.addView(view);
+		}
+		
+		for(Entry<Location, OneShotItem> o: oneShots.entrySet()){
+			View view = factory.getView(o.getValue().getID(), "HealthItem", o.getKey());
+			viewport.addView(view);
+		}
 	}
 }

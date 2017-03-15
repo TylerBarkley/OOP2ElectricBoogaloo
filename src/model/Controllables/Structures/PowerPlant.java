@@ -69,4 +69,5 @@ public class PowerPlant extends HarvestStructure implements Energizing {
         removeOldWorkers(number);
         powerPlantManager.removeUnassigned(number);
     }
+    public String toString(){return "PowerPlant";}
 }

@@ -34,7 +34,10 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
     private MovementManager movementManager;
 
     private Army myArmy;
+
+
     private ArrayList<Unit> reinforcements;
+
     private Queue<Unit> waitingForArmy;
 
     private HashMap<Location, Location> path;
@@ -245,6 +248,13 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
         return id.getPlayerID();
     }
 
+    public ArrayList<Unit> getReinforcements() {
+        return reinforcements;
+    }
+    public Queue<Unit> getWaitingForArmy() {
+        return waitingForArmy;
+    }
+
     @Override
     public void update(Unit unit) {
         if(!unit.isAlive()){
@@ -256,11 +266,19 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
 
     @Override
     public void endUpdate(TurnManager turn) {
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         this.doTurn();
     }
 
     @Override
     public void startUpdate(TurnManager turn) {
-        this.startTurn();
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
+	    this.startTurn();
     }
 }

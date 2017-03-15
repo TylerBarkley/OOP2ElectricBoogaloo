@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.ObservationTowerMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.UniversityMenuStates.ResearchTechnologyState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class OTDecommissionState extends ObservationTowerMenuState {
     private static OTDecommissionState instance = new OTDecommissionState();
     public static OTDecommissionState getInstance(){return instance;}

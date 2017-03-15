@@ -1,15 +1,11 @@
 package model.Controllables.Structures;
 import model.Attacker;
-import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import java.util.ArrayList;
 import model.ProductionManager;
 
-/**
- * Created by Tyler Barkley on 3/1/2017.
- */
 public class Fort extends Structure implements Attacker{
 
     private FortManager fortManager;
@@ -154,4 +150,5 @@ public class Fort extends Structure implements Attacker{
     public int getAttackRange(){
         return this.getMyStats().getInfluenceRadius();
     }
+    public String toString(){return "Fort";}
 }

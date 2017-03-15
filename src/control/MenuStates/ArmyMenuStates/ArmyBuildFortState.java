@@ -2,7 +2,6 @@ package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
-import model.BuildFarmCommand;
 import model.BuildFortCommand;
 
 /**

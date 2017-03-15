@@ -7,15 +7,11 @@ import model.Controllables.Units.Unit;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class PopUpMenuWindow {
     public static int WorkerMenu(){
-        Object[] possibilities = new Object[100];
-        for(int i = 0; i < 100; i++){
-            int x = i+1;
-            possibilities[i] = ("" + x) ;
+        Object[] possibilities = new Object[101];
+        for(int i = 0; i <= 100; i++){
+            possibilities[i] = ("" + i) ;
         }
         try {
             String result = (String)JOptionPane.showInputDialog(null,
@@ -57,7 +53,27 @@ public class PopUpMenuWindow {
                     JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
 
             int count = Integer.parseInt(result);
+            System.out.println("Unit menu selects: " + battleGroup.get((count-1)).toString());
             return battleGroup.get(count - 1);
+        } catch (Exception e){
+            System.out.println("Unit PopUp Menu exception");
+            return null;
+        }
+
+    }
+    public static Structure StructureMenu(ArrayList<Structure> structures){
+        Object[] possibilities = new Object[structures.size()];
+        for(int i = 0; i < structures.size(); i++){
+            int x = i + 1;
+            possibilities[i] = (x + ". " + structures.get(i).toString()) ;
+        }
+        try{
+            String result = (String)JOptionPane.showInputDialog(null,
+                    "Which Structure? ", "Structure Menu",
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+            int count = Integer.parseInt(result);
+            return structures.get(count - 1);
         } catch (Exception e){
             return null;
         }

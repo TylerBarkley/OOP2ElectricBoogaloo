@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.MineMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class MineDecommissionState extends MineMenuState {
     private static MineDecommissionState instance = new MineDecommissionState();
     public static MineDecommissionState getInstance(){return instance;}

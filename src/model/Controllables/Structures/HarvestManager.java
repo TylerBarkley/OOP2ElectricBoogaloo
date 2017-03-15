@@ -2,6 +2,7 @@ package model.Controllables.Structures;
 
 import model.Controllables.Stats.WorkerStats;
 import model.Location;
+import model.Map.Map;
 import model.Map.Resources.ResourceManager;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public abstract class HarvestManager extends WorkerManager{
 
     public HarvestManager(){
         workerStats = new WorkerStats();
-        resourceManager = new ResourceManager();
+        resourceManager = Map.getInstance().getResourceManager();
     }
 
     public int building() {

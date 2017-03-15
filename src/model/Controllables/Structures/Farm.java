@@ -77,4 +77,5 @@ public class Farm extends HarvestStructure implements Farming{
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
     }
+    public String toString(){return "Farm";}
 }

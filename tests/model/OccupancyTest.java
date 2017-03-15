@@ -3,16 +3,12 @@ package model;
 import static org.junit.Assert.*;
 
 import model.Controllables.Structures.*;
-import model.Controllables.Structures.Structure;
 import model.Map.Occupancy.*;
 import model.player.Player;
 import org.junit.Before;
 import org.junit.Test;
 import model.Controllables.Units.*;
 
-/**
- * Created by zrgam_000 on 3/8/2017.
- */
 public class OccupancyTest
 {
     Player p1;

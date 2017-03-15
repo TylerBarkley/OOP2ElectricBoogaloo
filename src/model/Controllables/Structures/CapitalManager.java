@@ -2,6 +2,7 @@ package model.Controllables.Structures;
 
 import model.Controllables.Stats.WorkerStats;
 import model.Location;
+import model.Map.Map;
 import model.Map.Resources.ResourceManager;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class CapitalManager extends WorkerManager{
 
     public CapitalManager(){
         workerStats = new WorkerStats();
-        resourceManager = new ResourceManager();
+        resourceManager = Map.getInstance().getResourceManager();
     }
 
     public void assignWorkersMine(Location loc, int assignNum, Location myLoc){
@@ -188,6 +189,7 @@ public class CapitalManager extends WorkerManager{
         harvestingFoodLocation = myLoc;
         harvestingEnergyLocation = myLoc;
         harvestingOreLocation = myLoc;
+        System.out.println(myLoc);
         resourceManager.setWorking(harvestingFoodLocation, false);
         resourceManager.setWorking(harvestingEnergyLocation, false);
         resourceManager.setWorking(harvestingOreLocation, false);

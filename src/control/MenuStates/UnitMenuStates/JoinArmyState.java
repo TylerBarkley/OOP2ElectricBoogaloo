@@ -1,15 +1,13 @@
 package control.MenuStates.UnitMenuStates;
 
+import java.util.ArrayList;
+
 import control.Menu;
 import control.MenuStates.UnitMenuState;
 import control.PopUpMenuWindow;
 import model.Controllables.RallyPoint;
-import model.Controllables.Units.Colonist;
 import model.Controllables.Units.UnitID;
 
-/**
- * Created by hankerins on 3/8/17.
- */
 public class JoinArmyState extends UnitMenuState {
 
     private static JoinArmyState instance = new JoinArmyState();
@@ -20,12 +18,27 @@ public class JoinArmyState extends UnitMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        try{
-            RallyPoint rp = PopUpMenuWindow.RallyPointMenu(context.getControllableCollection().getRallyPoints());
-            rp.reinforce(currentUnit);
-        }
-        catch (Exception e){}
 
+        boolean alreadyInArmy = false;
+        ArrayList<RallyPoint> rallyPoints = context.getControllableCollection().getRallyPoints();
+        for(RallyPoint rp: rallyPoints){
+            if(rp.getReinforcements().contains(currentUnit)){
+                alreadyInArmy = true;
+            }
+            if(rp.getWaitingForArmy().contains(currentUnit)){
+                alreadyInArmy = true;
+            }
+            if(rp.getArmy().getBattleGroup().contains(currentUnit)){
+                alreadyInArmy = true;
+            }
+        }
+        if(!alreadyInArmy){
+            try{
+                RallyPoint rp = PopUpMenuWindow.RallyPointMenu(context.getControllableCollection().getRallyPoints());
+                rp.reinforce(currentUnit);
+            }
+            catch (Exception e){}
+        }
     }
 
     public void cycleInstructionL(Menu context){

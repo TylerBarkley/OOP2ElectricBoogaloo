@@ -1,6 +1,4 @@
 package model.Controllables.Units;
-import model.Controllables.Structures.Farm;
-import model.Controllables.Structures.FarmManager;
 import model.Controllables.Structures.Mine;
 import model.Controllables.Structures.MineManager;
 import model.Location;
@@ -16,9 +14,6 @@ import static org.junit.Assert.*;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.WorkerStats;
 
-/**
- * Created by Tyler Barkley on 3/12/2017.
- */
 public class MineManagerTest {
     Player p1;
 

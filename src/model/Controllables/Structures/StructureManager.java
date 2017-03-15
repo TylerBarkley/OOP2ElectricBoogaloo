@@ -1,12 +1,8 @@
 
 package model.Controllables.Structures;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import model.Controllables.ControllableID;
-import model.Controllables.Units.Unit;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Ore;
 import model.observers.StructureObserver;

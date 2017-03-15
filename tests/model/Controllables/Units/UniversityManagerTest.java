@@ -2,16 +2,11 @@ package model.Controllables.Units;
 import static org.junit.Assert.*;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.WorkerStats;
-import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.CapitalManager;
 import model.Controllables.Structures.University;
 import model.Controllables.Structures.UniversityManager;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by Tyler Barkley on 3/12/2017.
- */
 public class UniversityManagerTest {
 
 

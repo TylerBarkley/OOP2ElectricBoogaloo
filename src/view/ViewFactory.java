@@ -48,6 +48,9 @@ public class ViewFactory {
 	
 	private BufferedImage rallyPoint;
 	
+	private BufferedImage healthItem;
+	private BufferedImage obstacle;
+	
 	private BufferedImage unknown;
 	private BufferedImage invisible;
 	
@@ -90,6 +93,9 @@ public class ViewFactory {
 			ore=ImageIO.read(getClass().getResource("/Ore.png"));
 			
 			rallyPoint=ImageIO.read(getClass().getResource("/Rallypoint.png"));
+			
+			healthItem=ImageIO.read(getClass().getResource("/HealthItem.png"));
+			obstacle=ImageIO.read(getClass().getResource("/Obstacle.png"));
 			
 			unknown=ImageIO.read(getClass().getResource("/Unknown.png"));
 			invisible=ImageIO.read(getClass().getResource("/Invisible.png"));
@@ -173,6 +179,11 @@ public class ViewFactory {
 			
 		case "RallyPoint":
 			return new RPView(id, rallyPoint, loc);
+			
+		case "HealthItem":
+			return new ImageView(id, healthItem, loc);
+		case "Obstacle":
+			return new ImageView(id, obstacle, loc);
 			
 		case "Invisible":
 			return new ImageView(id, invisible, loc, rotation);

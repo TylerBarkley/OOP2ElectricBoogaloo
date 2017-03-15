@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import model.ID;
 import model.Location;
-import model.Controllables.Units.UnitID;
 
 public class UnitView extends ImageView {
 

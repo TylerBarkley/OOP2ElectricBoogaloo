@@ -1,33 +1,42 @@
-package control.MenuStates.StructureMenuStates.FarmMenuStates;
+package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
+import control.PopUpMenuWindow;
 
-public class FarmDecommissionState extends FarmMenuState {
-    private static FarmDecommissionState instance = new FarmDecommissionState();
-    public static FarmDecommissionState getInstance(){return instance;}
-    private FarmDecommissionState(){}
+/**
+ * Created by hankerins on 3/15/17.
+ */
+public class CapitalUnassignAllState extends CapitalMenuState {
+    private static CapitalUnassignAllState instance = new CapitalUnassignAllState();
+    public static CapitalUnassignAllState getInstance(){return instance;}
+    private CapitalUnassignAllState(){}
 
     @Override
     public void select(Menu context) {
+
         updateControllable(context);
-        //TODO: decommission
+        currentStructure.unassign();
+
     }
+
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = FarmAssignWorkersFarmState.getInstance();
+        StructureMenuState nextState = CapitalProduceExplorerState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = FarmAssignWorkersFarmState.getInstance();
+
+        StructureMenuState nextState = CapitalDecommissionState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Decommission";
+        return "Unassign All Workers";
     }
+
 }

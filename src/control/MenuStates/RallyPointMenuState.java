@@ -1,13 +1,9 @@
 package control.MenuStates;
 
 import control.Menu;
-import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
 import model.Controllables.RallyPoint;
 
-/**
- * Created by hankerins on 3/5/17.
- */
 public abstract class RallyPointMenuState implements MenuState {
     protected int currentInstance = 0, currentType = ControllableCollection.RPTYPE;
     protected RallyPoint currentRallyPoint;

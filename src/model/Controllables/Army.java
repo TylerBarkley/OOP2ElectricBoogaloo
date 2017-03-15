@@ -327,11 +327,21 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
     @Override
     public void endUpdate(TurnManager turn) {
+
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         this.doTurn();
     }
 
     @Override
     public void startUpdate(TurnManager turn) {
+
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         this.startTurn();
     }
 
@@ -369,7 +379,13 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
             u.powerActive();
         }
     }
+
+    public void setCanMove(boolean b){
+        canMove = b;
+    }
+
     public int getAttackRange(){
         return armyStats.getMovement();
     }
+    public RallyPoint getRallyPoint(){return myRP;}
 }
