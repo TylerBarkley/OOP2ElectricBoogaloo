@@ -11,14 +11,8 @@ import utilities.StructureVisitor;
 import utilities.UnitVisitor;
 import model.Controllables.Structures.Structure;
 import model.Controllables.Structures.StructureID;
-import model.Controllables.Units.Colonist;
-import model.Controllables.Units.Explorer;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.UnitID;
-import model.observers.MenuObserver;
-import model.observers.UnitObserver;
 
 public class StatusViewport extends JPanel implements UnitVisitor, StructureVisitor{
 
@@ -160,7 +154,11 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 		String structureStats = type + " " + instance + "\n" 
 				+ "Health: " + structure.getCurrentHealth() + "\n"
 				+ "Production Rate: " + structure.getMyStats().getProductionRate() + "\n"
-				+ "Upkeep: " + structure.getMyStats().getUpkeep();
+				+ "Upkeep: " + structure.getMyStats().getUpkeep() 
+				+ "\nEnergy Stored: " + structure.getEnergyResourceLevel() 
+				+ "\nMetal Stored: " + structure.getMetalResourceLevel() 
+				+ "\nFood Stored: " + structure.getNutrientResourceLevel()
+				+ "\nTotal Workers: " + structure.getNumTotalOfWorkers();
 
 		String areaText = structureArea.getText();
 		int index = areaText.indexOf(type + " " + instance);

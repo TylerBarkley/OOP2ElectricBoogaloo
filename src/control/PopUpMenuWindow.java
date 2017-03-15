@@ -1,21 +1,16 @@
 package control;
 
 import model.Controllables.RallyPoint;
-import model.Controllables.Structures.Structure;
 import model.Controllables.Units.Unit;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class PopUpMenuWindow {
     public static int WorkerMenu(){
-        Object[] possibilities = new Object[100];
-        for(int i = 0; i < 100; i++){
-            int x = i+1;
-            possibilities[i] = ("" + x) ;
+        Object[] possibilities = new Object[101];
+        for(int i = 0; i <= 100; i++){
+            possibilities[i] = ("" + i) ;
         }
         try {
             String result = (String)JOptionPane.showInputDialog(null,

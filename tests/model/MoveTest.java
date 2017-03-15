@@ -8,7 +8,6 @@ import org.junit.After;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Units.Ranged;
-import model.Controllables.Units.Unit;
 import model.Map.AOE.AOEDamage;
 import model.Map.Items.HealOneShot;
 import model.Map.Items.RealObstacle;
@@ -18,9 +17,6 @@ import model.player.PlayerManager;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by zrgam_000 on 3/8/2017.
- */
 public class MoveTest {
 
     Player p1;

@@ -10,17 +10,7 @@ import javax.swing.*;
 
 import control.Menu;
 import model.Controllables.Stats.StructureStats;
-import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.Farm;
-import model.Controllables.Structures.Fort;
-import model.Controllables.Structures.Mine;
-import model.Controllables.Structures.ObservationTower;
-import model.Controllables.Structures.PowerPlant;
 import model.Controllables.Structures.Structure;
-import model.Controllables.Structures.StructureID;
-import model.Controllables.Structures.University;
-import model.observers.MenuObserver;
-import model.observers.StructureObserver;
 import model.observers.StructureResourceObserver;
 import utilities.StructureVisitor;
 

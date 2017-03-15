@@ -15,7 +15,6 @@ import model.Map.Terrain.Ground;
 import model.Map.Terrain.Mountain;
 import model.Map.Terrain.Terrain;
 import model.Map.Terrain.Water;
-import model.Technology;
 import model.player.PlayerID;
 import view.AreaViewport;
 import view.CompositeView;

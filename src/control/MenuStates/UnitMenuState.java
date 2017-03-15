@@ -1,24 +1,10 @@
 package control.MenuStates;
 
 import control.Menu;
-import control.MenuStates.UnitMenuStates.*;
-import model.Controllables.Army;
-import model.Controllables.Controllable;
+
 import model.Controllables.ControllableCollection;
 import model.Controllables.Units.Unit;
 
-import java.util.ArrayList;
-
-/**
- * Created by hankerins on 3/5/17.
- *
- *MAKEARMY
- * JOINARMY
- * BUILDCAPITAL
- * STANDBY
- * POWERDOWN
- * POWERUP
- */
 public abstract class UnitMenuState implements MenuState{
 
     protected int currentInstance = 0, currentType = ControllableCollection.COLONISTTYPE;

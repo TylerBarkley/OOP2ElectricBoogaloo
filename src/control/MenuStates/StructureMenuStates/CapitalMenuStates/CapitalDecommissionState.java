@@ -2,11 +2,7 @@ package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
-/**
- * Created by hankerins on 3/14/17.
- */
 public class CapitalDecommissionState extends CapitalMenuState {
     private static CapitalDecommissionState instance = new CapitalDecommissionState();
     public static CapitalDecommissionState getInstance(){return instance;}

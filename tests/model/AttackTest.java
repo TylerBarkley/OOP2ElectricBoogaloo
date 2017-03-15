@@ -2,8 +2,6 @@ package model;
 
 import model.Controllables.Army;
 import model.Controllables.RallyPoint;
-import model.Controllables.Stats.StructureStats;
-import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Structures.Fort;
 import model.Controllables.Units.Ranged;

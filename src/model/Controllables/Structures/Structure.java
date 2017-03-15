@@ -55,6 +55,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void addNewWorkers(int n){
         numTotalWorkers += n;
+        notifyObservers();
     }
 
     public void removeOldWorkers(int n){
@@ -183,6 +184,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setNumTotalOfWorkers(int numTotalOfWorkers) {
         this.numTotalWorkers = numTotalOfWorkers;
+        notifyObservers();
     }
 
     public Boolean getBeingBuilt() {
@@ -191,6 +193,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setBeingBuilt(Boolean beingBuilt) {
         this.beingBuilt = beingBuilt;
+        notifyObservers();
     }
 
     public void distribute(){
@@ -204,6 +207,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setEnergyResourceLevel(int energyResourceLevel) {
         this.energyResourceLevel = energyResourceLevel;
+        notifyObservers();
     }
 
     public int getMetalResourceLevel() {
@@ -212,6 +216,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setMetalResourceLevel(int metalResourceLevel) {
         this.metalResourceLevel = metalResourceLevel;
+        notifyObservers();
     }
 
     public int getNutrientResourceLevel() {
@@ -220,15 +225,19 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setNutrientResourceLevel(int nutrientResourceLevel) {
         this.nutrientResourceLevel = nutrientResourceLevel;
+        notifyObservers();
     }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
+        notifyObservers();
     }
     public void incrementEnergyResourceLevel(int increment){
         energyResourceLevel+=increment;
+        notifyObservers();
     }
     public void incrementMetalResourceLevel(int increment){
         metalResourceLevel+=increment;
+        notifyObservers();
     }
 
     public void setCurrentHealth(int currentHealth) {

@@ -29,6 +29,9 @@ public class ForRealsiesGameTest {
 
     @Before
     public void TestSetup(){
+        TurnManager.reset();
+        PlayerManager.reset();
+        
         p1 = new Player();
         p2 = new Player();
 
@@ -51,10 +54,8 @@ public class ForRealsiesGameTest {
 
     @Test
     public void GameTest(){
-        Map.reset();
-        Map.setMoveDebug();
         Map.getInstance().addUnit(new Location(-1, 1), colonist);
-
+        
         ArrayList<Player> players = new ArrayList<Player>();
         players.add(p1);
         players.add(p2);//not lonely anymore bois

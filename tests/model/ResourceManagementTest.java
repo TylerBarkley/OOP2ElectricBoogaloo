@@ -1,21 +1,11 @@
 package model;
 
-import static org.junit.Assert.*;
-
 import model.Controllables.Army;
-import model.Controllables.RallyPoint;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Structures.Capital;
-import model.Controllables.Structures.CapitalManager;
 import model.Controllables.Units.Melee;
 import model.player.Player;
-import org.junit.Before;
-import org.junit.Test;
 
-
-/**
- * Created by zrgam_000 on 3/5/2017.
- */
 public class ResourceManagementTest {
 
    WorkerStats workerStats;

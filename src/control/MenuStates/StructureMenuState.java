@@ -2,20 +2,14 @@ package control.MenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersFarmState;
-import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalProduceExplorerState;
 import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
 import control.MenuStates.StructureMenuStates.FortMenuStates.ProduceMeleeState;
 import control.MenuStates.StructureMenuStates.MineMenuStates.MineAssignWorkersMineState;
 import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 import control.MenuStates.StructureMenuStates.PowerPlantMenuStates.PPAssignWorkersPowerHarvestState;
 import control.MenuStates.StructureMenuStates.UniversityMenuStates.ResearchTechnologyState;
-import model.Controllables.Army;
 import model.Controllables.ControllableCollection;
-import model.Controllables.Structures.Structure;
 
-/**
- * Created by hankerins on 3/5/17.
- */
 public abstract class StructureMenuState implements MenuState {
 
     protected int currentInstance = 0, currentType = ControllableCollection.CAPITALTYPE ;

@@ -11,7 +11,6 @@ import control.KeyReader;
 import control.UserControls;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class ConfigurationOverview extends JPanel

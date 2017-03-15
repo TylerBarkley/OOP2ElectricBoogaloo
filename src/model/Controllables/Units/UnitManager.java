@@ -2,7 +2,6 @@ package model.Controllables.Units;
 
 import java.util.ArrayList;
 
-import model.Controllables.ControllableID;
 import model.Map.Resources.Food;
 import model.observers.UnitObserver;
 import model.player.PlayerID;

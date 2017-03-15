@@ -59,7 +59,7 @@ public class WorkerAdvancements {
     }
 
     public void incrementEnergyProduction() {
-        this.energyProduction=energyProduction=Math.min(maxEnergyProductionLevel,this.energyProduction += energyProductionIncrement);
+        this.energyProduction=Math.min(maxEnergyProductionLevel,this.energyProduction += energyProductionIncrement);
     }
 
     public int getTechnologyProduction() {

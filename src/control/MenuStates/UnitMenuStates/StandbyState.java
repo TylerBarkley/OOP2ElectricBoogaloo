@@ -2,12 +2,8 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
-import model.Controllables.Units.Colonist;
 import model.Controllables.Units.UnitID;
 
-/**
- * Created by hankerins on 3/8/17.
- */
 public class StandbyState extends UnitMenuState {
     private static StandbyState instance = new StandbyState();
     public static StandbyState getInstance(){return instance;}
