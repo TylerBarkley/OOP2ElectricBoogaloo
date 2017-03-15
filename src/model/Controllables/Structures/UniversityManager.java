@@ -12,6 +12,7 @@ public class UniversityManager extends WorkerManager{
     private int numOfWorkers_Unassigned;
     private int numOfWorkers_HarvestingTechnology;
     private int numOfWorkers_Building;
+    //private technology
 
     public UniversityManager(){
         workerStats = new WorkerStats();

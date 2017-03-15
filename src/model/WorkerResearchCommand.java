@@ -8,7 +8,7 @@ public class WorkerResearchCommand implements ResearchCommand {
     Technology technology;
     int stat;
 
-    public WorkerResearchCommand(Technology technology, int type, int stat){
+    public WorkerResearchCommand(Technology technology,int type, int stat){
         this.technology = technology;
         this.stat = stat;
     }
