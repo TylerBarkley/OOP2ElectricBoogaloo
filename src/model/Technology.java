@@ -4,6 +4,7 @@ import model.Controllables.Stats.UnitStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Structures.University;
 import model.Controllables.Units.Unit;
+import model.observers.TechnologyObserver;
 import utilities.TechnologyVisitor;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ private ArrayList<UnitAdvancements> unitAdvancements;
 private ArrayList<StructureAdvancements> structureAdvancements;
 private WorkerAdvancements workerAdvancements;
 private ArrayList<ResearchCommand> researchCommands;
+private ArrayList<TechnologyObserver> observers;
 
    public static final int OffensiveDamage=0;
    public static final int DefensiveDamage=1;
@@ -49,6 +51,8 @@ public Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> stru
         structureAdvancements.add(new StructureAdvancements());
     }
     workerAdvancements=new WorkerAdvancements();
+    
+    observers = new ArrayList<TechnologyObserver>();
 
 }
 
@@ -84,6 +88,7 @@ public boolean editUnitStats(int unitType,int statToBeModified){
                 unitAdvancements.get(unitType).incrementMovement();
                 break;
         }
+        	notifyObservers();
         	return true;
     }
 
@@ -119,6 +124,7 @@ public boolean editUnitStats(int unitType,int statToBeModified){
                structureAdvancements.get(structureType).incrementProductionRate();
                 break;
             }
+        notifyObservers();
         return true;
 }
 public boolean editWorkerStats(int statToBeModified) {
@@ -166,6 +172,7 @@ public boolean editWorkerStats(int statToBeModified) {
             workerAdvancements.incrementWorkerDensity();
             break;
     }
+    notifyObservers();
     return true;
 }
     public int getCurrentStructureAdvancements(int structureType, int statToBeSearched){
@@ -441,5 +448,18 @@ public boolean editWorkerStats(int statToBeModified) {
     public void createWorkerResearchCommandFor(University university,int statToBeModified){
         university.assignResearch(new WorkerResearchCommand(this,0,statToBeModified));
     }
+    
+    public void addObserver(TechnologyObserver obs) {
+    	observers.add(obs);
+    }
 
+    public void removeObserver(TechnologyObserver obs) {
+    	observers.remove(obs);
+    }
+    
+    public void notifyObservers() {
+    	for(TechnologyObserver obs: observers) {
+    		obs.udpate(this);
+    	}
+    }
 }

@@ -158,7 +158,7 @@ public class PlayerManager {
 
 	public void distributeNutrients(PlayerID id,Unit unit,int amount){players.get(id).distributeNutrients(unit,amount);}
 
-	public Technology getTechnology(Player id){return players.get(id).getTech();}
+	public Technology getTechnology(PlayerID id){return players.get(id).getTech();}
 
 	//public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
 	//public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}

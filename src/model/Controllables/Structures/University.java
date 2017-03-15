@@ -1,5 +1,8 @@
 package model.Controllables.Structures;
+import java.util.ArrayList;
+
 import model.Controllables.Stats.WorkerStats;
+import model.observers.UniversityObserver;
 import model.ResearchCommand;
 
 /**
@@ -13,7 +16,7 @@ public class University extends Structure {
     private String assignedTech;
     private ResearchCommand myResearch;
     private boolean isAssigned;
-    
+    private ArrayList<UniversityObserver> universityObservers;
     
     public University(){
         builtPercentage = 0;
@@ -21,6 +24,7 @@ public class University extends Structure {
         setBeingBuilt(true);
         techPercentage = 0;
         isAssigned = false;
+        universityObservers = new ArrayList<UniversityObserver>();
     }
 
     @Override
@@ -89,6 +93,7 @@ public class University extends Structure {
     public void unassignResearch(){
     	myResearch=null;
     	isAssigned = false;
+    	notifyUnivsersityObservers();
     }
     
     public String getResearchName(){return myResearch.getResearch();}
@@ -122,5 +127,21 @@ public class University extends Structure {
     }
 
     public String toString(){return "University";}
+    
+    public boolean addUniversityObserver(UniversityObserver obs) {
+    	if(universityObservers.indexOf(obs) >= 0) return false;
+    	universityObservers.add(obs);
+    	return true;
+    }
+    
+    public void removeUniversityObserver(UniversityObserver obs) {
+    	universityObservers.remove(obs);
+    }
+    
+    public void notifyUnivsersityObservers() {
+    	for(UniversityObserver obs: universityObservers) {
+    		obs.update(this);
+    	}
+    }
 
 }
