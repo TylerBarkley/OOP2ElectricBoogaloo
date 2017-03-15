@@ -388,4 +388,8 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return armyStats.getMovement();
     }
     public RallyPoint getRallyPoint(){return myRP;}
+
+	public void cheatResources() {
+		nutrientResourceLevel=Integer.MAX_VALUE;
+	}
 }

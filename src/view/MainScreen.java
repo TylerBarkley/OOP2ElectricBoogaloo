@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 
 import control.Menu;
 import model.Location;
+import model.TurnManager;
+import utilities.ViewVisitor;
 
 public class MainScreen extends JPanel{
 
@@ -57,5 +59,11 @@ public class MainScreen extends JPanel{
 		this.remove(this.statusViewport);
 		this.statusViewport=statusViewport;
 		this.add(statusViewport);
+	}
+
+	public void cheatMap() {
+		ViewVisitor visitor=new ViewVisitor(TurnManager.getInstance().getCurrentPlayerID());
+		visitor.cheat();
+		areaViewport.accept(visitor);
 	}
 }

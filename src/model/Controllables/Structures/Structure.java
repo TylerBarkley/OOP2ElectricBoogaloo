@@ -263,4 +263,10 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
         doWork(); distribute(); malnourish();
     }
+
+	public void cheatResources() {
+		energyResourceLevel=Integer.MAX_VALUE;
+		nutrientResourceLevel=Integer.MAX_VALUE;
+		metalResourceLevel=Integer.MAX_VALUE;
+	}
 }

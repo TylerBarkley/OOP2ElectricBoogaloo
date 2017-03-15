@@ -17,6 +17,8 @@ import javax.swing.KeyStroke;
 
 import control.Menu;
 import model.Location;
+import model.TurnManager;
+import model.player.PlayerManager;
 import utilities.MenuVisitor;
 
 public class GameWindow extends JFrame implements MenuVisitor{
@@ -135,7 +137,23 @@ public class GameWindow extends JFrame implements MenuVisitor{
 			}
 		});
 		
+		JMenuItem cheatMap = new JMenuItem("Cheat Map");
+		cheatMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainScreen.cheatMap();
+			}
+		});
+		
+		JMenuItem cheatResources = new JMenuItem("Cheat Resources");
+		cheatResources.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PlayerManager.getInstance().cheatResources(TurnManager.getInstance().getCurrentPlayerID());
+			}
+		});
+		
 		fileMenu.add(controls);
+		fileMenu.add(cheatMap);
+		fileMenu.add(cheatResources);
 		fileMenu.add(exitItem);
 		
 		JMenuBar menuBar = new JMenuBar();

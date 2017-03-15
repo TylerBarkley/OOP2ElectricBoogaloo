@@ -60,7 +60,7 @@ public class Game {
 		
 		PlayerManager pm = PlayerManager.getInstance();
 		
-		Explorer c=new Explorer();
+		Colonist c=new Colonist();
 
 		pm.addUnit(p1.getId(), c);
 		map.addUnit(new Location(3,3), c);	

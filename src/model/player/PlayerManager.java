@@ -175,4 +175,8 @@ public class PlayerManager {
 	public static void reset() {
 		pm=null;
 	}
+
+	public void cheatResources(PlayerID id) {
+		players.get(id).cheatResources();
+	}
 }

@@ -268,5 +268,9 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 
 	public abstract int getMovement();
 
+	public void cheatResources() {
+		nutrientResourceLevel=Integer.MAX_VALUE;
+	}
+
 }
 
