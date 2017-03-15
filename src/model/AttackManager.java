@@ -32,7 +32,9 @@ public class AttackManager {
 
     public void attack(Attacker attacker, Location loc) {
         ArrayList<Location> locations = loc.getAllLocationsWithinRadius(attacker.getAttackRange());
-        if(!locations.contains(loc)){
+        //System.out.println("Attack range is " + attacker.getAttackRange());
+        //System.out.println("target within location? " + locations.contains(loc));
+        if(!locations.contains(attacker.getLocation())){
             return;
         }
         if(!structureOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)){
