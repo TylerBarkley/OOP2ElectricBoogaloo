@@ -8,7 +8,7 @@ public class FarmManager extends HarvestManager{
     public FarmManager(){    }
 
     public int produceFood(int structureProductionRate){
-        int amount = (structureProductionRate + getWorkerStats().getFoodProduction()) * getNumOfWorkers_Harvesting();
+        int amount = ((structureProductionRate + getWorkerStats().getFoodProduction()) * getNumOfWorkers_Harvesting())*8;
         return getResourceManager().mineFood(getHarvestingLocation(), amount);
     }
 

@@ -10,7 +10,7 @@ public class MineManager extends HarvestManager{
     }
 
     public int produceOre(int structureProductionRate){
-        int amount = (structureProductionRate + getWorkerStats().getOreProduction()) * getNumOfWorkers_Harvesting();
+        int amount = ((structureProductionRate + getWorkerStats().getOreProduction()) * getNumOfWorkers_Harvesting())*8;
         return getResourceManager().mineOre(getHarvestingLocation(), amount);
     }
 
