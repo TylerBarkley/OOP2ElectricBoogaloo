@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Queue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,6 +19,9 @@ import javax.swing.JTextArea;
 import control.Menu;
 import model.Controllables.Army;
 import model.Controllables.ArmyID;
+import model.Controllables.Command;
+import model.Controllables.CommandQueue;
+import model.Controllables.Stats.ArmyStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.Unit;
@@ -148,6 +153,8 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 			resourceButton.setEnabled(true);
 		} 
 		else if(menu.getCurrentMode() == Menu.ARMYMODE) {
+			Army army = (Army) menu.getCurrentInstance();
+			if(army != null)displayStats(army);
 			renderer.selectUnit(ArmyID.ARMY_TYPE_ID, menu.getCurrentInstanceNumber());
 			resourceButton.setEnabled(true);
 		}
@@ -174,9 +181,32 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 	public void displayStats(Unit unit) {
 		UnitStats stats = unit.getMyStats();
 		unitStatsArea.setText("Health: " + unit.getCurrentHealth() + "\nUpkeep: " + unit.getUpkeep()
-				+ "\nMovement: " + stats.getMovement() + "\nInfluence Radius: " + stats.getInfluenceRadius() 
+				+ "\nStoredFood: " + unit.getNutrientResourceLevel() + "\nMovement: " + stats.getMovement() 
+				+ "\nInfluence Radius: " + stats.getInfluenceRadius() 
 				+ "\nOffensive Damage: " + stats.getOffensiveDamage() + "\nDefensive Damage: " + stats.getDefensiveDamage()
 				+ "\nArmor: " + stats.getArmor());
+	}
+	
+	public void displayStats(Army army) {
+		ArmyStats stats = army.getArmyStats();
+		String displayedStats = "UpKeep: " + stats.getUpkeep() + "\n"
+				+ "Food Stored: " + army.getNutrientResourceLevel() + "\n"
+				+ "Movement: " + stats.getMovement() + "\n"
+				+ "Offensive Damge: " + army.getAttackDamage() + "\n"
+				+ "Defensive Damage: " + stats.getDefensiveDamage() + "\n" 
+				+ "Armor: " + stats.getArmor() + "\n"
+				+ "Total Units: " + stats.getNumOfUnits() + "\n"
+				+"Queued Commands: ";
+		
+		Queue<Command> armyCommands = army.getCommandQueue().getCommandQueue();
+		Iterator<Command> iterator = armyCommands.iterator();
+		String commands = "";
+		while(iterator.hasNext()) {
+			commands += iterator.next().toString() + " "; 
+		}
+		displayedStats += commands;
+		unitStatsArea.setText(displayedStats);
+		
 	}
 	
 	public void removeStats() {
