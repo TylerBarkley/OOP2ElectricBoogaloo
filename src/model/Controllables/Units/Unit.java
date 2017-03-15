@@ -40,6 +40,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		powerState = POWERUP;
 		
 		nutrientResourceLevel = 3 * this.getUpkeep();
+		System.out.println("Unit Initial Upkeep: " + this.getUpkeep());
 	}
 
 	protected Unit(Location loc){

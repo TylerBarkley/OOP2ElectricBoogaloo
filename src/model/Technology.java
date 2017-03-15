@@ -382,7 +382,7 @@ public void editWorkerStats(int statToBeModified) {
             case BuildingRate:
                 return workerAdvancements.getBuildingRate()/workerAdvancements.getBuildingRateIncrement()+1;
             case WorkerRadius:
-                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement()+1;
+                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement();
             case WorkerDensity:
                 return workerAdvancements.getWorkerDensity()/workerAdvancements.getWorkerDensityIncrement()+1;
         }
