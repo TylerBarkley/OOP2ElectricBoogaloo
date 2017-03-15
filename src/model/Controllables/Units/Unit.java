@@ -239,12 +239,15 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	}
 	@Override
 	public void endUpdate(TurnManager turn) {
-		distribute();
-		malnourish();
+
 	}
 
 	@Override
 	public void startUpdate(TurnManager turn) {
+
+		distribute();
+		malnourish();
+
 		this.refreshAP();
 	}
 

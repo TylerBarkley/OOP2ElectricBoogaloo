@@ -112,7 +112,7 @@ public class Map {
 		tiles.put(new Location(0, 1), new Tile(terrains[1]));
 		tiles.put(new Location(1, 0), new Tile(terrains[0]));
 		tiles.put(new Location(1, 1), new Tile(terrains[0]));
-		tiles.put(new Location(1, -1), new Tile(terrains[1]));
+		tiles.put(new Location(1, -1), new Tile(terrains[0]));
 		tiles.put(new Location(0, -1), new Tile(terrains[0]));
 		tiles.put(new Location(-1, 0), new Tile(terrains[0]));
 		tiles.put(new Location(-1, 1), new Tile(terrains[0]));

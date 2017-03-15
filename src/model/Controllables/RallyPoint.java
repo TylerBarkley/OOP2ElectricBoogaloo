@@ -172,10 +172,13 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
         //myArmy.clearQueue();
 
         Location moveLocation = this.path.get(myArmy.getLocation());
+        Location prevLoc = myArmy.getLocation();
 
         while(moveLocation != null){
-            myArmy.giveOrder(new MoveCommand(myArmy, moveLocation));
 
+            myArmy.giveOrder(new MoveCommand(myArmy, prevLoc, moveLocation));
+
+            prevLoc = moveLocation;
             moveLocation = this.path.get(moveLocation);
         }
         
