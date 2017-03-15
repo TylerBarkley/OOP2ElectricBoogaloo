@@ -319,6 +319,7 @@ public class Player implements ArmyObserver, RPObserver{
 		power.addAmount(energy);
 	}
 
+
 	public void addTechnology(int technology) {
 		this.technology += technology;
 	}

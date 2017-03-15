@@ -100,7 +100,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public void addUnitToBattleGroup(Unit unit){
         battleGroup.add(unit);
         armyStats.addStats(unit.getMyStats());
-
         unit.addObserver(this);
 
         updateAP();
