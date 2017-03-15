@@ -18,6 +18,7 @@ private ArrayList<StructureStats> structureStats;
 private ArrayList<UnitAdvancements> unitAdvancements;
 private ArrayList<StructureAdvancements> structureAdvancements;
 private WorkerAdvancements workerAdvancements;
+private ArrayList<ResearchCommand> researchCommands;
 
     static final int OffensiveDamage=0;
     static final int DefensiveDamage=1;
@@ -430,8 +431,6 @@ public void editWorkerStats(int statToBeModified) {
         }
         return -1;
     }
-
-    
     public void accept(TechnologyVisitor vistor){
         vistor.visit(this);
     }

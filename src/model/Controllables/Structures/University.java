@@ -80,7 +80,7 @@ public class University extends Structure {
         myResearch = rc;
     }
     public void unassignResearch(){myResearch=null;}
-
+    public String getResearchName(){return myResearch.getResearch();}
     public int getBuiltPercentage() {
         return builtPercentage;
     }
