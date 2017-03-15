@@ -253,5 +253,6 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void powerActive(){powerState = POWERACTIVE;}
 
 	public abstract int getMovement();
+
 }
 

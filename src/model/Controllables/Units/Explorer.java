@@ -62,4 +62,5 @@ public class Explorer extends Unit {
 		}
 		tile.getTerrain().visitTerrain(this);
 	}
+	public String toString(){return "Explorer";}
 }
