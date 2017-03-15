@@ -18,8 +18,9 @@ public class ArmyRemoveUnitState extends ArmyMenuState{
         updateControllable(context);
         try{
             currentArmy.removeUnitFromBattleGroup(PopUpMenuWindow.UnitMenu(currentArmy.getBattleGroup()));
+            System.out.println("we called currentArmy.removeUnitFromBattleGroup");
         }
-        catch (Exception e){}
+        catch (Exception e){System.out.println("ArmyRemoveMenuState exception");}
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
