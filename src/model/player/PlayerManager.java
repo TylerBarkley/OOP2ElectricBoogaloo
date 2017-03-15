@@ -19,6 +19,9 @@ import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
+import model.Map.Resources.Energy;
+import model.Map.Resources.Food;
+import model.Map.Resources.Ore;
 
 public class PlayerManager {
 	private static PlayerManager pm;
@@ -132,6 +135,18 @@ public class PlayerManager {
 		players.get(id).addTechnology(technology);
 	}
 
+	public Food getNutrients(PlayerID id) {
+		return players.get(id).getNutrients();
+	}
+	
+	public Ore getMetal(PlayerID id) {
+		return players.get(id).getMetal();
+	}
+	
+	public Energy getPower(PlayerID id) {
+		return players.get(id).getPower();
+	}
+	
 	public void distributePower(PlayerID id,Structure structure,int amount){players.get(id).distributePower(structure,amount);}
 
 	public void distributeMetal(PlayerID id, Structure structure,int amount){players.get(id).distributeMetal(structure,amount);}
@@ -142,9 +157,9 @@ public class PlayerManager {
 
 	public void distributeNutrients(PlayerID id,Unit unit,int amount){players.get(id).distributeNutrients(unit,amount);}
 
-	public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
-	public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}
-	public void storeNutrients(PlayerID id,int amount){ players.get(id).storeNutrients(amount);}
+	//public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
+	//public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}
+	//public void storeNutrients(PlayerID id,int amount){ players.get(id).storeNutrients(amount);}
 	
 	public ControllableCollection getControllableCollection(PlayerID id){
 		return players.get(id).getControllableCollection();

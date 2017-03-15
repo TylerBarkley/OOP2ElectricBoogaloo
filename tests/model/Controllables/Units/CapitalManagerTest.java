@@ -203,6 +203,9 @@ public class CapitalManagerTest {
         capital.assignWorkersToTrainExplorers(50);
         assertEquals(10, capitalManager.getNumOfWorkers_ExplorerTraining());
         assertEquals(0, capitalManager.getNumOfWorkers_Unassigned());
+        assertEquals(0, PlayerManager.getInstance().getUnits(p1.getId()).size());
+        capital.doWork();
+        assertEquals(1, PlayerManager.getInstance().getUnits(p1.getId()).size());
     }
 
     @Test

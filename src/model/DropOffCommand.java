@@ -24,4 +24,7 @@ public class DropOffCommand implements Command {
         army.removeWorkers(workers);
         target.addWorker(workers);
     }
+    public String toString(){
+        return "Drop Off " + workers + " Workers - ";
+    }
 }

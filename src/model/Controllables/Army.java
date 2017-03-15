@@ -21,6 +21,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 {
     //TODO LMAO DECAL
 
+
     private Location myLocation;
 
     private MovementManager movementManager;
@@ -266,7 +267,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public void distribute() {
         for (int i = 0; i < battleGroup.size(); i++) {
             if (battleGroup.get(i) != null) {
-                if (battleGroup.get(i).getUpkeep() > nutrientResourceLevel && battleGroup.get(i).getNutrientResourceLevel()<=battleGroup.get(i).getUpkeep()) {
+                if (battleGroup.get(i).getUpkeep() < nutrientResourceLevel && battleGroup.get(i).getNutrientResourceLevel()<=battleGroup.get(i).getUpkeep()) {
                     battleGroup.get(i).incrementNutrientResourceLevel(battleGroup.get(i).getUpkeep());
                     nutrientResourceLevel -= battleGroup.get(i).getUpkeep();
                 }
@@ -278,9 +279,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return nutrientResourceLevel;
     }
 
-    public void setNutrientResourceLevel(int nutrientResourceLevel) {
-        this.nutrientResourceLevel = nutrientResourceLevel;
-    }
     public void incrementNutrientResourceLevel(int increment){
         nutrientResourceLevel+=increment;
         distribute();
@@ -325,6 +323,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         if(!unit.isAlive()){
             this.removeUnitFromBattleGroup(unit);
         }
+        this.updateAP();
     }
 
     @Override
@@ -370,5 +369,8 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         for(Unit u: battleGroup){
             u.powerActive();
         }
+    }
+    public int getAttackRange(){
+        return armyStats.getMovement();
     }
 }

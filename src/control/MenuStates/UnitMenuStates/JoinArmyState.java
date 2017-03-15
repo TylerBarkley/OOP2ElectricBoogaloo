@@ -2,6 +2,8 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
+import control.PopUpMenuWindow;
+import model.Controllables.RallyPoint;
 import model.Controllables.Units.Colonist;
 import model.Controllables.Units.UnitID;
 
@@ -18,7 +20,12 @@ public class JoinArmyState extends UnitMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentUnit.joinArmy();  make join army menu
+        try{
+            RallyPoint rp = PopUpMenuWindow.RallyPointMenu(context.getControllableCollection().getRallyPoints());
+            rp.reinforce(currentUnit);
+        }
+        catch (Exception e){}
+
     }
 
     public void cycleInstructionL(Menu context){
@@ -45,6 +52,6 @@ public class JoinArmyState extends UnitMenuState {
         }
     }
     public String toString(){
-        return "Join Army";
+        return "Reinforce Rally Point";
     }
 }

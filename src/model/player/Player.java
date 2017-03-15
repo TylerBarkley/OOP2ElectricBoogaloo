@@ -26,6 +26,7 @@ import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
 import model.Technology;
+import model.TurnManager;
 import model.observers.ArmyObserver;
 import model.observers.PlayerObserver;
 import model.observers.RPObserver;
@@ -48,6 +49,8 @@ public class Player implements ArmyObserver, RPObserver{
 	private Ore metal;
 	private int technology;
 
+	TurnManager turnManager;
+
 	private ArrayList<PlayerObserver> observers;
 
 	public Player()
@@ -55,6 +58,8 @@ public class Player implements ArmyObserver, RPObserver{
 		id = new PlayerID();
 
 		PStats = new PlayerStats();
+
+		turnManager = TurnManager.getInstance();
 
 		unitManager=new UnitManager(id);
 		structureManager=new StructureManager(id);
@@ -100,6 +105,9 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			unit.setMyStats(PStats.getColonistStats());
 
+			turnManager.addEndObserver(unit);
+			turnManager.addStartObserver(unit);
+
 			notifyObservers(unit);
 		}
 
@@ -111,6 +119,9 @@ public class Player implements ArmyObserver, RPObserver{
 		if(b)
 		{
 			unit.setMyStats(PStats.getExplorerStats());
+
+			turnManager.addEndObserver(unit);
+			turnManager.addStartObserver(unit);
 
 			notifyObservers(unit);
 		}
@@ -124,6 +135,9 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			unit.setMyStats(PStats.getMeleeStats());
 
+			turnManager.addEndObserver(unit);
+			turnManager.addStartObserver(unit);
+
 			notifyObservers(unit);
 		}
 
@@ -135,6 +149,9 @@ public class Player implements ArmyObserver, RPObserver{
 		if(b)
 		{
 			unit.setMyStats(PStats.getRangedStats());
+
+			turnManager.addEndObserver(unit);
+			turnManager.addStartObserver(unit);
 
 			notifyObservers(unit);
 		}
@@ -149,6 +166,8 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.setMyStats(PStats.getCapitalStats());
 			structure.setStats(PStats.getWorkerStats());
 
+			turnManager.addEndObserver(structure);
+
 			notifyObservers(structure);
 		}
 
@@ -161,6 +180,8 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			structure.setMyStats(PStats.getFarmStats());
 			structure.setStats(PStats.getWorkerStats());
+
+			turnManager.addEndObserver(structure);
 
 			notifyObservers(structure);
 		}
@@ -175,6 +196,8 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.setMyStats(PStats.getFortStats());
 			structure.setStats(PStats.getWorkerStats());
 
+			turnManager.addEndObserver(structure);
+
 			notifyObservers(structure);
 		}
 
@@ -187,6 +210,8 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			structure.setMyStats(PStats.getMineStats());
 			structure.setStats(PStats.getWorkerStats());
+
+			turnManager.addEndObserver(structure);
 
 			notifyObservers(structure);
 		}
@@ -201,6 +226,8 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.setMyStats(PStats.getObservationTowerStats());
 			structure.setStats(PStats.getWorkerStats());
 
+			turnManager.addEndObserver(structure);
+
 			notifyObservers(structure);
 		}
 
@@ -213,6 +240,8 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			structure.setMyStats(PStats.getPowerPlantStats());
 			structure.setStats(PStats.getWorkerStats());
+
+			turnManager.addEndObserver(structure);
 
 			notifyObservers(structure);
 		}
@@ -227,6 +256,8 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.setMyStats(PStats.getUniversityStats());
 			structure.setStats(PStats.getWorkerStats());
 
+			turnManager.addEndObserver(structure);
+
 			notifyObservers(structure);
 		}
 
@@ -239,6 +270,10 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			army.setID(new ArmyID(this.id,armies.size()-1));
 			army.addObserver(this);
+
+			turnManager.addEndObserver(army);
+			turnManager.addStartObserver(army);
+
 			notifyObservers(army);
 		}
 
@@ -251,6 +286,10 @@ public class Player implements ArmyObserver, RPObserver{
 		{
 			rp.setID(new RPID(this.id,rallyPoints.size()-1));
 			rp.addObserver(this);
+
+			turnManager.addEndObserver(rp);
+			turnManager.addStartObserver(rp);
+
 			notifyObservers(rp);
 		}
 
@@ -285,34 +324,60 @@ public class Player implements ArmyObserver, RPObserver{
 	}
 
 	public void distributePower(Structure structure,int amountOfPowerGiven){
-		structure.incrementEnergyResourceLevel(amountOfPowerGiven);
+
+		if(amountOfPowerGiven<=power.getAmount()) {
+			structure.incrementEnergyResourceLevel(amountOfPowerGiven);
+			power.setAmount(power.getAmount() - amountOfPowerGiven);
+		} else {
+			structure.incrementEnergyResourceLevel(power.getAmount());
+			power.setAmount(0);
+		}
+		notifyObservers();
 	}
 
 	public void distributeMetal(Structure structure,int amountOfMetalGiven){
-		structure.incrementMetalResourceLevel(amountOfMetalGiven);
+		if(amountOfMetalGiven<=metal.getAmount()) {
+			structure.incrementMetalResourceLevel(amountOfMetalGiven);
+			metal.setAmount(metal.getAmount()-amountOfMetalGiven);
+		} else {
+			structure.incrementMetalResourceLevel(metal.getAmount());
+			metal.setAmount(0);
+		}
+		notifyObservers();
 	}
 
 	public void distributeNutrients(Structure structure,int amountOfNutrientsGiven){
-		structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			structure.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			structure.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
 
+		notifyObservers();
 	}
 
 	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
-		unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
 
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			unit.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			unit.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
+		notifyObservers();
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
-		army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
-	}
-	public void storeMetal(int amountOfMetalGiven){
-		metal.setAmount(amountOfMetalGiven);
-	}
-
-	public void storeNutrients(int amountOfNutrientsGiven){
-		nutrients.setAmount(amountOfNutrientsGiven);
-	}
-	public void storePower(int amountOfPowerGiven){
-		power.setAmount(amountOfPowerGiven);
+		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
+			army.incrementNutrientResourceLevel(amountOfNutrientsGiven);
+			nutrients.setAmount(nutrients.getAmount()-amountOfNutrientsGiven);
+		} else {
+			army.incrementNutrientResourceLevel(nutrients.getAmount());
+			nutrients.setAmount(0);
+		}
+		notifyObservers();
 	}
 
 	public void chargeResources()

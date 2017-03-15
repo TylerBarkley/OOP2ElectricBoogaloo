@@ -15,13 +15,16 @@ public class MoveCommand implements Command {
         this.md = md;
     }
 
-    public MoveCommand(Army army, Location location){
+    public MoveCommand(Army army, Location oldLoc, Location location){
         this.target  = army;
-        this.md = army.getLocation().getDirectionTo(location);
+        this.md = oldLoc.getDirectionTo(location);
     }
 
     @Override
     public void execute() {
         target.moveBattleGroup(md);
+    }
+    public String toString(){
+        return "Move " + md.toString() + " - ";
     }
 }

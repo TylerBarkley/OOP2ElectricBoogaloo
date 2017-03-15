@@ -1,4 +1,5 @@
 package model.Controllables.Units;
+import model.Map.Tile;
 import utilities.UnitVisitor;
 
 public class Melee extends Unit {
@@ -15,6 +16,11 @@ public class Melee extends Unit {
 	}
 
 	@Override
+	public int getMovement() {
+		return this.getMyStats().getMovement();
+	}
+
+	@Override
 	public void visitWaterTerrain() {
 		this.reduceAP(2);
 	}
@@ -28,4 +34,10 @@ public class Melee extends Unit {
 	public void visitMountainTerrain() {
 		this.reduceAP(3);
 	}
+
+	@Override
+	public void visit(Tile tile) {
+		tile.getTerrain().visitTerrain(this);
+	}
+	public String toString(){return "Melee";}
 }

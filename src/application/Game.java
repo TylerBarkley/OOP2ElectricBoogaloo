@@ -28,6 +28,14 @@ public class Game {
 		Player p1=new Player();
 		Player p2=new Player();
 		
+		
+		p1.addMetal(100);
+		p1.addNutrients(100);
+		p1.addPower(100);
+		p2.addMetal(500);
+		p2.addNutrients(500);
+		p2.addPower(500);
+		
 		players=new ArrayList<Player>();
 		players.add(p1);
 		players.add(p2);
@@ -61,6 +69,8 @@ public class Game {
 
 		pm.addUnit(p2.getId(), e);
 		map.addUnit(new Location(3,1), e);
+		
+		
 	}
 	
 	public void start(){

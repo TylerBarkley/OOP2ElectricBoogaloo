@@ -10,4 +10,7 @@ public class DecommissionCommand implements Command {
     public void execute() {
 
     }
+    public String toString(){
+        return "Decommission - ";
+    }
 }

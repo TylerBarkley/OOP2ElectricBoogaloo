@@ -1,5 +1,6 @@
 package model.Controllables.Structures;
 import model.Attacker;
+import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.WorkerStats;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
@@ -149,5 +150,8 @@ public class Fort extends Structure implements Attacker{
 
     public void setMeleeBuildPercentage(int meleeBuildPercentage) {
         this.meleeBuildPercentage = meleeBuildPercentage;
+    }
+    public int getAttackRange(){
+        return this.getMyStats().getInfluenceRadius();
     }
 }

@@ -3,6 +3,7 @@ package control.MenuStates.UnitMenuStates;
 import control.Menu;
 import control.MenuStates.UnitMenuState;
 import model.Controllables.RallyPoint;
+import model.Controllables.Units.UnitID;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -23,11 +24,19 @@ public class MakeArmyState extends UnitMenuState{
         new RallyPoint(currentUnit);
     }
     public void cycleInstructionL(Menu context){
-        UnitMenuState nextState = PowerUpState.getInstance();
-        nextState.setCurrentInstance(currentInstance);
-        nextState.setCurrentType(currentType);
-        nextState.updateControllable(context);
-        context.setMenuState(nextState);
+        if(currentUnit.getID().getType() == UnitID.EXPLORER_TYPE_ID){
+            UnitMenuState nextState = ProspectState.getInstance();
+            nextState.setCurrentInstance(currentInstance);
+            nextState.setCurrentType(currentType);
+            nextState.updateControllable(context);
+            context.setMenuState(nextState);}
+        else{
+            UnitMenuState nextState = PowerUpState.getInstance();
+            nextState.setCurrentInstance(currentInstance);
+            nextState.setCurrentType(currentType);
+            nextState.updateControllable(context);
+            context.setMenuState(nextState);
+        }
     }
     public void cycleInstructionR(Menu context){
         UnitMenuState nextState = JoinArmyState.getInstance();

@@ -116,7 +116,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setMyStats(StructureStats myStats) {
         this.myStats = myStats;
-
+        this.currentHealth = myStats.getHealth();
         notifyObservers();
     }
 
