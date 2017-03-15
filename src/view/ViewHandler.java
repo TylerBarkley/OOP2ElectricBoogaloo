@@ -61,6 +61,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		unitOverview=new UnitOverview(width, height);
 		unitOverview.addObserver(this);
 		structureOverview=new StructureOverview(width, height);
+		structureOverview.addObserver(this);
 		configurationOverview=new ConfigurationOverview(controls, width, height);
 		techViewport=new TechnologyViewport(width, height);
 

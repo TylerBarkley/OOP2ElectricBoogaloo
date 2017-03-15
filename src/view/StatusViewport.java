@@ -154,7 +154,11 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 		String structureStats = type + " " + instance + "\n" 
 				+ "Health: " + structure.getCurrentHealth() + "\n"
 				+ "Production Rate: " + structure.getMyStats().getProductionRate() + "\n"
-				+ "Upkeep: " + structure.getMyStats().getUpkeep();
+				+ "Upkeep: " + structure.getMyStats().getUpkeep() 
+				+ "\nEnergy Stored: " + structure.getEnergyResourceLevel() 
+				+ "\nMetal Stored: " + structure.getMetalResourceLevel() 
+				+ "\nFood Stored: " + structure.getNutrientResourceLevel()
+				+ "\nTotal Workers: " + structure.getNumTotalOfWorkers();
 
 		String areaText = structureArea.getText();
 		int index = areaText.indexOf(type + " " + instance);
