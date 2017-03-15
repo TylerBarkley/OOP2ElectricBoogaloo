@@ -22,5 +22,9 @@ public class BuildMineCommand implements Command {
     public void execute() {
         productionManager.buildMine(army, workers);
     }
+
+    public String toString(){
+        return "Build Mine - ";
+    }
 }
 

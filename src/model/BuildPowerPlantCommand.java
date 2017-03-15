@@ -21,4 +21,7 @@ public class BuildPowerPlantCommand implements Command {
     public void execute() {
         productionManager.buildPowerPlant(army, workers);
     }
+    public String toString(){
+        return "Build Power Plant - ";
+    }
 }

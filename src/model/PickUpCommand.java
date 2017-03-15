@@ -26,4 +26,7 @@ public class PickUpCommand implements Command
             army.addWorkers(workers);
         }
     }
+    public String toString(){
+        return "Pick Up " + workers + " Workers - ";
+    }
 }
