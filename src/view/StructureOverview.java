@@ -27,7 +27,7 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 	private StructureTableModel model;
 	private TableRenderer renderer;
 	private JTextArea structureStatsArea;
-	private JLabel currentMode, currentInstance,currentType,currentInstruction;
+	private JLabel currentMode, currentInstance,currentType,currentInstruction, playerFood,playerOre,playerPower;
 	
 	public StructureOverview(int width, int height) {
 		
@@ -51,6 +51,12 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 		currentType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		currentInstruction = new JLabel("CURRENT INSTRUCTION= ");
 		currentInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerFood = new JLabel("Total Food: ");
+		playerFood.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerOre = new JLabel("\nTotal Metal: ");
+		playerOre.setAlignmentX(Component.CENTER_ALIGNMENT);
+		playerPower = new JLabel("Total Power: ");
+		playerPower.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		displayView();
 	}
@@ -108,7 +114,9 @@ public class StructureOverview  extends JPanel implements StructureVisitor {
 	public void displayStructureStats(Structure structure) {
 		StructureStats stats = structure.getMyStats();
 		structureStatsArea.setText("Health: " + structure.getCurrentHealth() + "\nProduction Rate: " + stats.getProductionRate() 
-				+ "\nUpkeep: " + structure.getUpkeep() + "\nAssigned Workers: " + structure.getNumTotalOfWorkers() 
+				+ "\nUpkeep: " + structure.getUpkeep() + "\nEnergy Stored: " + structure.getEnergyResourceLevel() 
+				+ "\nMetal Stored: " + structure.getMetalResourceLevel() + "\nFood Stored: " + structure.getNutrientResourceLevel()
+				+ "\nAssigned Workers: " + structure.getNumTotalOfWorkers() 
 				+ "\nAttack Power: " + stats.getOffensiveDamage() + "\nDefense Power: " + stats.getDefensiveDamage() 
 				+ "\nArmor: " + stats.getArmor());
 	}
