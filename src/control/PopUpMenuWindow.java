@@ -53,8 +53,10 @@ public class PopUpMenuWindow {
                     JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
 
             int count = Integer.parseInt(result);
+            System.out.println("Unit menu selects: " + battleGroup.get((count-1)).toString());
             return battleGroup.get(count - 1);
         } catch (Exception e){
+            System.out.println("Unit PopUp Menu exception");
             return null;
         }
 
