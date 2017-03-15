@@ -102,6 +102,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
         currentHealth -= (intensity - myStats.getArmor());
         if (currentHealth <= 0) {
             this.killMe();
+            return;
         }
 
         notifyObservers();

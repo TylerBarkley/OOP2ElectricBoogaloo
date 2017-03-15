@@ -100,5 +100,35 @@ public class ForRealsiesGameTest {
 
         assertEquals(new Location(1, -1), colonist.getLocation());
         assertEquals(1, colonist.getActionPoints());
+        assertEquals(50, colonist.getCurrentHealth());
+
+        TurnManager.getInstance().endTurn();
+        assertEquals(50, colonist.getCurrentHealth());
+        TurnManager.getInstance().endTurn();
+        assertEquals(40, colonist.getCurrentHealth());
+
+
+        TurnManager.getInstance().endTurn();
+        assertEquals(40, colonist.getCurrentHealth());
+        TurnManager.getInstance().endTurn();
+        assertEquals(30, colonist.getCurrentHealth());
+
+
+        TurnManager.getInstance().endTurn();
+        assertEquals(30, colonist.getCurrentHealth());
+        TurnManager.getInstance().endTurn();
+        assertEquals(20, colonist.getCurrentHealth());
+
+
+        TurnManager.getInstance().endTurn();
+        assertEquals(20, colonist.getCurrentHealth());
+
+        TurnManager.getInstance().endTurn();
+        assertEquals(10, colonist.getCurrentHealth());
+
+
+        TurnManager.getInstance().endTurn();
+        TurnManager.getInstance().endTurn();
+
     }
 }

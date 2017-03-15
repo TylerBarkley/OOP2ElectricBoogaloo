@@ -94,6 +94,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		currentHealth -= (intensity - myStats.getArmor());
 		if(currentHealth <= 0){
 			this.killMe();
+			return;
 		}
 
 		notifyObservers();
