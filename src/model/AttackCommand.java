@@ -1,5 +1,6 @@
 package model;
 
+import model.Controllables.Army;
 import model.Controllables.Command;
 
 
@@ -7,11 +8,11 @@ import model.Controllables.Command;
  * Created by zrgam_000 on 3/12/2017.
  */
 public class AttackCommand implements Command{
-    Attacker attacker;
+    Army attacker;
     Location location;
     AttackManager attackManager;
 
-    public AttackCommand(Attacker attacker, Location location){
+    public AttackCommand(Army attacker, Location location){
         this.attacker = attacker;
         this.location = location;
         attackManager = AttackManager.getInstance();
@@ -20,6 +21,7 @@ public class AttackCommand implements Command{
     @Override
     public void execute() {
         attackManager.attack(attacker, location);
+        attacker.setCanMove(false);
     }
     public String toString() {return "Attack";}
 }
