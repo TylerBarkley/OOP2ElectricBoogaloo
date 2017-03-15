@@ -59,6 +59,7 @@ public class Explorer extends Unit {
 	public void visit(Tile tile) {
 		if(prospecting) {
 			tile.prospect();
+	        System.out.println("Prospecting location: "+ getLocation());
 		}
 		tile.getTerrain().visitTerrain(this);
 	}

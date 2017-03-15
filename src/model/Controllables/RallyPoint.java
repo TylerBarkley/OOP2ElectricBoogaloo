@@ -180,7 +180,7 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
         while(moveLocation != null){
 
             myArmy.giveOrder(new MoveCommand(myArmy, prevLoc, moveLocation));
-
+            System.out.println(moveLocation);
             prevLoc = moveLocation;
             moveLocation = this.path.get(moveLocation);
         }
