@@ -107,4 +107,8 @@ public class TurnManager {
 	public static TurnManager getInstance() {
 		return getInstance(new ArrayList<Player>());
 	}
+
+	public static void reset() {
+		instance=null;
+	}
 }
