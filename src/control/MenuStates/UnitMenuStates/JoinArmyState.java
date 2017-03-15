@@ -20,8 +20,12 @@ public class JoinArmyState extends UnitMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        RallyPoint rp = PopUpMenuWindow.RallyPointMenu(context.getControllableCollection().getRallyPoints());
-        rp.reinforce(currentUnit);
+        try{
+            RallyPoint rp = PopUpMenuWindow.RallyPointMenu(context.getControllableCollection().getRallyPoints());
+            rp.reinforce(currentUnit);
+        }
+        catch (Exception e){}
+
     }
 
     public void cycleInstructionL(Menu context){
