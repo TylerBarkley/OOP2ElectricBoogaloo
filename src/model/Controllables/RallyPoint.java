@@ -34,6 +34,8 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
     private MovementManager movementManager;
 
     private Army myArmy;
+
+
     private ArrayList<Unit> reinforcements;
     private Queue<Unit> waitingForArmy;
 
@@ -243,6 +245,10 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
 
     public PlayerID getPlayerID() {
         return id.getPlayerID();
+    }
+
+    public ArrayList<Unit> getReinforcements() {
+        return reinforcements;
     }
 
     @Override
