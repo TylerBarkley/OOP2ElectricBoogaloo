@@ -63,7 +63,8 @@ public class ForRealsiesGameTest {
         TurnManager.getInstance(players);
 
         TurnManager.getInstance().endTurn();
-
+        TurnManager.getInstance().endTurn();
+        
         assertEquals(new Location(-1, 1), colonist.getLocation());
 
         RallyPoint pr = new RallyPoint(colonist);
@@ -71,11 +72,13 @@ public class ForRealsiesGameTest {
         assertEquals(1, colonist.getActionPoints());
 
         TurnManager.getInstance().endTurn();
+        TurnManager.getInstance().endTurn();
 
         pr.moveRallyPoint(new Location(1, -1));
 
         assertEquals(1, colonist.getActionPoints());
 
+        TurnManager.getInstance().endTurn();
         TurnManager.getInstance().endTurn();
 
         assertEquals(1, colonist.getActionPoints());
@@ -85,12 +88,14 @@ public class ForRealsiesGameTest {
         assertEquals(1, colonist.getActionPoints());
 
         TurnManager.getInstance().endTurn();
+        TurnManager.getInstance().endTurn();
 
         assertEquals(new Location(1, -1), colonist.getLocation());
         assertEquals(0, colonist.getActionPoints());
 
         pr.moveRallyPoint(new Location(2, -1));
 
+        TurnManager.getInstance().endTurn();
         TurnManager.getInstance().endTurn();
 
         assertEquals(new Location(1, -1), colonist.getLocation());

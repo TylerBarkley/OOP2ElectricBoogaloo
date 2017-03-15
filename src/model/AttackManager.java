@@ -35,6 +35,7 @@ public class AttackManager {
         if(!locations.contains(loc)){
             return;
         }
+
         if(!structureOccupancyManager.checkPlayer(attacker.getPlayerID(), loc)){
             structureOccupancyManager.attackLocation(attacker.getAttackDamage(), loc);
         }

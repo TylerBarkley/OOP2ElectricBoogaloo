@@ -248,6 +248,11 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     @Override
     public void endUpdate(TurnManager turn) {
+
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         doWork(); distribute(); malnourish();
     }
 }

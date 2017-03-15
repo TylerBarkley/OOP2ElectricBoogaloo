@@ -266,11 +266,19 @@ public class RallyPoint implements Controllable, UnitObserver, StartTurnObserver
 
     @Override
     public void endUpdate(TurnManager turn) {
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
         this.doTurn();
     }
 
     @Override
     public void startUpdate(TurnManager turn) {
-        this.startTurn();
+        if(turn.getCurrentPlayerID() != this.getPlayerID()){
+            return;
+        }
+
+	    this.startTurn();
     }
 }
