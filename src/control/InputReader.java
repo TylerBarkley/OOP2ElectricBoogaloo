@@ -18,76 +18,58 @@ public class InputReader extends KeyAdapter {
     	Control input = new Control(e);
     	
     	if (userControls.getMapUp().equals(input)) {
-    		handler.moveFocus(MapDirection.getNorth());
-    		System.out.println("Map Up");
+    		handler.moveFocus(MapDirection.getNorth()); 
         }
         else if (userControls.getMapDown().equals(input)) {
-        	handler.moveFocus(MapDirection.getSouth());
-    		System.out.println("Map Down");
+        	handler.moveFocus(MapDirection.getSouth()); 
         }
         else if (userControls.getMapUpRight().equals(input)) {
-        	handler.moveFocus(MapDirection.getNorthEast());
-    		System.out.println("Map Up Right");
+        	handler.moveFocus(MapDirection.getNorthEast()); 
         }
         else if (userControls.getMapUpLeft().equals(input)) {
-        	handler.moveFocus(MapDirection.getNorthWest());
-    		System.out.println("Map Up Left");
+        	handler.moveFocus(MapDirection.getNorthWest()); 
         }
         else if (userControls.getMapDownRight().equals(input)) {
-        	handler.moveFocus(MapDirection.getSouthEast());
-    		System.out.println("Map Down Right");
+        	handler.moveFocus(MapDirection.getSouthEast()); 
         }
         else if (userControls.getMapDownLeft().equals(input)) {
-        	handler.moveFocus(MapDirection.getSouthWest());
-    		System.out.println("Map Down Left");
+        	handler.moveFocus(MapDirection.getSouthWest()); 
         }
         else if (userControls.getCycleModeUp().equals(input)) {
-        	handler.cycleMode();
-    		System.out.println("Cycle Mode Up");
+        	handler.cycleMode(); 
         }
         else if (userControls.getCycleModeDown().equals(input)) {
-        	handler.cycleModeReverse();
-        	System.out.println("Cycle Mode Down");
+        	handler.cycleModeReverse(); 
         }
         else if (userControls.getCycleTypeLeft().equals(input)) {
-        	handler.cycleType();
-        	System.out.println("Cycle Type Left");
+        	handler.cycleType(); 
         }
         else if (userControls.getCycleTypeRight().equals(input)) {
-        	handler.cycleTypeReverse();
-        	System.out.println("Cycle Type Right");
+        	handler.cycleTypeReverse(); 
         }
         else if (userControls.getCycleCommandUp().equals(input)) {
-        	handler.cycleCommand();
-        	System.out.println("Cycle Command Up");
+        	handler.cycleCommand(); 
         }
         else if (userControls.getCycleCommandDown().equals(input)) {
         	handler.cycleCommandReverse();
-        	System.out.println("Cycle Command Down");
         }
         else if (userControls.getCycleInstanceLeft().equals(input)) {
-        	handler.cycleInstance();
-        	System.out.println("Cycle Instance Left");
+        	handler.cycleInstance(); 
         }
         else if (userControls.getCycleInstanceRight().equals(input)) {
-        	handler.cycleInstanceReverse();
-        	System.out.println("Cycle Instance Right");
+        	handler.cycleInstanceReverse(); 
         }
         else if (userControls.getCenterFocus().equals(input)) {
-        	handler.centerFocus();
-        	System.out.println("Center Focus");
+        	handler.centerFocus(); 
         }
         else if (userControls.getEndTurn().equals(input)) {
-        	handler.endTurn();
-        	System.out.println("End Turn");
+        	handler.endTurn(); 
         }
         else if (userControls.getToggleResources().equals(input)) {
-        	handler.toggleResources();
-        	System.out.println("Toggle Resources");
+        	handler.toggleResources(); 
         }
         else if (userControls.getSelect().equals(input)) {
-        	handler.select();
-        	System.out.println("Select");
+        	handler.select(); 
         }
     }
 }
