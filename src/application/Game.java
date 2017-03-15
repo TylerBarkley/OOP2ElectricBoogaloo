@@ -29,12 +29,12 @@ public class Game {
 		Player p2=new Player();
 		
 		
-		p1.addMetal(500);
-		p1.addNutrients(500);
-		p1.addPower(500);
-		p2.addMetal(500);
-		p2.addNutrients(500);
-		p2.addPower(500);
+		p1.addMetal(5000);
+		p1.addNutrients(5000);
+		p1.addPower(5000);
+		p2.addMetal(5000);
+		p2.addNutrients(5000);
+		p2.addPower(5000);
 		
 		players=new ArrayList<Player>();
 		players.add(p1);

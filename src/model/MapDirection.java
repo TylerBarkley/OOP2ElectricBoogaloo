@@ -124,22 +124,22 @@ public class MapDirection
 	}
 	
 	public String toString(){
-		if(equals(N)){
+		if(equals(getNorth())){
 			return "North";
 		}
-		if(equals(NE)){
+		if(equals(getNorthEast())){
 			return "Northeast";
 		}
-		if(equals(NW)){
+		if(equals(getNorthWest())){
 			return "Northwest";
 		}
-		if(equals(S)){
+		if(equals(getSouth())){
 			return "South";
 		}
-		if(equals(SE)){
+		if(equals(getSouthEast())){
 			return "Southeast";
 		}
-		if(equals(SW)){
+		if(equals(getSouthWest())){
 			return "Southwest";
 		}
 		return "Unknown Direction";
