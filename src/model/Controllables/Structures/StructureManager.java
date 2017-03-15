@@ -3,114 +3,198 @@ package model.Controllables.Structures;
 
 import java.util.ArrayList;
 
+import model.Controllables.Units.Colonist;
+import model.Controllables.Units.Unit;
+import model.Controllables.Units.UnitID;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Ore;
 import model.observers.StructureObserver;
 import model.player.PlayerID;
 
 public class StructureManager implements StructureObserver{
-	private ArrayList<Capital> capitals;
-	private ArrayList<Farm> farms;
-	private ArrayList<Fort> forts;
-	private ArrayList<Mine> mines;
-	private ArrayList<ObservationTower> towers;
-	private ArrayList<PowerPlant> plants;
-	private ArrayList<University> universities;
+	private Capital[] capitals;
+	private Farm[] farms;
+	private Fort[] forts;
+	private Mine[] mines;
+	private ObservationTower[] towers;
+	private PowerPlant[] plants;
+	private University[] universities;
 
 
 	private PlayerID playerID;
 
 	public StructureManager(PlayerID playerID)
 	{
-		capitals = new ArrayList<Capital>();        
-		farms= new ArrayList<Farm>();               
-		forts= new ArrayList<Fort>();               
-		mines= new ArrayList<Mine>();               
-		towers= new ArrayList<ObservationTower>();  
-		plants= new ArrayList<PowerPlant>();        
-		universities= new ArrayList<University>();
+		capitals = new Capital[10];        
+		farms= new Farm[10];               
+		forts= new Fort[10];               
+		mines= new Mine[10];               
+		towers= new ObservationTower[10];  
+		plants= new PowerPlant[10];        
+		universities= new University[10];
 
 		this.playerID=playerID;
 	}
 
 	public boolean add(Capital structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.CAPITAL_TYPE_ID, capitals.size());
-		capitals.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(capitals[i] == null)
+			{
+				capitals[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.CAPITAL_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(Farm structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.FARM_TYPE_ID, farms.size());
-		farms.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(farms[i] == null)
+			{
+				farms[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.FARM_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(Fort structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.FORT_TYPE_ID, forts.size());
-		forts.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(forts[i] == null)
+			{
+				forts[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.FORT_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(Mine structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.MINE_TYPE_ID, mines.size());
-		mines.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(mines[i] == null)
+			{
+				mines[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.MINE_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(ObservationTower structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.OBSERVATIONTOWER_TYPE_ID, towers.size());
-		towers.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(towers[i] == null)
+			{
+				towers[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.OBSERVATIONTOWER_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(PowerPlant structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.POWERPLANT_TYPE_ID, plants.size());
-		plants.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(plants[i] == null)
+			{
+				plants[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.POWERPLANT_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public boolean add(University structure)
 	{
-		StructureID id = new StructureID(playerID, StructureID.UNIVERSITY_TYPE_ID, universities.size());
-		universities.add(structure);
-		structure.addObserver(this);
-		structure.setID(id);
-		return true;
+		for(int i=0; i<capitals.length; i++)
+		{
+			if(universities[i] == null)
+			{
+				universities[i]=structure;
+
+				StructureID id = new StructureID(playerID, StructureID.UNIVERSITY_TYPE_ID, i);
+				structure.setID(id);
+				structure.addObserver(this);
+
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public ArrayList<Structure> getStructures()
 	{
 		ArrayList<Structure> structures=new ArrayList<Structure>();
 
-		structures.addAll(capitals);
-		structures.addAll(farms);
-		structures.addAll(forts);
-		structures.addAll(mines);
-		structures.addAll(towers);
-		structures.addAll(plants);
-		structures.addAll(universities);
+		addNonNullElements(structures, capitals);
+		addNonNullElements(structures, farms);
+		addNonNullElements(structures, forts);
+		addNonNullElements(structures, mines);
+		addNonNullElements(structures, towers);
+		addNonNullElements(structures, plants);
+		addNonNullElements(structures, universities);
 
 		return structures;
 	}
 
+	private static void addNonNullElements(ArrayList<Structure> list, Structure[] arr)
+	{
+		for(Structure structure: arr)
+		{
+			if(structure !=null)
+			{
+				list.add(structure);
+			}
+		}
+	}
+	
 	@Override
 	public void update(Structure observable) {
 		if(observable.isAlive())
@@ -119,103 +203,117 @@ public class StructureManager implements StructureObserver{
 		}
 
 		StructureID id=observable.getID();
-
 		int instanceNumber=id.getInstanceNumber();
-
+		Structure structure=null;
+		
 		switch(id.getType())
 		{
 		case StructureID.CAPITAL_TYPE_ID:
-			capitals.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<capitals.size(); i++)
-			{
-				capitals.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=capitals[instanceNumber];
+			capitals[instanceNumber]=null;
 			break;
 		case StructureID.FARM_TYPE_ID:
-			farms.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<farms.size(); i++)
-			{
-				farms.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=farms[instanceNumber];
+			farms[instanceNumber]=null;
 			break;
 		case StructureID.FORT_TYPE_ID:
-			forts.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<forts.size(); i++)
-			{
-				forts.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=forts[instanceNumber];
+			forts[instanceNumber]=null;
 			break;
 		case StructureID.MINE_TYPE_ID:
-			mines.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<mines.size(); i++)
-			{
-				mines.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=mines[instanceNumber];
+			mines[instanceNumber]=null;
 			break;
 		case StructureID.OBSERVATIONTOWER_TYPE_ID:
-			towers.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<towers.size(); i++)
-			{
-				towers.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=towers[instanceNumber];
+			towers[instanceNumber]=null;
 			break;
 		case StructureID.POWERPLANT_TYPE_ID:
-			plants.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<plants.size(); i++)
-			{
-				plants.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=plants[instanceNumber];
+			plants[instanceNumber]=null;
 			break;
 		case StructureID.UNIVERSITY_TYPE_ID:
-			universities.remove(instanceNumber);
-
-			for(int i=instanceNumber; i<universities.size(); i++)
-			{
-				universities.get(i).getID().setInstanceNumber(i);
-			}
-
+			structure=universities[instanceNumber];
+			universities[instanceNumber]=null;
 			break;
 		}
 	}
 
 	public ArrayList<Capital> getCapitals() {
-		return capitals;
+		ArrayList<Capital> list=new ArrayList<Capital>();
+		
+		for(Capital unit: capitals)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<Farm> getFarms() {
-		return farms;
+		ArrayList<Farm> list=new ArrayList<Farm>();
+		
+		for(Farm unit: farms)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<Fort> getForts() {
-		return forts;
+		ArrayList<Fort> list=new ArrayList<Fort>();
+		
+		for(Fort unit: forts)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<Mine> getMines() {
-		return mines;
+		ArrayList<Mine> list=new ArrayList<Mine>();
+		
+		for(Mine unit: mines)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<ObservationTower> getTowers() {
-		return towers;
+		ArrayList<ObservationTower> list=new ArrayList<ObservationTower>();
+		
+		for(ObservationTower unit: towers)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<PowerPlant> getPlants() {
-		return plants;
+		ArrayList<PowerPlant> list=new ArrayList<PowerPlant>();
+		
+		for(PowerPlant unit: plants)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public ArrayList<University> getUniversities() {
-		return universities;
+		ArrayList<University> list=new ArrayList<University>();
+		
+		for(University unit: universities)
+		{
+			list.add(unit);	
+		}
+		
+		return list;
 	}
 
 	public void chargeResources(Ore metal, Energy power) {
