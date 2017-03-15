@@ -21,4 +21,8 @@ public class BuildObservationTowerCommand implements Command{
     public void execute() {
         productionManager.buildObservationTower(army, workers);
     }
+
+    public String toString(){
+        return "Build Observation Tower - ";
+    }
 }

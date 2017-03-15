@@ -2,6 +2,7 @@ package control.MenuStates.UnitMenuStates;
 
 import control.Menu;
 import control.MenuStates.UnitMenuState;
+import model.Controllables.RallyPoint;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -14,9 +15,12 @@ public class MakeArmyState extends UnitMenuState{
 
     @Override
     public void select(Menu context) {
-        
+        //TODO: delete print statement
+
+
         updateControllable(context);
-        currentUnit.makeArmy();
+        System.out.println("you tried to make an army with: " + currentUnit.toString() );
+        new RallyPoint(currentUnit);
     }
     public void cycleInstructionL(Menu context){
         UnitMenuState nextState = PowerUpState.getInstance();

@@ -9,4 +9,6 @@ import java.util.ArrayList;
 public abstract class WorkerManager {
     //LMAO Decal
     public abstract void assignBuild(int assignment);
+
+    public abstract void unassignAll();
 }

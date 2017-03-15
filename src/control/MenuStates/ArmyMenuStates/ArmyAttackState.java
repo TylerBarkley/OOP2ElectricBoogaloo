@@ -2,10 +2,7 @@ package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
-import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.StructureAttackState;
 import model.AttackCommand;
-import model.Controllables.Army;
 
 /**
  * Created by hankerins on 3/8/17.
@@ -19,7 +16,7 @@ public class ArmyAttackState extends ArmyMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        currentArmy.getCommandQueue().add(new AttackCommand(currentArmy, context.getFocus()));
+        currentArmy.giveOrder(new AttackCommand(currentArmy, context.getFocus()));
     }
     public void cycleInstructionL(Menu context){
         ArmyMenuState nextState = ArmyCancelQueueState.getInstance();

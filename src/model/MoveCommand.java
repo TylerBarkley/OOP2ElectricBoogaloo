@@ -24,4 +24,7 @@ public class MoveCommand implements Command {
     public void execute() {
         target.moveBattleGroup(md);
     }
+    public String toString(){
+        return "Move " + md.toString() + " - ";
+    }
 }

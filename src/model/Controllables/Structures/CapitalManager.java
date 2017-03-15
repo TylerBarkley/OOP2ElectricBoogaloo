@@ -382,4 +382,24 @@ public class CapitalManager extends WorkerManager{
 
     @Override
     public void assignBuild(int assignment) {}
+
+    @Override
+    public void unassignAll() {
+        numOfWorkers_Unassigned += numOfWorkers_Breeding + numOfWorkers_HarvestingFood + numOfWorkers_ExplorerTraining + numOfWorkers_HarvestingEnergy + numOfWorkers_HarvestingOre + numOfWorkers_Building;
+        numOfWorkers_Breeding = 0;
+        numOfWorkers_Building = 0;
+        numOfWorkers_HarvestingOre = 0;
+        numOfWorkers_HarvestingEnergy = 0;
+        numOfWorkers_HarvestingFood = 0;
+        numOfWorkers_ExplorerTraining = 0;
+        if(harvestingFoodLocation != null){
+            resourceManager.setWorking(harvestingFoodLocation, false);
+        }
+        if(harvestingEnergyLocation != null){
+            resourceManager.setWorking(harvestingEnergyLocation, false);
+        }
+        if(harvestingOreLocation != null){
+            resourceManager.setWorking(harvestingOreLocation, false);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -11,10 +12,13 @@ import javax.swing.JTextArea;
 
 import control.Menu;
 import model.Controllables.Army;
+import model.Controllables.ArmyID;
+import model.Controllables.Stats.UnitStats;
 import model.Controllables.Units.Unit;
 import model.Controllables.Units.Unit;
 import model.observers.MenuObserver;
 import model.observers.UnitObserver;
+import model.observers.UnitResourceObserver;
 import utilities.ArmyVisitor;
 import utilities.UnitVisitor;
 
@@ -26,6 +30,8 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 	private TableRenderer renderer;
 	private JTextArea unitStatsArea;
 	private JLabel currentMode, currentInstance,currentType,currentInstruction;
+	
+	private ArrayList<UnitResourceObserver> observers; 
 	
 	public UnitOverview(int width, int height) {
 		
@@ -86,10 +92,17 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 		this.currentInstruction.setText("CURRENT INSTRUCTION= " + menu.getCurrentInstruction());
 		
 		if(menu.getCurrentMode() == Menu.UNITMODE) {
-			renderer.selectUnit(menu.getCurrentType(), menu.getCurrentInstanceNumber());
+			Unit unit = (Unit) menu.getCurrentInstance();
+			if(unit != null)renderer.selectUnit(unit.getID().getType(), menu.getCurrentInstanceNumber());
+			if(unit != null) displayStats(unit);
+			
 		} 
+		else if(menu.getCurrentMode() == Menu.ARMYMODE) {
+			renderer.selectUnit(ArmyID.ARMY_TYPE_ID, menu.getCurrentInstanceNumber());
+		}
 		else {
 			renderer.deSelectUnit();
+			removeStats();
 		}
 		model.update();
 		
@@ -97,11 +110,34 @@ public class UnitOverview extends JPanel implements UnitVisitor, ArmyVisitor {
 
 	@Override
 	public void visit(Army army) {
+		
 		if(!army.isDisbanded()) {
-//			model.addArmy(army);
+			model.addArmy(army);
 		}
 		else {
-//			model.removeArmy(army);
+			model.removeArmy(army);
 		}
 	}
+	
+	public void displayStats(Unit unit) {
+		UnitStats stats = unit.getMyStats();
+		unitStatsArea.setText("Health: " + unit.getCurrentHealth() + "\nUpkeep: " + unit.getUpkeep()
+				+ "\nMovement: " + stats.getMovement() + "\nInfluence Radius: " + stats.getInfluenceRadius() 
+				+ "\nOffensive Damage: " + stats.getOffensiveDamage() + "\nDefensive Damage: " + stats.getDefensiveDamage()
+				+ "\nArmor: " + stats.getArmor());
+	}
+	
+	public void removeStats() {
+		unitStatsArea.setText("");
+	}
+	
+	public void addObserver(UnitResourceObserver obs) {
+		observers.add(obs);
+	}
+	
+	public void removeObserver(UnitResourceObserver obs) {
+		observers.remove(obs);
+	}
+	
+	 
 }

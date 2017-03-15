@@ -2,6 +2,7 @@ package model.Controllables.Structures;
 
 import model.Controllables.Stats.WorkerStats;
 import model.Location;
+import model.ProductionManager;
 import model.player.PlayerManager;
 
 /**
@@ -10,6 +11,7 @@ import model.player.PlayerManager;
 public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     private CapitalManager capitalManager;
+    private int exBuildPercentage;
 
     public Capital(){
         setBeingBuilt(false);
@@ -27,28 +29,34 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     public void harvestOre(){
         int oreMined = capitalManager.produceOre(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addMetal(getPid(), oreMined);
+        PlayerManager.getInstance().addMetal(getPlayerID(), oreMined);
     }
 
     public void harvestFood(){
         int foodMined = capitalManager.produceFood(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addNutrients(getPid(), foodMined);
+        PlayerManager.getInstance().addNutrients(getPlayerID(), foodMined);
     }
 
     public void harvestEnergy(){
         int energyMined = capitalManager.produceEnergy(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addPower(getPid(), energyMined);
+        PlayerManager.getInstance().addPower(getPlayerID(), energyMined);
     }
 
     public void breedWorkers(){
         int amountAdded = capitalManager.breeding();
-        PlayerManager.getInstance().addWorker(getPid(), amountAdded);
-        capitalManager.addUnassigned(amountAdded);
+        boolean added = false;
+        added = PlayerManager.getInstance().addWorker(getPlayerID(), amountAdded);
+        if(added == true){
+            addWorker(amountAdded);
+        }
     }
 
     public void makeExplorer(){
-        //TODO add to PM
-        capitalManager.trainExplorer();
+        exBuildPercentage += capitalManager.trainExplorer();
+        if(exBuildPercentage > 99){
+            ProductionManager.getInstance().produceExplorer(this);
+            exBuildPercentage -= 100;
+        }
     }
 
     public void assignWorkersToFarm(Location loc, int numOfWorkers_AssignToFarm){
@@ -60,7 +68,7 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
     }
 
     @Override
-    public void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant) {
+    public void assignWorkersToPowerHarvest(Location loc, int numOfWorkers_AssignToPowerPlant) {
         capitalManager.assignWorkersEnergy(loc, numOfWorkers_AssignToPowerPlant, getLocation());
     }
 
@@ -74,13 +82,7 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     @Override
     public void unassign(){
-        capitalManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        capitalManager.setNumOfWorkers_HarvestingFood(0);
-        capitalManager.setNumOfWorkers_HarvestingOre(0);
-        capitalManager.setNumOfWorkers_HarvestingEnergy(0);
-        capitalManager.setNumOfWorkers_ExplorerTraining(0);
-        capitalManager.setNumOfWorkers_Breeding(0);
-        capitalManager.setNumOfWorkers_Building(0);
+        capitalManager.unassignAll();
         capitalManager.resetWork(getLocation());
     }
 
@@ -89,11 +91,13 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     @Override
     public void addWorker(int number) {
+        addNewWorkers(number);
         capitalManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         capitalManager.removeUnassigned(number);
     }
 
@@ -107,5 +111,13 @@ public class Capital extends Structure implements  Farming, Mining, Energizing{
 
     public CapitalManager getCapitalManager(){
         return this.capitalManager;
+    }
+
+    public void setExBuildPercentage(int exBuildPercentage) {
+        this.exBuildPercentage = exBuildPercentage;
+    }
+
+    public int getExBuildPercentage(){
+        return this.exBuildPercentage;
     }
 }

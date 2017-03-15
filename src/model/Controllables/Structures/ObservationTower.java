@@ -20,7 +20,7 @@ public class ObservationTower extends Structure {
 
     @Override
     public void doWork() {
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
 
         }
         else{
@@ -29,8 +29,7 @@ public class ObservationTower extends Structure {
     }
 
     public void unassign(){
-        observationTowerManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        observationTowerManager.setNumOfWorkers_Building(0);
+        observationTowerManager.unassignAll();
     }
 
     @Override
@@ -51,11 +50,13 @@ public class ObservationTower extends Structure {
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         observationTowerManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         observationTowerManager.removeUnassigned(number);
     }
 

@@ -18,6 +18,7 @@ public class ObservationTowerManager extends WorkerManager{
 
     public int building() {
         numOfWorkers_Building += numOfWorkers_Unassigned;
+        numOfWorkers_Unassigned = 0;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }
@@ -57,5 +58,11 @@ public class ObservationTowerManager extends WorkerManager{
     @Override
     public void assignBuild(int assignment) {
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
+
+    @Override
+    public void unassignAll() {
+        numOfWorkers_Unassigned += numOfWorkers_Building;
+        numOfWorkers_Building = 0;
     }
 }

@@ -94,6 +94,7 @@ public class MineManagerTest {
         Map.reset();
         Map.setMoveDebug();
         mine.setLocation(loc1);
+        mine.setBeingBuilt(false);
         mine.setNumTotalOfWorkers(10);
         mineManager.setNumOfWorkers_Unassigned(10);
         mine.unassign();

@@ -16,8 +16,6 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	private int currentHealth;
 	private int maxActionPoints;
 	private int currentActionPoints;
-	private int energyResourceLevel;
-	private int metalResourceLevel;
 	private int nutrientResourceLevel;
 	private double powerState;
 
@@ -57,7 +55,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void addObserver(UnitObserver observer)
 	{
 		observers.add(observer);
-		notifyObserver(observer);
+		//notifyObserver(observer);
 	}
 
 	public void removeObserver(UnitObserver observer)
@@ -88,6 +86,9 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	}
 
 	public void damageMe(int intensity) {
+		if(intensity - myStats.getArmor() < 0){
+			return;
+		}
 		currentHealth -= (intensity - myStats.getArmor());
 		if(currentHealth <= 0){
 			this.killMe();
@@ -116,9 +117,6 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	}
 
 
-	public void makeArmy(){
-		//TODO just copy Iteration 1 code for this
-	}
 
 	public void setMyStats(UnitStats myStats) {
 		this.myStats = myStats;
@@ -146,7 +144,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		return this.myStats;
 	}
 
-	public PlayerID getPid(){
+	public PlayerID getPlayerID(){
 		return id.getPlayerID();
 	}
 
@@ -172,16 +170,13 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 
 	public void malnourish() {
 		// TODO This is called if there aren't enough resources for upkeep
-		if(energyResourceLevel<0){
-			damageMe(1);
-		}
-		if(metalResourceLevel<0){
-			damageMe(1);
-		}
 		if(nutrientResourceLevel<0){
 			damageMe(1);
 		}
 
+	}
+	public void distribute(){
+		nutrientResourceLevel-=getUpkeep();
 	}
 
 	public int getUpkeep() {
@@ -232,22 +227,6 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 
 	public boolean canMove(){ return this.currentActionPoints > 0 && isAlive; }
 
-	public int getEnergyResourceLevel() {
-		return energyResourceLevel;
-	}
-
-	public void setEnergyResourceLevel(int energyResourceLevel) {
-		this.energyResourceLevel = energyResourceLevel;
-	}
-
-	public int getMetalResourceLevel() {
-		return metalResourceLevel;
-	}
-
-	public void setMetalResourceLevel(int metalResourceLevel) {
-		this.metalResourceLevel = metalResourceLevel;
-	}
-
 	public int getNutrientResourceLevel() {
 		return nutrientResourceLevel;
 	}
@@ -258,16 +237,10 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void incrementNutrientResourceLevel(int increment){
 		nutrientResourceLevel+=increment;
 	}
-	public void incrementEnergyResourceLevel(int increment){
-		energyResourceLevel+=increment;
-	}
-	public void incrementMetalResourceLevel(int increment){
-		metalResourceLevel+=increment;
-	}
-
 	@Override
 	public void endUpdate(TurnManager turn) {
-
+		distribute();
+		malnourish();
 	}
 
 	@Override

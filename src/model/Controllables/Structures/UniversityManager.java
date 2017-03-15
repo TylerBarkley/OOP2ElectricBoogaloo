@@ -12,6 +12,7 @@ public class UniversityManager extends WorkerManager{
     private int numOfWorkers_Unassigned;
     private int numOfWorkers_HarvestingTechnology;
     private int numOfWorkers_Building;
+    //private technology
 
     public UniversityManager(){
         workerStats = new WorkerStats();
@@ -24,6 +25,8 @@ public class UniversityManager extends WorkerManager{
 
     public int building() {
         numOfWorkers_Building += numOfWorkers_Unassigned + numOfWorkers_HarvestingTechnology;
+        numOfWorkers_HarvestingTechnology = Math.max(0,0);
+        numOfWorkers_Unassigned = 0;
         int percentageBuilt = workerStats.getBuildingRate() * 2 * numOfWorkers_Building;
         return percentageBuilt;
     }
@@ -88,5 +91,12 @@ public class UniversityManager extends WorkerManager{
     @Override
     public void assignBuild(int assignment) {
         numOfWorkers_Building += Math.min(numOfWorkers_Unassigned, assignment);
+    }
+
+    @Override
+    public void unassignAll() {
+        numOfWorkers_Unassigned += numOfWorkers_HarvestingTechnology + numOfWorkers_Building;
+        numOfWorkers_HarvestingTechnology = 0;
+        numOfWorkers_Building = 0;
     }
 }

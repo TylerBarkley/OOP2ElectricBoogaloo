@@ -5,14 +5,8 @@ import model.Controllables.Stats.UnitStats;
 import model.Controllables.Structures.Capital;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
-import model.Location;
-import model.Map.AOE.AOEDamage;
 import model.Map.AOE.AOEKill;
-import model.Map.Items.HealOneShot;
-import model.Map.Items.RealObstacle;
 import model.Map.Map;
-import model.Map.Tile;
-import model.MovementManager;
 
 import model.player.Player;
 import model.player.PlayerManager;
@@ -21,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -316,7 +309,7 @@ public class RallyPointTest {
         RallyPoint myRP = new RallyPoint(ranged1, RP);
         MovementManager mm = MovementManager.getInstance();
 
-        HashMap<Location, Location> bfs = Map.getInstance().BFS(ranged1.getPid(), RP);
+        HashMap<Location, Location> bfs = Map.getInstance().BFS(ranged1.getPlayerID(), RP);
 
         boolean neverCrossesWall = true;
 
@@ -340,6 +333,9 @@ public class RallyPointTest {
         Map.getInstance().addAOE(new Location(-1, 1), new AOEKill());
 
         RallyPoint rp = new RallyPoint(ranged1, new Location(-2, 1));
+
+        PlayerManager.getInstance();
+
         rp.reinforce(ranged2);
 
         assertEquals(new Location(-2, 1), rp.getLocation());

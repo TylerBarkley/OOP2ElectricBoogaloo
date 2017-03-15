@@ -1,39 +1,37 @@
-package control.MenuStates.StructureMenuStates;
+package control.MenuStates.StructureMenuStates.FortMenuStates;
 
 import control.Menu;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.UnitMenuState;
-import control.MenuStates.UnitMenuStates.StandbyState;
+import control.MenuStates.StructureMenuStates.ObservationTowerMenuStates.OTDecommissionState;
 
 /**
- * Created by hankerins on 3/8/17.
+ * Created by hankerins on 3/14/17.
  */
-public class StructureAttackState extends StructureMenuState {
-    private static StructureAttackState instance = new StructureAttackState();
-    public static StructureAttackState getInstance(){return instance;}
-    private StructureAttackState(){}
+public class FortDecommissionState extends FortMenuState{
+    private static FortDecommissionState instance = new FortDecommissionState();
+    public static FortDecommissionState getInstance(){return instance;}
+    private FortDecommissionState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        //TODO: currentStructure.attack();
+        //TODO: decommission
     }
     public void cycleInstructionL(Menu context){
-        StructureMenuState nextState = StructureAttackState.getInstance();
+        StructureMenuState nextState = ProduceRangedState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        StructureMenuState nextState = StructureAttackState.getInstance();
+        StructureMenuState nextState = ProduceMeleeState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Attack";
+        return "Decommission";
     }
 }

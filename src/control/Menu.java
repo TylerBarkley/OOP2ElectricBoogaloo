@@ -5,8 +5,10 @@ import control.MenuStates.ArmyMenuStates.ArmyAttackState;
 import java.util.ArrayList;
 
 import control.MenuStates.MenuState;
-import control.MenuStates.RallyPointMenuStates.RPBuildState;
-import control.MenuStates.StructureMenuStates.StructureAttackState;
+import control.MenuStates.RallyPointMenuStates.RPSetState;
+import control.MenuStates.StructureMenuState;
+import control.MenuStates.StructureMenuStates.CapitalMenuStates.CapitalAssignWorkersMineState;
+import control.MenuStates.StructureMenuStates.FarmMenuStates.FarmAssignWorkersFarmState;
 import control.MenuStates.UnitMenuStates.BuildCapitalState;
 import control.MenuStates.UnitMenuStates.MakeArmyState;
 import model.Location;
@@ -29,12 +31,9 @@ import utilities.MenuVisitor;
 /**
  * Created by hankerins on 3/5/17.
  *
- * Q4D: are States allowed to access a context's field like a context itself?
- * Q4D: review good vs. bad casting
  *
- * Structure arrayLists will be variable size
  *
- * Menu needs to know the player's focus
+ *
  */
 public class Menu implements PlayerObserver, StartTurnObserver{
 
@@ -90,7 +89,10 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 
 	//State Design Pattern
 	public void select(){
+
 		menuState.select(this);
+		updateControllableCollection();
+		//reset();
 	}
 
 	//check if a given instance exists in the ControllableCollection
@@ -120,7 +122,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());
@@ -129,7 +131,8 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(StructureAttackState.getInstance());
+				//does this need to be changed?
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);
@@ -149,7 +152,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		if(currentMode != startedMode){
 			switch (currentMode){
 			case RALLYPOINTMODE:
-				setMenuState(RPBuildState.getInstance());
+				setMenuState(RPSetState.getInstance());
 				break;
 			case ARMYMODE:
 				setMenuState(ArmyAttackState.getInstance());
@@ -158,7 +161,7 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 				setMenuState(MakeArmyState.getInstance());
 				break;
 			case STRUCTUREMODE:
-				setMenuState(StructureAttackState.getInstance());
+				setMenuState(CapitalAssignWorkersMineState.getInstance());
 				break;
 			}
 			menuState.reset(this);
@@ -179,10 +182,11 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 		
 		cycleInstanceL();
 		cycleInstanceR();
-		
-		cycleInstructionL();
-		cycleInstructionR();
-		
+
+		if(controllableCollection.controllableExists(currentMode)){
+			cycleInstructionL();
+			cycleInstructionR();
+		}
 		notifyObservers();
 	}
     
@@ -215,13 +219,13 @@ public class Menu implements PlayerObserver, StartTurnObserver{
 	}
 
 	public void cycleInstructionL()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionL(this);
 		notifyObservers();
 	}
 
 	public void cycleInstructionR()
-	{
+	{	menuState.updateControllable(this);
 		menuState.cycleInstructionR(this);
 		notifyObservers();
 	}

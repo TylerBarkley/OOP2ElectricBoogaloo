@@ -1,39 +1,37 @@
-package control.MenuStates.RallyPointMenuStates;
+package control.MenuStates.StructureMenuStates.CapitalMenuStates;
 
 import control.Menu;
-import control.MenuStates.RallyPointMenuState;
 import control.MenuStates.StructureMenuState;
-import control.MenuStates.StructureMenuStates.StructureAttackState;
+import control.PopUpMenuWindow;
 
 /**
  * Created by hankerins on 3/8/17.
  */
-public class RPBuildState extends RallyPointMenuState{
-    private static RPBuildState instance = new RPBuildState();
-    public static RPBuildState getInstance(){return instance;}
-    private RPBuildState(){}
+public class CapitalAssignWorkersMineState extends CapitalMenuState {
+    private static CapitalAssignWorkersMineState instance = new CapitalAssignWorkersMineState();
+    public static CapitalAssignWorkersMineState getInstance(){return instance;}
+    private CapitalAssignWorkersMineState(){}
 
     @Override
     public void select(Menu context) {
-
         updateControllable(context);
-        //TODO: currentArmy.build(); MAKE A BUILD STRUCTURE MENU FOR WORKERS
+            currentStructure.assignWorkersToMine(context.getFocus(), PopUpMenuWindow.WorkerMenu());
     }
     public void cycleInstructionL(Menu context){
-        RallyPointMenuState nextState = RPBuildState.getInstance();
+        StructureMenuState nextState = CapitalAssignWorkersFarmState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        RallyPointMenuState nextState = RPBuildState.getInstance();
+        StructureMenuState nextState = CapitalAssignWorkersPowerHarvestState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Build";
+        return "Assign Workers Mine";
     }
 }

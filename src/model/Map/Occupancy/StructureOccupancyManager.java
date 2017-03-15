@@ -31,11 +31,15 @@ public class StructureOccupancyManager extends Manager<StructureOccupancy> imple
             return null;
         }
 
+        target.setLocation(loc);
+        
         StructureOccupancy so = new StructureOccupancy();
 
         so.setStructure(target);
 
         this.add(loc, so);
+
+        target.setLocation(loc);
 
         target.addObserver(this);
 

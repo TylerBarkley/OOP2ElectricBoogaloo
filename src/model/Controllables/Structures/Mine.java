@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class Mine extends Structure implements Mining{
+public class Mine extends HarvestStructure implements Mining{
 
     private MineManager mineManager;
     private int builtPercentage;
@@ -20,7 +20,7 @@ public class Mine extends Structure implements Mining{
     
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestOre();
         }
         else{
@@ -34,10 +34,7 @@ public class Mine extends Structure implements Mining{
     
     @Override
     public void unassign(){
-        mineManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        mineManager.setNumOfWorkers_Harvesting(0);
-        mineManager.setNumOfWorkers_Building(0);
-        mineManager.resetWork(getLocation());
+        mineManager.unassignAll();
     }
 
     @Override
@@ -51,7 +48,7 @@ public class Mine extends Structure implements Mining{
 
     public void harvestOre(){
         int oreMined = mineManager.produceOre(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addMetal(getPid(), oreMined);
+        PlayerManager.getInstance().addMetal(getPlayerID(), oreMined);
     }
 
     public void setStats(WorkerStats workerStats){
@@ -63,11 +60,13 @@ public class Mine extends Structure implements Mining{
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         mineManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         mineManager.removeUnassigned(number);
     }
 

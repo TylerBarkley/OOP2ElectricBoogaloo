@@ -7,7 +7,6 @@ import model.Controllables.Units.Explorer;
 import model.Controllables.Units.Melee;
 import model.Controllables.Units.Ranged;
 import model.Map.Map;
-import model.player.Player;
 import model.player.PlayerID;
 import model.player.PlayerManager;
 
@@ -37,7 +36,7 @@ public class ProductionManager {
     }
 
     public void martyrdom(Colonist martyr){
-        PlayerID playerID = martyr.getPid();
+        PlayerID playerID = martyr.getPlayerID();
         Location location = martyr.getLocation();
 
         Capital newCap = new Capital();
@@ -129,7 +128,7 @@ public class ProductionManager {
     public void produceRanged(Fort fort){
         Ranged ranged = new Ranged();
 
-        if(playerManager.addUnit(fort.getPid(), ranged)){
+        if(playerManager.addUnit(fort.getPlayerID(), ranged)){
             map.addUnit(fort.getLocation(), ranged);
             ranged.setMapDirection(MapDirection.getNorth());
         }
@@ -138,7 +137,7 @@ public class ProductionManager {
     public void produceMelee(Fort fort){
         Melee melee = new Melee();
 
-        if(playerManager.addUnit(fort.getPid(), melee)){
+        if(playerManager.addUnit(fort.getPlayerID(), melee)){
             map.addUnit(fort.getLocation(), melee);
             melee.setMapDirection(MapDirection.getNorth());
         }
@@ -147,7 +146,7 @@ public class ProductionManager {
     public void produceExplorer(Capital capital){
         Explorer explorer = new Explorer();
 
-        if(playerManager.addUnit(capital.getPid(), explorer)){
+        if(playerManager.addUnit(capital.getPlayerID(), explorer)){
             map.addUnit(capital.getLocation(), explorer);
             explorer.setMapDirection(MapDirection.getNorth());
         }

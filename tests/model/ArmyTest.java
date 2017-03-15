@@ -282,7 +282,7 @@ public class ArmyTest {
 
 
         army.doTurn();
-        
+
         assertEquals(new Location(1, 0), melee.getLocation());
         assertEquals(new Location(1, 0), explorer.getLocation());
         assertEquals(new Location(1, 0), army.getLocation());
@@ -324,6 +324,68 @@ public class ArmyTest {
         assertFalse(army.canMove());
         assertEquals(0, melee.getActionPoints());
         assertEquals(0, explorer.getActionPoints());
+    }
+
+    @Test
+    public void DisbandTest(){
+        Map.reset();
+        Map.setMoveDebug();
+        Map.getInstance().addUnit(new Location(0,1), ranged);
+        Map.getInstance().addUnit(new Location(1,0), explorer);
+
+        RallyPoint rp = new RallyPoint(ranged);
+        rp.reinforce(explorer);
+
+        assertEquals(1, rp.getReinforcementSize());
+
+        assertEquals(0, rp.getArmy().getCommandQueue().size());
+        assertEquals(1, rp.getArmy().getBattleGroup().size());
+
+        rp.getArmy().disband();
+
+        Map.getInstance().addUnit(new Location(0,1), ranged);
+        Map.getInstance().addUnit(new Location(1,0), explorer);
+
+        assertEquals(0, PlayerManager.getInstance().getRallyPoints(ranged.getPlayerID()).size());
+        assertEquals(0, PlayerManager.getInstance().getArmies(ranged.getPlayerID()).size());
+    }
+
+    @Test
+    public void DeathDisbandTest(){
+        Map.reset();
+        Map.setMoveDebug();
+        Map.getInstance().addUnit(new Location(0,1), ranged);
+        Map.getInstance().addUnit(new Location(0,1), explorer);
+        Map.getInstance().addAOE(new Location(-1, 1), new AOEKill());
+
+        RallyPoint rp = new RallyPoint(ranged);
+        rp.reinforce(explorer);
+
+        assertEquals(0, rp.getReinforcementSize());
+
+        rp.startTurn();
+
+        assertEquals(0, rp.getReinforcementSize());
+
+        rp.doTurn();
+
+        assertEquals(new Location(0, 1), rp.getLocation());
+        assertEquals(new Location(0, 1), ranged.getLocation());
+        assertEquals(new Location(0, 1), explorer.getLocation());
+
+        rp.moveRallyPoint(new Location(-2, 1));
+
+        rp.getArmy().startTurn();
+
+        assertEquals(2, rp.getArmy().getCommandQueue().size());
+        assertEquals(2, rp.getArmy().getBattleGroup().size());
+
+        assertTrue(Map.getInstance().getAoEAt(new Location(-1, 1)) instanceof AOEKill);
+
+        rp.getArmy().doTurn();
+
+        assertEquals(0, PlayerManager.getInstance().getRallyPoints(ranged.getPlayerID()).size());
+        assertEquals(0, PlayerManager.getInstance().getArmies(ranged.getPlayerID()).size());
     }
 
 }

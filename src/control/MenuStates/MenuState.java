@@ -9,6 +9,7 @@ import model.Controllables.Controllable;
  * Additional states needed:
  * Structure: harvest Tile selection (works same as RP entry, requires worker count)
  * for Capital, must also select which resource to harvest
+ * Get rid of structure attack state
  * RP: pickup workers (requires number, rp must be on structure)
  * RP: dropoff workers (requires number, rp must be on structure)
  * RP:pickup/dropoff soldiers at a fort
@@ -20,6 +21,10 @@ import model.Controllables.Controllable;
  * Structure: heal - select tile to heal
  * University: select research
  *
+ * Structure order: farm, mine, powerharvest, produce worker, produce explorer, produce melee, produce ranged, research
+ * Are Unit:joinArmy and Unit:reinforceRP different things?
+ *
+ * update cycleModeL() and R() in Menu to only cycle to instuctions that all structures have
  *
  *
  */

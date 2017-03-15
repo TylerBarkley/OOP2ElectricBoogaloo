@@ -9,8 +9,6 @@ import model.Map.Occupancy.UnitOccupancyManager;
 import model.Map.Terrain.Mountain;
 import model.player.PlayerID;
 
-import java.util.HashMap;
-
 /**
  * Created by zrgam_000 on 3/8/2017.
  */
@@ -62,11 +60,11 @@ public class MovementManager {
             return false;
         }
 
-        if(!structureOccupancyManager.checkPlayer(target.getPid(), location)){
+        if(!structureOccupancyManager.checkPlayer(target.getPlayerID(), location)){
             return false;
         }
 
-        if(!unitOccupancyManager.checkPlayer(target.getPid(), location)){
+        if(!unitOccupancyManager.checkPlayer(target.getPlayerID(), location)){
             return false;
         }
 

@@ -124,6 +124,78 @@ public class UserControls {
 	public Control getSelect() {
 		return select;
 	}
+
+	public void setMapUp(Control mapUp) {
+		this.mapUp = mapUp;
+	}
+
+	public void setMapDown(Control mapDown) {
+		this.mapDown = mapDown;
+	}
+
+	public void setMapUpRight(Control mapUpRight) {
+		this.mapUpRight = mapUpRight;
+	}
+
+	public void setMapUpLeft(Control mapUpLeft) {
+		this.mapUpLeft = mapUpLeft;
+	}
+
+	public void setMapDownRight(Control mapDownRight) {
+		this.mapDownRight = mapDownRight;
+	}
+
+	public void setMapDownLeft(Control mapDownLeft) {
+		this.mapDownLeft = mapDownLeft;
+	}
+
+	public void setCycleModeUp(Control cycleModeUp) {
+		this.cycleModeUp = cycleModeUp;
+	}
+
+	public void setCycleModeDown(Control cycleModeDown) {
+		this.cycleModeDown = cycleModeDown;
+	}
+
+	public void setCycleTypeLeft(Control cycleTypeLeft) {
+		this.cycleTypeLeft = cycleTypeLeft;
+	}
+
+	public void setCycleTypeRight(Control cycleTypeRight) {
+		this.cycleTypeRight = cycleTypeRight;
+	}
+
+	public void setCycleCommandUp(Control cycleCommandUp) {
+		this.cycleCommandUp = cycleCommandUp;
+	}
+
+	public void setCycleCommandDown(Control cycleCommandDown) {
+		this.cycleCommandDown = cycleCommandDown;
+	}
+
+	public void setCycleInstanceLeft(Control cycleInstanceLeft) {
+		this.cycleInstanceLeft = cycleInstanceLeft;
+	}
+
+	public void setCycleInstanceRight(Control cycleInstanceRight) {
+		this.cycleInstanceRight = cycleInstanceRight;
+	}
+
+	public void setCenterFocus(Control centerFocus) {
+		this.centerFocus = centerFocus;
+	}
+
+	public void setEndTurn(Control endTurn) {
+		this.endTurn = endTurn;
+	}
+
+	public void setToggleResources(Control toggleResources) {
+		this.toggleResources = toggleResources;
+	}
+
+	public void setSelect(Control select) {
+		this.select = select;
+	}
 	
 	public ArrayList<Control> getAllControls() 
 	{

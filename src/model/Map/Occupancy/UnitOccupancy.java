@@ -4,7 +4,6 @@ import model.Controllables.Units.Unit;
 import model.player.PlayerID;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by zrgam_000 on 3/7/2017.
@@ -23,7 +22,7 @@ public class UnitOccupancy {
 
     public void addUnit(Unit added){
         occupyingUnits.add(added);
-        pid = added.getPid();
+        pid = added.getPlayerID();
     }
 
     public PlayerID getPid() {
@@ -39,7 +38,12 @@ public class UnitOccupancy {
 	}
 
 	public void damageAll(int intensity){
+        ArrayList<Unit> tempUnits = new ArrayList<Unit>();
         for(Unit unit : occupyingUnits){
+            tempUnits.add(unit);
+        }
+
+        for(Unit unit : tempUnits){
             unit.damageMe(intensity);
         }
     }

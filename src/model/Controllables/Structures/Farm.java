@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class Farm extends Structure implements Farming{
+public class Farm extends HarvestStructure implements Farming{
 
     private FarmManager farmManager;
     private int builtPercentage;
@@ -20,7 +20,7 @@ public class Farm extends Structure implements Farming{
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestFood();
         }
         else{
@@ -34,10 +34,7 @@ public class Farm extends Structure implements Farming{
 
     @Override
     public void unassign(){
-        farmManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        farmManager.setNumOfWorkers_Harvesting(0);
-        farmManager.setNumOfWorkers_Building(0);
-        farmManager.resetWork(getLocation());
+        farmManager.unassignAll();
     }
 
     @Override
@@ -51,7 +48,7 @@ public class Farm extends Structure implements Farming{
 
     public void harvestFood(){
         int foodMined = farmManager.produceFood(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addNutrients(getPid(), foodMined);
+        PlayerManager.getInstance().addNutrients(getPlayerID(), foodMined);
     }
 
     public void setStats(WorkerStats workerStats){
@@ -63,11 +60,13 @@ public class Farm extends Structure implements Farming{
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         farmManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         farmManager.removeUnassigned(number);
     }
 

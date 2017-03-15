@@ -79,26 +79,52 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 
 	@Override
 	public void update(Structure structure) {
+		if(structure.getLocation() ==null)
+		{
+			return;
+		}
+
 		if(structure.getID().getPlayerID().equals(turn.getCurrentPlayerID()))
 		{
 			structure.accept(structureOverview);
 			structure.accept(statusViewport);
 		}
-		
-		structure.accept(viewVisitor);
-		updateView();
+
+		if(!structure.isAlive())
+		{
+			areaViewport.removeView(structure.getID());
+			return;
+		}
+		else
+		{
+			structure.accept(viewVisitor);
+			updateView();
+		}
 	}
 
 	@Override
 	public void update(Unit unit) {
+		if(unit.getLocation() ==null)
+		{
+			return;
+		}
+
 		if(unit.getID().getPlayerID().equals(turn.getCurrentPlayerID()))
 		{
 			unit.accept(unitOverview);
 			unit.accept(statusViewport);
 		}
-		
-		unit.accept(viewVisitor);
-		updateView();
+
+		if(!unit.isAlive())
+		{
+			areaViewport.removeView(unit.getID());
+			return;
+		}
+		else
+		{
+			unit.accept(viewVisitor);
+			updateView();
+		}
 	}
 
 	@Override
@@ -138,6 +164,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		}
 		else
 		{
+			areaViewport.removeView(structure.getID());
 			structure.removeObserver(this);
 		}
 	}
@@ -167,22 +194,31 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		}
 		else
 		{
+			areaViewport.removeView(rp.getID());
 			rp.addObserver(this);
 		}
 	}
-	
+
 	@Override
 	public void update(Army army) {
+		if(army.getLocation() ==null)
+		{
+			return;
+		}
 		army.accept(unitOverview);
 	}
 
 	@Override
 	public void update(RallyPoint rp) {
+		if(rp.getLocation() ==null)
+		{
+			return;
+		}
 		rp.accept(viewVisitor);
-		
+
 		updateView();
 	}
-	
+
 	@Override
 	public void endUpdate(TurnManager turn) {
 		PlayerID id=turn.getCurrentPlayerID();
@@ -215,7 +251,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		{
 			menu.setFocus(new Location(0,0));
 		}
-		
+
 		structureOverview=new StructureOverview(width, height);
 		unitOverview=new UnitOverview(width, height);
 		statusViewport=new StatusViewport(width/3, height);
@@ -257,12 +293,12 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver
 		{
 			army.accept(unitOverview);
 		}
-		
+
 		for(RallyPoint rp: pm.getRallyPoints(id))
 		{
 			rp.accept(viewVisitor);
 		}
-		
+
 		updateView();
 	}
 

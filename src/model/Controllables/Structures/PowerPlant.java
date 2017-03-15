@@ -7,7 +7,7 @@ import model.player.PlayerManager;
 /**
  * Created by Tyler Barkley on 3/1/2017.
  */
-public class PowerPlant extends Structure implements Energizing {
+public class PowerPlant extends HarvestStructure implements Energizing {
 
     private PowerPlantManager powerPlantManager;
     private int builtPercentage;
@@ -20,7 +20,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     @Override
     public void doWork(){
-        if(getBeingBuilt() == true) {
+        if(getBeingBuilt() == false) {
             harvestEnergy();
         }
         else{
@@ -28,16 +28,13 @@ public class PowerPlant extends Structure implements Energizing {
         }
     }
 
-    public void assignWorkersToPowerPlant(Location loc, int numOfWorkers_AssignToPowerPlant){
+    public void assignWorkersToPowerHarvest(Location loc, int numOfWorkers_AssignToPowerPlant){
         powerPlantManager.assignWorkers(loc, numOfWorkers_AssignToPowerPlant, getLocation());
     }
 
     @Override
     public void unassign(){
-        powerPlantManager.setNumOfWorkers_Unassigned(getNumTotalOfWorkers());
-        powerPlantManager.setNumOfWorkers_Harvesting(0);
-        powerPlantManager.setNumOfWorkers_Building(0);
-        powerPlantManager.resetWork(getLocation());
+        powerPlantManager.unassignAll();
     }
 
     @Override
@@ -51,7 +48,7 @@ public class PowerPlant extends Structure implements Energizing {
 
     public void harvestEnergy(){
         int energyMined = powerPlantManager.produceEnergy(getMyStats().getProductionRate());
-        PlayerManager.getInstance().addPower(getPid(), energyMined);
+        PlayerManager.getInstance().addPower(getPlayerID(), energyMined);
     }
 
     public void setStats(WorkerStats workerStats){
@@ -63,11 +60,13 @@ public class PowerPlant extends Structure implements Energizing {
     }
 
     public void addWorker(int number) {
+        addNewWorkers(number);
         powerPlantManager.addUnassigned(number);
     }
 
     @Override
     public void removeWorker(int number) {
+        removeOldWorkers(number);
         powerPlantManager.removeUnassigned(number);
     }
 }
