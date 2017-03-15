@@ -3,38 +3,40 @@ package control.MenuStates.ArmyMenuStates;
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
 import model.BuildFortCommand;
+import model.BuildUniversityCommand;
 
 /**
- * Created by hankerins on 3/13/17.
+ * Created by Tyler Barkley on 3/15/2017.
  */
-public class ArmyBuildFortState extends ArmyMenuState {
-    private static ArmyBuildFortState instance = new ArmyBuildFortState();
-    public static ArmyBuildFortState getInstance(){return instance;}
-    private ArmyBuildFortState(){}
+public class ArmyBuildUniversityState extends ArmyMenuState {
+
+    private static ArmyBuildUniversityState instance = new ArmyBuildUniversityState();
+    public static ArmyBuildUniversityState getInstance(){return instance;}
+    private ArmyBuildUniversityState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
         //TODO: menu to select number of workers
-        int numOfWorkers = 1;
-        currentArmy.giveOrder(new BuildFortCommand(currentArmy, numOfWorkers));
+        int numOfWorkers = currentArmy.getWorkers();
+        currentArmy.giveOrder(new BuildUniversityCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyBuildUniversityState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFarmState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyBuildMineState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFortState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Build Fort";
+        return "Build University";
     }
 }
