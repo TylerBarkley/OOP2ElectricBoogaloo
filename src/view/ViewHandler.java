@@ -11,7 +11,9 @@ import model.TurnManager;
 import model.Controllables.Army;
 import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
+import model.Controllables.Structures.StructureID;
 import model.Controllables.Units.Unit;
+import model.Controllables.Structures.University;
 import model.Map.Map;
 import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
@@ -86,11 +88,18 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		{
 			structure.accept(structureOverview);
 			structure.accept(statusViewport);
+			
+			
 		}
 
 		if(!structure.isAlive())
 		{
 			areaViewport.removeView(structure.getID());
+			if(structure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID) {
+				//University university = (University)structure;
+				//techViewport.removeUniversity(university);
+				//university.removeUniversityObserver(techViewport);
+			}
 			return;
 		}
 		else
@@ -111,6 +120,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		{
 			unit.accept(unitOverview);
 			unit.accept(statusViewport);
+			
 		}
 
 		if(!unit.isAlive())
@@ -137,6 +147,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		if(player.getId().equals(turn.getCurrentPlayerID())){
 			unitOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
 			structureOverview.updatePlayerResources(player.getEnergy().getAmount(), player.getOre().getAmount(), player.getFood().getAmount());
+			//player.getTech().accept(techViewport);
 		}
 	}
 
@@ -148,6 +159,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		if(unit.isAlive())
 		{
 			unit.addObserver(this);
+			
 		}
 		else
 		{
@@ -162,11 +174,21 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 
 		if(structure.isAlive()){
 			structure.addObserver(this);
+			if(structure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID && structure.isAlive()) {
+				//University university = (University)structure;
+			//	university.addUniversityObserver(techViewport);
+			}
 		}
 		else
 		{
+			
 			areaViewport.removeView(structure.getID());
 			structure.removeObserver(this);
+			if(structure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID) {
+				//University university = (University)structure;
+				//techViewport.removeUniversity(university);
+				//university.removeUniversityObserver(techViewport);
+			}
 		}
 	}
 
@@ -256,7 +278,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 		structureOverview.reset();
 		unitOverview.reset();
 		statusViewport.reset();
-
+		techViewport.reset();
 		viewVisitor=new ViewVisitor(id);
 
 		currentPlayerRefresh(id);
@@ -283,6 +305,12 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 			structure.accept(structureOverview);
 			structure.accept(statusViewport);
 			structure.accept(viewVisitor);
+			
+			if(structure.getID().getType() == StructureID.UNIVERSITY_TYPE_ID) {
+			//	University university = (University)structure;
+				//university.addUniversityObserver(techViewport);
+				//university.notifyUnivsersityObservers();
+			}
 		}
 
 		for(Army army: pm.getArmies(id))
@@ -295,8 +323,10 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 			rp.accept(viewVisitor);
 		}
 		
+		
 		unitOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
 		structureOverview.updatePlayerResources(pm.getPower(id).getAmount(), pm.getMetal(id).getAmount(), pm.getNutrients(id).getAmount());
+		//pm.getTechnology(id).accept(techViewport);
 		updateView();
 	}
 

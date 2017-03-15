@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import utilities.TechnologyVisitor;
 import model.StructureResearchCommand;
 import model.Technology;
 import model.UnitResearchCommand;
@@ -24,7 +25,7 @@ import model.Controllables.Structures.University;
 import model.observers.TechnologyObserver;
 import model.observers.UniversityObserver;
 
-public class TechnologyViewport extends JPanel implements TechnologyObserver, UniversityObserver {
+public class TechnologyViewport extends JPanel implements UniversityObserver, TechnologyVisitor {
 
 	private int width;
 	private int height;
@@ -48,18 +49,7 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 	private JComboBox unitComboBox;
 	private JComboBox structureComboBox;
 	private JComboBox productionComboBox;
-	private int workerDensityLevel = 1;
-	private int workerRadiusLevel = 1;
-	private int productionRateLevel = 1;
 	
-	private int efficiencyIndex = 0;
-	private int healthIndex = 1;
-	private int movementIndex = 2;
-	private int attackIndex = 3;
-	private int defenseIndex = 4;
-	private int visibilityRadiusIndex = 5;
-	private int armorIndex = 6;
-	private int maxLevel = 5;
 	private int oreProductionIndex = 0;
 	private int energyProductionIndex = 1;
 	private int foodProductionIndex = 2;
@@ -67,8 +57,6 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 	private int soldierProductionIndex = 4;
 	private int explorerProductionIndex = 5;
 	
-	private int unitLevels[][] = {{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1}};
-	private int structureLevels[][] = {{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1}};
 	private ArrayList<University> unassignedUniversities;
 	
 	
@@ -150,6 +138,7 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 		productionComboBox = new JComboBox(PRODUCTIONNAMES);
 		
 		productionComboBox.setSelectedIndex(0);
+		productionComboBox.setFocusable(false);
 		
 		unitComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		unitComboBox.setSelectedIndex(0);
@@ -162,6 +151,8 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 		structureComboBox.setPreferredSize(new Dimension(200,25));
 		structureComboBox.setMaximumSize(new Dimension(200,25));
 		structureComboBox.setFocusable(false);
+		
+		unassignedUniversities = new ArrayList<University>();
 		
 		disableButtons();
 		addActionListeners();
@@ -612,12 +603,6 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	@Override
-	public void udpate(Technology tech) {
-		// TODO Auto-generated method stub
-		this.tech = tech;
-	}
-	
 	public void displayTechLevels(Technology tech) {
 		
 		workerDensityButton.setText("Worker Density Level: " + tech.getWorkerStatsCurrentLevel(Technology.WorkerDensity));
@@ -677,11 +662,15 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 			unassignedUniversities.remove(university);
 		} 
 		else {
-			unassignedUniversities.add(university);
+			
+			if(unassignedUniversities.indexOf(university) < 0) {
+				unassignedUniversities.add(university);
+			}
+			
 		}
 		
 		if(unassignedUniversities.size() > 0) {
-			enableButtons();
+			if(tech != null)enableButtons();
 		} 
 		else {
 			disableButtons();
@@ -755,9 +744,26 @@ public class TechnologyViewport extends JPanel implements TechnologyObserver, Un
 			universityNames.add("University " + university.getID().getInstanceNumber());
 		}
 		
-		String input = (String) JOptionPane.showInputDialog(this, "Select the University to assign this to", "Assign University",JOptionPane.PLAIN_MESSAGE,null,(String[]) universityNames.toArray(),universityNames.get(0));
+		String input = (String) JOptionPane.showInputDialog(this, "Select the University to assign this to", "Assign University",JOptionPane.PLAIN_MESSAGE,null,universityNames.toArray(),universityNames.get(0));
 		if(input == null || input.length() == 0) return -1; 
 		
 		return universityNames.indexOf(input);
+	}
+	
+	public void reset() {
+		disableButtons();
+		unassignedUniversities.clear();
+	}
+	
+	public void removeUniversity(University university) {
+		unassignedUniversities.remove(university);
+	}
+
+	@Override
+	public void visit(Technology technology) {
+		// TODO Auto-generated method stub
+		tech = technology;
+		displayTechLevels(technology);
+		
 	}
 }
