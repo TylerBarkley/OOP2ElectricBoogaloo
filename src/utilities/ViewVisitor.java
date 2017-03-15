@@ -242,7 +242,11 @@ public class ViewVisitor implements UnitVisitor,MapVisitor, StructureVisitor, Ar
 				type="University";
 				break;
 			}
-
+			
+			if(structure.getBeingBuilt()){
+				type="Construction";
+			}
+			
 			Location loc=structure.getLocation();
 			if(loc==null){
 				continue;
