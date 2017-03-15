@@ -46,7 +46,7 @@ public class FortManager extends WorkerManager{
         if(numOfWorkers_MeleeTraining < 1){
             return 0;
         }
-        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_MeleeTraining + (2 * numOfSoldiers * workerStats.getSoldierTraining());
+        int percentageTrained = workerStats.getSoldierTraining() * numOfWorkers_MeleeTraining * 5 + (2 * numOfSoldiers * workerStats.getSoldierTraining());
         return percentageTrained;
     }
 

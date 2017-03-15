@@ -34,9 +34,12 @@ public class ObservationTower extends Structure {
 
     @Override
     public void build() {
-        builtPercentage += observationTowerManager.building();
+        int buildAmount = observationTowerManager.building();
+        builtPercentage += buildAmount;
+        healMe(buildAmount);
         if(builtPercentage > 99){
             setBeingBuilt(false);
+            setCurrentHealth(100);
             unassign();
         }
     }
@@ -59,5 +62,6 @@ public class ObservationTower extends Structure {
         removeOldWorkers(number);
         observationTowerManager.removeUnassigned(number);
     }
+    public String toString(){return "Observation Tower";}
 
 }

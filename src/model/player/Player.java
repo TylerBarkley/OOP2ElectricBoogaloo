@@ -319,6 +319,7 @@ public class Player implements ArmyObserver, RPObserver{
 		power.addAmount(energy);
 	}
 
+
 	public void addTechnology(int technology) {
 		this.technology += technology;
 	}
@@ -536,5 +537,25 @@ public class Player implements ArmyObserver, RPObserver{
 
 	public void setTech(Technology tech) {
 		this.tech = tech;
+	}
+
+	public void cheatResources() {
+		ArrayList<Army> armies=getArmies();
+		
+		for(Army army: armies){
+			army.cheatResources();
+		}
+		
+		ArrayList<Unit> units=getUnits();
+		
+		for(Unit unit: units){
+			unit.cheatResources();
+		}
+		
+		ArrayList<Structure> structures=getStructures();
+		
+		for(Structure structure: structures){
+			structure.cheatResources();
+		}
 	}
 }

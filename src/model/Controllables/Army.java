@@ -100,7 +100,6 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public void addUnitToBattleGroup(Unit unit){
         battleGroup.add(unit);
         armyStats.addStats(unit.getMyStats());
-
         unit.addObserver(this);
 
         updateAP();
@@ -305,13 +304,19 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         return id.getPlayerID();
     }
 
-    public void removeWorkers(int workers) {
+    public int getWorkers(){
+        return this.workers;
+    }
+
+    public int removeWorkers(int workers) {
         if(this.workers - workers < 0){
+            int prev = this.workers;
             this.workers = 0;
-            return;
+            return prev;
         }
 
         this.workers -= workers;
+        return workers;
     }
 
     public void addWorkers(int workers){
@@ -388,4 +393,9 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
     public int getAttackRange(){
         return armyStats.getMovement();
     }
+    public RallyPoint getRallyPoint(){return myRP;}
+
+	public void cheatResources() {
+		nutrientResourceLevel=Integer.MAX_VALUE;
+	}
 }

@@ -125,7 +125,7 @@ public class StructureManager implements StructureObserver{
 		switch(id.getType())
 		{
 		case StructureID.CAPITAL_TYPE_ID:
-			capitals.remove(instanceNumber);
+			capitals.remove(observable);
 
 			for(int i=instanceNumber; i<capitals.size(); i++)
 			{
@@ -134,7 +134,8 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.FARM_TYPE_ID:
-			farms.remove(instanceNumber);
+
+			farms.remove(observable);
 
 			for(int i=instanceNumber; i<farms.size(); i++)
 			{
@@ -143,7 +144,7 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.FORT_TYPE_ID:
-			forts.remove(instanceNumber);
+			forts.remove(observable);
 
 			for(int i=instanceNumber; i<forts.size(); i++)
 			{
@@ -152,7 +153,7 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.MINE_TYPE_ID:
-			mines.remove(instanceNumber);
+			mines.remove(observable);
 
 			for(int i=instanceNumber; i<mines.size(); i++)
 			{
@@ -161,7 +162,7 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.OBSERVATIONTOWER_TYPE_ID:
-			towers.remove(instanceNumber);
+			towers.remove(observable);
 
 			for(int i=instanceNumber; i<towers.size(); i++)
 			{
@@ -170,7 +171,7 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.POWERPLANT_TYPE_ID:
-			plants.remove(instanceNumber);
+			plants.remove(observable);
 
 			for(int i=instanceNumber; i<plants.size(); i++)
 			{
@@ -179,7 +180,7 @@ public class StructureManager implements StructureObserver{
 
 			break;
 		case StructureID.UNIVERSITY_TYPE_ID:
-			universities.remove(instanceNumber);
+			universities.remove(observable);
 
 			for(int i=instanceNumber; i<universities.size(); i++)
 			{

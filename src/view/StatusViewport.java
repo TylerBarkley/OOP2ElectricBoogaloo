@@ -116,12 +116,11 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 
 		String areaText = unitArea.getText();
 		int index = areaText.indexOf(unitName + " " + instance);
-		String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
-		
-		
-		areaText = areaText.replace(unitStats, "");
-		unitArea.setText(areaText);
-
+		if(index >= 0) {
+			String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
+			areaText = areaText.replace(unitStats, "");
+			unitArea.setText(areaText);
+		}
 	}
 
 	public void visit(Unit unit) {
@@ -178,10 +177,13 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 	private void removeStructureStats(String type, int instance) {
 		String areaText = structureArea.getText();
 		int index = areaText.indexOf(type + " " + instance);
-		String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
+		if(index >= 0){
+			String unitStats = areaText.substring(index, areaText.indexOf("\n\n",index)) + "\n\n";
 
-		areaText = areaText.replace(unitStats, "");
-		structureArea.setText(areaText);
+			areaText = areaText.replace(unitStats, "");
+			structureArea.setText(areaText);
+		}
+
 	}
 	
 	@Override

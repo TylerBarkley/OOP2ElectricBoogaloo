@@ -21,8 +21,8 @@ public class DropOffCommand implements Command {
 
     @Override
     public void execute() {
-        army.removeWorkers(workers);
-        target.addWorker(workers);
+
+        target.addWorker(army.removeWorkers(workers));
     }
     public String toString(){
         return "Drop Off " + workers + " Workers - ";

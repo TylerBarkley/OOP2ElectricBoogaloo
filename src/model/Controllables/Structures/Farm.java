@@ -39,8 +39,11 @@ public class Farm extends HarvestStructure implements Farming{
 
     @Override
     public void build() {
-        builtPercentage += farmManager.building();
+        int buildAmount = farmManager.building();
+        builtPercentage += buildAmount;
+        healMe(buildAmount);
         if(builtPercentage > 99){
+            setCurrentHealth(100);
             setBeingBuilt(false);
             unassign();
         }
@@ -77,4 +80,5 @@ public class Farm extends HarvestStructure implements Farming{
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
     }
+    public String toString(){return "Farm";}
 }

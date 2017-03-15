@@ -21,14 +21,14 @@ public class ArmyBuildFortState extends ArmyMenuState {
         currentArmy.giveOrder(new BuildFortCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyBuildFarmState.getInstance();
+        ArmyMenuState nextState = ArmyBuildUniversityState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyDisbandState.getInstance();
+        ArmyMenuState nextState = ArmyBuildMineState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

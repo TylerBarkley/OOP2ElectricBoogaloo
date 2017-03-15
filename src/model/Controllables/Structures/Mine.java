@@ -39,8 +39,11 @@ public class Mine extends HarvestStructure implements Mining{
 
     @Override
     public void build() {
-        builtPercentage += mineManager.building();
+        int buildAmount = mineManager.building();
+        builtPercentage += buildAmount;
+        healMe(buildAmount);
         if(builtPercentage > 99){
+            setCurrentHealth(100);
             setBeingBuilt(false);
             unassign();
         }
@@ -77,4 +80,5 @@ public class Mine extends HarvestStructure implements Mining{
     public void setBuiltPercentage(int builtPercentage) {
         this.builtPercentage = builtPercentage;
     }
+    public String toString(){return "Mine";}
 }

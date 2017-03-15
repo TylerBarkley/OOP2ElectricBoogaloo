@@ -95,6 +95,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 		currentHealth -= (intensity - myStats.getArmor());
 		if(currentHealth <= 0){
 			this.killMe();
+			return;
 		}
 
 		notifyObservers();
@@ -268,6 +269,10 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 	public void powerActive(){powerState = POWERACTIVE;}
 
 	public abstract int getMovement();
+
+	public void cheatResources() {
+		nutrientResourceLevel=Integer.MAX_VALUE;
+	}
 
 }
 

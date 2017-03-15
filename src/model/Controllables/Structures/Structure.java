@@ -19,6 +19,9 @@ public abstract class Structure implements Controllable, EndTurnObserver {
     private MapDirection md;
     private Location location;
     private int numTotalWorkers;
+
+
+
     private Boolean beingBuilt;
 
     private int energyResourceLevel;
@@ -99,6 +102,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
         currentHealth -= (intensity - myStats.getArmor());
         if (currentHealth <= 0) {
             this.killMe();
+            return;
         }
 
         notifyObservers();
@@ -122,7 +126,7 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
     public void setMyStats(StructureStats myStats) {
         this.myStats = myStats;
-        this.currentHealth = myStats.getHealth();
+        //this.currentHealth = myStats.getHealth();
         notifyObservers();
     }
 
@@ -263,4 +267,14 @@ public abstract class Structure implements Controllable, EndTurnObserver {
 
         doWork(); distribute(); malnourish();
     }
+
+    public int getNumTotalWorkers() {
+        return numTotalWorkers;
+    }
+
+	public void cheatResources() {
+		energyResourceLevel=Integer.MAX_VALUE;
+		nutrientResourceLevel=Integer.MAX_VALUE;
+		metalResourceLevel=Integer.MAX_VALUE;
+	}
 }

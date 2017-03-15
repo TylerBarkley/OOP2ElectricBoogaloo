@@ -189,7 +189,7 @@ public class CapitalManager extends WorkerManager{
         harvestingFoodLocation = myLoc;
         harvestingEnergyLocation = myLoc;
         harvestingOreLocation = myLoc;
-        System.out.println(harvestingFoodLocation);
+        System.out.println(myLoc);
         resourceManager.setWorking(harvestingFoodLocation, false);
         resourceManager.setWorking(harvestingEnergyLocation, false);
         resourceManager.setWorking(harvestingOreLocation, false);

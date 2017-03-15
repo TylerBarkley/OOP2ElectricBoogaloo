@@ -2,40 +2,39 @@ package control.MenuStates.ArmyMenuStates;
 
 import control.Menu;
 import control.MenuStates.ArmyMenuState;
-import control.PopUpMenuWindow;
+import model.BuildMineCommand;
 
 /**
- * Created by hankerins on 3/14/17.
+ * Created by hankerins on 3/15/17.
  */
-public class ArmyRemoveUnitState extends ArmyMenuState{
-    private static ArmyRemoveUnitState instance = new ArmyRemoveUnitState();
-    public static ArmyRemoveUnitState getInstance(){return instance;}
-    private ArmyRemoveUnitState(){}
+public class ArmyBuildMineState extends ArmyMenuState {
+    private static ArmyBuildMineState instance = new ArmyBuildMineState();
+    public static ArmyBuildMineState getInstance(){return instance;}
+    private ArmyBuildMineState(){}
 
     @Override
     public void select(Menu context) {
 
         updateControllable(context);
-        try{
-            currentArmy.removeUnitFromBattleGroup(PopUpMenuWindow.UnitMenu(currentArmy.getBattleGroup()));
-        }
-        catch (Exception e){System.out.println("ArmyRemoveMenuState exception");}
+        //TODO: menu to select number of workers
+        int numOfWorkers = 1;
+        currentArmy.giveOrder(new BuildMineCommand(currentArmy, numOfWorkers));
     }
     public void cycleInstructionL(Menu context){
-        ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
+        ArmyMenuState nextState = ArmyBuildFortState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyAttackState.getInstance();
+        ArmyMenuState nextState = ArmyDisbandState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);
         context.setMenuState(nextState);
     }
     public String toString(){
-        return "Remove Unit";
+        return "Build Mine";
     }
 }

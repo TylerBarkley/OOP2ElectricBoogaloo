@@ -25,7 +25,7 @@ public class ArmyPowerUpState extends ArmyMenuState {
         context.setMenuState(nextState);
     }
     public void cycleInstructionR(Menu context){
-        ArmyMenuState nextState = ArmyCancelQueueState.getInstance();
+        ArmyMenuState nextState = ArmyPickUpWorkersState.getInstance();
         nextState.setCurrentInstance(currentInstance);
         nextState.setCurrentType(currentType);
         nextState.updateControllable(context);

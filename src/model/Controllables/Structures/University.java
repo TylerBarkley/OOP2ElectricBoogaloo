@@ -55,9 +55,12 @@ public class University extends Structure {
 
     @Override
     public void build() {
+        int buildAmount = universityManager.building();
         builtPercentage += universityManager.building();
+        healMe(buildAmount);
         if(builtPercentage > 99){
             setBeingBuilt(false);
+            setCurrentHealth(100);
             unassign();
         }
     }
@@ -117,5 +120,7 @@ public class University extends Structure {
     public boolean isAssigned() {
     	return isAssigned; 
     }
-    
+
+    public String toString(){return "University";}
+
 }
