@@ -3,22 +3,16 @@ package model.Controllables;
 
 import model.*;
 import model.Controllables.Stats.ArmyStats;
-import model.Controllables.Units.Melee;
-import model.Controllables.Units.Ranged;
 import model.Controllables.Units.Unit;
 import model.observers.ArmyObserver;
 import model.observers.EndTurnObserver;
 import model.observers.StartTurnObserver;
 import model.observers.UnitObserver;
-import model.player.Player;
 import model.player.PlayerID;
 import model.player.PlayerManager;
 import utilities.ArmyVisitor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by hankerins on 3/5/17.
@@ -65,7 +59,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
 
 		isDisbanded=false;
 		
-		PlayerManager.getInstance().addArmy(unit.getPid(), this);
+		PlayerManager.getInstance().addArmy(unit.getPlayerID(), this);
         
         this.addUnitToBattleGroup(unit);
     }
@@ -139,9 +133,9 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
             if(unit.canEscort()){ 
             	canEscort = true;
             	break;
-           	} 
+           	}
         }
-        
+
         notifyObservers();
     }
 
@@ -331,6 +325,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         if(!unit.isAlive()){
             this.removeUnitFromBattleGroup(unit);
         }
+        this.updateAP();
     }
 
     @Override

@@ -22,4 +22,7 @@ public class BuildUniversityCommand implements Command {
     public void execute() {
         productionManager.buildUniversity(army, workers);
     }
+    public String toString(){
+        return "Build University - ";
+    }
 }

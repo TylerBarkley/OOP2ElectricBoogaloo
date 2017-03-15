@@ -157,9 +157,9 @@ public class PlayerManager {
 
 	public void distributeNutrients(PlayerID id,Unit unit,int amount){players.get(id).distributeNutrients(unit,amount);}
 
-	public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
-	public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}
-	public void storeNutrients(PlayerID id,int amount){ players.get(id).storeNutrients(amount);}
+	//public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
+	//public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}
+	//public void storeNutrients(PlayerID id,int amount){ players.get(id).storeNutrients(amount);}
 	
 	public ControllableCollection getControllableCollection(PlayerID id){
 		return players.get(id).getControllableCollection();

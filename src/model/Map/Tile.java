@@ -1,6 +1,7 @@
 package model.Map;
 
 import model.Map.Terrain.Terrain;
+import model.TileVisitor;
 
 public class Tile {
 	private Terrain terrain;
@@ -22,5 +23,9 @@ public class Tile {
 
 	public boolean isProspected() {
 		return isProspected;
+	}
+
+	public void accept(TileVisitor tileVisitor){
+		tileVisitor.visit(this);
 	}
 }

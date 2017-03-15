@@ -1,20 +1,17 @@
 package model.Controllables.Units;
+import model.*;
 import model.Controllables.Controllable;
 import model.Controllables.Stats.UnitStats;
-import model.TerrainVisitor;
-import model.TurnManager;
 import model.observers.EndTurnObserver;
 import model.observers.StartTurnObserver;
 import model.observers.UnitObserver;
 
 import java.util.ArrayList;
 
-import model.Location;
-import model.MapDirection;
 import model.player.PlayerID;
 import utilities.UnitVisitor;
 
-public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObserver, EndTurnObserver //implements OverviewVisitable, TurnObserver
+public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor, StartTurnObserver, EndTurnObserver //implements OverviewVisitable, TurnObserver
 {
 	private int currentHealth;
 	private int maxActionPoints;
@@ -147,7 +144,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 		return this.myStats;
 	}
 
-	public PlayerID getPid(){
+	public PlayerID getPlayerID(){
 		return id.getPlayerID();
 	}
 
@@ -208,7 +205,8 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	}
 
 	public void resetAP() {
-		maxActionPoints = myStats.getMovement();
+		this.setMaxActionPoints(this.getMovement());
+
 	}
 
 	public void reduceAP(int amount){
@@ -253,5 +251,7 @@ public abstract class Unit implements Controllable, TerrainVisitor, StartTurnObs
 	public void powerUp(){powerState = POWERUP;}
 	public void powerDown(){powerState = POWERDOWN;}
 	public void powerActive(){powerState = POWERACTIVE;}
+
+	public abstract int getMovement();
 }
 

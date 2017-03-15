@@ -22,4 +22,8 @@ public class BuildFortCommand implements Command {
     public void execute() {
         productionManager.buildFort(army, workers);
     }
+
+    public String toString(){
+        return "Build Fort - ";
+    }
 }
