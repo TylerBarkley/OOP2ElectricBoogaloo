@@ -35,8 +35,7 @@ public class AttackManager {
 
 
     public void attack(Attacker attacker, Location loc) {
-        int radius = attacker.getAttackRange();
-        ArrayList<Location> locations = loc.getAllLocationsWithinRadius(radius);
+        ArrayList<Location> locations = loc.getAllLocationsWithinRadius(attacker.getAttackRange());
         if(!locations.contains(loc)){
             return;
         }

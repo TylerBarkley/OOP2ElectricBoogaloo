@@ -17,7 +17,7 @@ public class StandbyState extends UnitMenuState {
     public void select(Menu context) {
 
         updateControllable(context);
-        //TODO: currentUnit.standby(); --> end reinforcement
+        //TODO: what is standby?
     }
     public void cycleInstructionL(Menu context){
         updateControllable(context);

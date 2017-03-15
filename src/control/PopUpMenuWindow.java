@@ -2,6 +2,7 @@ package control;
 
 import model.Controllables.RallyPoint;
 import model.Controllables.Structures.Structure;
+import model.Controllables.Units.Unit;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -34,6 +35,19 @@ public class PopUpMenuWindow {
 
         int count = Integer.parseInt(result);
         return rallyPoints.get(count - 1);
+    }
+    public static Unit UnitMenu(ArrayList<Unit> battleGroup){
+        Object[] possibilities = new Object[battleGroup.size()];
+        for(int i = 0; i < battleGroup.size(); i++){
+            int x = i + 1;
+            possibilities[i] = (x + ". " + battleGroup.get(i).toString()) ;
+        }
+        String result = (String)JOptionPane.showInputDialog(null,
+                "Which Unit? ", "Unit Menu",
+                JOptionPane.PLAIN_MESSAGE, null, possibilities, 1);
+
+        int count = Integer.parseInt(result);
+        return battleGroup.get(count - 1);
     }
 
 }
