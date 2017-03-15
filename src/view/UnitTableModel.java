@@ -109,4 +109,15 @@ public class UnitTableModel extends AbstractTableModel {
 	public void update() {
 		this.fireTableDataChanged();
 	}
+	
+	public void clearData() {
+		
+		for(int j = 1; j <=MAX_PER_TYPE; j++) {
+			for(int i = 0; i < UNITNAMES.length;i++) {
+				
+				data[i][j] = new String("");
+				
+			}
+		}
+	}
 }
