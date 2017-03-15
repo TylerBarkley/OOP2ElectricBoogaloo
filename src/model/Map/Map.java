@@ -292,8 +292,8 @@ public class Map {
 		resetDebug();
 	}
 
-	public void visitTile(TerrainVisitor target, Location location) {
-		this.getTileAt(location).getTerrain().visitTerrain(target);
+	public void visitTile(TileVisitor target, Location location) {
+		this.getTileAt(location).accept(target);
 	}
 
 	public Set<Location> getLocations(){

@@ -356,6 +356,7 @@ public class Army implements Controllable, Attacker, UnitObserver, EndTurnObserv
         if(!unit.isAlive()){
             this.removeUnitFromBattleGroup(unit);
         }
+        this.updateAP();
     }
 
     @Override

@@ -2,18 +2,12 @@ package model;
 
 import model.Controllables.Units.Unit;
 import model.Map.AOE.AOE;
-import model.Map.Items.OneShotItem;
 import model.Map.Items.OneShotManager;
 import model.Map.Map;
-import model.Map.Occupancy.StructureOccupancy;
 import model.Map.Occupancy.StructureOccupancyManager;
-import model.Map.Occupancy.UnitOccupancy;
 import model.Map.Occupancy.UnitOccupancyManager;
 import model.Map.Terrain.Mountain;
-import model.Map.Terrain.Terrain;
-import model.player.Player;
 import model.player.PlayerID;
-import model.player.PlayerManager;
 
 import java.util.HashMap;
 
