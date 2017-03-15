@@ -293,6 +293,7 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.incrementEnergyResourceLevel(power.getAmount());
 			power.setAmount(0);
 		}
+		notifyObservers();
 	}
 
 	public void distributeMetal(Structure structure,int amountOfMetalGiven){
@@ -303,6 +304,7 @@ public class Player implements ArmyObserver, RPObserver{
 			structure.incrementMetalResourceLevel(metal.getAmount());
 			metal.setAmount(0);
 		}
+		notifyObservers();
 	}
 
 	public void distributeNutrients(Structure structure,int amountOfNutrientsGiven){
@@ -314,7 +316,7 @@ public class Player implements ArmyObserver, RPObserver{
 			nutrients.setAmount(0);
 		}
 
-
+		notifyObservers();
 	}
 
 	public void distributeNutrients(Unit unit,int amountOfNutrientsGiven){
@@ -326,7 +328,7 @@ public class Player implements ArmyObserver, RPObserver{
 			unit.incrementNutrientResourceLevel(nutrients.getAmount());
 			nutrients.setAmount(0);
 		}
-
+		notifyObservers();
 	}
 	public void distributeNutrients(Army army,int amountOfNutrientsGiven){
 		if(amountOfNutrientsGiven<=nutrients.getAmount()) {
@@ -336,7 +338,7 @@ public class Player implements ArmyObserver, RPObserver{
 			army.incrementNutrientResourceLevel(nutrients.getAmount());
 			nutrients.setAmount(0);
 		}
-
+		notifyObservers();
 	}
 
 	public void chargeResources()

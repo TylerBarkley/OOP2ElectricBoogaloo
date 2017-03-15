@@ -99,7 +99,8 @@ public class StatusViewport extends JPanel implements UnitVisitor, StructureVisi
 		String unitStats = unitName + " " + instance + "\n" 
 				+ "Health: " + unit.getCurrentHealth() + "\n"
 				+ "Movement: " + unit.getMyStats().getMovement() + "\n"
-				+ "Upkeep: " + unit.getMyStats().getUpkeep();
+				+ "Upkeep: " + unit.getMyStats().getUpkeep() + "\n"
+				+ "Food Stored: " + unit.getNutrientResourceLevel();
 
 		String areaText = unitArea.getText();
 		int index = areaText.indexOf(unitName + " " + instance);

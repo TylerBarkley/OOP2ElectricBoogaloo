@@ -336,7 +336,7 @@ ArmyObserver, EndTurnObserver, StartTurnObserver, RPObserver, UnitResourceObserv
 
 		if(menu.getCurrentMode() == Menu.UNITMODE) {
 			Unit unit = (Unit) menu.getCurrentInstance();
-			pm.distributeNutrients(unit.getPid(), unit, food);
+			pm.distributeNutrients(unit.getPlayerID(), unit, food);
 		}
 		else {
 			Army army = (Army) menu.getCurrentInstance();
