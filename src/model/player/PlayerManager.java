@@ -22,6 +22,7 @@ import model.Controllables.Units.Unit;
 import model.Map.Resources.Energy;
 import model.Map.Resources.Food;
 import model.Map.Resources.Ore;
+import model.Technology;
 
 public class PlayerManager {
 	private static PlayerManager pm;
@@ -156,6 +157,8 @@ public class PlayerManager {
 	public void distributeNutrients(PlayerID id, Army army,int amount){players.get(id).distributeNutrients(army,amount);}
 
 	public void distributeNutrients(PlayerID id,Unit unit,int amount){players.get(id).distributeNutrients(unit,amount);}
+
+	public Technology getTechnology(Player id){return players.get(id).getTech();}
 
 	//public void storePower(PlayerID id,int amount){ players.get(id).storePower(amount);}
 	//public void storeMetal(PlayerID id,int amount){ players.get(id).storeMetal(amount);}

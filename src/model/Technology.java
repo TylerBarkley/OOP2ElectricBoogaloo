@@ -2,6 +2,7 @@ package model;
 import model.Controllables.Stats.StructureStats;
 import model.Controllables.Stats.UnitStats;
 import model.Controllables.Stats.WorkerStats;
+import model.Controllables.Structures.University;
 import model.Controllables.Units.Unit;
 import utilities.TechnologyVisitor;
 
@@ -386,7 +387,7 @@ public void editWorkerStats(int statToBeModified) {
             case BuildingRate:
                 return workerAdvancements.getBuildingRate()/workerAdvancements.getBuildingRateIncrement()+1;
             case WorkerRadius:
-                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement()+1;
+                return workerAdvancements.getWorkerRadius()/workerAdvancements.getWorkerRadiusIncrement();
             case WorkerDensity:
                 return workerAdvancements.getWorkerDensity()/workerAdvancements.getWorkerDensityIncrement()+1;
         }
@@ -432,6 +433,15 @@ public void editWorkerStats(int statToBeModified) {
     }
     public void accept(TechnologyVisitor vistor){
         vistor.visit(this);
+    }
+    public void createUnitResearchCommandFor(University university,int unitType,int statToBeModified){
+        university.assignResearch(new UnitResearchCommand(this,unitType,statToBeModified));
+    }
+    public void createStructureResearchCommandFor(University university,int structureType,int statToBeModified){
+        university.assignResearch(new StructureResearchCommand(this,structureType,statToBeModified));
+    }
+    public void createWorkerResearchCommandFor(University university,int statToBeModified){
+        university.assignResearch(new WorkerResearchCommand(this,0,statToBeModified));
     }
 
 }
