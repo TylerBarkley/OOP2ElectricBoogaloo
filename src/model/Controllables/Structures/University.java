@@ -12,12 +12,15 @@ public class University extends Structure {
     private int techPercentage;
     private String assignedTech;
     private ResearchCommand myResearch;
-
+    private boolean isAssigned;
+    
+    
     public University(){
         builtPercentage = 0;
         universityManager = new UniversityManager();
         setBeingBuilt(true);
         techPercentage = 0;
+        isAssigned = false;
     }
 
     @Override
@@ -78,8 +81,13 @@ public class University extends Structure {
 
     public void assignResearch(ResearchCommand rc){
         myResearch = rc;
+        isAssigned = true;
     }
-    public void unassignResearch(){myResearch=null;}
+    public void unassignResearch(){
+    	myResearch=null;
+    	isAssigned = false;
+    }
+    
     public String getResearchName(){return myResearch.getResearch();}
     public int getBuiltPercentage() {
         return builtPercentage;
@@ -103,5 +111,11 @@ public class University extends Structure {
 
     public void setAssignedTech(String assignedTech) {
         this.assignedTech = assignedTech;
+        isAssigned = true;
     }
+    
+    public boolean isAssigned() {
+    	return isAssigned; 
+    }
+    
 }

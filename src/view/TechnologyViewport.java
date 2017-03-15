@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,9 +13,18 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class TechnologyViewport extends JPanel {
+import model.StructureResearchCommand;
+import model.Technology;
+import model.UnitResearchCommand;
+import model.WorkerResearchCommand;
+import model.Controllables.Structures.University;
+import model.observers.TechnologyObserver;
+import model.observers.UniversityObserver;
+
+public class TechnologyViewport extends JPanel implements TechnologyObserver, UniversityObserver {
 
 	private int width;
 	private int height;
@@ -37,6 +47,7 @@ public class TechnologyViewport extends JPanel {
 	private JButton structureArmorButton;
 	private JComboBox unitComboBox;
 	private JComboBox structureComboBox;
+	private JComboBox productionComboBox;
 	private int workerDensityLevel = 1;
 	private int workerRadiusLevel = 1;
 	private int productionRateLevel = 1;
@@ -49,12 +60,23 @@ public class TechnologyViewport extends JPanel {
 	private int visibilityRadiusIndex = 5;
 	private int armorIndex = 6;
 	private int maxLevel = 5;
+	private int oreProductionIndex = 0;
+	private int energyProductionIndex = 1;
+	private int foodProductionIndex = 2;
+	private int workerProductionIndex = 3;
+	private int soldierProductionIndex = 4;
+	private int explorerProductionIndex = 5;
 	
 	private int unitLevels[][] = {{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1}};
 	private int structureLevels[][] = {{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1},{1,1,1,1,1,1,1}};
+	private ArrayList<University> unassignedUniversities;
+	
+	
+	private Technology tech; 
 	
 	public static final String UNITNAMES[]= {"COLONIST","EXPLORER","MELEE","RANGE"};
 	public static final String STRUCTURENAMES[] = {"CAPITAL","FARM","FORT","MINE","OBSERVATION TOWER","POWER PLANT","UNIVERSITY"};
+	public static final String PRODUCTIONNAMES[] = {"ORE PRODUCTION","ENERGY PRODUCTION","FOOD PRODUCTION","WORKER BREEDING","SOLDIER TRAINING","EXPLORERER TRAINING"};
 	
 	
 	public TechnologyViewport(int width, int height) {
@@ -67,7 +89,7 @@ public class TechnologyViewport extends JPanel {
 		workerRadiusButton = new JButton(" Worker Radius Level: 0");
 		productionRateButton = new JButton(" Production Rate Level: 1");
 		
-		unitEfficiencyButton = new JButton(" Efficienty Level: 1");
+		unitEfficiencyButton = new JButton(" Efficiency Level: 1");
 		unitHealthButton = new JButton(" Health Level: 1");
 		unitMovementButton = new JButton(" Movement Level: 1");
 		unitAttackButton = new JButton(" Attack Level: 1");
@@ -75,7 +97,7 @@ public class TechnologyViewport extends JPanel {
 		unitVisibilityRadiusButton = new JButton(" Visibility Radius Level: 1");
 		unitArmorButton = new JButton("Armor level: 1");
 		
-		structureEfficiencyButton = new JButton(" Efficienty Level: 1");
+		structureEfficiencyButton = new JButton(" Efficiency Level: 1");
 		structureHealthButton = new JButton(" Health Level: 1");
 		structureMovementButton = new JButton(" Movement Level: 1");
 		structureAttackButton = new JButton(" Attack Level: 1");
@@ -103,40 +125,45 @@ public class TechnologyViewport extends JPanel {
 		structureVisibilityRadiusButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		structureArmorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		workerDensityButton.setFocusable(false);
+		workerRadiusButton.setFocusable(false);
+		productionRateButton.setFocusable(false);
+		
+		unitEfficiencyButton.setFocusable(false);
+		unitHealthButton.setFocusable(false);
+		unitMovementButton.setFocusable(false);
+		unitAttackButton.setFocusable(false);
+		unitDefenseButton.setFocusable(false);
+		unitVisibilityRadiusButton.setFocusable(false);
+		unitArmorButton.setFocusable(false);
+		
+		structureEfficiencyButton.setFocusable(false);
+		structureHealthButton.setFocusable(false);
+		structureMovementButton.setFocusable(false);
+		structureAttackButton.setFocusable(false);
+		structureDefenseButton.setFocusable(false);
+		structureVisibilityRadiusButton.setFocusable(false);
+		structureArmorButton.setFocusable(false);
+		
 		unitComboBox = new JComboBox(UNITNAMES);
 		structureComboBox = new JComboBox(STRUCTURENAMES);
+		productionComboBox = new JComboBox(PRODUCTIONNAMES);
+		
+		productionComboBox.setSelectedIndex(0);
 		
 		unitComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		unitComboBox.setSelectedIndex(0);
 		unitComboBox.setPreferredSize(new Dimension(200,25));
 		unitComboBox.setMaximumSize(new Dimension(200,25));
+		unitComboBox.setFocusable(false);
 		
 		structureComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		structureComboBox.setSelectedIndex(0);
 		structureComboBox.setPreferredSize(new Dimension(200,25));
 		structureComboBox.setMaximumSize(new Dimension(200,25));
+		structureComboBox.setFocusable(false);
 		
-		workerDensityButton.setEnabled(true);
-		workerRadiusButton.setEnabled(false);
-		productionRateButton.setEnabled(false);
-		
-		unitEfficiencyButton.setEnabled(true);
-		unitHealthButton.setEnabled(false);
-		unitMovementButton.setEnabled(false);
-		unitAttackButton.setEnabled(false);
-		unitDefenseButton.setEnabled(false);
-		unitVisibilityRadiusButton.setEnabled(false);
-		unitArmorButton.setEnabled(false);
-		
-		structureEfficiencyButton.setEnabled(true);
-		structureHealthButton.setEnabled(false);
-		structureMovementButton.setEnabled(false);
-		structureAttackButton.setEnabled(false);
-		structureDefenseButton.setEnabled(false);
-		structureVisibilityRadiusButton.setEnabled(false);
-		structureArmorButton.setEnabled(false);
-		
-		
+		disableButtons();
 		addActionListeners();
 		displayView();
 	}
@@ -156,7 +183,7 @@ public class TechnologyViewport extends JPanel {
 		JPanel workerPanel = new JPanel();
 		workerPanel.setLayout(new BoxLayout(workerPanel,BoxLayout.Y_AXIS));
 		
-		JLabel workerTitle = new JLabel("Worker and Productions Tree");
+		JLabel workerTitle = new JLabel("Worker Tree");
 		workerTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		workerPanel.add(Box.createVerticalStrut(20));
@@ -164,13 +191,20 @@ public class TechnologyViewport extends JPanel {
 		workerPanel.add(Box.createVerticalStrut(20));
 		workerPanel.add(workerDensityButton);
 		workerPanel.add(Box.createVerticalStrut(20));
+		workerPanel.add(workerRadiusButton);
 		
-		JPanel twoWorkerButtonPanel = new JPanel();
-		twoWorkerButtonPanel.add(workerRadiusButton);
-		twoWorkerButtonPanel.add(Box.createHorizontalStrut(20));
-		twoWorkerButtonPanel.add(productionRateButton);
+		JPanel productionPanel = new JPanel();
+		productionPanel.setLayout(new BoxLayout(productionPanel,BoxLayout.Y_AXIS));
 		
-		workerPanel.add(twoWorkerButtonPanel);
+		JLabel productionTitle = new JLabel("Production Tree");
+		productionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		productionPanel.add(Box.createVerticalStrut(20));
+		productionPanel.add(productionTitle);
+		productionPanel.add(Box.createVerticalStrut(20));
+		productionPanel.add(productionComboBox);
+		productionPanel.add(Box.createVerticalStrut(20));
+		productionPanel.add(productionRateButton);
 		
 		JPanel unitPanel = new JPanel();
 		unitPanel.setLayout(new BoxLayout(unitPanel,BoxLayout.Y_AXIS));
@@ -245,6 +279,8 @@ public class TechnologyViewport extends JPanel {
 		treePanel.add(structurePanel);
 		treePanel.add(Box.createHorizontalStrut(20));
 		treePanel.add(workerPanel);
+		treePanel.add(Box.createHorizontalStrut(20));
+		treePanel.add(productionPanel);
 		this.add(treePanel);
 		this.setBackground(Color.orange);
 		
@@ -256,11 +292,11 @@ public class TechnologyViewport extends JPanel {
 		workerDensityButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(workerDensityLevel < maxLevel) {
-					workerDensityLevel++;
-					workerDensityButton.setText("Worker Density Level: " + workerDensityLevel);
-					workerRadiusButton.setEnabled(true);
-					productionRateButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.WorkerDensity));
 				}
 			}
 		});
@@ -268,9 +304,12 @@ public class TechnologyViewport extends JPanel {
 		workerRadiusButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 		
-				if(workerRadiusLevel < maxLevel) {
-					workerRadiusLevel++;
-					workerRadiusButton.setText("Worker Radius Level: " + workerRadiusLevel);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.WorkerRadius));
+					unassignedUniversities.remove(university);
 				}
 			}
 		});
@@ -278,9 +317,36 @@ public class TechnologyViewport extends JPanel {
 		productionRateButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(productionRateLevel < maxLevel) {
-					productionRateLevel++;
-					productionRateButton.setText("Production Rate Level: " + productionRateLevel);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentProduction = productionComboBox.getSelectedIndex();
+					if(currentProduction == oreProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.OreProduction));
+					}
+					
+					if(currentProduction == energyProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.EnergyProduction));
+					}
+					
+					if(currentProduction == foodProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.FoodProduction));
+					}
+					
+					if(currentProduction == workerProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.Breeding));
+					}
+					
+					if(currentProduction == soldierProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.SoldierTraining));
+					}
+					
+					if(currentProduction == explorerProductionIndex) {
+						university.assignResearch(new WorkerResearchCommand(tech,-1,Technology.ExplorerTraining));
+					}
+					
+					
 				}
 			}
 		});
@@ -288,11 +354,12 @@ public class TechnologyViewport extends JPanel {
 		unitEfficiencyButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][efficiencyIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][efficiencyIndex]++;
-					unitEfficiencyButton.setText("Efficiency Level: " + unitLevels[unitComboBox.getSelectedIndex()][efficiencyIndex] );
-					unitHealthButton.setEnabled(true);
-					unitMovementButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.Upkeep));
 				}
 			}
 		});
@@ -300,11 +367,12 @@ public class TechnologyViewport extends JPanel {
 		unitHealthButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][healthIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][healthIndex]++;
-					unitHealthButton.setText("Health Level: " + unitLevels[unitComboBox.getSelectedIndex()][healthIndex] );
-					unitAttackButton.setEnabled(true);
-					unitDefenseButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.Health));
 				}
 			}
 		});
@@ -312,21 +380,25 @@ public class TechnologyViewport extends JPanel {
 		unitMovementButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][movementIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][movementIndex]++;
-					unitMovementButton.setText("Movement Level: " + unitLevels[unitComboBox.getSelectedIndex()][movementIndex] );
-					unitVisibilityRadiusButton.setEnabled(true);
-					unitArmorButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.Movement));
 				}
 			}
 		});
 		
 		unitAttackButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
-			
-				if(unitLevels[unitComboBox.getSelectedIndex()][attackIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][attackIndex]++;
-					unitAttackButton.setText("Attack Level: " + unitLevels[unitComboBox.getSelectedIndex()][attackIndex] );
+				
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.OffensiveDamage));
 				}
 			}
 		});
@@ -334,9 +406,12 @@ public class TechnologyViewport extends JPanel {
 		unitDefenseButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][defenseIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][defenseIndex]++;
-					unitDefenseButton.setText("Defense Level: " + unitLevels[unitComboBox.getSelectedIndex()][defenseIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.DefensiveDamage));
 				}
 			}
 		});
@@ -344,9 +419,12 @@ public class TechnologyViewport extends JPanel {
 		unitVisibilityRadiusButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][visibilityRadiusIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][visibilityRadiusIndex]++;
-					unitVisibilityRadiusButton.setText("Visibility Radius Level: " + unitLevels[unitComboBox.getSelectedIndex()][visibilityRadiusIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.InfluenceRadius));
 				}
 			}
 		});
@@ -354,9 +432,12 @@ public class TechnologyViewport extends JPanel {
 		unitArmorButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(unitLevels[unitComboBox.getSelectedIndex()][armorIndex] < maxLevel) {
-					unitLevels[unitComboBox.getSelectedIndex()][armorIndex]++;
-					unitArmorButton.setText("Armor Level: " + unitLevels[unitComboBox.getSelectedIndex()][armorIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = unitComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new UnitResearchCommand(tech,currentType,Technology.Armor));
 				}
 			}
 		});
@@ -364,11 +445,12 @@ public class TechnologyViewport extends JPanel {
 		structureEfficiencyButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][efficiencyIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][efficiencyIndex]++;
-					structureEfficiencyButton.setText("Efficiency Level: " + structureLevels[structureComboBox.getSelectedIndex()][efficiencyIndex] );
-					structureHealthButton.setEnabled(true);
-					structureMovementButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.Upkeep));
 				}
 			}
 		});
@@ -376,11 +458,12 @@ public class TechnologyViewport extends JPanel {
 		structureHealthButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][healthIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][healthIndex]++;
-					structureHealthButton.setText("Health Level: " + structureLevels[structureComboBox.getSelectedIndex()][healthIndex] );
-					structureAttackButton.setEnabled(true);
-					structureDefenseButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.Health));
 				}
 			}
 		});
@@ -388,21 +471,25 @@ public class TechnologyViewport extends JPanel {
 		structureMovementButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][movementIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][movementIndex]++;
-					structureMovementButton.setText("Movement Level: " + structureLevels[structureComboBox.getSelectedIndex()][movementIndex] );
-					structureVisibilityRadiusButton.setEnabled(true);
-					structureArmorButton.setEnabled(true);
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.Movement));
 				}
 			}
 		});
 		
 		structureAttackButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
-			
-				if(structureLevels[structureComboBox.getSelectedIndex()][attackIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][attackIndex]++;
-					structureAttackButton.setText("Attack Level: " + structureLevels[structureComboBox.getSelectedIndex()][attackIndex] );
+				
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.OffensiveDamage));
 				}
 			}
 		});
@@ -410,9 +497,12 @@ public class TechnologyViewport extends JPanel {
 		structureDefenseButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][defenseIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][defenseIndex]++;
-					structureDefenseButton.setText("Defense Level: " + structureLevels[structureComboBox.getSelectedIndex()][defenseIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.DefensiveDamage));
 				}
 			}
 		});
@@ -420,9 +510,12 @@ public class TechnologyViewport extends JPanel {
 		structureVisibilityRadiusButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][visibilityRadiusIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][visibilityRadiusIndex]++;
-					structureVisibilityRadiusButton.setText("Visibility Radius Level: " + structureLevels[structureComboBox.getSelectedIndex()][visibilityRadiusIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.InfluenceRadius));
 				}
 			}
 		});
@@ -430,9 +523,12 @@ public class TechnologyViewport extends JPanel {
 		structureArmorButton.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				
-				if(structureLevels[structureComboBox.getSelectedIndex()][armorIndex] < maxLevel) {
-					structureLevels[structureComboBox.getSelectedIndex()][armorIndex]++;
-					structureArmorButton.setText("Armor Level: " + structureLevels[structureComboBox.getSelectedIndex()][armorIndex] );
+				int index = assignTechnology();
+				
+				if(index >= 0) {
+					University university = unassignedUniversities.get(index);
+					int currentType = structureComboBox.getSelectedIndex() + 1;
+					university.assignResearch(new StructureResearchCommand(tech,currentType,Technology.Armor));
 				}
 			}
 		});
@@ -440,34 +536,34 @@ public class TechnologyViewport extends JPanel {
 		unitComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JComboBox unitBox = (JComboBox)e.getSource();
-				int currentUnit = unitBox.getSelectedIndex();
+				JComboBox cb = (JComboBox) e.getSource();
+				int currentUnitType = cb.getSelectedIndex() + 1;
 				
-				unitEfficiencyButton.setText("Efficiency Level: " + unitLevels[currentUnit][efficiencyIndex]);
-				unitHealthButton.setText("Health Level: " + unitLevels[currentUnit][healthIndex]);
-				unitMovementButton.setText("Movement Level: " + unitLevels[currentUnit][movementIndex]);
-				unitAttackButton.setText("Attack Level: " + unitLevels[currentUnit][attackIndex]);
-				unitDefenseButton.setText("Defense Level: " + unitLevels[currentUnit][defenseIndex]);
-				unitVisibilityRadiusButton.setText("Visibility Radius Level: " + unitLevels[currentUnit][visibilityRadiusIndex]);
-				unitArmorButton.setText("Armor Level: " + unitLevels[currentUnit][armorIndex]);
-				
-				if(unitLevels[currentUnit][efficiencyIndex] > 1) unitHealthButton.setEnabled(true);
-				else unitHealthButton.setEnabled(false);
-				
-				if(unitLevels[currentUnit][efficiencyIndex] > 1) unitMovementButton.setEnabled(true);
-				else unitMovementButton.setEnabled(false);
-				
-				if(unitLevels[currentUnit][healthIndex] > 1) unitAttackButton.setEnabled(true);
-				else unitAttackButton.setEnabled(false);
-				
-				if(unitLevels[currentUnit][healthIndex] > 1) unitDefenseButton.setEnabled(true);
-				else unitDefenseButton.setEnabled(false);
-				
-				if(unitLevels[currentUnit][movementIndex] > 1) unitVisibilityRadiusButton.setEnabled(true);
-				else unitVisibilityRadiusButton.setEnabled(false);
-				
-				if(unitLevels[currentUnit][movementIndex] > 1) unitArmorButton.setEnabled(true);
-				else unitArmorButton.setEnabled(false);
+				if(unassignedUniversities.size() > 0) {
+					unitEfficiencyButton.setEnabled(true);
+					if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Upkeep) > 1) {
+						unitHealthButton.setEnabled(true);
+						unitMovementButton.setEnabled(true);
+					}
+					if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Health) > 1 ) {
+						unitAttackButton.setEnabled(true);
+						unitDefenseButton.setEnabled(true);
+					}
+					if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Movement) > 1) {
+						unitVisibilityRadiusButton.setEnabled(true);
+						unitArmorButton.setVisible(true);
+					}
+				}
+				else {
+					unitEfficiencyButton.setEnabled(false);
+					unitHealthButton.setEnabled(false);
+					unitMovementButton.setEnabled(false);
+					unitAttackButton.setEnabled(false);
+					unitDefenseButton.setEnabled(false);
+					unitVisibilityRadiusButton.setEnabled(false);
+					unitArmorButton.setVisible(false);
+				}
+	
 			}
 		});
 		
@@ -475,34 +571,33 @@ public class TechnologyViewport extends JPanel {
 		structureComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JComboBox structureBox = (JComboBox)e.getSource();
-				int currentStructure = structureBox.getSelectedIndex();
+				JComboBox cb = (JComboBox)e.getSource();
+				int currentStructureType = cb.getSelectedIndex()+1;
 				
-				structureEfficiencyButton.setText("Efficiency Level: " + structureLevels[currentStructure][efficiencyIndex]);
-				structureHealthButton.setText("Health Level: " + structureLevels[currentStructure][healthIndex]);
-				structureMovementButton.setText("Movement Level: " + structureLevels[currentStructure][movementIndex]);
-				structureAttackButton.setText("Attack Level: " + structureLevels[currentStructure][attackIndex]);
-				structureDefenseButton.setText("Defense Level: " + structureLevels[currentStructure][defenseIndex]);
-				structureVisibilityRadiusButton.setText("Visibility Radius Level: " + structureLevels[currentStructure][visibilityRadiusIndex]);
-				structureArmorButton.setText("Armor Level: " + structureLevels[currentStructure][armorIndex]);
-				
-				if(structureLevels[currentStructure][efficiencyIndex] > 1) structureHealthButton.setEnabled(true);
-				else structureHealthButton.setEnabled(false);
-				
-				if(structureLevels[currentStructure][efficiencyIndex] > 1) structureMovementButton.setEnabled(true);
-				else structureMovementButton.setEnabled(false);
-				
-				if(structureLevels[currentStructure][healthIndex] > 1) structureAttackButton.setEnabled(true);
-				else structureAttackButton.setEnabled(false);
-				
-				if(structureLevels[currentStructure][healthIndex] > 1) structureDefenseButton.setEnabled(true);
-				else structureDefenseButton.setEnabled(false);
-				
-				if(structureLevels[currentStructure][movementIndex] > 1) structureVisibilityRadiusButton.setEnabled(true);
-				else structureVisibilityRadiusButton.setEnabled(false);
-				
-				if(structureLevels[currentStructure][movementIndex] > 1) structureArmorButton.setEnabled(true);
-				else structureArmorButton.setEnabled(false);
+				if(unassignedUniversities.size() > 0) {
+					structureEfficiencyButton.setEnabled(true);
+					if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Upkeep) > 1) {
+						structureHealthButton.setEnabled(true);
+						structureMovementButton.setEnabled(true);
+					}
+					if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Health) > 1 ) {
+						structureAttackButton.setEnabled(true);
+						structureDefenseButton.setEnabled(true);
+					}
+					if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Movement) > 1) {
+						structureVisibilityRadiusButton.setEnabled(true);
+						structureArmorButton.setVisible(true);
+					}
+				}
+				else {
+					structureEfficiencyButton.setEnabled(false);
+					structureHealthButton.setEnabled(false);
+					structureMovementButton.setEnabled(false);
+					structureAttackButton.setEnabled(false);
+					structureDefenseButton.setEnabled(false);
+					structureVisibilityRadiusButton.setEnabled(false);
+					structureArmorButton.setVisible(false);
+				}
 			}
 		});
 	}
@@ -515,5 +610,154 @@ public class TechnologyViewport extends JPanel {
 		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	@Override
+	public void udpate(Technology tech) {
+		// TODO Auto-generated method stub
+		this.tech = tech;
+	}
+	
+	public void displayTechLevels(Technology tech) {
+		
+		workerDensityButton.setText("Worker Density Level: " + tech.getWorkerStatsCurrentLevel(Technology.WorkerDensity));
+		workerRadiusButton.setText("Worker Radius Level: " + tech.getWorkerStatsCurrentLevel(Technology.WorkerRadius));
+		
+		int currentProductionType = productionComboBox.getSelectedIndex();
+		if(currentProductionType == oreProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.OreProduction));
+		}
+		
+		if(currentProductionType == energyProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.EnergyProduction));
+		}
+		
+		if(currentProductionType == foodProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.FoodProduction));
+		}
+		
+		if(currentProductionType == workerProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.Breeding));
+		}
+		
+		if(currentProductionType == soldierProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.SoldierTraining));
+		}
+		
+		if(currentProductionType == explorerProductionIndex) {
+			productionRateButton.setText("Production Rate Level: " + tech.getWorkerStatsCurrentLevel(Technology.ExplorerTraining));
+		}
+		
+		int currentUnitType = unitComboBox.getSelectedIndex() + 1;
+		
+		unitEfficiencyButton.setText("Efficiency Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.Upkeep));
+		unitHealthButton.setText("Health Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.Health));
+		unitMovementButton.setText("Movement Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.Movement));
+		unitAttackButton.setText("Attack Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.OffensiveDamage));
+		unitDefenseButton.setText("Defense Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.DefensiveDamage));
+		unitVisibilityRadiusButton.setText("Visibility Radius Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.InfluenceRadius));
+		unitArmorButton.setText("Armor Level: " + tech.getUnitStatCurrentLevel(currentUnitType, Technology.Armor));
+		
+		int currentStructureType = structureComboBox.getSelectedIndex() + 1;
+		
+		structureEfficiencyButton.setText("Efficiency Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Upkeep));
+		structureHealthButton.setText("Health Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Health));
+		structureMovementButton.setText("Movement Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Movement));
+		structureAttackButton.setText("Attack Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.OffensiveDamage));
+		structureDefenseButton.setText("Defense Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.DefensiveDamage));
+		structureVisibilityRadiusButton.setText("Visibility Radius Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.InfluenceRadius));
+		structureArmorButton.setText("Armor Level: " + tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Armor));
+	}
+
+	@Override
+	public void update(University university) {
+		// TODO Auto-generated method stub
+
+		if(university.isAssigned()) {
+			unassignedUniversities.remove(university);
+		} 
+		else {
+			unassignedUniversities.add(university);
+		}
+		
+		if(unassignedUniversities.size() > 0) {
+			enableButtons();
+		} 
+		else {
+			disableButtons();
+		}
+	}
+	
+	private void enableButtons() {
+		workerDensityButton.setEnabled(true);
+		if(tech.getWorkerStatsCurrentLevel(Technology.WorkerDensity) > 1) workerRadiusButton.setEnabled(true);
+		productionRateButton.setEnabled(true);
+		unitEfficiencyButton.setEnabled(true);
+		structureEfficiencyButton.setEnabled(true);
+		
+		
+		int currentUnitType = unitComboBox.getSelectedIndex() + 1;
+		if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Upkeep) > 1) {
+			unitHealthButton.setEnabled(true);
+			unitMovementButton.setEnabled(true);
+		}
+		if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Health) > 1 ) {
+			unitAttackButton.setEnabled(true);
+			unitDefenseButton.setEnabled(true);
+		}
+		if(tech.getUnitStatCurrentLevel(currentUnitType, Technology.Movement) > 1) {
+			unitVisibilityRadiusButton.setEnabled(true);
+			unitArmorButton.setVisible(true);
+		}
+		
+		int currentStructureType = structureComboBox.getSelectedIndex() + 1;
+		if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Upkeep) > 1) {
+			structureHealthButton.setEnabled(true);
+			structureMovementButton.setEnabled(true);
+		}
+		if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Health) > 1 ) {
+			structureAttackButton.setEnabled(true);
+			structureDefenseButton.setEnabled(true);
+		}
+		if(tech.getStructureStatsCurrentLevel(currentStructureType, Technology.Movement) > 1) {
+			structureVisibilityRadiusButton.setEnabled(true);
+			structureArmorButton.setVisible(true);
+		}
+	}
+	
+	private void disableButtons() {
+		workerDensityButton.setEnabled(false);
+		workerRadiusButton.setEnabled(false);
+		productionRateButton.setEnabled(false);
+		
+		unitEfficiencyButton.setEnabled(false);
+		unitHealthButton.setEnabled(false);
+		unitMovementButton.setEnabled(false);
+		unitAttackButton.setEnabled(false);
+		unitDefenseButton.setEnabled(false);
+		unitVisibilityRadiusButton.setEnabled(false);
+		unitArmorButton.setEnabled(false);
+		
+		structureEfficiencyButton.setEnabled(true);
+		structureHealthButton.setEnabled(false);
+		structureMovementButton.setEnabled(false);
+		structureAttackButton.setEnabled(false);
+		structureDefenseButton.setEnabled(false);
+		structureVisibilityRadiusButton.setEnabled(false);
+		structureArmorButton.setEnabled(false);
+	}
+	
+	private int assignTechnology() {
+		
+		ArrayList<String> universityNames = new ArrayList<String>(unassignedUniversities.size());
+		
+		for(University university: unassignedUniversities) {
+			universityNames.add("University " + university.getID().getInstanceNumber());
+		}
+		
+		String input = (String) JOptionPane.showInputDialog(this, "Select the University to assign this to", "Assign University",JOptionPane.PLAIN_MESSAGE,null,(String[]) universityNames.toArray(),universityNames.get(0));
+		if(input == null || input.length() == 0) return -1; 
+		
+		return universityNames.indexOf(input);
 	}
 }

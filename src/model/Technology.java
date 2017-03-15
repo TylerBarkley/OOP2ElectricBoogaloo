@@ -16,24 +16,24 @@ private ArrayList<StructureAdvancements> structureAdvancements;
 private WorkerAdvancements workerAdvancements;
 private ArrayList<ResearchCommand> researchCommands;
 
-    static final int OffensiveDamage=0;
-    static final int DefensiveDamage=1;
-    static final int Upkeep=2;
-    static final int Movement=3;
-    static final int Armor=4;
-    static final int InfluenceRadius=6;
-    static final  int ProductionRate=7;
-    static final int FoodProduction=8;
-    static final int OreProduction=9;
-    static final int EnergyProduction=10;
-    static final int TechnologyProduction=11;
-    static final int SoldierTraining=12;
-    static final int Breeding=13;
-    static final int ExplorerTraining=14;
-    static final int BuildingRate=15;
-    static final int WorkerDensity=16;
-    static final int WorkerRadius=17;
-    static final int Health=18;
+   public static final int OffensiveDamage=0;
+   public static final int DefensiveDamage=1;
+   public static final int Upkeep=2;
+   public static final int Movement=3;
+   public static final int Armor=4;
+   public static final int InfluenceRadius=6;
+   public static final  int ProductionRate=7;
+   public static final int FoodProduction=8;
+   public static final int OreProduction=9;
+   public static final int EnergyProduction=10;
+   public static final int TechnologyProduction=11;
+   public static final int SoldierTraining=12;
+   public static final int Breeding=13;
+   public static final int ExplorerTraining=14;
+   public static final int BuildingRate=15;
+   public static final int WorkerDensity=16;
+   public static final int WorkerRadius=17;
+   public static final int Health=18;
 
 public Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> structureStats, WorkerStats workerStats){
     this.unitStats=unitStats;
@@ -51,8 +51,8 @@ public Technology(ArrayList<UnitStats> unitStats, ArrayList<StructureStats> stru
 
 }
 
-public void editUnitStats(int unitType,int statToBeModified){
-        if(getUnitStatCurrentLevel(unitType,statToBeModified)>=getUnitStatsMaxLevel(unitType,statToBeModified)){return;}
+public boolean editUnitStats(int unitType,int statToBeModified){
+        if(getUnitStatCurrentLevel(unitType,statToBeModified)>=getUnitStatsMaxLevel(unitType,statToBeModified)){return false;}
         switch(statToBeModified){
             case Health:
                 unitStats.get(unitType).incrementHealth(unitAdvancements.get(unitType).getHealthIncrement());
@@ -83,11 +83,11 @@ public void editUnitStats(int unitType,int statToBeModified){
                 unitAdvancements.get(unitType).incrementMovement();
                 break;
         }
-
+        	return true;
     }
 
-    public void editStructureStats(int structureType,int statToBeModified){
-        if(getStructureStatsCurrentLevel(structureType,statToBeModified)>=getStructureStatsMaxLevel(structureType,statToBeModified)){return;}
+    public boolean editStructureStats(int structureType,int statToBeModified){
+        if(getStructureStatsCurrentLevel(structureType,statToBeModified)>=getStructureStatsMaxLevel(structureType,statToBeModified)){return false;}
         switch(statToBeModified){
             case Health:
                 structureStats.get(structureType).incrementHealth(structureAdvancements.get(structureType).getHealthIncrement());
@@ -118,9 +118,10 @@ public void editUnitStats(int unitType,int statToBeModified){
                structureAdvancements.get(structureType).incrementProductionRate();
                 break;
             }
+        return true;
 }
-public void editWorkerStats(int statToBeModified) {
-    if(getWorkerStatsCurrentLevel(statToBeModified)>=getWorkerStatsMaxLevel(statToBeModified)){return;}
+public boolean editWorkerStats(int statToBeModified) {
+    if(getWorkerStatsCurrentLevel(statToBeModified)>=getWorkerStatsMaxLevel(statToBeModified)){return false;}
     System.out.println("Current "+getWorkerStatsCurrentLevel(statToBeModified)+"Max  "+getWorkerStatsMaxLevel(statToBeModified));
     switch (statToBeModified) {
         case FoodProduction:
@@ -164,6 +165,7 @@ public void editWorkerStats(int statToBeModified) {
             workerAdvancements.incrementWorkerDensity();
             break;
     }
+    return true;
 }
     public int getCurrentStructureAdvancements(int structureType, int statToBeSearched){
         switch(statToBeSearched){
