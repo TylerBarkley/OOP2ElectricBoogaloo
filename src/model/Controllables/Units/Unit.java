@@ -233,9 +233,11 @@ public abstract class Unit implements Controllable, TerrainVisitor, TileVisitor,
 
 	public void setNutrientResourceLevel(int nutrientResourceLevel) {
 		this.nutrientResourceLevel = nutrientResourceLevel;
+		notifyObservers();
 	}
 	public void incrementNutrientResourceLevel(int increment){
 		nutrientResourceLevel+=increment;
+		notifyObservers();
 	}
 	@Override
 	public void endUpdate(TurnManager turn) {
